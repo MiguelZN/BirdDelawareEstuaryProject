@@ -53,15 +53,15 @@ public class Energy {
 	 *-restores the energy(int) to 100
 	 */
 	public void restoreFull() {
-		
+		this.energy = 100;
 	}
 	
 	/*Method: restoreDefault()
 	 *-takes in no arguments/returns nothing
-	 *-similar to restoreFull(), restores all the energy properties to their original values
+	 *-similar to restoreFull(), restores based on the restoration rate
 	 */
 	public void restoreDefault() {
-		
+		this.energy+=this.restoreRate;
 	}
 	
 	/*Method: depleteFull()
@@ -69,7 +69,7 @@ public class Energy {
 	 *-reduces (subtracts) the energy(int) property 
 	 */
 	public void depleteFull() {
-		
+		this.energy = 0;
 	}
 	
 	/*Method: depleteDefault()
@@ -77,7 +77,7 @@ public class Energy {
 	 *-similar to deleteFull(), reduces (subtracts) the energy (int) property
 	 */
 	public void depleteDefault() {
-		
+		this.energy-=this.depletionRate;
 	}
 	
 	/*

@@ -8,5 +8,5 @@ package game;
  * -contains methods and control over the drawing of the ClapperRail minigame
  */
 public class ClapperRailView extends GameView {
-
+	
 }
