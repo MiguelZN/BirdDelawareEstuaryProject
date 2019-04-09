@@ -1,1 +1,4 @@
 # GameProject11-11
+Team 11: Miguel Zavala,Derek Baum, Matt Benvenuto, Jake Wise
+
+Description: Our project begins with the game menu which allows the user to select to play as either the ClapperRail bird (Non-Migratory) or the RedKnot(Migratory). Both mini-games are different from one another. In the ClapperRail mini-game, you are on the ground as the ClapperRail and you are avoiding a flood that rises overtime causing you to use your Energy to "jump" to higher elevation while collecting food/materials for your nest. In the RedKnot game, you take charge as the RedKnot bird and are flying. During your migratory flight, you aim to collect as many lost migratory redknot birds with you adding to your "flock" of birds. While flying, you must avoid "bad storm" clouds otherwise you lose one of your birds. Both games end with the score being shown with a quiz/description of the game mid-way through the game or at the end while you make your nest.
