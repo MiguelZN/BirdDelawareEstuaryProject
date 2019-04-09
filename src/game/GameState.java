@@ -1,3 +1,4 @@
+package game;
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
  */

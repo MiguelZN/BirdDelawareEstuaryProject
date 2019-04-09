@@ -1,3 +1,4 @@
+package game;
 import javax.swing.JFrame;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise

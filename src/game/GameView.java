@@ -1,3 +1,4 @@
+package game;
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
  */
@@ -20,11 +21,6 @@ public abstract class GameView {
 	
 	public void paint(Graphics g) {
 		
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 	
 	public GameView() {

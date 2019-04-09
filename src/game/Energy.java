@@ -1,3 +1,4 @@
+package game;
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
  */
@@ -21,6 +22,32 @@ public class Energy {
 		this.energy = 100; //begins at 100 energy
 	}
 	
+	
+	
+	public int getDepletionRate() {
+		return depletionRate;
+	}
+
+
+
+	public void setDepletionRate(int depletionRate) {
+		this.depletionRate = depletionRate;
+	}
+
+
+
+	public int getRestoreRate() {
+		return restoreRate;
+	}
+
+
+
+	public void setRestoreRate(int restoreRate) {
+		this.restoreRate = restoreRate;
+	}
+
+
+
 	/*Method: restoreFull()
 	 *-takes in no arguments/returns nothing
 	 *-restores the energy(int) to 100
@@ -52,4 +79,16 @@ public class Energy {
 	public void depleteDefault() {
 		
 	}
+	
+	/*
+	 * Setter for the energy int
+	 */
+	public void setEnergy(int e){
+		this.energy=e;
+	}
+	
+	public int getEnergy(){
+		return energy;
+	}
+	
 }
