@@ -23,6 +23,10 @@ public class Bird extends DynamicGameObject {
 		this.bird_type = bird_type;
 	}
 	
+	public Energy getEnergy() {
+		return e;
+	}
+	
 	/*Method: move()
 	 *-takes in no arguments/returns nothing
 	 *-updates the position of the bird 
@@ -37,8 +41,8 @@ public class Bird extends DynamicGameObject {
 	 *-takes in no arguments/returns nothing
 	 *-restores/updates the Bird's Energy 
 	 */
-	public void eat() {
-		
+	public void eat(Food f) {
+		this.e.setEnergy(this.e.getEnergy() + f.getERestore());
 	}
 	
 	
