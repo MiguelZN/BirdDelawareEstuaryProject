@@ -42,7 +42,7 @@ public class Bird extends DynamicGameObject {
 	 *-restores/updates the Bird's Energy 
 	 */
 	public void eat(Food f) {
-		this.e.setEnergy(this.e.getEnergy() + f.getERestore());
+		this.e.setEnergy(this.e.getEnergy() + f.getEnergyAdd());
 	}
 	
 	
