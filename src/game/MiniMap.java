@@ -13,4 +13,13 @@ public class MiniMap extends GameObject{
 	public MiniMap(int x, int y) {
 		super(x,y);
 	}
+	
+	public Position getBirdPosition() {
+		return birdPosition;
+	}
+	
+	public void setBirdPosition(Position pos) {
+		this.birdPosition = pos;
+	}
+	
 }

@@ -9,15 +9,15 @@ package game;
  * -controls updates between state and the view 
  */
 public class Food extends GameObject {
-	private int eRestore;
+	private int energyAdd;
 	
 	public Food(int x, int y, int energy) {
 		super(x, y);
-		eRestore = energy;
+		energyAdd = energy;
 	}
 	
-	public int getERestore() {
-		return eRestore;
+	public int getEnergyAdd() {
+		return energyAdd;
 	}
 	
 }
