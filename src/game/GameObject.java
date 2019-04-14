@@ -17,4 +17,12 @@ public class GameObject {
 	public GameObject(int x, int y) {
 		p = new Position(x,y);
 	}
+	
+	public Position getPosition() {
+		return p;
+	}
+	
+	public void setPosition(Position newPos) {
+		p = newPos;
+	}
 }

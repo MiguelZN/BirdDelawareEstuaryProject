@@ -8,7 +8,7 @@ package game;
  * -Embodies any element that moves on the screen (EX: moving crabs, moving birds, etc)
  *
  */
-public class DynamicGameObject extends GameObject implements Moveable {
+public abstract class DynamicGameObject extends GameObject implements Moveable {
 	private Velocity v;
 
 	/*Contructor:
@@ -23,7 +23,14 @@ public class DynamicGameObject extends GameObject implements Moveable {
 	 *-takes in no arguments/returns nothing
 	 *-updates the position of the DynamicGameObject by the velocity (v) 
 	 */
-	public void move() {
+	public abstract void move();
+	
+	public Velocity getVelocity() {
+		return v;
+	}
+	
+	public void setVelocity(Velocity newVel) {
+		v = newVel;
 	}
 
 }

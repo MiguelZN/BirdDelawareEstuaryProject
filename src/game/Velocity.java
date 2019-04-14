@@ -7,8 +7,8 @@ package game;
  * -class that contains how fast/direction an object is moving in terms of x,y velocities
  */
 public class Velocity {
-	int xSpeed;
-	int ySpeed;
+	private int xSpeed;
+	private int ySpeed;
 	
 	/*Constructor:
 	 * -takes in two integers: an x,y in order to provide the velocity of a moving object
@@ -17,4 +17,22 @@ public class Velocity {
 		xSpeed = x;
 		ySpeed = y;
 	}
+
+	public int getxSpeed() {
+		return xSpeed;
+	}
+
+	public void setxSpeed(int xSpeed) {
+		this.xSpeed = xSpeed;
+	}
+
+	public int getySpeed() {
+		return ySpeed;
+	}
+
+	public void setySpeed(int ySpeed) {
+		this.ySpeed = ySpeed;
+	}
+	
+	
 }
