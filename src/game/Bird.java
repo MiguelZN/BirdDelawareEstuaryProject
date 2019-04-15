@@ -49,6 +49,12 @@ public class Bird extends DynamicGameObject {
 		this.setPosition(new Position(newX,newY));
 	}
 	
+	public void moveLeft() {
+		int newX = this.getPosition().getX() - this.getVelocity().getxSpeed();
+		int newY = this.getPosition().getY() + this.getVelocity().getySpeed();
+		this.setPosition(new Position(newX,newY));
+	}
+	
 	public void jump() {
 		int newX = this.getPosition().getX();
 		int newY = this.getPosition().getY() - 50;

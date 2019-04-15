@@ -5,9 +5,12 @@ package game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 
@@ -15,7 +18,7 @@ import javax.swing.JButton;
  * -class that acts as the View of the ClapperRail GameMode
  * -contains methods and control over the drawing of the ClapperRail minigame
  */
-public class ClapperRailView extends GameView {
+public class ClapperRailView extends GameView implements KeyListener{
 	ClapperRailGameState model;
 	JButton jump;
 	
@@ -34,6 +37,10 @@ public class ClapperRailView extends GameView {
 				model.getCR().jump();
 			}
 		});
+		
+		Container current_layout = c.getScreen().getContentPane();
+		current_layout.addKeyListener(this);
+		c.getScreen().addKeyListener(this);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -42,4 +49,27 @@ public class ClapperRailView extends GameView {
 		g.fillOval(p.getX(),p.getY(),model.getCR().getSize(),model.getCR().getSize());
 		
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		switch(key){
+		case KeyEvent.VK_RIGHT : model.getCR().move();break;
+		case KeyEvent.VK_LEFT : model.getCR().moveLeft();break;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

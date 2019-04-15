@@ -26,6 +26,7 @@ public class GameScreen extends JFrame{
 		this.setBackground(Color.CYAN);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+		this.setFocusable(true);
 		this.revalidate();
 	}
 	

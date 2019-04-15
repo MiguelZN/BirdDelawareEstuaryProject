@@ -1,4 +1,8 @@
 package game;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
  */
@@ -63,4 +67,16 @@ public class Controller {
 		
 		this.screen.revalidate();
 	}
+	
+	public void changeState(GameMode mode) {
+		switch(mode) {
+		case CLAPPERRAIL:
+			this.state = new ClapperRailGameState();
+			break;
+		case REDKNOT:
+			this.state = new RedKnotGameState();
+			break;
+		}
+	}
+	
 }
