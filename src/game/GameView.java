@@ -21,7 +21,7 @@ public abstract class GameView extends JPanel{
 	private BufferedImage foodImage;
 	private BufferedImage nestImage;
 	
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		
 	}
 	
