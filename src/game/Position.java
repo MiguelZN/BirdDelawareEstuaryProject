@@ -4,7 +4,7 @@ package game;
  */
 
 /*Class: Position
- * -class that allows us to keep track of each element's position (x,y)
+ * -class that allows us to keep track of each element's position (x,y).
  */
 public class Position {
 	private int x;
