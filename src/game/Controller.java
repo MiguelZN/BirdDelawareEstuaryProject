@@ -40,7 +40,7 @@ public class Controller {
 		switch(mode) {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
-			this.view = new InstructionsView();
+			this.view = new InstructionsView(this);
 			this.screen.add(this.view);
 			break;
 		case CLAPPERRAIL:
