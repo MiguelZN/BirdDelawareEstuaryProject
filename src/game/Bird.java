@@ -56,6 +56,9 @@ public class Bird extends DynamicGameObject {
 	}
 	
 	public void jump() {
+		if(this.getPosition().getY() <= 300) {
+			this.setPosition(new Position(this.getPosition().getX(), 380));
+		}
 		int newX = this.getPosition().getX();
 		int newY = this.getPosition().getY() - 50;
 		this.setPosition(new Position(newX,newY));
