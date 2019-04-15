@@ -104,4 +104,5 @@ public class InstructionsView extends GameView{
 		this.currentInstructions.setVisible(true);
 	}
 	
+	
 }

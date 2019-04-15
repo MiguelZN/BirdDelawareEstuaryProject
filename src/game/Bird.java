@@ -61,6 +61,18 @@ public class Bird extends DynamicGameObject {
 		this.setPosition(new Position(newX,newY));
 	}
 	
+	public void FlyUp() {
+		Position p = this.getPosition();
+		int new_y = p.getY()-this.getVelocity().getySpeed();
+		this.setPosition(new Position(p.getX(),new_y));
+	}
+	
+	public void FlyDown() {
+		Position p = this.getPosition();
+		int new_y = p.getY()+this.getVelocity().getySpeed();
+		this.setPosition(new Position(p.getX(),new_y));
+	}
+	
 	/*Method: eat()
 	 *-takes in no arguments/returns nothing
 	 *-restores/updates the Bird's Energy 

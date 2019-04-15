@@ -116,11 +116,18 @@ public class Controller implements KeyListener {
 			switch(key){
 			case KeyEvent.VK_RIGHT : this.ClapperRailGS.getCR().move();break;
 			case KeyEvent.VK_LEFT : this.ClapperRailGS.getCR().moveLeft();break;
-			}
-			
-			this.view.repaint();
-			this.view.setVisible(true);
+			}	
 		}
+		else if(this.current_mode==GameMode.REDKNOT) {
+			System.out.println("CURRENT MODE IS REDKNOT");
+			switch(key){
+			case KeyEvent.VK_UP : this.RedKnotGS.getRL().FlyUp();;break;
+			case KeyEvent.VK_DOWN : this.RedKnotGS.getRL().FlyDown();break;
+			}
+		}
+		
+		this.view.repaint();
+		this.view.setVisible(true);
 		
 		this.screen.redraw();
 		this.screen.revalidate();

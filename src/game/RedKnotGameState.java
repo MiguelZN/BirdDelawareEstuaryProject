@@ -16,7 +16,7 @@ public class RedKnotGameState extends GameState {
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
-		this.RL = new Bird(50,30,3,0, 70, BirdType.REDKNOT);
+		this.RL = new Bird(50,30,5,20, 70, BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
 	}
 	
@@ -41,6 +41,8 @@ public class RedKnotGameState extends GameState {
 	public ArrayList<Bird> getFlock() {
 		return flock;
 	}
+	
+
 	
 	
 }
