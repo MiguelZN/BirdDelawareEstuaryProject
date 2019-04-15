@@ -19,6 +19,7 @@ public class InstructionsView extends GameView{
 	BufferedImage[] previewImages;
 	JButton nextButton;
 	JButton backtoMenuButton;
+	JLabel titlelogolabel;
 	
 	public ImageIcon getTitleImage() {
 		return titleImage;
@@ -36,13 +37,20 @@ public class InstructionsView extends GameView{
 	public InstructionsView() {
 		this.nextButton = new JButton("next");
 		this.backtoMenuButton = new JButton("Back-to-Menu");
+//		this.nextButton.setSize(75, 30);
+//		this.backtoMenuButton.setSize(75,30);
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
-		this.add(nextButton, BorderLayout.PAGE_START);
-		this.add(backtoMenuButton, BorderLayout.EAST);
 		
-		ImageIcon iconLogo = new ImageIcon("Images/YourCompanyLogo.png");
-		JLabel l = new JLabel(iconLogo);
+		ImageIcon titleiconLogo = new ImageIcon("resources/images/instructions.png");
+		this.titlelogolabel = new JLabel(titleiconLogo);
+		this.titlelogolabel.setSize(200, 50);
+		
+		this.add(titlelogolabel, BorderLayout.PAGE_START);
+		this.add(nextButton, BorderLayout.EAST);
+		this.add(backtoMenuButton, BorderLayout.PAGE_END);
+		this.titlelogolabel.setVisible(true);
+		System.out.println("TITLELOGO");
 	}
 	
 	

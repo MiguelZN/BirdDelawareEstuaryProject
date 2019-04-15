@@ -41,13 +41,21 @@ public class Controller {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
 			this.view = new InstructionsView();
+			this.screen.add(this.view);
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
 			this.view = new ClapperRailView();
+			this.screen.add(this.view);
+			break;
 		case REDKNOT:
 			this.view.setVisible(false);
 			this.view = new RedKnotView();
+			this.screen.add(this.view);
+			break;
+			
 		}
+		
+		this.screen.revalidate();
 	}
 }
