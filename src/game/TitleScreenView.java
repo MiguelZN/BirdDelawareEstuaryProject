@@ -4,6 +4,8 @@ package game;
  */
 
 import java.awt.BorderLayout;
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.JButton;
 
@@ -11,16 +13,23 @@ import javax.swing.JButton;
  * -class that acts as the View of the TitleScreen 
  * -contains methods and control over the drawing of the TitleScreen
  */
-public class TitleScreenView extends GameView {
+public class TitleScreenView extends GameView{
 	
 	JButton RedKnot;
 	JButton ClapperRail;
 	JButton Instructions;
 	
-	public TitleScreenView() {
+	public TitleScreenView(Controller c) {
 		this.RedKnot = new JButton("RED KNOT");
 		this.ClapperRail = new JButton("CLAPPER RAIL");
 		this.Instructions = new JButton("INSTRUCTIONS");
+		this.Instructions.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        c.changeView(GameMode.INSTRUCTIONS);
+		    }
+		});
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 		this.add(RedKnot, BorderLayout.WEST);

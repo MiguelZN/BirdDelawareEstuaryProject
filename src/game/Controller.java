@@ -13,7 +13,7 @@ public class Controller {
 	private GameScreen screen;
 	
 	public Controller() {
-		view = new TitleScreenView();
+		view = new TitleScreenView(this);
 		this.screen = new GameScreen(500, 500);
 		
 	}
@@ -55,7 +55,7 @@ public class Controller {
 			break;
 		case TITLESCREEN:
 			this.view.setVisible(false);
-			this.view = new TitleScreenView();
+			this.view = new TitleScreenView(this);
 			this.screen.add(this.view);
 			break;
 			
