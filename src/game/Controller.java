@@ -14,6 +14,7 @@ public class Controller {
 	
 	public Controller() {
 		view = new TitleScreenView();
+		view.setController(this);
 		this.screen = new GameScreen(500, 500);
 		
 	}
@@ -41,21 +42,25 @@ public class Controller {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
 			this.view = new InstructionsView();
+			view.setController(this);
 			this.screen.add(this.view);
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
 			this.view = new ClapperRailView();
+			view.setController(this);
 			this.screen.add(this.view);
 			break;
 		case REDKNOT:
 			this.view.setVisible(false);
 			this.view = new RedKnotView();
+			view.setController(this);
 			this.screen.add(this.view);
 			break;
 		case TITLESCREEN:
 			this.view.setVisible(false);
 			this.view = new TitleScreenView();
+			view.setController(this);
 			this.screen.add(this.view);
 			break;
 			

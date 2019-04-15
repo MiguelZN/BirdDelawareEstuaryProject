@@ -20,6 +20,7 @@ public abstract class GameView extends JPanel{
 	private BufferedImage birdImage;
 	private BufferedImage foodImage;
 	private BufferedImage nestImage;
+	private Controller controller;
 	
 	public void paintComponent(Graphics g) {
 		
@@ -32,11 +33,16 @@ public abstract class GameView extends JPanel{
 	public void updateView() {
 		
 	}
-	
+	public void setController(Controller c){
+		controller=c;
+	}
 	private BufferedImage createImage() {
 		gameImage = new BufferedImage(500,500,BufferedImage.TYPE_INT_RGB);
 		
 		return gameImage;
+	}
+	public Controller getController(){
+		return controller;
 	}
 
 }
