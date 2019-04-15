@@ -20,10 +20,11 @@ public class TitleScreenView extends GameView {
 	public TitleScreenView() {
 		this.RedKnot = new JButton("RED KNOT");
 		this.ClapperRail = new JButton("CLAPPER RAIL");
+		this.Instructions = new JButton("INSTRUCTIONS");
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 		this.add(RedKnot, BorderLayout.WEST);
 		this.add(ClapperRail, BorderLayout.EAST);
-		//this.add(Instructions, BorderLayout.NORTH);
+		this.add(Instructions, BorderLayout.PAGE_START);
 	}
 }
