@@ -24,6 +24,8 @@ import javax.swing.JButton;
  */
 public class ClapperRailView extends GameView{
 	private BufferedImage backgroundimage;
+	private BufferedImage backgroundimage2;
+	int xpos = 5;
 	
 	public ClapperRailView(Controller controller) {
 		super(controller);
@@ -37,17 +39,24 @@ public class ClapperRailView extends GameView{
 		try {
 			//System.out.println(spritesheet_name);
 			backgroundimage = ImageIO.read(new File("resources/images/background2.jpg"));
+			backgroundimage2 = ImageIO.read(new File("resources/images/background2.jpg"));
 			//System.out.println(spritesheet_name);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		g.drawImage(backgroundimage, -5, -5, 1005, 505, null, this);
+		scrollImage(g);
 		g.setColor(new Color(224,160, 42));
 		Position p = this.controller.getClapperRailGS().getCR().getPosition();
 		g.fillOval(p.getX(),p.getY(),controller.getClapperRailGS().getCR().getSize(),controller.getClapperRailGS().getCR().getSize());
 		this.setVisible(true);
 		
+	}
+
+	public void scrollImage(Graphics g){
+		xpos+=5;
+		xpos = (xpos % 1000)+5;
+		g.drawImage(backgroundimage, xpos*-1, -5, 1005, 505, null, this);
+		g.drawImage(backgroundimage2, (xpos*-1)+1000, -5, 1005, 505, null, null);
 	}
 
 }
