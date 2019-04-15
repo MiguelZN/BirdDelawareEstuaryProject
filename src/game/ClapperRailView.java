@@ -9,4 +9,7 @@ package game;
  */
 public class ClapperRailView extends GameView {
 	
+	public ClapperRailView(Controller c) {
+		
+	}
 }

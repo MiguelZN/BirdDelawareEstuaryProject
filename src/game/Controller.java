@@ -45,12 +45,12 @@ public class Controller {
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
-			this.view = new ClapperRailView();
+			this.view = new ClapperRailView(this);
 			this.screen.add(this.view);
 			break;
 		case REDKNOT:
 			this.view.setVisible(false);
-			this.view = new RedKnotView();
+			this.view = new RedKnotView(this);
 			this.screen.add(this.view);
 			break;
 		case TITLESCREEN:

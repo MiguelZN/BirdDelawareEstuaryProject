@@ -20,8 +20,25 @@ public class TitleScreenView extends GameView{
 	JButton Instructions;
 	
 	public TitleScreenView(Controller c) {
+		//c.getScreen().setBackground(Color.BLUE);
 		this.RedKnot = new JButton("RED KNOT");
+		this.RedKnot.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        c.changeView(GameMode.REDKNOT);
+		    }
+		});
+		
 		this.ClapperRail = new JButton("CLAPPER RAIL");
+		this.ClapperRail.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        c.changeView(GameMode.CLAPPERRAIL);
+		    }
+		});
+		
 		this.Instructions = new JButton("INSTRUCTIONS");
 		this.Instructions.addActionListener(new ActionListener() {
 

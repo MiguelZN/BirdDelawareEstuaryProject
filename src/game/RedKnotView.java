@@ -8,5 +8,8 @@ package game;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
-
+	
+	public RedKnotView(Controller c) {
+		
+	}
 }
