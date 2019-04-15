@@ -1,4 +1,6 @@
 package game;
+import java.awt.Color;
+
 import javax.swing.JFrame;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
@@ -21,7 +23,9 @@ public class GameScreen extends JFrame{
 		setSize(width, height);
 		this.width = width;
 		this.height = height;
+		this.setBackground(Color.CYAN);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 	
 	//When called, this redraws the JFrame, Background, etc
