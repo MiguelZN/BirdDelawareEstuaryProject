@@ -17,6 +17,7 @@ public class RedKnotView extends GameView {
 	
 	public RedKnotView(Controller c){
 		super(c);
+		c.getScreen().setSize(1000, 500);
 		BorderLayout layout = new BorderLayout();
 		this.jump=new JButton("JUMP");
 		this.setLayout(layout);

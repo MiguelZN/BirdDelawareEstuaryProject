@@ -11,5 +11,6 @@ public class ClapperRailView extends GameView {
 	
 	public ClapperRailView(Controller c) {
 		super(c);
+		c.getScreen().setSize(1000, 500);
 	}
 }
