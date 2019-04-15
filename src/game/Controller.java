@@ -111,6 +111,11 @@ public class Controller implements KeyListener {
 		System.out.println(key);
 		System.out.println(this.ClapperRailGS.getCR().getPosition().getX());
 		
+		if(key==KeyEvent.VK_ESCAPE) {
+			changeView(GameMode.TITLESCREEN);
+			this.screen.setSize(500,500);
+		}
+		
 		if(this.current_mode==GameMode.CLAPPERRAIL) {
 			System.out.println("CURRENT MODE IS CLAPPERRAIL");
 			switch(key){
