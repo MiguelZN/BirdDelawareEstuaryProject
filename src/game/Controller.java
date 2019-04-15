@@ -12,7 +12,7 @@ public class Controller {
 	private GameView view;
 	
 	public Controller() {
-		
+		view = new TitleScreenView();
 	}
 	
 	public void start() {

@@ -8,5 +8,8 @@ package game;
  * -contains methods and control over the drawing of the TitleScreen
  */
 public class TitleScreenView extends GameView {
-
+	
+	public TitleScreenView() {
+		
+	}
 }
