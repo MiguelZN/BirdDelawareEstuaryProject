@@ -30,7 +30,6 @@ public class TitleScreenView extends GameView{
 		        c.changeView(GameMode.REDKNOT);
 		    }
 		});
-		
 		this.ClapperRail = new JButton("CLAPPER RAIL");
 		this.ClapperRail.addActionListener(new ActionListener() {
 		    @Override
@@ -39,28 +38,9 @@ public class TitleScreenView extends GameView{
 		    }
 		});
 		this.Instructions = new JButton("INSTRUCTIONS");
-		RedKnot.addActionListener(new ActionListener() {
+		this.Instructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				Controller c;
-				if((c=getController())!= null)
-					c.changeView(GameMode.REDKNOT);
-			}
-		});
-		ClapperRail.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				
-				Controller c;
-				if((c=getController())!= null){
-					c.changeView(GameMode.CLAPPERRAIL);
-					System.out.println("trying to change to the clapperrail view");
-				}
-			}
-		});
-		Instructions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				Controller c;
-				if((c=getController())!= null)
-					c.changeView(GameMode.INSTRUCTIONS);
+				c.changeView(GameMode.INSTRUCTIONS);
 			}
 		});
 		BorderLayout layout = new BorderLayout();
