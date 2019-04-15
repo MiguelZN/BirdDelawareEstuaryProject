@@ -3,7 +3,8 @@ package game;
 public enum GameMode {
 	REDKNOT("REDKNOT"),
 	INSTRUCTIONS("INSTRUCTIONS"),
-	CLAPPERRAIL("CLAPPERRAIL");
+	CLAPPERRAIL("CLAPPERRAIL"),
+	TITLESCREEN("TITLESCREEN");
 	
 	private String game_mode = null;
 	

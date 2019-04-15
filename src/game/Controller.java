@@ -53,6 +53,11 @@ public class Controller {
 			this.view = new RedKnotView();
 			this.screen.add(this.view);
 			break;
+		case TITLESCREEN:
+			this.view.setVisible(false);
+			this.view = new TitleScreenView();
+			this.screen.add(this.view);
+			break;
 			
 		}
 		

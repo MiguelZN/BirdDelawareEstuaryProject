@@ -22,6 +22,8 @@ public class TitleScreenView extends GameView {
 		this.ClapperRail = new JButton("CLAPPER RAIL");
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
-		this.add(RedKnot, BorderLayout.NORTH);
+		this.add(RedKnot, BorderLayout.WEST);
+		this.add(ClapperRail, BorderLayout.EAST);
+		//this.add(Instructions, BorderLayout.NORTH);
 	}
 }
