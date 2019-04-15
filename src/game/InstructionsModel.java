@@ -9,4 +9,8 @@ package game;
  */
 public class InstructionsModel extends GameState {
 	
+	
+	public InstructionsModel(Controller controller) {
+		super(controller);
+	}
 }

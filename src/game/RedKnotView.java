@@ -17,10 +17,9 @@ import javax.swing.JButton;
 public class RedKnotView extends GameView {
 	RedKnotGameState model;
 	
-	public RedKnotView(Controller c){
-		super(c);
-		c.getScreen().setSize(1000, 500);
-		this.model = new RedKnotGameState();
+	public RedKnotView(Controller controller){
+		super(controller);
+		controller.getScreen().setSize(1000, 500);
 	}
 	
 	public void paintComponent(Graphics g) {

@@ -14,7 +14,8 @@ public class ClapperRailGameState extends GameState {
 	private Bird CR;
 	private ArrayList<GameObject> Materials;
 	
-	public ClapperRailGameState(){
+	public ClapperRailGameState(Controller controller){
+		super(controller);
 		this.CR = new Bird(100,380,10,0, 80, BirdType.CLAPPERRAIL);
 		this.Materials = new ArrayList<>();
 		

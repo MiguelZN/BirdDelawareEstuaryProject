@@ -13,8 +13,12 @@ import java.util.ArrayList;
 public abstract class GameState {
 	private GameScreen screen;
 	private int score;
-
 	private MiniMap map;
+	private Controller controller;
+	
+	public GameState(Controller controller) {
+		this.controller =controller;
+	}
 	
 	public void update() {
 		

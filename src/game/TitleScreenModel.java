@@ -8,5 +8,7 @@ package game;
  * -keeps track of the gamestate data of the Title Screen 
  */
 public class TitleScreenModel extends GameState {
-
+	public TitleScreenModel(Controller controller){
+		super(controller);
+	}
 }

@@ -28,7 +28,6 @@ public class TitleScreenView extends GameView{
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		        c.changeView(GameMode.REDKNOT);
-		        c.changeState(GameMode.REDKNOT);
 		    }
 		});
 		this.ClapperRail = new JButton("CLAPPER RAIL");
@@ -36,7 +35,6 @@ public class TitleScreenView extends GameView{
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		        c.changeView(GameMode.CLAPPERRAIL);
-		        c.changeState(GameMode.REDKNOT);
 		    }
 		});
 		this.Instructions = new JButton("INSTRUCTIONS");
