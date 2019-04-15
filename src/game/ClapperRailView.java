@@ -6,6 +6,8 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
@@ -26,6 +28,12 @@ public class ClapperRailView extends GameView {
 		c.getScreen().setSize(1000, 500);
 		
 		this.model = new ClapperRailGameState();
+		
+		this.jump.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				model.getCR().jump();
+			}
+		});
 	}
 	
 	public void paintComponent(Graphics g) {
