@@ -19,21 +19,21 @@ import javax.swing.JButton;
  * -contains methods and control over the drawing of the ClapperRail minigame
  */
 public class ClapperRailView extends GameView{
-	JButton jump;
+	//JButton jump;
 	
 	public ClapperRailView(Controller controller) {
 		super(controller);
-		BorderLayout layout = new BorderLayout();
-		this.jump=new JButton("JUMP");
-		this.setLayout(layout);
-		this.add(jump, BorderLayout.WEST);
+		//BorderLayout layout = new BorderLayout();
+		//this.jump=new JButton("JUMP");
+		//this.setLayout(layout);
+		//this.add(jump, BorderLayout.WEST);
 		controller.getScreen().setSize(1000, 500);
 		
-		this.jump.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.getClapperRailGS().getCR().jump();
-			}
-		});
+		//this.jump.addActionListener(new ActionListener() {
+		//	public void actionPerformed(ActionEvent e) {
+		//		controller.getClapperRailGS().getCR().jump();
+		//	}
+		//});
 		
 		Container current_layout = controller.getScreen().getContentPane();
 	}

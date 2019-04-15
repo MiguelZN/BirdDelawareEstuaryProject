@@ -116,6 +116,7 @@ public class Controller implements KeyListener {
 			switch(key){
 			case KeyEvent.VK_RIGHT : this.ClapperRailGS.getCR().move();break;
 			case KeyEvent.VK_LEFT : this.ClapperRailGS.getCR().moveLeft();break;
+			case KeyEvent.VK_SPACE : this.getClapperRailGS().getCR().jump(); break;
 			}	
 		}
 		else if(this.current_mode==GameMode.REDKNOT) {
@@ -123,6 +124,7 @@ public class Controller implements KeyListener {
 			switch(key){
 			case KeyEvent.VK_UP : this.RedKnotGS.getRL().FlyUp();;break;
 			case KeyEvent.VK_DOWN : this.RedKnotGS.getRL().FlyDown();break;
+			
 			}
 		}
 		
