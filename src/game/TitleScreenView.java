@@ -6,7 +6,6 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.JButton;
 
 /*Class: TitleScreenView
@@ -20,7 +19,7 @@ public class TitleScreenView extends GameView{
 	JButton Instructions;
 	
 	public TitleScreenView(Controller c) {
-		//c.getScreen().setBackground(Color.BLUE);
+		c.getScreen().getContentPane().setBackground(Color.blue);
 		this.RedKnot = new JButton("RED KNOT");
 		this.RedKnot.addActionListener(new ActionListener() {
 

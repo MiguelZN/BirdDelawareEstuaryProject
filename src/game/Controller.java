@@ -33,7 +33,7 @@ public class Controller {
 	}
 
 	public GameScreen getScreen() {
-		return screen;
+		return this.screen;
 	}
 
 	public void changeView(GameMode mode) {
