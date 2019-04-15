@@ -22,6 +22,9 @@ import javax.swing.JButton;
  */
 public class RedKnotView extends GameView {
 	private BufferedImage backgroundimage;
+	private BufferedImage forest1;
+	private int forestx = 600;
+	private int foresty = 300;
 
 	public RedKnotView(Controller controller){
 		super(controller);
@@ -33,15 +36,27 @@ public class RedKnotView extends GameView {
 		try {
 			//System.out.println(spritesheet_name);
 			backgroundimage = ImageIO.read(new File("resources/images/background1.png"));
+			forest1 = ImageIO.read(new File("resources/images/forest1.png"));
 			//System.out.println(spritesheet_name);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		g.drawImage(backgroundimage, -5, -5, 1005, 505, null, this);
+		g.drawImage(backgroundimage, -5, -5, 1050, 550, null, this);
 		g.setColor(Color.RED);
 		Bird RL = this.controller.getRedKnotGS().getRL();
 		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
+		
+		g.drawImage(forest1, forestx, foresty, 400, 250, null, this);
+		
+		if(forestx+400<0) {
+			forestx = 1000;
+		}
+		else {
+			forestx -= this.controller.getRedKnotGS().getRL().getVelocity().getxSpeed();
+		}
+		
+		
 	}
 	
 	
