@@ -108,6 +108,9 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_ESCAPE){
+			changeView(GameMode.TITLESCREEN);
+		}
 		System.out.println(key);
 		System.out.println(this.ClapperRailGS.getCR().getPosition().getX());
 		
