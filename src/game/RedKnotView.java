@@ -15,11 +15,11 @@ import javax.swing.JButton;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
-	
 	RedKnotGameState model;
 	
 	public RedKnotView(Controller c){
 		super(c);
+		c.getScreen().setSize(1000, 500);
 		this.model = new RedKnotGameState();
 	}
 	
@@ -27,6 +27,8 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.RED);
 		Position p = model.getRL().getPosition();
 		g.fillOval(p.getX(),p.getY(),model.getRL().getSize(),model.getRL().getSize());
+		BorderLayout layout = new BorderLayout();
+		this.setLayout(layout);
 	}
 	
 	

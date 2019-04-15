@@ -23,6 +23,7 @@ public class ClapperRailView extends GameView {
 		this.jump=new JButton("JUMP");
 		this.setLayout(layout);
 		this.add(jump, BorderLayout.WEST);
+		c.getScreen().setSize(1000, 500);
 		
 		this.model = new ClapperRailGameState();
 	}
@@ -31,5 +32,6 @@ public class ClapperRailView extends GameView {
 		g.setColor(new Color(224,160, 42));
 		Position p = model.getCR().getPosition();
 		g.fillOval(p.getX(),p.getY(),model.getCR().getSize(),model.getCR().getSize());
+		
 	}
 }
