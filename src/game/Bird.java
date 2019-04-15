@@ -10,17 +10,29 @@ package game;
 public class Bird extends DynamicGameObject {
 	private Energy e;
 	private BirdType bird_type;
+	private int size;
 	
 	/*Contructor:
 	 * -Takes in an x,y ints as the bird's starting position
 	 */
-	public Bird(int x, int y, int vx, int vy) {
+	public Bird(int x, int y, int vx, int vy, int size, BirdType bird_type) {
 		super(x,y, vx, vy);
+		this.size = size;
+		
 	}
-	
+
+	public BirdType getBird_type() {
+		return bird_type;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
 	public Bird(int x, int y, int vx, int vy, BirdType bird_type) {
 		super(x,y, vx, vy);
 		this.bird_type = bird_type;
+		this.size = 20;
 	}
 	
 	public Energy getEnergy() {

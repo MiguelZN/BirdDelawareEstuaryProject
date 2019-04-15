@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JButton;
 
@@ -13,13 +15,19 @@ import javax.swing.JButton;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
-	JButton jump;
+	
+	RedKnotGameState model;
 	
 	public RedKnotView(Controller c){
 		super(c);
-		BorderLayout layout = new BorderLayout();
-		this.jump=new JButton("JUMP");
-		this.setLayout(layout);
-		this.add(jump, BorderLayout.WEST);
+		this.model = new RedKnotGameState();
 	}
+	
+	public void paintComponent(Graphics g) {
+		g.setColor(Color.RED);
+		Position p = model.getRL().getPosition();
+		g.fillOval(p.getX(),p.getY(),model.getRL().getSize(),model.getRL().getSize());
+	}
+	
+	
 }
