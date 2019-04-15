@@ -6,12 +6,14 @@ package game;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JPanel;
+
 /*Class: GameView
  * -abstract superClass which embodies the View of MVC
  * -RedKnot, ClapperRail Views extend this class
  * -contains methods and all the images required to draw onto the screen
  */
-public abstract class GameView {
+public abstract class GameView extends JPanel{
 	
 	private BufferedImage gameImage;
 	private BufferedImage miniMap;

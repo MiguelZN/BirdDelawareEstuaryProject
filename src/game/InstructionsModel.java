@@ -8,5 +8,5 @@ package game;
  * 
  */
 public class InstructionsModel extends GameState {
-
+	
 }

@@ -23,4 +23,9 @@ public class GameScreen extends JFrame{
 		this.height = height;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+	
+	//When called, this redraws the JFrame, Background, etc
+	public void redraw() {
+		this.repaint();
+	}
 }
