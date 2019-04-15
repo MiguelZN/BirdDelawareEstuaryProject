@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -34,9 +36,17 @@ public class InstructionsView extends GameView{
 		return backtoMenuButton;
 	}
 	
-	public InstructionsView() {
+	public InstructionsView(Controller c) {
+		super(c);
 		this.nextButton = new JButton("next");
 		this.backtoMenuButton = new JButton("Back-to-Menu");
+		this.backtoMenuButton.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        c.changeView(GameMode.TITLESCREEN);
+		    }
+		});
 //		this.nextButton.setSize(75, 30);
 //		this.backtoMenuButton.setSize(75,30);
 		BorderLayout layout = new BorderLayout();

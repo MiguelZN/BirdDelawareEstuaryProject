@@ -26,8 +26,9 @@ public abstract class GameView extends JPanel{
 		
 	}
 	
-	public GameView() {
-		
+	public GameView(Controller c) {
+		super();
+		controller=c;
 	}
 	
 	public void updateView() {

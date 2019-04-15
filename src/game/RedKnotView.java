@@ -13,14 +13,13 @@ import javax.swing.JButton;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
-	
 	JButton jump;
 	
-	public RedKnotView(){
+	public RedKnotView(Controller c){
+		super(c);
 		BorderLayout layout = new BorderLayout();
 		this.jump=new JButton("JUMP");
 		this.setLayout(layout);
 		this.add(jump, BorderLayout.WEST);
 	}
-
 }

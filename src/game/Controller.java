@@ -13,8 +13,7 @@ public class Controller {
 	private GameScreen screen;
 	
 	public Controller() {
-		view = new TitleScreenView();
-		view.setController(this);
+		view = new TitleScreenView(this);
 		this.screen = new GameScreen(500, 500);
 		
 	}
@@ -34,33 +33,29 @@ public class Controller {
 	}
 
 	public GameScreen getScreen() {
-		return screen;
+		return this.screen;
 	}
 
 	public void changeView(GameMode mode) {
 		switch(mode) {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
-			this.view = new InstructionsView();
-			view.setController(this);
+			this.view = new InstructionsView(this);
 			this.screen.add(this.view);
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
-			this.view = new ClapperRailView();
-			view.setController(this);
+			this.view = new ClapperRailView(this);
 			this.screen.add(this.view);
 			break;
 		case REDKNOT:
 			this.view.setVisible(false);
-			this.view = new RedKnotView();
-			view.setController(this);
+			this.view = new RedKnotView(this);
 			this.screen.add(this.view);
 			break;
 		case TITLESCREEN:
 			this.view.setVisible(false);
-			this.view = new TitleScreenView();
-			view.setController(this);
+			this.view = new TitleScreenView(this);
 			this.screen.add(this.view);
 			break;
 			
