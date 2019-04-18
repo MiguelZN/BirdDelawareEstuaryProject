@@ -22,6 +22,16 @@ import javax.swing.JButton;
  * -class that acts as the View of the ClapperRail GameMode
  * -contains methods and control over the drawing of the ClapperRail minigame
  */
+
+
+
+
+/*
+ * TODO:
+ * 	Update ClapperRailView to be up to speed with redknot view,
+ *	I have modified redknot view with recent commits and added generalization to the
+ *	process that we will use to load images, and draw them to the screen from the model. - Derek
+ */
 public class ClapperRailView extends GameView{
 	private BufferedImage backgroundimage;
 	private int xpos = 5;
