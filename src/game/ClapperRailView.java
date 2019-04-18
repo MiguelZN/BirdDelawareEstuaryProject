@@ -26,8 +26,8 @@ public class ClapperRailView extends GameView{
 	private BufferedImage backgroundimage;
 	private int xpos = 5;
 	
-	public ClapperRailView(Controller controller) {
-		super(controller);
+	public ClapperRailView(Controller controller,ClapperRailGameState state) {
+		super(controller,state);
 
 		controller.getScreen().setSize(1000, 500);
 		

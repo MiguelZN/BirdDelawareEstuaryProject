@@ -27,13 +27,13 @@ public class Controller implements KeyListener {
 	private InstructionsModel InstructionsGS;
 	
 	public Controller() {
-		view = new TitleScreenView(this);
+		
 		this.screen = new GameScreen(500, 500);
 		this.RedKnotGS = new RedKnotGameState(this);
 		this.ClapperRailGS = new ClapperRailGameState(this);
 		this.InstructionsGS = new InstructionsModel(this);
-		
 		this.screen.addKeyListener(this);
+		view = new TitleScreenView(this,TitleGS);
 		
 	}
 	
@@ -89,25 +89,25 @@ public class Controller implements KeyListener {
 		switch(mode) {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
-			this.view = new InstructionsView(this);
+			this.view = new InstructionsView(this,this.InstructionsGS);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.INSTRUCTIONS;
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
-			this.view = new ClapperRailView(this);
+			this.view = new ClapperRailView(this,this.ClapperRailGS);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.CLAPPERRAIL;
 			break;
 		case REDKNOT:
 			this.view.setVisible(false);
-			this.view = new RedKnotView(this);
+			this.view = new RedKnotView(this,this.RedKnotGS);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.REDKNOT;
 			break;
 		case TITLESCREEN:
 			this.view.setVisible(false);
-			this.view = new TitleScreenView(this);
+			this.view = new TitleScreenView(this,this.TitleGS);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.TITLESCREEN;
 			break;

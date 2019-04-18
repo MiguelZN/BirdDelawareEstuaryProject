@@ -19,9 +19,9 @@ import javax.imageio.ImageIO;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
+	private RedKnotGameState state;
 	private BufferedImage backgroundimage;
 	private BufferedImage forest1;
-	private ArrayList<BufferedImage> screenObjects; // all objects that need to be drawn.
 	private HashMap<RedKnotAsset,BufferedImage> objectMap;
 	private HashMap<String,RedKnotAsset> fnameMap;
 	private int forestx = 600;
@@ -29,10 +29,9 @@ public class RedKnotView extends GameView {
 	private int xpos = 5;	
 
 
-	public RedKnotView(Controller controller){
-		super(controller);
+	public RedKnotView(Controller controller,RedKnotGameState state){
+		super(controller,state);
 		controller.getScreen().setSize(1000, 500);
-		screenObjects = new ArrayList<>();
 		objectMap = new HashMap<>();
 		fnameMap = new HashMap<>();
 		
@@ -61,6 +60,8 @@ public class RedKnotView extends GameView {
 	
 	/*
 	 * Boring method requires human effort.
+	 * Put all files that will be loaded in both this method, and in the
+	 * red knot asset enum.
 	 */
 	private void fnameMapCreate(){
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);

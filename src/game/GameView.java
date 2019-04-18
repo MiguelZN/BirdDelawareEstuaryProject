@@ -21,14 +21,15 @@ public abstract class GameView extends JPanel{
 	private BufferedImage foodImage;
 	private BufferedImage nestImage;
 	protected Controller controller;
-	
+	private GameState state;
 	public void paintComponent(Graphics g) {
 		
 	}
 	
-	public GameView(Controller c) {
+	public GameView(Controller c, GameState gs) {
 		super();
 		controller=c;
+		state=gs;
 	}
 	
 	public void updateView() {

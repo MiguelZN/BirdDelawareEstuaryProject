@@ -41,8 +41,8 @@ public class InstructionsView extends GameView{
 		return backtoMenuButton;
 	}
 	
-	public InstructionsView(Controller c) {
-		super(c);
+	public InstructionsView(Controller c,InstructionsModel state) {
+		super(c,state);
 		this.nextButton = new JButton("next");
 		this.nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

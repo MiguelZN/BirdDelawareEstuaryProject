@@ -21,8 +21,8 @@ public class TitleScreenView extends GameView{
 	JButton ClapperRail;
 	JButton Instructions;
 	
-	public TitleScreenView(Controller c) {
-		super(c);
+	public TitleScreenView(Controller c,TitleScreenModel state) {
+		super(c,state);
 		this.RedKnot = new JButton("RED KNOT");
 		this.RedKnot.addActionListener(new ActionListener() {
 		    @Override
