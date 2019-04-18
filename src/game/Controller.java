@@ -1,7 +1,11 @@
 package game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.Timer;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -33,10 +37,24 @@ public class Controller implements KeyListener {
 		
 	}
 	
-	public void start() {
+	public void start(int tickdelay) {
+		while(loop()){
+			try {
+				Thread.sleep(tickdelay);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	/*
+	 * Main loop for the game
+	 * Everything that happens once per tick goes in here.
+	 */
+	public boolean loop(){
+		getScreen().redraw();
+		return true;
 		
 	}
-	
 	
 
 	public GameMode getCurrent_mode() {
