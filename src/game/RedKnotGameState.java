@@ -12,12 +12,13 @@ import java.util.ArrayList;
 public class RedKnotGameState extends GameState {
 	private Bird RL;
 	private ArrayList<Bird> flock;
-	
+	private ArrayList<GameObject> objects; //all game objects that we have to draw on the screen
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
 		this.RL = new Bird(50,30,5,20, 70, BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
+		objects = new ArrayList<>();
 	}
 	
 	public void collectBird() {

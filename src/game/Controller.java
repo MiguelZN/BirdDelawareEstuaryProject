@@ -143,7 +143,7 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_RIGHT : this.ClapperRailGS.getCR().move();break;
 			case KeyEvent.VK_LEFT : this.ClapperRailGS.getCR().moveLeft();break;
 			case KeyEvent.VK_SPACE : this.getClapperRailGS().getCR().jump(); break;
-			}	
+			}
 		}
 		else if(this.current_mode==GameMode.REDKNOT) {
 			System.out.println("CURRENT MODE IS REDKNOT");
