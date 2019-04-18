@@ -153,13 +153,6 @@ public class Controller implements KeyListener {
 			
 			}
 		}
-		
-		this.view.repaint();
-		this.view.setVisible(true);
-		
-		this.screen.redraw();
-		this.screen.revalidate();
-		
 	}
 
 	@Override
