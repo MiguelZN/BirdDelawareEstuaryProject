@@ -1,7 +1,8 @@
 package game;
 
 public enum RedKnotAsset {
-	BACKGROUND("BACKGROUND");
+	BACKGROUND("BACKGROUND"),
+	FOREST1("FOREST1");
 
 	private String asset_key = null;
 
