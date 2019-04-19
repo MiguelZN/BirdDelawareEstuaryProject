@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JButton;
@@ -54,5 +55,9 @@ public class TitleScreenView extends GameView{
 	public void fnameMapCreate() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Object loadImage(File f) {
+		return null;
 	}
 }

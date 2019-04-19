@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -33,11 +34,17 @@ import javax.swing.JButton;
  *	process that we will use to load images, and draw them to the screen from the model. - Derek
  */
 public class ClapperRailView extends GameView{
-	private BufferedImage backgroundimage;
 	private int xpos = 5;
 	
 	public ClapperRailView(Controller controller,ClapperRailGameState state) {
 		super(controller,state);
+		
+		try {
+			loadAllImages("/resources/images/clapperrail");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		controller.getScreen().setSize(1000, 500);
 		
@@ -45,13 +52,6 @@ public class ClapperRailView extends GameView{
 	}
 	
 	public void paintComponent(Graphics g) {
-		try {
-			//System.out.println(spritesheet_name);
-			backgroundimage = ImageIO.read(new File("resources/images/background2.jpg"));
-			//System.out.println(spritesheet_name);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		scrollImage(g);
 		g.setColor(new Color(224,160, 42));
 		Position p = this.controller.getClapperRailGS().getCR().getPosition();
@@ -62,14 +62,27 @@ public class ClapperRailView extends GameView{
 
 	public void scrollImage(Graphics g){
 		xpos = (xpos % 1000)+5;
-		g.drawImage(backgroundimage, xpos*-1, -5, 1005, 505, null, this);
-		g.drawImage(backgroundimage, (xpos*-1)+1000, -5, 1005, 505, null, null);
+//		BufferedImage backgroundimage = (BufferedImage) objectMap.get(ClapperRailAsset.BACKGROUND);
+		g.drawImage((Image)objectMap.get(ClapperRailAsset.BACKGROUND), xpos*-1, -5, 1005, 505, null, this);
+		g.drawImage((Image)objectMap.get(ClapperRailAsset.BACKGROUND), (xpos*-1)+1000, -5, 1005, 505, null, null);
 	}
 
 	@Override
 	public void fnameMapCreate() {
-		// TODO Auto-generated method stub
+		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
 		
 	}
+
+	//NOTE by Miguel: made it so that the GameView super class has a public Object loadImage(File f)
+	//and the child classes simply have to caste it into an (Image)objectMap.get(ClapperRailAsset.BACKGROUND) for EX
+//	public BufferedImage loadImage(File f) {
+//		BufferedImage output=null;
+//		try{
+//			output = ImageIO.read(f);
+//		}catch (IOException e){
+//			e.printStackTrace();
+//		}
+//		return output;
+//	}
 
 }

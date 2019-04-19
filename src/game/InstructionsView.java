@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,6 +47,14 @@ public class InstructionsView extends GameView{
 	
 	public InstructionsView(Controller c,InstructionsModel state) {
 		super(c,state);
+		
+		try {
+			loadAllImages("/resources/images/instructions");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.nextButton = new JButton("next");
 		this.nextButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -64,8 +75,9 @@ public class InstructionsView extends GameView{
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 		
-		ImageIcon titleiconLogo = new ImageIcon("resources/images/instructions.png");
-		this.titlelogolabel = new JLabel(titleiconLogo);
+		//File loaded_file = (File) fnameMap.get(InstructionsAsset.INSTRUCTIONS_LABEL);
+		
+		this.titlelogolabel = new JLabel((Icon) objectMap.get(InstructionsAsset.INSTRUCTIONS_LABEL));
 		this.titlelogolabel.setSize(200, 50);
 
 		this.currentInstructions = new JLabel(clapperrail);
@@ -83,12 +95,7 @@ public class InstructionsView extends GameView{
 		
 		showcaseNextInstructions();
 		
-		try {
-			loadAllImages("/resources/images/instructions");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
 	public void showcaseNextInstructions() {
@@ -101,11 +108,11 @@ public class InstructionsView extends GameView{
 		
 		switch(this.current_bird_info) {
 		case REDKNOT:
-			this.currentInstructions.setIcon(new ImageIcon("resources/images/instructionsredknot.png"));
+			this.currentInstructions.setIcon((Icon) objectMap.get(InstructionsAsset.RK_INSTRUCTIONS));
 			break;
 		
 		case CLAPPERRAIL:
-			this.currentInstructions.setIcon(new ImageIcon("resources/images/clapperrailinstructions.png"));
+			this.currentInstructions.setIcon((Icon) objectMap.get(InstructionsAsset.CL_INSTRUCTIONS));
 			break;
 		}
 		
@@ -116,9 +123,19 @@ public class InstructionsView extends GameView{
 	public void fnameMapCreate() {
 		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
 		fnameMap.put("rk_instructions.png", InstructionsAsset.RK_INSTRUCTIONS);
-		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);
-		
-		
+		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);	
+	}
+	
+	@Override
+	public ImageIcon loadImage(File f){
+		ImageIcon output=null;
+		String res_path = f.getPath();
+		try{
+			output = new ImageIcon(res_path);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return output;
 	}
 	
 	

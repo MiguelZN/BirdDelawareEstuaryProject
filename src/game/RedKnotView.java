@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +33,6 @@ public class RedKnotView extends GameView {
 	public RedKnotView(Controller controller,RedKnotGameState state){
 		super(controller,state);
 		controller.getScreen().setSize(1000, 500);
-		objectMap = new HashMap<>();
-		fnameMap = new HashMap<>();
 		
 		
 		try {
@@ -49,10 +48,10 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.RED);
 		Bird RL = this.controller.getRedKnotGS().getRL();
 		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
-		g.drawImage(objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
+		g.drawImage((Image) objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
 		System.out.println(objectMap.get(RedKnotAsset.FOREST1));
 		
-		forestx += this.controller.getRedKnotGS().getRL().getVelocity().getxSpeed();
+		forestx -= this.controller.getRedKnotGS().getRL().getVelocity().getxSpeed();
 		forestx %=1000;
 	}
 	
@@ -62,8 +61,8 @@ public class RedKnotView extends GameView {
 
 	public void scrollImage(Graphics g){
 		xpos = (xpos % 1000)+5;
-		g.drawImage(objectMap.get(RedKnotAsset.BACKGROUND), xpos*-1, -5, 1005, 505, null, this);
-		g.drawImage(objectMap.get(RedKnotAsset.BACKGROUND), (xpos*-1)+1000, -5, 1005, 505, null, null);
+		g.drawImage((Image) objectMap.get(RedKnotAsset.BACKGROUND), xpos*-1, -5, 1005, 505, null, this);
+		g.drawImage((Image) objectMap.get(RedKnotAsset.BACKGROUND), (xpos*-1)+950, -5, 1005, 505, null, null);
 	}
 
 	@Override
@@ -71,6 +70,16 @@ public class RedKnotView extends GameView {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
 	}
+	
+//	public BufferedImage loadImage(File f) {
+//		BufferedImage output=null;
+//		try{
+//			output = ImageIO.read(f);
+//		}catch (IOException e){
+//			e.printStackTrace();
+//		}
+//		return output;
+//	}
 
 	
 	
