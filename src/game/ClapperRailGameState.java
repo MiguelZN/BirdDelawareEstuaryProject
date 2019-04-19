@@ -13,10 +13,16 @@ import java.util.ArrayList;
 public class ClapperRailGameState extends GameState {
 	private Bird CR;
 	private ArrayList<GameObject> Materials;
+	private final int XSTART = 100;
+	private final int YSTART = 380;
+	private final int VXSTART = 10;
+	private final int VYSTART = 0;
+	private final int SIZE = 80;
+	
 	
 	public ClapperRailGameState(Controller controller){
 		super(controller);
-		this.CR = new Bird(100,380,10,0, 80, BirdType.CLAPPERRAIL);
+		this.CR = new Bird(XSTART, YSTART,VXSTART,VYSTART, SIZE, BirdType.CLAPPERRAIL);
 		this.Materials = new ArrayList<>();
 		
 	}
