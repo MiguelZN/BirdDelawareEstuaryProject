@@ -66,4 +66,10 @@ public class ClapperRailView extends GameView{
 		g.drawImage(backgroundimage, (xpos*-1)+1000, -5, 1005, 505, null, null);
 	}
 
+	@Override
+	public void fnameMapCreate() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

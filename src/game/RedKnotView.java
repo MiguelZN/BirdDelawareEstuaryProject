@@ -22,8 +22,8 @@ public class RedKnotView extends GameView {
 	private RedKnotGameState state;
 	private BufferedImage backgroundimage;
 	private BufferedImage forest1;
-	private HashMap<RedKnotAsset,BufferedImage> objectMap;
-	private HashMap<String,RedKnotAsset> fnameMap;
+//	private HashMap<RedKnotAsset,BufferedImage> objectMap;
+//	private HashMap<String,RedKnotAsset> fnameMap;
 	private int forestx = 600;
 	private int foresty = 300;
 	private int xpos = 5;	
@@ -37,7 +37,7 @@ public class RedKnotView extends GameView {
 		
 		
 		try {
-			loadAllImages();
+			loadAllImages("/resources/images/redknot");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,49 +50,26 @@ public class RedKnotView extends GameView {
 		Bird RL = this.controller.getRedKnotGS().getRL();
 		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
 		g.drawImage(objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
+		System.out.println(objectMap.get(RedKnotAsset.FOREST1));
 		
 		forestx += this.controller.getRedKnotGS().getRL().getVelocity().getxSpeed();
 		forestx %=1000;
-		
-		
 	}
 	
 	
-	/*
-	 * Boring method requires human effort.
-	 * Put all files that will be loaded in both this method, and in the
-	 * red knot asset enum.
-	 */
-	private void fnameMapCreate(){
-		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
-		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
-	}
 	
-	/*
-	 * This method loads all images that we will ever use in this view, and puts them
-	 * into a hashmap as the values, each with a key that we know, and will use when drawing images frmo objects.
-	 */
-	public void loadAllImages() throws IOException{
-		fnameMapCreate();
-		File[] files = new File(System.getProperty("user.dir") + "\\resources\\images\\redknot").listFiles();
-		for(File f : files){
-			objectMap.put(fnameMap.get(f.getName()), loadImage(f));
-		}
-	}
-	private BufferedImage loadImage(File f){
-		BufferedImage output=null;
-		try{
-			output = ImageIO.read(f);
-		}catch (IOException e){
-			e.printStackTrace();
-		}
-		return output;
-	}
+
 
 	public void scrollImage(Graphics g){
 		xpos = (xpos % 1000)+5;
 		g.drawImage(objectMap.get(RedKnotAsset.BACKGROUND), xpos*-1, -5, 1005, 505, null, this);
 		g.drawImage(objectMap.get(RedKnotAsset.BACKGROUND), (xpos*-1)+1000, -5, 1005, 505, null, null);
+	}
+
+	@Override
+	public void fnameMapCreate() {
+		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
+		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
 	}
 
 	

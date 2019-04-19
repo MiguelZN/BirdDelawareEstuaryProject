@@ -49,4 +49,10 @@ public class TitleScreenView extends GameView{
 		this.add(ClapperRail, BorderLayout.EAST);
 		this.add(Instructions, BorderLayout.PAGE_START);
 	}
+
+	@Override
+	public void fnameMapCreate() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -5,7 +5,11 @@ package game;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /*Class: GameView
@@ -22,6 +26,9 @@ public abstract class GameView extends JPanel{
 	private BufferedImage nestImage;
 	protected Controller controller;
 	private GameState state;
+	protected HashMap<Object, BufferedImage> objectMap;
+	protected HashMap<String,Object> fnameMap;
+	
 	public void paintComponent(Graphics g) {
 		
 	}
@@ -45,6 +52,35 @@ public abstract class GameView extends JPanel{
 	}
 	public Controller getController(){
 		return controller;
+	}
+	
+	/*
+	 * Boring method requires human effort.
+	 * Put all files that will be loaded in both this method, and in the
+	 * red knot asset enum.
+	 */
+	public abstract void fnameMapCreate();
+	
+	
+	/*
+	 * This method loads all images that we will ever use in this view, and puts them
+	 * into a hashmap as the values, each with a key that we know, and will use when drawing images frmo objects.
+	 */
+	public void loadAllImages(String res_path) throws IOException{
+		fnameMapCreate();
+		File[] files = new File(System.getProperty("user.dir") + res_path).listFiles();
+		for(File f : files){
+			objectMap.put(fnameMap.get(f.getName()), loadImage(f));
+		}
+	}
+	private BufferedImage loadImage(File f){
+		BufferedImage output=null;
+		try{
+			output = ImageIO.read(f);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return output;
 	}
 
 }

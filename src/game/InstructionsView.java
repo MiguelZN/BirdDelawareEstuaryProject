@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -81,6 +82,13 @@ public class InstructionsView extends GameView{
 		System.out.println("TITLELOGO");
 		
 		showcaseNextInstructions();
+		
+		try {
+			loadAllImages("/resources/images/instructions");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void showcaseNextInstructions() {
@@ -102,6 +110,15 @@ public class InstructionsView extends GameView{
 		}
 		
 		this.currentInstructions.setVisible(true);
+	}
+
+	@Override
+	public void fnameMapCreate() {
+		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
+		fnameMap.put("rk_instructions.png", InstructionsAsset.RK_INSTRUCTIONS);
+		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);
+		
+		
 	}
 	
 	
