@@ -34,7 +34,7 @@ import javax.swing.JButton;
  *	process that we will use to load images, and draw them to the screen from the model. - Derek
  */
 public class ClapperRailView extends GameView{
-	private int xpos = 5;
+//	private int xpos = 5;
 	
 	public ClapperRailView(Controller controller) {
 		super(controller);
@@ -53,7 +53,7 @@ public class ClapperRailView extends GameView{
 	
 	
 	public void paintComponent(Graphics g) {
-		scrollImage(g);
+		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		g.setColor(new Color(224,160, 42));
 		Position p = this.controller.getClapperRailGS().getCR().getPosition();
 		g.fillOval(p.getX(),p.getY(),controller.getClapperRailGS().getCR().getSize(),controller.getClapperRailGS().getCR().getSize());
@@ -61,16 +61,20 @@ public class ClapperRailView extends GameView{
 		
 	}
 
-	public void scrollImage(Graphics g){
-		xpos = (xpos % 1000)+5;
-//		BufferedImage backgroundimage = (BufferedImage) objectMap.get(ClapperRailAsset.BACKGROUND);
-		g.drawImage((Image)objectMap.get(ClapperRailAsset.BACKGROUND), xpos*-1, -5, 1005, 505, null, this);
-		g.drawImage((Image)objectMap.get(ClapperRailAsset.BACKGROUND), (xpos*-1)+1000, -5, 1005, 505, null, null);
-	}
-
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
+		
+	}
+
+
+	@Override
+	public void scrollImage(Graphics g, Object background1, Object background2) {
+		//int new_background_x = (this.controller.getClapperRailGS().getBackgroundX() % 1000)+this.controller.getClapperRailGS().getCR().getVelocity().getXSpeed();
+		int new_background_x = (this.controller.getClapperRailGS().getBackgroundX());
+		this.controller.getClapperRailGS().setBackgroundX(new_background_x);
+		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, -5, 1005, 505, null, this);
+		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+1000, -5, 1005, 505, null, null);
 		
 	}
 

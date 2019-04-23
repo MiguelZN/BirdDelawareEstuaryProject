@@ -3,8 +3,6 @@ package game;
  * 
  */
 
-import java.awt.BorderLayout;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -59,5 +57,12 @@ public class TitleScreenView extends GameView{
 	
 	public Object loadImage(File f) {
 		return null;
+	}
+
+
+	@Override
+	public void scrollImage(Graphics g, Object background1, Object background2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

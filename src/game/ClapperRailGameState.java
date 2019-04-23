@@ -22,7 +22,7 @@ public class ClapperRailGameState extends GameState {
 	
 	public ClapperRailGameState(Controller controller){
 		super(controller);
-		this.CR = new Bird(XSTART, YSTART,VXSTART,VYSTART, BirdType.CLAPPERRAIL);
+		this.CR = new Bird(new Position(XSTART,YSTART), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART), BirdType.CLAPPERRAIL);
 		this.Materials = new ArrayList<>();
 		
 	}
@@ -44,9 +44,19 @@ public class ClapperRailGameState extends GameState {
 	}
 
 	@Override
-	public void addGameObject(int x, int y) {
+	public void addGameObject(GameObject o) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void moveBackground() {
+		this.setBackgroundX((this.getBackgroundX() % 1000)+this.getCR().getVelocity().getXSpeed());
+	}
+	
+	public void checkRightBounds(int right_most_x) {
+		if(this.getCR().getPosition().getX()>right_most_x) {
+			this.getCR().setPosition(new Position(0,this.getCR().getPosition().getY()));
+		}
 	}
 	
 	

@@ -3,6 +3,7 @@ package game;
  * 
  */
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,11 @@ import java.util.List;
 public class RedKnotGameState extends GameState {
 	private Bird RK;
 	private ArrayList<Bird> flock;
+	private int forestx = 600;
+	private int foresty = 300;
 	
 	
+
 	//Enemy clouds
 	private ArrayList<Cloud> clouds;
 	private final int AMOUNT_OF_CLOUDS = 5;
@@ -23,11 +27,12 @@ public class RedKnotGameState extends GameState {
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
-		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(16,16), BirdType.REDKNOT);
+		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(5,16), BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
 		this.clouds = new ArrayList<>();
 		
 		this.addClouds();
+		this.addGameObject(new GameObject(new Position(5,5), new Size(30,30), RedKnotAsset.BACKGROUND));
 		
 	}
 	
@@ -67,9 +72,23 @@ public class RedKnotGameState extends GameState {
 	}
 	
 	@Override
-	public void addGameObject(int x, int y) {
+	public void addGameObject(GameObject o) {
 		
 	}
+	
+	public int getForestx() {
+		return forestx;
+	}
+
+	public int getForesty() {
+		return foresty;
+	}
+
+	public int getAMOUNT_OF_CLOUDS() {
+		return AMOUNT_OF_CLOUDS;
+	}
+	
+
 
 	
 

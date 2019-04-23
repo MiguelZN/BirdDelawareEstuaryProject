@@ -146,7 +146,11 @@ public class Controller implements KeyListener {
 		if(this.current_mode==GameMode.CLAPPERRAIL) {
 			System.out.println("CURRENT MODE IS CLAPPERRAIL");
 			switch(key){
-			case KeyEvent.VK_RIGHT : this.ClapperRailGS.getCR().move();break;
+			case KeyEvent.VK_RIGHT :
+				this.ClapperRailGS.getCR().move();
+				this.ClapperRailGS.moveBackground();
+				this.ClapperRailGS.checkRightBounds(getScreen().PLAY_SCREEN_WIDTH);
+				break;
 			case KeyEvent.VK_LEFT : this.ClapperRailGS.getCR().moveLeft();break;
 			case KeyEvent.VK_SPACE : this.getClapperRailGS().getCR().jump(); break;
 			}

@@ -25,18 +25,16 @@ public class RedKnotView extends GameView {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BufferedImage backgroundimage;
-	private BufferedImage forest1;
-	private int forestx = 600;
-	private int foresty = 300;
-	private int xpos = 5;	
-	
+//	private int forestx = 600;
+//	private int foresty = 300;
+//	private int xpos = 5;	
+//	
 	//X,Y are the top left, (first two parameters), Width, Height are next two parameters
 	//private Rectangle rect = new Rectangle(0,0,50,50);
-	
-	private Rectangle rect = new Rectangle(0,0,50,50);
-	private Rectangle rect2 = new Rectangle(30,30,50,50);
-	
+//	
+//	private Rectangle rect = new Rectangle(0,0,50,50);
+//	private Rectangle rect2 = new Rectangle(30,30,50,50);
+//	
 	
 	public RedKnotView(Controller controller){
 		super(controller);
@@ -55,15 +53,15 @@ public class RedKnotView extends GameView {
 
 	
 	public void paintComponent(Graphics g) {
-		scrollImage(g);
+		scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
 		g.setColor(Color.RED);
 		Bird RL = this.controller.getRedKnotGS().getRK();
 		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
-		g.drawImage((Image) objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
+//		g.drawImage((Image) objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
 		//System.out.println(objectMap.get(RedKnotAsset.FOREST1));
 		
-		forestx -= this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
-		forestx %=1000;
+//		forestx -= this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
+//		forestx %=1000;
 		
 		drawClouds(g);
 		System.out.println(this.controller.getRedKnotGS().getClouds().size());
@@ -74,14 +72,12 @@ public class RedKnotView extends GameView {
 		
 	}
 	
+	//Takes the Clouds ArrayList and draws individual clouds
 	public void drawClouds(Graphics g) {
 		ArrayList<Cloud> clouds = this.getController().getRedKnotGS().getClouds();
 		for(Cloud c:clouds) {
 			c.move();
 			Position current_pos = c.getPosition();
-			//System.out.println(current_pos.getX());
-//			g.setColor(Color.DARK_GRAY);
-//			g.fillOval(current_pos.getX(),current_pos.getY(),20,20);
 			g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
 			
 			//Testing Collision for Clouds and RedKnot (Works -Miguel)
@@ -92,10 +88,12 @@ public class RedKnotView extends GameView {
 		
 	}
 	
-	public void scrollImage(Graphics g){
-		xpos = (xpos % 1000)+5;
-		g.drawImage((Image) objectMap.get(RedKnotAsset.BACKGROUND), xpos*-1, -5, 1005, 505, null, this);
-		g.drawImage((Image) objectMap.get(RedKnotAsset.BACKGROUND), (xpos*-1)+1000, -5, 1005, 505, null, null);
+	//Moves the background 
+	public void scrollImage(Graphics g, Object background1, Object background2){
+		int new_background_x = (this.controller.getRedKnotGS().getBackgroundX() % 1000)+this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
+		this.controller.getRedKnotGS().setBackgroundX(new_background_x);
+		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, -5, 1005, 505, null, this);
+		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+1000, -5, 1005, 505, null, null);
 	}
 
 	@Override

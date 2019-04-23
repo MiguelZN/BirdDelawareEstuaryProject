@@ -14,7 +14,8 @@ import java.awt.Rectangle;
 public class GameObject {
 	protected HitBox hitBox; //Allows for collision-detection, keeps track of x,y position
 	//also keeps track of width and height of the GameObject (for drawing)
-
+	
+	protected Object type; //keeps track of what the GameObject is
 	
 	/*Contructor: 
 	 * -takes in an x,y ints to set the starting Position of the GameObject
@@ -25,6 +26,15 @@ public class GameObject {
 	
 	public GameObject(int x, int y, int width, int height) {
 		this.hitBox = new HitBox(x,y,width,height);
+	}
+	
+	public GameObject(int x, int y, String type) {
+		this.hitBox = new HitBox(x,y,0,0);
+	}
+	
+	public GameObject(Position p, Size s, Object type) {
+		this.hitBox = new HitBox(p.getX(),p.getY(),s.getWidth(),s.getHeight());
+		this.type = type;
 	}
 	
 	public Position getPosition() {

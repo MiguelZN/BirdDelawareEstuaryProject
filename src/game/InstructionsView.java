@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -136,6 +137,13 @@ public class InstructionsView extends GameView{
 			e.printStackTrace();
 		}
 		return output;
+	}
+
+	//Not Needed for InstructionsView
+	@Override
+	public void scrollImage(Graphics g, Object background1, Object background2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

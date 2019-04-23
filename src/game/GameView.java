@@ -89,5 +89,8 @@ public abstract class GameView extends JPanel{
 		}
 		return output;
 	}
+	
+	//Moves the background 
+	public abstract void scrollImage(Graphics g, Object background1, Object background2);
 
 }

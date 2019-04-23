@@ -3,6 +3,8 @@ package game;
  * 
  */
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 
 /*Class: GameState
@@ -11,10 +13,11 @@ import java.util.ArrayList;
  * -contains the current state for each game (Model)
  */
 public abstract class GameState extends Model {
-	private GameScreen screen;
-	private int score;
-	private MiniMap map;
-	private ArrayList<GameObject> objects; //all game objects that we have to draw on the screen
+	protected GameScreen screen;
+	protected int score;
+	protected MiniMap map;
+	protected int background_x = 5; //Starts the background image at x=5, and moves left
+	protected ArrayList<GameObject> objects; //all game objects that we have to draw on the screen
 	
 	public GameState(Controller controller) {
 		super(controller);
@@ -25,5 +28,13 @@ public abstract class GameState extends Model {
 		;
 	}
 	
-	public abstract void addGameObject(int x, int y);
+	public abstract void addGameObject(GameObject o);
+	
+	public void setBackgroundX(int x) {
+		this.background_x = x;
+	}
+	
+	public int getBackgroundX() {
+		return this.background_x;
+	}
 }
