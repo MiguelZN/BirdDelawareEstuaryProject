@@ -50,7 +50,7 @@ public class RedKnotGameState extends GameState {
 			int screen_width = this.controller.getScreen().getX();
 			int screen_height = this.controller.getScreen().getY();
 //			this.clouds.add(new Cloud(screen_width,screen_height));
-			this.clouds.add(Cloud.spawnCloud(500, 500, 0));
+			this.clouds.add(Cloud.spawnCloud(this.controller.getScreen().getPLAY_SCREEN_WIDTH(), Cloud.LEFT_MOST, this.controller.getScreen().getPLAY_SCREEN_HEIGHT()));
 		}
 	}
 	

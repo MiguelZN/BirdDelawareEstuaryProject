@@ -20,6 +20,7 @@ public class Cloud extends DynamicGameObject{
 	//private static final int TOPMOST_Y = 0; //the highest x position on the screen
 	private int width, height;
 	
+	static final int LEFT_MOST = -200; //the left-most point the clouds get to until new ones are spawned
 	
 	//Should be the screen width:x, screen height:y
 	//(Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX): gives random negative x velocity
@@ -99,15 +100,21 @@ public class Cloud extends DynamicGameObject{
 		this.resetCloud(this.start_x, 0, this.start_y);
 	}
 	
+	public void changeSpeed() {
+		int new_vx = Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX);
+		this.setVelocity(new Velocity(new_vx,CLOUD_VY));
+	}
+	
 	
 	//Places the cloud at the starting x position, and at a random y position
 	public void resetCloud(int x, int min_y, int max_y) {
 		int random_y = Utility.randRangeInt(min_y, max_y);
 		
 		//If the cloud goes offscreen 
-		if(this.getPosition().getX()<-50) {
+		if(this.getPosition().getX()<LEFT_MOST) {
 			this.setPosition(new Position(x, random_y));
 			this.reSize(); //resizes the Cloud
+			this.changeSpeed();
 		}
 	}
 	
