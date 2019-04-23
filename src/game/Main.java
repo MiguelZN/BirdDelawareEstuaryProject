@@ -5,7 +5,8 @@ public class Main {
 	public static void main(String[] args){
 		Controller game_controller = new Controller();
 		game_controller.changeView(GameMode.TITLESCREEN);
-		game_controller.start(100);
+		game_controller.start(15); 
+		//TODO: Modify the speeds of game objects such that the tickrate of 15ms, is playable.
 		
 
 		

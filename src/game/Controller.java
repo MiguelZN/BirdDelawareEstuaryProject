@@ -27,7 +27,7 @@ public class Controller implements KeyListener {
 	private InstructionsModel InstructionsGS;
 	
 	public Controller() {
-		this.screen = new GameScreen(this.screen.getPLAY_SCREEN_WIDTH(), this.screen.getPLAY_SCREEN_HEIGHT());
+		this.screen = new GameScreen(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT);
 		this.RedKnotGS = new RedKnotGameState(this);
 		this.ClapperRailGS = new ClapperRailGameState(this);
 		this.InstructionsGS = new InstructionsModel(this);
@@ -37,12 +37,16 @@ public class Controller implements KeyListener {
 	}
 	
 	public void start(int tickdelay) {
+		long bef,aft;
+		bef=System.currentTimeMillis();
 		while(loop()){
+			aft = System.currentTimeMillis();
 			try {
-				Thread.sleep(tickdelay);
+				Thread.sleep(tickdelay-(aft-bef));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			bef = System.currentTimeMillis();
 		}
 	}
 	/*
@@ -52,7 +56,6 @@ public class Controller implements KeyListener {
 	public boolean loop(){
 		getScreen().redraw();
 		return true;
-		
 	}
 	
 

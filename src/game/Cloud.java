@@ -135,9 +135,9 @@ public class Cloud extends DynamicGameObject{
 	public static Cloud spawnCloud(int x, int min_y, int max_y) {
 		int random_y =  Utility.randRangeInt(min_y, max_y);
 		
-		System.out.println(GameScreen.getPLAY_SCREEN_WIDTH());
+		System.out.println(GameScreen.PLAY_SCREEN_WIDTH);
 
-		int random_x =  Utility.randRangeInt(GameScreen.getPLAY_SCREEN_WIDTH(), GameScreen.getPLAY_SCREEN_WIDTH()+Y_MARGIN);
+		int random_x =  Utility.randRangeInt(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_WIDTH+Y_MARGIN);
 		System.out.println(random_x);
 		
 		

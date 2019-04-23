@@ -16,11 +16,11 @@ public class GameScreen extends JFrame{
 	private int width;
 	private int height;
 	
-	private static final int TITLE_SCREEN_WIDTH = 500;
-	private static final int TITLE_SCREEN_HEIGHT = 500;
+	public static final int TITLE_SCREEN_WIDTH = 500;
+	public static final int TITLE_SCREEN_HEIGHT = 500;
 	
-	private static final int PLAY_SCREEN_WIDTH = 1000;
-	private static final int PLAY_SCREEN_HEIGHT = 500;
+	public static final int PLAY_SCREEN_WIDTH = 1000;
+	public static final int PLAY_SCREEN_HEIGHT = 500;
 	
 	
 	public int getWidth() {
@@ -30,23 +30,6 @@ public class GameScreen extends JFrame{
 	public int getHeight() {
 		return height;
 	}
-
-	public static int getTITLE_SCREEN_WIDTH() {
-		return TITLE_SCREEN_WIDTH;
-	}
-
-	public static int getTITLE_SCREEN_HEIGHT() {
-		return TITLE_SCREEN_HEIGHT;
-	}
-
-	public static int getPLAY_SCREEN_WIDTH() {
-		return PLAY_SCREEN_WIDTH;
-	}
-
-	public static int getPLAY_SCREEN_HEIGHT() {
-		return PLAY_SCREEN_HEIGHT;
-	}
-
 	
 	/*Contructor: 
 	 * -takes in two integers for width and height in order to set the size of the JFrame window

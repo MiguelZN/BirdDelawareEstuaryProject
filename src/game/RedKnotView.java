@@ -21,6 +21,10 @@ import javax.imageio.ImageIO;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BufferedImage backgroundimage;
 	private BufferedImage forest1;
 	private int forestx = 600;
