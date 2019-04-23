@@ -46,7 +46,7 @@ public class ClapperRailView extends GameView{
 			e.printStackTrace();
 		}
 
-		controller.getScreen().setSize(1000, 500);
+		controller.getScreen().setPlaySize();
 		
 		Container current_layout = controller.getScreen().getContentPane();
 	}
@@ -73,17 +73,5 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
 		
 	}
-
-	//NOTE by Miguel: made it so that the GameView super class has a public Object loadImage(File f)
-	//and the child classes simply have to caste it into an (Image)objectMap.get(ClapperRailAsset.BACKGROUND) for EX
-//	public BufferedImage loadImage(File f) {
-//		BufferedImage output=null;
-//		try{
-//			output = ImageIO.read(f);
-//		}catch (IOException e){
-//			e.printStackTrace();
-//		}
-//		return output;
-//	}
 
 }

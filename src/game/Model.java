@@ -1,7 +1,7 @@
 package game;
 
 public class Model {
-	private Controller controller;
+	protected Controller controller;
 	
 	public Model(Controller controller) {
 		this.controller = controller;

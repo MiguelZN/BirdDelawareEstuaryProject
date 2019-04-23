@@ -27,14 +27,12 @@ public class Controller implements KeyListener {
 	private InstructionsModel InstructionsGS;
 	
 	public Controller() {
-		
-		this.screen = new GameScreen(500, 500);
+		this.screen = new GameScreen(this.screen.getPLAY_SCREEN_WIDTH(), this.screen.getPLAY_SCREEN_HEIGHT());
 		this.RedKnotGS = new RedKnotGameState(this);
 		this.ClapperRailGS = new ClapperRailGameState(this);
 		this.InstructionsGS = new InstructionsModel(this);
 		this.screen.addKeyListener(this);
 		view = new TitleScreenView(this);
-		//view = new TitleScreenView(this, this.TitleGS);
 		
 	}
 	

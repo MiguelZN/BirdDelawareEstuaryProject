@@ -26,9 +26,10 @@ public class RedKnotView extends GameView {
 	private int foresty = 300;
 	private int xpos = 5;	
 	
+	
 	public RedKnotView(Controller controller){
 		super(controller);
-		controller.getScreen().setSize(1000, 500);
+		controller.getScreen().setPlaySize();
 		
 		
 		try {
@@ -50,6 +51,23 @@ public class RedKnotView extends GameView {
 		
 		forestx -= this.controller.getRedKnotGS().getRK().getVelocity().getxSpeed();
 		forestx %=1000;
+		
+		drawClouds(g);
+		System.out.println(this.controller.getRedKnotGS().getClouds().size());
+		
+	}
+	
+	public void drawClouds(Graphics g) {
+		ArrayList<Cloud> clouds = this.getController().getRedKnotGS().getClouds();
+		for(Cloud c:clouds) {
+			c.move();
+			Position current_pos = c.getPosition();
+			System.out.println(current_pos.getX());
+//			g.setColor(Color.DARK_GRAY);
+//			g.fillOval(current_pos.getX(),current_pos.getY(),20,20);
+			g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+		}
+		
 	}
 	
 	public void scrollImage(Graphics g){

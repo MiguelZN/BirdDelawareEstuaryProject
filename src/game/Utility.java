@@ -3,10 +3,9 @@ package game;
 //Static Helper Methods
 public class Utility {
 	
-	//returns a random int from [offset, number]
-	public static int getRandomInt(int number, int offset) {
-		int rand_range = number-offset;
-		return ((int)Math.ceil(Math.random()*rand_range))+offset; 
+	//returns a random int from the [inputted min, inputted max]
+	public static int getRandomInt(int min_num,int max_num){
+		return (int)(Math.random()*((max_num - min_num) + 1)+min_num);
 	}
 
 }

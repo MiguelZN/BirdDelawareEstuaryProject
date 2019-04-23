@@ -6,6 +6,7 @@ public class Main {
 		Controller game_controller = new Controller();
 		game_controller.changeView(GameMode.TITLESCREEN);
 		game_controller.start(100);
+		
 
 		
 		
