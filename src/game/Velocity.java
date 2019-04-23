@@ -14,23 +14,23 @@ public class Velocity {
 	 * -takes in two integers: an x,y in order to provide the velocity of a moving object
 	 */
 	public Velocity(int x, int y) {
-		xSpeed = x;
-		ySpeed = y;
+		this.xSpeed = x;
+		this.ySpeed = y;
 	}
 
-	public int getxSpeed() {
+	public int getXSpeed() {
 		return xSpeed;
 	}
 
-	public void setxSpeed(int xSpeed) {
+	public void setXSpeed(int xSpeed) {
 		this.xSpeed = xSpeed;
 	}
 
-	public int getySpeed() {
+	public int getYSpeed() {
 		return ySpeed;
 	}
 
-	public void setySpeed(int ySpeed) {
+	public void setYSpeed(int ySpeed) {
 		this.ySpeed = ySpeed;
 	}
 	

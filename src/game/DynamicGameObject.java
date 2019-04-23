@@ -14,9 +14,19 @@ public abstract class DynamicGameObject extends GameObject implements Moveable {
 	/*Contructor:
 	 * -Takes in an x,y ints as the DynamicGameObject's starting position
 	 */
-	public DynamicGameObject(int x, int y, int vx, int vy) {
-		super(x,y);
+//	public DynamicGameObject(int x, int y, int vx, int vy) {
+//		super(x,y);
+//		v = new Velocity(vx,vy);
+//	}
+	
+	public DynamicGameObject(int x, int y, int width, int height, int vx, int vy) {
+		super(x,y,width,height);
 		v = new Velocity(vx,vy);
+	}
+	
+	public DynamicGameObject(Position p, Size s, Velocity v) {
+		super(p.getX(),p.getY(),s.getWidth(),s.getHeight());
+		this.v = v;
 	}
 
 	/*Method: move()

@@ -7,25 +7,33 @@ public class Cloud extends DynamicGameObject{
 	private static final int CLOUD_VY = 0; //never changes y velocity
 	private int start_x, start_y;
 	
-	private final int CLOUD_WIDTH = 120;
-	private final int CLOUD_HEIGHT = 120;
+	private static final int CLOUD_WIDTH = 120;
+	private static final int CLOUD_HEIGHT = 120;
 	
-	private final int CLOUD_SIZE_MOD = 20; //the range that the size of a cloud can change
-	private final static int Y_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
+	private static final int CLOUD_SIZE_MOD = 20; //the range that the size of a cloud can change
+	private static final int Y_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
 	
 	//Multipliers that affect the size of the clouds (MIN,MAX mods are multiplied with CLOUD_WIDTH/HEIGHT
-	private final double MIN_MOD = .8; //Higher value: Similar sized clouds
-	private final double MAX_MOD = .3; //Lower value: Similar sized clouds
+	private static final double MIN_MOD = .8; //Higher value: Similar sized clouds
+	private static final double MAX_MOD = .3; //Lower value: Similar sized clouds
 	
 	//private static final int TOPMOST_Y = 0; //the highest x position on the screen
-	private int width, height;
+//	private int width, height;
 	
 	static final int LEFT_MOST = -200; //the left-most point the clouds get to until new ones are spawned
 	
 	//Should be the screen width:x, screen height:y
 	//(Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX): gives random negative x velocity
-	public Cloud(int x, int y) {
-		super(x, y, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
+//	public Cloud(int x, int y) {
+//		super(x, y, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
+//		this.start_x = x; 
+//		this.start_y = y;
+//		
+//		this.reSize(); //resizes the Cloud
+//	}
+	
+	public Cloud(int x, int y, int width, int height) {
+		super(x, y, width, height, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
 		this.start_x = x; 
 		this.start_y = y;
 		
@@ -69,32 +77,36 @@ public class Cloud extends DynamicGameObject{
 
 
 	public int getWidth() {
-		return width;
+		return this.hitBox.width;
 	}
 
 
 	public int getHeight() {
-		return height;
+		return this.hitBox.height;
 	}
 	
 	//Creates min,max widths and heights and applies them to the clouds
 	public void reSize() {
 		int min_width = (int)(CLOUD_WIDTH*MIN_MOD);
 		int max_width = (int)(CLOUD_WIDTH*MAX_MOD)+CLOUD_WIDTH;
-		this.width = Utility.randRangeInt(min_width, max_width);
-		System.out.println("WIDTH:"+this.width);
+		int new_width = Utility.randRangeInt(min_width, max_width);
+		this.hitBox.changeWidth(new_width);
+		System.out.println("WIDTH:"+this.hitBox.width);
 		
 		int min_height = (int)(CLOUD_HEIGHT*MIN_MOD);
 		int max_height = (int)(CLOUD_HEIGHT*MAX_MOD)+CLOUD_HEIGHT;
-		this.height = Utility.randRangeInt(min_height,max_height);
+		int new_height = Utility.randRangeInt(min_height,max_height);
+		this.hitBox.changeHeight(new_height);
 	}
 
 
 	//Clouds move right to left:
+	//(takes the x-velocity (positive) of the cloud and subtracts
+	//the x position by it
 	@Override
 	public void move() {
 		//System.out.println("VX:"+this.getVelocity().getxSpeed());
-		int new_x = this.getPosition().getX()-this.getVelocity().getxSpeed();
+		int new_x = this.getPosition().getX()-this.getVelocity().getXSpeed();
 		this.setPosition(new Position(new_x, this.getPosition().getY()));
 		
 		this.resetCloud(this.start_x, 0, this.start_y);
@@ -127,7 +139,17 @@ public class Cloud extends DynamicGameObject{
 
 		int random_x =  Utility.randRangeInt(GameScreen.getPLAY_SCREEN_WIDTH(), GameScreen.getPLAY_SCREEN_WIDTH()+Y_MARGIN);
 		System.out.println(random_x);
-		return new Cloud(random_x,random_y);
+		
+		
+		int min_width = (int)(CLOUD_WIDTH*MIN_MOD);
+		int max_width = (int)(CLOUD_WIDTH*MAX_MOD)+CLOUD_WIDTH;
+		int new_width = Utility.randRangeInt(min_width, max_width);
+		
+		int min_height = (int)(CLOUD_HEIGHT*MIN_MOD);
+		int max_height = (int)(CLOUD_HEIGHT*MAX_MOD)+CLOUD_HEIGHT;
+		int new_height = Utility.randRangeInt(min_height,max_height);
+		
+		return new Cloud(random_x,random_y, new_width, new_height);
 	}
 
 }

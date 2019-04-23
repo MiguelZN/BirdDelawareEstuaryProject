@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,10 +27,18 @@ public class RedKnotView extends GameView {
 	private int foresty = 300;
 	private int xpos = 5;	
 	
+	//X,Y are the top left, (first two parameters), Width, Height are next two parameters
+	//private Rectangle rect = new Rectangle(0,0,50,50);
+	
+	private Rectangle rect = new Rectangle(0,0,50,50);
+	private Rectangle rect2 = new Rectangle(30,30,50,50);
+	
 	
 	public RedKnotView(Controller controller){
 		super(controller);
 		controller.getScreen().setPlaySize();
+		
+		
 		
 		
 		try {
@@ -47,13 +56,17 @@ public class RedKnotView extends GameView {
 		Bird RL = this.controller.getRedKnotGS().getRK();
 		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
 		g.drawImage((Image) objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
-		System.out.println(objectMap.get(RedKnotAsset.FOREST1));
+		//System.out.println(objectMap.get(RedKnotAsset.FOREST1));
 		
-		forestx -= this.controller.getRedKnotGS().getRK().getVelocity().getxSpeed();
+		forestx -= this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
 		forestx %=1000;
 		
 		drawClouds(g);
 		System.out.println(this.controller.getRedKnotGS().getClouds().size());
+		
+		//System.out.println("INTERSECTS?:"+rect.intersects(rect2));
+		
+
 		
 	}
 	
@@ -62,10 +75,15 @@ public class RedKnotView extends GameView {
 		for(Cloud c:clouds) {
 			c.move();
 			Position current_pos = c.getPosition();
-			System.out.println(current_pos.getX());
+			//System.out.println(current_pos.getX());
 //			g.setColor(Color.DARK_GRAY);
 //			g.fillOval(current_pos.getX(),current_pos.getY(),20,20);
 			g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+			
+			//Testing Collision for Clouds and RedKnot (Works -Miguel)
+			if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
+				System.out.println("COLLSIION!");
+			}
 		}
 		
 	}

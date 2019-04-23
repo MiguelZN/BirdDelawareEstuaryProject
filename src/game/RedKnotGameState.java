@@ -23,7 +23,7 @@ public class RedKnotGameState extends GameState {
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
-		this.RK = new Bird(50,30,5,20, 70, BirdType.REDKNOT);
+		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(16,16), BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
 		this.clouds = new ArrayList<>();
 		

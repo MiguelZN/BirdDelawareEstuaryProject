@@ -22,7 +22,7 @@ public class ClapperRailGameState extends GameState {
 	
 	public ClapperRailGameState(Controller controller){
 		super(controller);
-		this.CR = new Bird(XSTART, YSTART,VXSTART,VYSTART, SIZE, BirdType.CLAPPERRAIL);
+		this.CR = new Bird(XSTART, YSTART,VXSTART,VYSTART, BirdType.CLAPPERRAIL);
 		this.Materials = new ArrayList<>();
 		
 	}

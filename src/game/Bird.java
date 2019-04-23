@@ -17,11 +17,21 @@ public class Bird extends DynamicGameObject {
 	/*Contructor:
 	 * -Takes in an x,y ints as the bird's starting position
 	 */
-	public Bird(int x, int y, int vx, int vy, int size, BirdType bird_type) {
-		super(x,y, vx, vy);
-		this.size = size;
+	public Bird(int x, int y, int width, int height, int vx, int vy, BirdType bird_type) {
+		super(x,y, width, height, vx, vy);
+		this.size = width; //temp
 		this.xStart = x;
 		this.yStart = y;
+		
+	}
+	
+	
+	//For Easier organization, made use of position, size, and velocity class rather than a bunch of ints
+	public Bird(Position p, Size s, Velocity v, BirdType bird_type) {
+		super(p, s, v);
+		this.size = s.getWidth(); //temp
+		this.xStart = p.getX();
+		this.yStart = p.getY();
 		
 	}
 
@@ -42,7 +52,7 @@ public class Bird extends DynamicGameObject {
 	}
 
 	public Bird(int x, int y, int vx, int vy, BirdType bird_type) {
-		super(x,y, vx, vy);
+		super(x,y, 0,0, vx, vy);
 		this.bird_type = bird_type;
 		this.size = 20;
 	}
@@ -56,14 +66,14 @@ public class Bird extends DynamicGameObject {
 	 *-updates the position of the bird 
 	 */
 	public void move() {
-		int newX = this.getPosition().getX() + this.getVelocity().getxSpeed();
-		int newY = this.getPosition().getY() + this.getVelocity().getySpeed();
+		int newX = this.getPosition().getX() + this.getVelocity().getXSpeed();
+		int newY = this.getPosition().getY() + this.getVelocity().getYSpeed();
 		this.setPosition(new Position(newX,newY));
 	}
 	
 	public void moveLeft() {
-		int newX = this.getPosition().getX() - this.getVelocity().getxSpeed();
-		int newY = this.getPosition().getY() + this.getVelocity().getySpeed();
+		int newX = this.getPosition().getX() - this.getVelocity().getXSpeed();
+		int newY = this.getPosition().getY() + this.getVelocity().getYSpeed();
 		this.setPosition(new Position(newX,newY));
 	}
 	
@@ -78,14 +88,18 @@ public class Bird extends DynamicGameObject {
 	
 	public void FlyUp() {
 		Position p = this.getPosition();
-		int new_y = p.getY()-this.getVelocity().getySpeed();
+		int new_y = p.getY()-this.getVelocity().getYSpeed();
 		this.setPosition(new Position(p.getX(),new_y));
 	}
 	
 	public void FlyDown() {
 		Position p = this.getPosition();
-		int new_y = p.getY()+this.getVelocity().getySpeed();
+		System.out.println("RK POSITION:"+p.getX()+","+p.getY());
+		int new_y = p.getY()+this.getVelocity().getYSpeed();
+		System.out.println("NEW Y:"+new_y);
 		this.setPosition(new Position(p.getX(),new_y));
+		System.out.println("RK NEW POSITION:"+p.getX()+","+p.getY());
+		
 	}
 	
 	/*Method: eat()
