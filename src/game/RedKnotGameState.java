@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class RedKnotGameState extends GameState {
 	private Bird RK;
 	private ArrayList<Bird> flock;
+
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
@@ -40,6 +41,12 @@ public class RedKnotGameState extends GameState {
 	public ArrayList<Bird> getFlock() {
 		return flock;
 	}
+	
+	@Override
+	public void addGameObject(int x, int y) {
+		
+	}
+
 	
 
 	

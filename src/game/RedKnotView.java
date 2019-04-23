@@ -62,6 +62,7 @@ public class RedKnotView extends GameView {
 	public void fnameMapCreate() {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
+		fnameMap.put("cloud.png",RedKnotAsset.CLOUD);
 	}
 	
 //	public BufferedImage loadImage(File f) {

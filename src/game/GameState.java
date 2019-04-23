@@ -24,4 +24,6 @@ public abstract class GameState extends Model {
 	public void update() {
 		;
 	}
+	
+	public abstract void addGameObject(int x, int y);
 }

@@ -6,9 +6,17 @@ public class Main {
 		Controller game_controller = new Controller();
 		game_controller.changeView(GameMode.TITLESCREEN);
 		game_controller.start(100);
-//		game_controller.changeView(GameMode.INSTRUCTIONS);
-//		game_controller.changeView(GameMode.REDKNOT);
-//		game_controller.changeView(GameMode.CLAPPERRAIL);
+
+		
+		
+		//Testing randomized clouds (WORKS- Miguel)	
+//		for(int i=0;i<10;i++) {
+//			Cloud temp = Cloud.spawnCloud(500, 500, 0);
+//			System.out.println(temp.getPosition().getX()+","+temp.getPosition().getY());
+//			temp.move();
+//			System.out.println(temp.getPosition().getX()+","+temp.getPosition().getY());
+//			
+//		}
 	}
 
 }
