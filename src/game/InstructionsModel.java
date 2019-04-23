@@ -7,9 +7,7 @@ package game;
  * -extends the abstract class GameState to be the Model for our instructions mode
  * 
  */
-public class InstructionsModel extends GameState {
-	
-	
+public class InstructionsModel extends Model {
 	public InstructionsModel(Controller controller) {
 		super(controller);
 	}

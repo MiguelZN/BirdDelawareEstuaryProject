@@ -17,13 +17,12 @@ import javax.swing.JButton;
  * -contains methods and control over the drawing of the TitleScreen
  */
 public class TitleScreenView extends GameView{
-	
 	JButton RedKnot;
 	JButton ClapperRail;
 	JButton Instructions;
 	
-	public TitleScreenView(Controller c,TitleScreenModel state) {
-		super(c,state);
+	public TitleScreenView(Controller c) {
+		super(c);
 		this.RedKnot = new JButton("RED KNOT");
 		this.RedKnot.addActionListener(new ActionListener() {
 		    @Override
@@ -50,10 +49,11 @@ public class TitleScreenView extends GameView{
 		this.add(ClapperRail, BorderLayout.EAST);
 		this.add(Instructions, BorderLayout.PAGE_START);
 	}
+	
 
 	@Override
 	public void fnameMapCreate() {
-		// TODO Auto-generated method stub
+		//Title currently does not have any images
 		
 	}
 	

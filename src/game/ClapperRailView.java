@@ -36,8 +36,8 @@ import javax.swing.JButton;
 public class ClapperRailView extends GameView{
 	private int xpos = 5;
 	
-	public ClapperRailView(Controller controller,ClapperRailGameState state) {
-		super(controller,state);
+	public ClapperRailView(Controller controller) {
+		super(controller);
 		
 		try {
 			loadAllImages("/resources/images/clapperrail");
@@ -50,6 +50,7 @@ public class ClapperRailView extends GameView{
 		
 		Container current_layout = controller.getScreen().getContentPane();
 	}
+	
 	
 	public void paintComponent(Graphics g) {
 		scrollImage(g);

@@ -33,7 +33,8 @@ public class Controller implements KeyListener {
 		this.ClapperRailGS = new ClapperRailGameState(this);
 		this.InstructionsGS = new InstructionsModel(this);
 		this.screen.addKeyListener(this);
-		view = new TitleScreenView(this,TitleGS);
+		view = new TitleScreenView(this);
+		//view = new TitleScreenView(this, this.TitleGS);
 		
 	}
 	
@@ -89,25 +90,29 @@ public class Controller implements KeyListener {
 		switch(mode) {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
-			this.view = new InstructionsView(this,this.InstructionsGS);
+//			this.view = new InstructionsView(this,this.InstructionsGS);
+			this.view = new InstructionsView(this);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.INSTRUCTIONS;
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
-			this.view = new ClapperRailView(this,this.ClapperRailGS);
+//			this.view = new ClapperRailView(this,this.ClapperRailGS);
+			this.view = new ClapperRailView(this);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.CLAPPERRAIL;
 			break;
 		case REDKNOT:
 			this.view.setVisible(false);
-			this.view = new RedKnotView(this,this.RedKnotGS);
+//			this.view = new RedKnotView(this,this.RedKnotGS);
+			this.view = new RedKnotView(this);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.REDKNOT;
 			break;
 		case TITLESCREEN:
 			this.view.setVisible(false);
-			this.view = new TitleScreenView(this,this.TitleGS);
+//			this.view = new TitleScreenView(this,this.TitleGS);
+			this.view = new TitleScreenView(this);
 			this.screen.add(this.view);
 			this.current_mode = GameMode.TITLESCREEN;
 			break;
@@ -148,8 +153,8 @@ public class Controller implements KeyListener {
 		else if(this.current_mode==GameMode.REDKNOT) {
 			System.out.println("CURRENT MODE IS REDKNOT");
 			switch(key){
-			case KeyEvent.VK_UP : this.RedKnotGS.getRL().FlyUp();;break;
-			case KeyEvent.VK_DOWN : this.RedKnotGS.getRL().FlyDown();break;
+			case KeyEvent.VK_UP : this.RedKnotGS.getRK().FlyUp();;break;
+			case KeyEvent.VK_DOWN : this.RedKnotGS.getRK().FlyDown();break;
 			
 			}
 		}

@@ -18,14 +18,12 @@ import javax.swing.JPanel;
  * -contains methods and all the images required to draw onto the screen
  */
 public abstract class GameView extends JPanel{
-	
 	private BufferedImage gameImage;
 	private BufferedImage miniMap;
 	private BufferedImage birdImage;
 	private BufferedImage foodImage;
 	private BufferedImage nestImage;
 	protected Controller controller;
-	private GameState state;
 	protected HashMap<Object, Object> objectMap;
 	protected HashMap<String, Object> fnameMap; //takes in a string and an Enum for the views
 	
@@ -33,14 +31,13 @@ public abstract class GameView extends JPanel{
 		
 	}
 	
-	public GameView(Controller c, GameState gs) {
-		super();
-		controller=c;
-		state=gs;
-		
+	public GameView(Controller c) {
+		this.controller=c;
+				
 		objectMap = new HashMap<>();
 		fnameMap = new HashMap<>();
 	}
+	
 	
 	public void updateView() {
 		

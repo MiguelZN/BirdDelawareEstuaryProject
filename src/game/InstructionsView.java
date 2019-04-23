@@ -44,9 +44,8 @@ public class InstructionsView extends GameView{
 	public JButton getBacktoMenuButton() {
 		return backtoMenuButton;
 	}
-	
-	public InstructionsView(Controller c,InstructionsModel state) {
-		super(c,state);
+	public InstructionsView(Controller c) {
+		super(c);
 		
 		try {
 			loadAllImages("/resources/images/instructions");
@@ -97,6 +96,7 @@ public class InstructionsView extends GameView{
 		
 		
 	}
+
 	
 	public void showcaseNextInstructions() {
 		if(this.current_bird_info==BirdType.REDKNOT) {

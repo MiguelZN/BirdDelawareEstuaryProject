@@ -7,8 +7,12 @@ package game;
  * -extends the abstract class GameState (Model) 
  * -keeps track of the gamestate data of the Title Screen 
  */
-public class TitleScreenModel extends GameState {
+public class TitleScreenModel extends Model {
 	public TitleScreenModel(Controller controller){
 		super(controller);
 	}
+	
+	
+	
+	
 }

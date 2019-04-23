@@ -10,15 +10,13 @@ import java.util.ArrayList;
  * -keeps track of the gamestate data of the RedKnot minigame
  */
 public class RedKnotGameState extends GameState {
-	private Bird RL;
+	private Bird RK;
 	private ArrayList<Bird> flock;
-	private ArrayList<GameObject> objects; //all game objects that we have to draw on the screen
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
-		this.RL = new Bird(50,30,5,20, 70, BirdType.REDKNOT);
+		this.RK = new Bird(50,30,5,20, 70, BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
-		objects = new ArrayList<>();
 	}
 	
 	public void collectBird() {
@@ -35,8 +33,8 @@ public class RedKnotGameState extends GameState {
 		return flock.size();
 	}
 
-	public Bird getRL() {
-		return RL;
+	public Bird getRK() {
+		return RK;
 	}
 
 	public ArrayList<Bird> getFlock() {
