@@ -17,7 +17,7 @@ public class RedKnotGameState extends GameState {
 	
 	//Enemy clouds
 	private ArrayList<Cloud> clouds;
-	private final int AMOUNT_OF_CLOUDS = 10;
+	private final int AMOUNT_OF_CLOUDS = 5;
 	
 
 	
