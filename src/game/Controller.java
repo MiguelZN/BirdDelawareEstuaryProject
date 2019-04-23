@@ -37,12 +37,16 @@ public class Controller implements KeyListener {
 	}
 	
 	public void start(int tickdelay) {
+		long bef,aft;
+		bef=System.currentTimeMillis();
 		while(loop()){
+			aft = System.currentTimeMillis();
 			try {
-				Thread.sleep(tickdelay);
+				Thread.sleep(tickdelay-(aft-bef));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			bef = System.currentTimeMillis();
 		}
 	}
 	/*
