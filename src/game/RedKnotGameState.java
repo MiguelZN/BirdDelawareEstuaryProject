@@ -16,7 +16,7 @@ public class RedKnotGameState extends GameState {
 	private ArrayList<Bird> flock;
 	private int forestx = 600;
 	private int foresty = 300;
-	
+	private int score;
 	
 
 	//Enemy clouds
@@ -27,7 +27,8 @@ public class RedKnotGameState extends GameState {
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
-		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(5,16), BirdType.REDKNOT);
+		score=0;
+		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(5,25), BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
 		this.clouds = new ArrayList<>();
 		
@@ -75,7 +76,15 @@ public class RedKnotGameState extends GameState {
 	public void addGameObject(GameObject o) {
 		
 	}
-	
+	public int getScore(){
+		return score;
+	}
+	public void setScore(int x){
+		score=x;
+	}
+	public void incrementScore(int x){
+		score+=x;
+	}
 	public int getForestx() {
 		return forestx;
 	}

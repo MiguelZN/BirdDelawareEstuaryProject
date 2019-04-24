@@ -1,16 +1,11 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -64,6 +59,7 @@ public class RedKnotView extends GameView {
 //		forestx %=1000;
 		
 		drawClouds(g);
+		drawScore(g);
 		System.out.println(this.controller.getRedKnotGS().getClouds().size());
 		
 		//System.out.println("INTERSECTS?:"+rect.intersects(rect2));
@@ -72,20 +68,29 @@ public class RedKnotView extends GameView {
 		
 	}
 	
+	public void drawScore(Graphics g){
+		System.out.println("test");
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,40));
+		g.drawString("Score: " + controller.getRedKnotGS().getScore(), 0, 550);
+	}
+	
 	//Takes the Clouds ArrayList and draws individual clouds
 	public void drawClouds(Graphics g) {
 		ArrayList<Cloud> clouds = this.getController().getRedKnotGS().getClouds();
 		for(Cloud c:clouds) {
-			c.move();
-			Position current_pos = c.getPosition();
-			g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
-			
-			//Testing Collision for Clouds and RedKnot (Works -Miguel)
-			if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
-				System.out.println("COLLSIION!");
-			}
+			drawAndMoveCloud(c,g);
 		}
+	}
+	public void drawAndMoveCloud(Cloud c,Graphics g){
+		c.move();
+		Position current_pos = c.getPosition();
+		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
 		
+		//Testing Collision for Clouds and RedKnot (Works -Miguel)
+		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
+			System.out.println("COLLSIION!");
+		}
 	}
 	
 	//Moves the background 
