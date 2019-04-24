@@ -12,6 +12,7 @@ public class Cloud extends DynamicGameObject{
 	
 	private static final int CLOUD_SIZE_MOD = 20; //the range that the size of a cloud can change
 	private static final int Y_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
+	private static final int X_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
 	
 	//Multipliers that affect the size of the clouds (MIN,MAX mods are multiplied with CLOUD_WIDTH/HEIGHT
 	private static final double MIN_MOD = .8; //Higher value: Similar sized clouds
@@ -134,13 +135,12 @@ public class Cloud extends DynamicGameObject{
 	//from [y_offset, range_y]
 	public static Cloud spawnCloud(int x, int min_y, int max_y) {
 		int random_y =  Utility.randRangeInt(min_y, max_y);
-		
-		System.out.println(GameScreen.PLAY_SCREEN_WIDTH);
 
-		int random_x =  Utility.randRangeInt(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_WIDTH+Y_MARGIN);
+		int random_x =  Utility.randRangeInt(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_WIDTH+X_MARGIN);
 		System.out.println(random_x);
 		
 		
+		//Chooses a random width and height for the clouds
 		int min_width = (int)(CLOUD_WIDTH*MIN_MOD);
 		int max_width = (int)(CLOUD_WIDTH*MAX_MOD)+CLOUD_WIDTH;
 		int new_width = Utility.randRangeInt(min_width, max_width);

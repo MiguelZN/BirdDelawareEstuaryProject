@@ -16,21 +16,21 @@ public class RedKnotGameState extends GameState {
 	private ArrayList<Bird> flock;
 	private int forestx = 600;
 	private int foresty = 300;
-	
+	private int score;
 	
 
 	//Enemy clouds
 	private ArrayList<Cloud> clouds;
-	private final int AMOUNT_OF_CLOUDS = 5;
+	private final int AMOUNT_OF_CLOUDS = 20;
 	
 
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
-		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(20,16), BirdType.REDKNOT);
+		this.score=0; //Sets the initial score 
+		this.RK = new Bird(new Position(20,20), new Size(90,90), new Velocity(5,10), BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
 		this.clouds = new ArrayList<>();
-		
 		this.addClouds();
 		this.addGameObject(new GameObject(new Position(5,5), new Size(30,30), RedKnotAsset.BACKGROUND));
 		
@@ -55,7 +55,7 @@ public class RedKnotGameState extends GameState {
 			int screen_width = this.controller.getScreen().getX();
 			int screen_height = this.controller.getScreen().getY();
 //			this.clouds.add(new Cloud(screen_width,screen_height));
-			this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, Cloud.LEFT_MOST, GameScreen.PLAY_SCREEN_HEIGHT));
+			this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_CONSTRAINT_H));
 		}
 	}
 	
@@ -77,7 +77,15 @@ public class RedKnotGameState extends GameState {
 	public void addGameObject(GameObject o) {
 		
 	}
-	
+	public int getScore(){
+		return score;
+	}
+	public void setScore(int x){
+		score=x;
+	}
+	public void incrementScore(int x){
+		score+=x;
+	}
 	public int getForestx() {
 		return forestx;
 	}
