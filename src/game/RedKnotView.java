@@ -53,9 +53,10 @@ public class RedKnotView extends GameView {
 
 	
 	public void paintComponent(Graphics g) {
-		scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
+		scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
 		g.setColor(Color.RED);
 		Bird RL = this.controller.getRedKnotGS().getRK();
+		birdMovement(RL);
 		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
 //		g.drawImage((Image) objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
 		//System.out.println(objectMap.get(RedKnotAsset.FOREST1));
@@ -70,6 +71,13 @@ public class RedKnotView extends GameView {
 		
 
 		
+	}
+	public void birdMovement(Bird b) {
+		int x = b.getFlyState();
+		switch(x) {
+		case 1:b.FlyUp();break;
+		case -1:b.FlyDown();break;
+		}
 	}
 	
 	//Takes the Clouds ArrayList and draws individual clouds
@@ -101,6 +109,7 @@ public class RedKnotView extends GameView {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
 		fnameMap.put("cloud.png",RedKnotAsset.CLOUD);
+		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
 	}
 	
 //	public BufferedImage loadImage(File f) {

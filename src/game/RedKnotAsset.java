@@ -2,6 +2,7 @@ package game;
 
 public enum RedKnotAsset {
 	BACKGROUND("BACKGROUND"),
+	SABACKGROUND("SABACKGROUND"),
 	FOREST1("FOREST1"),
 	CLOUD("CLOUD");
 

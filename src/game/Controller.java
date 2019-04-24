@@ -158,8 +158,9 @@ public class Controller implements KeyListener {
 		else if(this.current_mode==GameMode.REDKNOT) {
 			System.out.println("CURRENT MODE IS REDKNOT");
 			switch(key){
-			case KeyEvent.VK_UP : this.RedKnotGS.getRK().FlyUp();;break;
-			case KeyEvent.VK_DOWN : this.RedKnotGS.getRK().FlyDown();break;
+			case KeyEvent.VK_UP : this.RedKnotGS.getRK().newFlyUp();;break;
+			//change these to be setUp and setDown
+			case KeyEvent.VK_DOWN : this.RedKnotGS.getRK().newFlyDown();break;
 			
 			}
 		}
@@ -167,6 +168,14 @@ public class Controller implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(this.current_mode==GameMode.REDKNOT) {
+			Bird b = RedKnotGS.getRK();
+			switch(key) {
+			case KeyEvent.VK_UP:b.setFlyState((b.getFlyState() == 1 ? 0 : b.getFlyState()));break;
+			case KeyEvent.VK_DOWN:b.setFlyState((b.getFlyState() == -1 ? 0 : b.getFlyState()));break;
+			}
+		}
 		// TODO Auto-generated method stub
 		
 	}

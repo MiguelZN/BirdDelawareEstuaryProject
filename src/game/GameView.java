@@ -33,7 +33,8 @@ public abstract class GameView extends JPanel{
 	
 	public GameView(Controller c) {
 		this.controller=c;
-				
+//		this.setSize(this.controller.getScreen().PLAY_SCREEN_WIDTH, this.controller.getScreen().PLAY_SCREEN_HEIGHT);
+//		this.revalidate();
 		objectMap = new HashMap<>();
 		fnameMap = new HashMap<>();
 	}
