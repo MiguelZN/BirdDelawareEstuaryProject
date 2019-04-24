@@ -11,28 +11,12 @@ public class Bird extends DynamicGameObject {
 	private Energy e;
 	private BirdType bird_type;
 	private int size;
-	private int xStart;
-	private int yStart;
 	private int updownstop=0;
-	
-	/*Contructor:
-	 * -Takes in an x,y ints as the bird's starting position
-	 */
-	public Bird(int x, int y, int width, int height, int vx, int vy, BirdType bird_type) {
-		super(x,y, width, height, vx, vy);
-		this.size = width; //temp
-		this.xStart = x;
-		this.yStart = y;
-		
-	}
-	
 	
 	//For Easier organization, made use of position, size, and velocity class rather than a bunch of ints
 	public Bird(Position p, Size s, Velocity v, BirdType bird_type) {
 		super(p, s, v);
 		this.size = s.getWidth(); //temp
-		this.xStart = p.getX();
-		this.yStart = p.getY();
 		
 	}
 
@@ -43,15 +27,6 @@ public class Bird extends DynamicGameObject {
 	public int getSize() {
 		return size;
 	}
-	
-	public int getXStart() {
-		return this.xStart;
-	}
-	
-	public int getYStart() {
-		return this.yStart;
-	}
-	
 	public Energy getEnergy() {
 		return e;
 	}
@@ -74,7 +49,7 @@ public class Bird extends DynamicGameObject {
 	
 	public void jump() {
 		if(this.getPosition().getY() <= 300) {
-			this.setPosition(new Position(this.getPosition().getX(), yStart));
+			this.setPosition(new Position(this.getPosition().getX(),this.getPosition().getY()));
 		}
 		int newX = this.getPosition().getX();
 		int newY = this.getPosition().getY() - 50;
