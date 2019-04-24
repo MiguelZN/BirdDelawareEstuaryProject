@@ -14,13 +14,13 @@ import java.util.List;
 public class RedKnotGameState extends GameState {
 	private Bird RK;
 	private ArrayList<Bird> flock;
-	private int forestx = 600;
-	private int foresty = 300;
 	private int score;
+	static final String SCORE_TEXT = "Score: ";
+	static final int SCORE_FONT_SIZE = 40;
 	
 
 	//Enemy clouds
-	private ArrayList<Cloud> clouds;
+	private ArrayList<Cloud> clouds; 
 	private final int AMOUNT_OF_CLOUDS = 20;
 	
 
@@ -54,8 +54,7 @@ public class RedKnotGameState extends GameState {
 		for(int i=0;i<this.AMOUNT_OF_CLOUDS;i++) {
 			int screen_width = this.controller.getScreen().getX();
 			int screen_height = this.controller.getScreen().getY();
-//			this.clouds.add(new Cloud(screen_width,screen_height));
-			this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_CONSTRAINT_H));
+			this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_CONSTRAINT_H-Cloud.Y_MARGIN));
 		}
 	}
 	
@@ -86,13 +85,13 @@ public class RedKnotGameState extends GameState {
 	public void incrementScore(int x){
 		score+=x;
 	}
-	public int getForestx() {
-		return forestx;
-	}
-
-	public int getForesty() {
-		return foresty;
-	}
+//	public int getForestx() {
+//		return forestx;
+//	}
+//
+//	public int getForesty() {
+//		return foresty;
+//	}
 
 	public int getAMOUNT_OF_CLOUDS() {
 		return AMOUNT_OF_CLOUDS;

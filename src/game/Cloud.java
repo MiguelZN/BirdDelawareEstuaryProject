@@ -11,8 +11,8 @@ public class Cloud extends DynamicGameObject{
 	private static final int CLOUD_HEIGHT = 120;
 	
 	private static final int CLOUD_SIZE_MOD = 20; //the range that the size of a cloud can change
-	private static final int Y_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
-	private static final int X_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
+	static final int Y_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
+	static final int X_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
 	
 	//Multipliers that affect the size of the clouds (MIN,MAX mods are multiplied with CLOUD_WIDTH/HEIGHT
 	private static final double MIN_MOD = .8; //Higher value: Similar sized clouds

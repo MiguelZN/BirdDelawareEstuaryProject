@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
@@ -20,16 +21,6 @@ public class RedKnotView extends GameView {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	private int forestx = 600;
-//	private int foresty = 300;
-//	private int xpos = 5;	
-//	
-	//X,Y are the top left, (first two parameters), Width, Height are next two parameters
-	//private Rectangle rect = new Rectangle(0,0,50,50);
-//	
-//	private Rectangle rect = new Rectangle(0,0,50,50);
-//	private Rectangle rect2 = new Rectangle(30,30,50,50);
-//	
 	
 	public RedKnotView(Controller controller){
 		super(controller);
@@ -50,15 +41,10 @@ public class RedKnotView extends GameView {
 	public void paintComponent(Graphics g) {
 		scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
 		g.setColor(Color.RED);
-		Bird RL = this.controller.getRedKnotGS().getRK();
-		birdMovement(RL);
-		g.fillOval(RL.getPosition().getX(),RL.getPosition().getY(),RL.getSize(),RL.getSize());
-//		g.drawImage((Image) objectMap.get(RedKnotAsset.FOREST1), forestx, foresty, 400, 250, null, this);
-		//System.out.println(objectMap.get(RedKnotAsset.FOREST1));
-		
-//		forestx -= this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
-//		forestx %=1000;
-		
+		Bird RK = this.controller.getRedKnotGS().getRK();
+		birdMovement(RK);
+		g.fillOval(RK.getPosition().getX(),RK.getPosition().getY(),RK.getSize(),RK.getSize());
+
 		drawClouds(g);
 		drawScore(g);
 		System.out.println(this.controller.getRedKnotGS().getClouds().size());
@@ -77,10 +63,17 @@ public class RedKnotView extends GameView {
 	}
 	
 	public void drawScore(Graphics g){
-		System.out.println("test");
+		GameScreen screen = this.controller.getScreen();
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("TimesRoman",Font.PLAIN,40));
-		g.drawString("Score: " + controller.getRedKnotGS().getScore(), 0, 550);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,RedKnotGameState.SCORE_FONT_SIZE));
+		FontMetrics fm = g.getFontMetrics();
+		System.out.println(fm.getFont());
+		
+		//The String being drawn
+		String toDrawString = RedKnotGameState.SCORE_TEXT + controller.getRedKnotGS().getScore();
+		int string_width = fm.stringWidth(toDrawString);
+		
+		g.drawString(toDrawString, screen.PLAY_SCREEN_WIDTH-string_width, 0+RedKnotGameState.SCORE_FONT_SIZE);
 	}
 	
 	//Takes the Clouds ArrayList and draws individual clouds
@@ -103,10 +96,11 @@ public class RedKnotView extends GameView {
 	
 	//Moves the background 
 	public void scrollImage(Graphics g, Object background1, Object background2){
-		int new_background_x = (this.controller.getRedKnotGS().getBackgroundX() % 1000)+this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
+		GameScreen screen = this.controller.getScreen();
+		int new_background_x = (this.controller.getRedKnotGS().getBackgroundX() % screen.PLAY_SCREEN_WIDTH)+this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
 		this.controller.getRedKnotGS().setBackgroundX(new_background_x);
-		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, -5, 1005, 505, null, this);
-		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+1000, -5, 1005, 505, null, null);
+		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, 0, screen.PLAY_SCREEN_WIDTH, screen.PLAY_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+screen.PLAY_SCREEN_WIDTH, 0, screen.PLAY_SCREEN_WIDTH, screen.PLAY_SCREEN_HEIGHT, null, null);
 	}
 
 	@Override
