@@ -11,27 +11,16 @@ public class Cloud extends DynamicGameObject{
 	private static final int CLOUD_HEIGHT = 120;
 	
 	private static final int CLOUD_SIZE_MOD = 20; //the range that the size of a cloud can change
-	static final int Y_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
-	static final int X_MARGIN = 50; //Pushes the clouds' spawn lower than 1000 by 50 and the clouds' spawn higher than 0 by 50
+	static final int Y_MARGIN = 60; //Pushes the clouds' spawn lower than 1000 by 60 and the clouds' spawn higher than 0 by 60
+	static final int X_MARGIN = 60; //Pushes the clouds' spawn lower than 1000 by 60 and the clouds' spawn higher than 0 by 60
 	
 	//Multipliers that affect the size of the clouds (MIN,MAX mods are multiplied with CLOUD_WIDTH/HEIGHT
 	private static final double MIN_MOD = .8; //Higher value: Similar sized clouds
 	private static final double MAX_MOD = .3; //Lower value: Similar sized clouds
-	
-	//private static final int TOPMOST_Y = 0; //the highest x position on the screen
-//	private int width, height;
-	
 	static final int LEFT_MOST = -200; //the left-most point the clouds get to until new ones are spawned
 	
-	//Should be the screen width:x, screen height:y
-	//(Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX): gives random negative x velocity
-//	public Cloud(int x, int y) {
-//		super(x, y, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
-//		this.start_x = x; 
-//		this.start_y = y;
-//		
-//		this.reSize(); //resizes the Cloud
-//	}
+	
+	
 	
 	public Cloud(int x, int y, int width, int height) {
 		super(x, y, width, height, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);

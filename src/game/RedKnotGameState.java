@@ -21,7 +21,7 @@ public class RedKnotGameState extends GameState {
 
 	//Enemy clouds
 	private ArrayList<Cloud> clouds; 
-	private final int AMOUNT_OF_CLOUDS = 20;
+	private final int AMOUNT_OF_CLOUDS = 5;
 	
 
 	
@@ -85,13 +85,6 @@ public class RedKnotGameState extends GameState {
 	public void incrementScore(int x){
 		score+=x;
 	}
-//	public int getForestx() {
-//		return forestx;
-//	}
-//
-//	public int getForesty() {
-//		return foresty;
-//	}
 
 	public int getAMOUNT_OF_CLOUDS() {
 		return AMOUNT_OF_CLOUDS;
