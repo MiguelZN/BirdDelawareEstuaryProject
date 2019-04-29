@@ -22,9 +22,13 @@ public class RedKnotView extends GameView {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public Animation test_anim;
+	
 	public RedKnotView(Controller controller){
 		super(controller);
 		controller.getScreen().setPlaySize();
+		
+		test_anim = new Animation("resources/images/redknot/charizard.png", new Size(125,66),1,4,8,60);
 		
 		
 		
@@ -43,13 +47,15 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.RED);
 		Bird RK = this.controller.getRedKnotGS().getRK();
 		birdMovement(RK);
-		g.fillOval(RK.getPosition().getX(),RK.getPosition().getY(),RK.getSize(),RK.getSize());
+		//g.fillOval(RK.getPosition().getX(),RK.getPosition().getY(),RK.getSize(),RK.getSize());
 
 		drawClouds(g);
 		drawScore(g);
-		System.out.println(this.controller.getRedKnotGS().getClouds().size());
+		//System.out.println(this.controller.getRedKnotGS().getClouds().size());
 		
 		//System.out.println("INTERSECTS?:"+rect.intersects(rect2));
+		
+		test_anim.drawImageExact(g, RK.getPosition(), new Size(150,100));
 		
 
 		
@@ -67,7 +73,7 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,RedKnotGameState.SCORE_FONT_SIZE));
 		FontMetrics fm = g.getFontMetrics();
-		System.out.println(fm.getFont());
+		//System.out.println(fm.getFont());
 		
 		//The String being drawn
 		String toDrawString = RedKnotGameState.SCORE_TEXT + controller.getRedKnotGS().getScore();
@@ -90,7 +96,7 @@ public class RedKnotView extends GameView {
 		
 		//Testing Collision for Clouds and RedKnot (Works -Miguel)
 		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
-			System.out.println("COLLSIION!");
+			//System.out.println("COLLSIION!");
 		}
 	}
 	

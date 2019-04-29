@@ -41,7 +41,7 @@ public class Controller implements KeyListener {
 		bef=System.currentTimeMillis();
 		while(loop()){
 			aft = System.currentTimeMillis();
-			System.out.println("MILLISECONDS:"+(aft-bef));
+			//System.out.println("MILLISECONDS:"+(aft-bef));
 			try {
 				Thread.sleep(tickdelay-(aft-bef));
 			} catch (InterruptedException e) {
@@ -136,8 +136,8 @@ public class Controller implements KeyListener {
 		if(key == KeyEvent.VK_ESCAPE){
 			changeView(GameMode.TITLESCREEN);
 		}
-		System.out.println(key);
-		System.out.println(this.ClapperRailGS.getCR().getPosition().getX());
+		//System.out.println(key);
+		//System.out.println(this.ClapperRailGS.getCR().getPosition().getX());
 		
 		if(key==KeyEvent.VK_ESCAPE) {
 			changeView(GameMode.TITLESCREEN);
