@@ -18,21 +18,25 @@ public class RedKnotGameState extends GameState {
 	static final String SCORE_TEXT = "Score: ";
 	static final int SCORE_FONT_SIZE = 40;
 	
+	boolean debug_mode;
+	
 
 	//Enemy clouds
 	private ArrayList<Cloud> clouds; 
-	private final int AMOUNT_OF_CLOUDS = 5;
+	private final int AMOUNT_OF_CLOUDS = 30;
 	
 
 	
 	public RedKnotGameState(Controller controller){
 		super(controller);
 		this.score=0; //Sets the initial score 
-		this.RK = new Bird(new Position(80,20), new Size(250,200), new Velocity(5,10), BirdType.REDKNOT);
+		this.RK = new Bird(new Position(200,20), new Size(450,200), new Velocity(5,10), BirdType.REDKNOT);
 		this.flock = new ArrayList<>();
 		this.clouds = new ArrayList<>();
 		this.addClouds();
 		this.addGameObject(new GameObject(new Position(5,5), new Size(30,30), RedKnotAsset.BACKGROUND));
+		
+		this.debug_mode = false; //initially turns off debug mode
 		
 	}
 	
@@ -58,6 +62,14 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	public void switchDebugMode() {
+		if(this.debug_mode) {
+			this.debug_mode = false;
+		}
+		else {
+			this.debug_mode = true;
+		}
+	}
 
 	
 	public int countBirds() {

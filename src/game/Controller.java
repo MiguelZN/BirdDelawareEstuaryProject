@@ -162,7 +162,7 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_UP : this.RedKnotGS.getRK().newFlyUp();;break;
 			//change these to be setUp and setDown
 			case KeyEvent.VK_DOWN : this.RedKnotGS.getRK().newFlyDown();break;
-			
+			case KeyEvent.VK_S: this.RedKnotGS.switchDebugMode();break;
 			}
 		}
 	}

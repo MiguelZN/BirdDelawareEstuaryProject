@@ -54,6 +54,8 @@ public class RedKnotView extends GameView {
 		//Drawing the Test Sprite Animation on the RedKnot's position and using its Size property
 		test_anim.drawImageExact(g, RK.getPosition(), RK.getSize());
 		
+		g.setColor(Color.BLUE);
+		Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);
 
 		
 	}
@@ -84,16 +86,20 @@ public class RedKnotView extends GameView {
 		ArrayList<Cloud> clouds = this.getController().getRedKnotGS().getClouds();
 		for(Cloud c:clouds) {
 			drawAndMoveCloud(c,g);
+			
+			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
 		}
 	}
+	
+	//Draws the clouds based on point NOT TOP LEFT X,Y
 	public void drawAndMoveCloud(Cloud c,Graphics g){
 		c.move();
 		Position current_pos = c.getPosition();
-		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX()-(c.getWidth()/2), current_pos.getY()-(c.getHeight()/2), c.getWidth(),c.getHeight(),null, this);
 		
 		//Testing Collision for Clouds and RedKnot (Works -Miguel)
 		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
-			//System.out.println("COLLSIION!");
+			System.out.println("COLLISION!");
 		}
 	}
 	

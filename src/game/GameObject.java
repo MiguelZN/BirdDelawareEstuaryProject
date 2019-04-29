@@ -38,11 +38,13 @@ public class GameObject {
 	}
 	
 	public Position getPosition() {
-		return new Position(this.hitBox.x, this.hitBox.y);
+		return this.hitBox.getPosition();
 	}
 	
 	//Sets the location of the HitBox (top left)
 	public void setPosition(Position newPos) {
-		hitBox.setLocation(newPos.getX(), newPos.getY());
+		//hitBox.setLocation(newPos.getX(), newPos.getY());
+		this.hitBox.setPosition(newPos);
+		
 	}
 }
