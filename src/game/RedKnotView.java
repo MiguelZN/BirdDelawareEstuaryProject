@@ -28,9 +28,8 @@ public class RedKnotView extends GameView {
 		super(controller);
 		controller.getScreen().setPlaySize();
 		
+		//Charizard Sprite animation using the Redknot's position to draw it
 		test_anim = new Animation("resources/images/redknot/charizard.png", new Size(125,66),1,4,8,60);
-		
-		
 		
 		
 		try {
@@ -47,15 +46,13 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.RED);
 		Bird RK = this.controller.getRedKnotGS().getRK();
 		birdMovement(RK);
-		//g.fillOval(RK.getPosition().getX(),RK.getPosition().getY(),RK.getSize(),RK.getSize());
+		//g.fillOval(RK.getPosition().getX(),RK.getPosition().getY(),RK.getSize().getWidth(),RK.getSize());
 
 		drawClouds(g);
 		drawScore(g);
-		//System.out.println(this.controller.getRedKnotGS().getClouds().size());
 		
-		//System.out.println("INTERSECTS?:"+rect.intersects(rect2));
-		
-		test_anim.drawImageExact(g, RK.getPosition(), new Size(150,100));
+		//Drawing the Test Sprite Animation on the RedKnot's position and using its Size property
+		test_anim.drawImageExact(g, RK.getPosition(), RK.getSize());
 		
 
 		

@@ -10,13 +10,13 @@ package game;
 public class Bird extends DynamicGameObject {
 	private Energy e;
 	private BirdType bird_type;
-	private int size;
+	private Size size;
 	private int updownstop=0;
 	
 	//For Easier organization, made use of position, size, and velocity class rather than a bunch of ints
 	public Bird(Position p, Size s, Velocity v, BirdType bird_type) {
 		super(p, s, v);
-		this.size = s.getWidth(); //temp
+		this.size = s;
 		
 	}
 
@@ -24,8 +24,8 @@ public class Bird extends DynamicGameObject {
 		return bird_type;
 	}
 
-	public int getSize() {
-		return size;
+	public Size getSize() {
+		return this.size;
 	}
 	public Energy getEnergy() {
 		return e;
