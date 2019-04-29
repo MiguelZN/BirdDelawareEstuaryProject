@@ -56,7 +56,8 @@ public class HitBox extends Rectangle{
 	
 	//Top Left (no shifting)
 	public void updateRectangleHitBox() {
-		this.setLocation(p.getX(),p.getY());
+		//this.setLocation(p.getX(),p.getY());
+		this.setBounds(p.getX(), p.getY(), this.width, this.height);
 		System.out.println(this.getBounds());
 	}
 	
