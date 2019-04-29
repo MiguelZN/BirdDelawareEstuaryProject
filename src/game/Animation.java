@@ -109,6 +109,8 @@ public class Animation {
 		 * System.out.println("UPDATING TICK"); System.out.println(this.current_tick);
 		 * System.out.println(this.threshold);
 		 */
+		
+		System.out.println(current_tick);
 
 		if (this.frame_index >= this.num_columns) {
 			this.frame_index = -1;

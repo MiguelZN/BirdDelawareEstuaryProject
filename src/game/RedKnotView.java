@@ -29,7 +29,7 @@ public class RedKnotView extends GameView {
 		controller.getScreen().setPlaySize();
 		
 		//Charizard Sprite animation using the Redknot's position to draw it
-		test_anim = new Animation("resources/images/redknot/charizard.png", new Size(125,66),1,4,8,60);
+		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,20,60);
 		
 		
 		try {
