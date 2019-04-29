@@ -100,6 +100,7 @@ public class RedKnotView extends GameView {
 		//Testing Collision for Clouds and RedKnot (Works -Miguel)
 		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
 			System.out.println("COLLISION!");
+			System.exit(0);
 		}
 	}
 	
@@ -116,7 +117,7 @@ public class RedKnotView extends GameView {
 	public void fnameMapCreate() {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
-		fnameMap.put("cloud.png",RedKnotAsset.CLOUD);
+		fnameMap.put("cloudnorain.png",RedKnotAsset.CLOUD);
 		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
 	}
 	

@@ -23,7 +23,7 @@ public class RedKnotGameState extends GameState {
 
 	//Enemy clouds
 	private ArrayList<Cloud> clouds; 
-	private final int AMOUNT_OF_CLOUDS = 30;
+	private final int AMOUNT_OF_CLOUDS = 5;
 	
 
 	
@@ -58,7 +58,7 @@ public class RedKnotGameState extends GameState {
 		for(int i=0;i<this.AMOUNT_OF_CLOUDS;i++) {
 			int screen_width = this.controller.getScreen().getX();
 			int screen_height = this.controller.getScreen().getY();
-			this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_CONSTRAINT_H-Cloud.Y_MARGIN));
+			this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, Cloud.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-Cloud.Y_MARGIN));
 		}
 	}
 	
