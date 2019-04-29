@@ -29,7 +29,7 @@ public class RedKnotView extends GameView {
 		controller.getScreen().setPlaySize();
 		
 		//Charizard Sprite animation using the Redknot's position to draw it
-		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,20,60);
+		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,16,60);
 		
 		
 		try {
@@ -52,7 +52,7 @@ public class RedKnotView extends GameView {
 		drawScore(g);
 		
 		//Drawing the Test Sprite Animation on the RedKnot's position and using its Size property
-		test_anim.drawImageExact(g, RK.getPosition(), RK.getSize());
+		test_anim.drawImageTopLeft(g, RK.getPosition(), RK.getSize());
 		
 		g.setColor(Color.BLUE);
 		Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);
@@ -95,22 +95,28 @@ public class RedKnotView extends GameView {
 	public void drawAndMoveCloud(Cloud c,Graphics g){
 		c.move();
 		Position current_pos = c.getPosition();
-		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX()-(c.getWidth()/2), current_pos.getY()-(c.getHeight()/2), c.getWidth(),c.getHeight(),null, this);
+		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+		//g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX()-(c.getWidth()/2), current_pos.getY()-(c.getHeight()/2), c.getWidth(),c.getHeight(),null, this);
 		
 		//Testing Collision for Clouds and RedKnot (Works -Miguel)
 		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
 			System.out.println("COLLISION!");
-			System.exit(0);
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		}
 	}
 	
 	//Moves the background 
 	public void scrollImage(Graphics g, Object background1, Object background2){
-		GameScreen screen = this.controller.getScreen();
-		int new_background_x = (this.controller.getRedKnotGS().getBackgroundX() % screen.PLAY_SCREEN_WIDTH)+this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
+		int new_background_x = (this.controller.getRedKnotGS().getBackgroundX() % GameScreen.PLAY_SCREEN_WIDTH)+this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
 		this.controller.getRedKnotGS().setBackgroundX(new_background_x);
-		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, 0, screen.PLAY_SCREEN_WIDTH, screen.PLAY_SCREEN_HEIGHT, null, this);
-		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+screen.PLAY_SCREEN_WIDTH, 0, screen.PLAY_SCREEN_WIDTH, screen.PLAY_SCREEN_HEIGHT, null, null);
+		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
 	}
 
 	@Override

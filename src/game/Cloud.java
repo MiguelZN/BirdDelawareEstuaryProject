@@ -26,8 +26,8 @@ public class Cloud extends DynamicGameObject{
 		super(x, y, width, height, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
 		this.start_x = x; 
 		this.start_y = y;
-		
 		this.reSize(); //resizes the Cloud
+		this.hitBox.updateRectangleHitBox();
 	}
 
 	

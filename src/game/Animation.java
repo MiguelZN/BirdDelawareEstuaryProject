@@ -154,20 +154,37 @@ public class Animation {
 
 		this.update();
 	}
-
-	public void drawImage(Graphics g) {
+	
+	public void drawImageTopLeft(Graphics g, Position p, Size draw_size) {
 		// dx1,dxy1 means top left of image ON the java window -> dx2, dy2 bottom right
 		// ON java window
 		// sx1, sxy1 means top left ON spritesheet -> sx2, sy2 bottom right
-		BufferedImage test_image = null;
-		try {
-			test_image = ImageIO.read(new File("resources/images/redknot/background1.png"));
-			g.drawImage(test_image, 10, 10, 500, 50, 0, 0, 300, 500, null, null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// g.drawImage(img, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, bgcolor, observer)
+		int destx1 = p.getX();
+		int destx2 = p.getX() + draw_size.getWidth();
+		int desty1 = p.getY();
+		int desty2 = p.getY() + draw_size.getHeight();
 
+		g.drawImage(this.spritesheet, destx1, desty1, destx2, desty2, this.imgsrcx1, this.imgsrcy1, this.imgsrcx2,
+				this.imgsrcy2, null, null);
+		g.setColor(Color.RED);
+
+		this.update();
 	}
+
+//	public void drawImage(Graphics g) {
+//		// dx1,dxy1 means top left of image ON the java window -> dx2, dy2 bottom right
+//		// ON java window
+//		// sx1, sxy1 means top left ON spritesheet -> sx2, sy2 bottom right
+//		BufferedImage test_image = null;
+//		try {
+//			test_image = ImageIO.read(new File("resources/images/redknot/background1.png"));
+//			g.drawImage(test_image, 10, 10, 500, 50, 0, 0, 300, 500, null, null);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 }

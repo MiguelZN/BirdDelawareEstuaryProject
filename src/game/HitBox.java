@@ -8,18 +8,32 @@ public class HitBox extends Rectangle{
 	Position p;
 	
 	
+//	HitBox(int x, int y, int width, int height){
+////		int topleftx = x - (width/2);
+////		int toplefty = y - (height/2);
+//		super(x - (width/2), y - (height/2),width,height); //Sets the Rectangle position and width/height
+//		this.p  =new Position(x,y);
+//		this.width = width;
+//		this.height = height;
+//	}
+//	
+//	HitBox(Position p, int width, int height){
+//		super(p.getX()-(width/2),p.getY()-(height/2),width,height);
+//		//super(p.getX(), p.getY(), width, height);
+//		this.p = p;
+//		this.width = width;
+//		this.height = height;
+//	}
+	
 	HitBox(int x, int y, int width, int height){
-//		int topleftx = x - (width/2);
-//		int toplefty = y - (height/2);
-		super(x - (width/2), y - (height/2),width,height); //Sets the Rectangle position and width/height
+		super(x, y,width,height); //Sets the Rectangle position and width/height
 		this.p  =new Position(x,y);
 		this.width = width;
 		this.height = height;
 	}
 	
 	HitBox(Position p, int width, int height){
-		super(p.getX()-(width/2),p.getY()-(height/2),width,height);
-		//super(p.getX(), p.getY(), width, height);
+		super(p.getX(), p.getY(), width, height);
 		this.p = p;
 		this.width = width;
 		this.height = height;
@@ -35,8 +49,15 @@ public class HitBox extends Rectangle{
 		this.updateRectangleHitBox();
 	}
 	
+//	public void updateRectangleHitBox() {
+//		this.setLocation(p.getX()-(width/2),p.getY()-(height/2));
+//		System.out.println(this.getBounds());
+//	}
+	
+	//Top Left (no shifting)
 	public void updateRectangleHitBox() {
-		this.setLocation(p.getX()-(width/2),p.getY()-(height/2));
+		this.setLocation(p.getX(),p.getY());
+		System.out.println(this.getBounds());
 	}
 	
 	public void changeWidth(int new_width) {
