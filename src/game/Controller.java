@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
@@ -36,6 +37,20 @@ public class Controller implements KeyListener {
 		
 	}
 	
+	// Another possibility of a way to do our main loop.
+	// with my testing, however, this does not remove stuttering.
+	/*
+	public void start(int tickdelay){
+		ActionListener task = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SwingUtilities.invokeLater( () -> screen.redraw() );
+			}
+		};
+		Timer t = new Timer(tickdelay,task);
+		t.start();
+		t.restart();
+	}*/
 	public void start(int tickdelay) {
 		long bef,aft;
 		bef=System.currentTimeMillis();
@@ -54,8 +69,10 @@ public class Controller implements KeyListener {
 	 * Main loop for the game
 	 * Everything that happens once per tick goes in here.
 	 */
+	
+	
 	public boolean loop(){
-		getScreen().redraw();
+		SwingUtilities.invokeLater( () -> screen.redraw() );
 		return true;
 	}
 	

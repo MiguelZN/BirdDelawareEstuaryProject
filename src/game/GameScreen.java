@@ -2,6 +2,7 @@ package game;
 import java.awt.Color;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -25,7 +26,7 @@ public class GameScreen extends JFrame{
 	public static final int PLAY_SCREEN_WIDTH = 1000;
 	public static final int PLAY_SCREEN_HEIGHT = 600;//600;
 	
-	public static final int GAME_FPS = 60;
+	public static final int GAME_FPS = 100;
 	
 	
 	public int getWidth() {
@@ -54,7 +55,7 @@ public class GameScreen extends JFrame{
 	
 	//When called, this redraws the JFrame, Background, etc
 	public void redraw() {
-		this.repaint();
+		repaint();
 	}
 	
 	public void setPlaySize() {
