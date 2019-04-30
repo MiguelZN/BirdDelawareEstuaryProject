@@ -1,12 +1,9 @@
 package game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -51,6 +48,14 @@ public class Controller implements KeyListener {
 		t.start();
 		t.restart();
 	}*/
+	
+	/*
+	 * TODO:
+	 * Split this into two updates, updating the model.
+	 * And, updating the screen. (screen.redraw())
+	 * And make the model update on a different thread.
+	 * 
+	 */
 	public void start(int tickdelay) {
 		long bef,aft;
 		bef=System.currentTimeMillis();
@@ -65,13 +70,40 @@ public class Controller implements KeyListener {
 			bef = System.currentTimeMillis();
 		}
 	}
+	
+	
+	/*
+	 * Calls the Current Models Update Method
+	 */
+	public void updateModel(){
+		if(current_mode==GameMode.CLAPPERRAIL){
+			ClapperRailGS.ontick();
+		}else if(current_mode==GameMode.REDKNOT){
+			RedKnotGS.ontick();
+		}else if(current_mode==GameMode.INSTRUCTIONS){
+			
+		}else if(current_mode==GameMode.TITLESCREEN){
+			
+		}
+	}
 	/*
 	 * Main loop for the game
 	 * Everything that happens once per tick goes in here.
+	 * 
+	 * We will update the model once per tick, and then the view will draw it. 
+	 * 
+	 * ANYTHING THAT UPDATES THE MODEL MUUST HAPPEN WHEN updateModel() is called. 
+	 * NOT INSIDE PAINTCOMPONENT.
+	 * 
 	 */
-	
-	
 	public boolean loop(){
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				updateModel();
+			}
+		});
+		t.start();
 		SwingUtilities.invokeLater( () -> screen.redraw() );
 		return true;
 	}

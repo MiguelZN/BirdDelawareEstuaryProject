@@ -9,6 +9,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+/*
+ * TODO: Take anything that updates the model, and move it out of the view.
+ */
+
+
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
  */
@@ -38,12 +44,15 @@ public class RedKnotView extends GameView {
 		}
 	}
 
-	
+	/*
+	 * NOTE: 
+	 * NEVER CHANGE THE MODEL IN HERE EVER. ONLY DRAW WHAT THE MODEL IS.
+	 */
 	public void paintComponent(Graphics g) {
 		scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
 		g.setColor(Color.RED);
 		Bird RK = this.controller.getRedKnotGS().getRK();
-		birdMovement(RK);
+//		birdMovement(RK);
 		drawClouds(g);
 		drawScore(g);
 		drawBird(g,RK);
@@ -52,13 +61,6 @@ public class RedKnotView extends GameView {
 
 		
 	}
-	public void birdMovement(Bird b) {
-		int x = b.getFlyState();
-		switch(x) {
-		case 1:b.FlyUp();break;
-		case -1:b.FlyDown();break;
-		}
-	}
 	//draw our character, the bird.
 	public void drawBird(Graphics g,Bird b){
 		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
@@ -66,7 +68,6 @@ public class RedKnotView extends GameView {
 	}
 	
 	public void drawScore(Graphics g){
-		GameScreen screen = this.controller.getScreen();
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,RedKnotGameState.SCORE_FONT_SIZE));
 		FontMetrics fm = g.getFontMetrics();
@@ -76,31 +77,33 @@ public class RedKnotView extends GameView {
 		String toDrawString = RedKnotGameState.SCORE_TEXT + controller.getRedKnotGS().getScore();
 		int string_width = fm.stringWidth(toDrawString);
 		
-		g.drawString(toDrawString, screen.PLAY_SCREEN_WIDTH-string_width, 0+RedKnotGameState.SCORE_FONT_SIZE);
+		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width, 0+RedKnotGameState.SCORE_FONT_SIZE);
 	}
 	
 	//Takes the Clouds ArrayList and draws individual clouds
 	public void drawClouds(Graphics g) {
 		ArrayList<Cloud> clouds = this.getController().getRedKnotGS().getClouds();
 		for(Cloud c:clouds) {
-			drawAndMoveCloud(c,g);
+//			drawAndMoveCloud(c,g);
+			drawCloud(c,g);
 			
 			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
 		}
 	}
-	
-	//Draws the clouds based on point NOT TOP LEFT X,Y
-	public void drawAndMoveCloud(Cloud c,Graphics g){
-		c.move();
+	public void drawCloud(Cloud c, Graphics g){
 		Position current_pos = c.getPosition();
 		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
-		//g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX()-(c.getWidth()/2), current_pos.getY()-(c.getHeight()/2), c.getWidth(),c.getHeight(),null, this);
-		
-		//Testing Collision for Clouds and RedKnot (Works -Miguel)
+	}
+	
+	/* collision comment: 
+	 * 
+	 * //Testing Collision for Clouds and RedKnot (Works -Miguel)
 		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
 			System.out.println("COLLISION!");
 		}
-	}
+	 * 
+	 * 
+	 */
 	
 	//Moves the background 
 	public void scrollImage(Graphics g, Object background1, Object background2){
@@ -117,7 +120,6 @@ public class RedKnotView extends GameView {
 		fnameMap.put("cloudnorain.png",RedKnotAsset.CLOUD);
 		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
-		
 	}
 	
 }

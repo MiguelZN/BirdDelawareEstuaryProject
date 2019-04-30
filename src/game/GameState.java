@@ -24,9 +24,7 @@ public abstract class GameState extends Model {
 		objects = new ArrayList<>();
 	}
 	
-	public void update() {
-		;
-	}
+	public abstract void ontick();
 	
 	public abstract void addGameObject(GameObject o);
 	

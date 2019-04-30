@@ -54,6 +54,27 @@ public class RedKnotGameState extends GameState {
 		return this.clouds;
 	}
 	
+
+	@Override
+	public void ontick() {
+		moveClouds();
+		moveBird();
+	}
+	
+	public void moveBird(){
+		switch(RK.getFlyState()) {
+		case 1:RK.FlyUp();break;
+		case -1:RK.FlyDown();break;
+		}
+	}
+	
+	public void moveClouds(){
+		for(Cloud c : clouds){
+			c.move();
+		}
+	}
+	
+	
 	public void addClouds() {
 		for(int i=0;i<this.AMOUNT_OF_CLOUDS;i++) {
 			int screen_width = this.controller.getScreen().getX();
@@ -101,11 +122,5 @@ public class RedKnotGameState extends GameState {
 	public int getAMOUNT_OF_CLOUDS() {
 		return AMOUNT_OF_CLOUDS;
 	}
-	
-
-
-	
-
-	
 	
 }

@@ -42,6 +42,12 @@ public class ClapperRailGameState extends GameState {
 	public ArrayList<GameObject> getMaterials() {
 		return Materials;
 	}
+	
+	
+	@Override
+	public void ontick() {
+		
+	}
 
 	@Override
 	public void addGameObject(GameObject o) {
