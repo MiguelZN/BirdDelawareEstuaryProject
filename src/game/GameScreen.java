@@ -25,6 +25,8 @@ public class GameScreen extends JFrame{
 	public static final int PLAY_SCREEN_WIDTH = 1000;
 	public static final int PLAY_SCREEN_HEIGHT = 600;//600;
 	
+	public static final int GAME_FPS = 60;
+	
 	
 	public int getWidth() {
 		return width;
@@ -38,6 +40,8 @@ public class GameScreen extends JFrame{
 	 * -takes in two integers for width and height in order to set the size of the JFrame window
 	 */
 	public GameScreen(int width, int height) {
+		this.setResizable(false);
+//		this.setUndecorated(true);
 		setSize(width, height);
 		this.width = width;
 		this.height = height;

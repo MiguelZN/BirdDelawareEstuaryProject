@@ -58,7 +58,7 @@ public class HitBox extends Rectangle{
 	public void updateRectangleHitBox() {
 		//this.setLocation(p.getX(),p.getY());
 		this.setBounds(p.getX(), p.getY(), this.width, this.height);
-		System.out.println(this.getBounds());
+//		System.out.println(this.getBounds());
 	}
 	
 	public void changeWidth(int new_width) {

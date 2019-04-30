@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,15 +22,12 @@ public class RedKnotView extends GameView {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public Animation test_anim;
-	
 	public RedKnotView(Controller controller){
 		super(controller);
 		controller.getScreen().setPlaySize();
 		
 		//Charizard Sprite animation using the Redknot's position to draw it
-		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,16,60);
+//		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,15,60);
 		
 		
 		try {
@@ -46,14 +44,9 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.RED);
 		Bird RK = this.controller.getRedKnotGS().getRK();
 		birdMovement(RK);
-		//g.fillOval(RK.getPosition().getX(),RK.getPosition().getY(),RK.getSize().getWidth(),RK.getSize());
-
 		drawClouds(g);
 		drawScore(g);
-		
-		//Drawing the Test Sprite Animation on the RedKnot's position and using its Size property
-		test_anim.drawImageTopLeft(g, RK.getPosition(), RK.getSize());
-		
+		drawBird(g,RK);
 		g.setColor(Color.BLUE);
 		Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);
 
@@ -65,6 +58,11 @@ public class RedKnotView extends GameView {
 		case 1:b.FlyUp();break;
 		case -1:b.FlyDown();break;
 		}
+	}
+	//draw our character, the bird.
+	public void drawBird(Graphics g,Bird b){
+		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
+		g.drawImage(birdAnim.currImage(),b.getPosition().getX(),b.getPosition().getY(),b.getSize().getWidth(),b.getSize().getHeight(),null,this);
 	}
 	
 	public void drawScore(Graphics g){
@@ -101,13 +99,6 @@ public class RedKnotView extends GameView {
 		//Testing Collision for Clouds and RedKnot (Works -Miguel)
 		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
 			System.out.println("COLLISION!");
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
 		}
 	}
 	
@@ -125,18 +116,8 @@ public class RedKnotView extends GameView {
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
 		fnameMap.put("cloudnorain.png",RedKnotAsset.CLOUD);
 		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
+		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
+		
 	}
-	
-//	public BufferedImage loadImage(File f) {
-//		BufferedImage output=null;
-//		try{
-//			output = ImageIO.read(f);
-//		}catch (IOException e){
-//			e.printStackTrace();
-//		}
-//		return output;
-//	}
-
-	
 	
 }

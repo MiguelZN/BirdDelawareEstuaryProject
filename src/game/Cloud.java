@@ -81,7 +81,7 @@ public class Cloud extends DynamicGameObject{
 		int max_width = (int)(CLOUD_WIDTH*MAX_MOD)+CLOUD_WIDTH;
 		int new_width = Utility.randRangeInt(min_width, max_width);
 		this.hitBox.changeWidth(new_width);
-		System.out.println("WIDTH:"+this.hitBox.width);
+//		System.out.println("WIDTH:"+this.hitBox.width);
 		
 		int min_height = (int)(CLOUD_HEIGHT*MIN_MOD);
 		int max_height = (int)(CLOUD_HEIGHT*MAX_MOD)+CLOUD_HEIGHT;

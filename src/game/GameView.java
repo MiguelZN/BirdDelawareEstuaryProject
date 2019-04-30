@@ -73,9 +73,20 @@ public abstract class GameView extends JPanel{
 		
 		for(File f : files){
 			Object loaded_image = loadImage(f); //o is either a BufferedImage or ImageIcon
+			System.out.println(f.getName());
 			
-			//In the objectMap it places either a BufferedImage or ImageIcon at the fnameMap.get()
-			objectMap.put(fnameMap.get(f.getName()), loaded_image);
+			/*
+			 * NOTE: the format of all sprite filenames will be:
+			 * sprite-FRAMECOUNT-ANIMATIONNAME.png
+			 */
+			if(f.getName().startsWith("sprite-")){
+				int frameCount = Integer.parseInt(f.getName().split("-")[1]);
+				objectMap.put(fnameMap.get(f.getName()), new Animation(loaded_image,frameCount));
+			}else{
+				//In the objectMap it places either a BufferedImage or ImageIcon at the fnameMap.get()
+				objectMap.put(fnameMap.get(f.getName()), loaded_image);
+			}
+			
 		}
 	}
 	
