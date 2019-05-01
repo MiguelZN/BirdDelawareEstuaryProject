@@ -17,6 +17,9 @@ public class GameScreen extends JFrame{
 	private int width;
 	private int height;
 	
+	public static final int SCREEN_BORDER_PX = 4;
+	public static final int TITLE_BAR_HEIGHT = 26;
+	
 	public static final int TITLE_SCREEN_WIDTH = 500;
 	public static final int TITLE_SCREEN_HEIGHT = 500;
 	
@@ -65,6 +68,5 @@ public class GameScreen extends JFrame{
 	public void setTitleSize() {
 		this.setSize(TITLE_SCREEN_WIDTH, TITLE_SCREEN_HEIGHT);
 	}
-	
 	
 }

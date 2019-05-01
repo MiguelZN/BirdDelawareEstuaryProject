@@ -40,6 +40,10 @@ public class GameObject {
 	public Position getPosition() {
 		return this.hitBox.getPosition();
 	}
+	public void setHitBoxSize(Size s){
+		this.hitBox.changeHeight(s.getHeight());
+		this.hitBox.changeWidth(s.getWidth());
+	}
 	
 	//Sets the location of the HitBox (top left)
 	public void setPosition(Position newPos) {

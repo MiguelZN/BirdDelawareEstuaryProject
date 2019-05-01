@@ -190,7 +190,6 @@ public class Controller implements KeyListener {
 		
 		if(key==KeyEvent.VK_ESCAPE) {
 			changeView(GameMode.TITLESCREEN);
-			this.screen.setSize(500,500);
 		}
 		
 		if(this.current_mode==GameMode.CLAPPERRAIL) {

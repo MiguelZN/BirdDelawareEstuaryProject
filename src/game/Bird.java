@@ -17,7 +17,6 @@ public class Bird extends DynamicGameObject {
 	public Bird(Position p, Size s, Velocity v, BirdType bird_type) {
 		super(p, s, v);
 		this.size = s;
-		
 	}
 
 	public BirdType getBird_type() {
@@ -71,23 +70,26 @@ public class Bird extends DynamicGameObject {
 		return updownstop;
 	}
 	public void setFlyState(int x) {
-		System.out.println("WE SET THE FLY STATE");
 		updownstop=x;
 	}
 	public void FlyUp() {
 		Position p = this.getPosition();
 		int new_y = p.getY()-this.getVelocity().getYSpeed();
+		//if this will place the bird off the screen, dont move the bird.
+		if(new_y < 0)
+			return;
 		this.setPosition(new Position(p.getX(),new_y));
 	}
 	
 	public void FlyDown() {
 		Position p = this.getPosition();
-		System.out.println("RK POSITION:"+p.getX()+","+p.getY());
 		int new_y = p.getY()+this.getVelocity().getYSpeed();
-		System.out.println("NEW Y:"+new_y);
+		//if this will place the bird off the screen, dont move the bird.
+		System.out.println(new_y);
+		System.out.println(this.getSize().getHeight());
+		if((new_y + this.getSize().getHeight() + GameScreen.TITLE_BAR_HEIGHT) > GameScreen.PLAY_SCREEN_HEIGHT)
+			return;
 		this.setPosition(new Position(p.getX(),new_y));
-		System.out.println("RK NEW POSITION:"+p.getX()+","+p.getY());
-		
 	}
 	
 	/*Method: eat()

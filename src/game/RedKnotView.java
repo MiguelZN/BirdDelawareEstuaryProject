@@ -77,7 +77,7 @@ public class RedKnotView extends GameView {
 		String toDrawString = RedKnotGameState.SCORE_TEXT + controller.getRedKnotGS().getScore();
 		int string_width = fm.stringWidth(toDrawString);
 		
-		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width, 0+RedKnotGameState.SCORE_FONT_SIZE);
+		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
 	}
 	
 	//Takes the Clouds ArrayList and draws individual clouds
