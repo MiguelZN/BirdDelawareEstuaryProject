@@ -62,8 +62,9 @@ public class ClapperRailGameState extends GameState {
 
 	@Override
 	public ArrayList<GameObject> getUpdateableGameObjects() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<GameObject> output = new ArrayList<>();
+		output.add(CR);
+		return output;
 	}
 	
 	

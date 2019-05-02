@@ -79,7 +79,7 @@ public class ClapperRailView extends GameView{
 
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
-		// TODO Auto-generated method stub
+		clapper = (ClapperRail)gameObjects.get(0);
 		
 	}
 
