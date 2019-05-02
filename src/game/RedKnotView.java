@@ -36,7 +36,7 @@ public class RedKnotView extends GameView {
 	 */
 	private final int BACKGROUND_SPEED = 5;
 	private ArrayList<Cloud> clouds;
-	private Bird redKnot;
+	private RedKnot redKnot;
 //	private ArrayList<Bird> flock; to be used later when we add the flock
 	private int score;
 	
@@ -47,7 +47,7 @@ public class RedKnotView extends GameView {
 	public RedKnotView(){
 		super();
 		score=0;
-		redKnot= new Bird();
+		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
 		//Charizard Sprite animation using the Redknot's position to draw it
 //		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,15,60);
@@ -80,7 +80,7 @@ public class RedKnotView extends GameView {
 	
 	public void update(ArrayList<GameObject> gameObjects){
 		clouds = new ArrayList<>();
-		redKnot = (Bird)gameObjects.get(0);
+		redKnot = (RedKnot)gameObjects.get(0);
 		gameObjects.remove(0);
 		for(GameObject go : gameObjects){
 			if(go instanceof Cloud){

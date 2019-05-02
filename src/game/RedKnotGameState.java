@@ -12,7 +12,7 @@ import java.util.List;
  * -keeps track of the gamestate data of the RedKnot minigame
  */
 public class RedKnotGameState extends GameState {
-	private Bird RK;
+	private RedKnot RK;
 	private ArrayList<Bird> flock;
 	private int score;
 	static final String SCORE_TEXT = "Score: ";
@@ -30,7 +30,7 @@ public class RedKnotGameState extends GameState {
 	public RedKnotGameState(Controller controller){
 		super(controller);
 		this.score=0; //Sets the initial score 
-		this.RK = new Bird(new Position(100,20), new Size(100,50), new Velocity(5,5), BirdType.REDKNOT);
+		this.RK = new RedKnot();
 		this.flock = new ArrayList<>();
 		this.clouds = new ArrayList<>();
 		this.addClouds();
@@ -41,7 +41,7 @@ public class RedKnotGameState extends GameState {
 	}
 	
 	public void collectBird() {
-		this.flock.add(new Bird(new Position(0,0), new Size(20,20), new Velocity(10,0), BirdType.FLOCKBIRD));
+		this.flock.add(new Bird(new Position(0,0), new Size(20,20), new Velocity(10,0)));
 	}
 	
 	public void lostBird() {
@@ -109,7 +109,7 @@ public class RedKnotGameState extends GameState {
 		return flock.size();
 	}
 
-	public Bird getRK() {
+	public RedKnot getRK() {
 		return RK;
 	}
 

@@ -211,6 +211,7 @@ public class Controller implements KeyListener {
 			this.view.setVisible(false);
 			// this.view = new InstructionsView(this,this.InstructionsGS);
 			this.view = new InstructionsView();
+			setUpInstructionsButton();
 			this.screen.add(this.view);
 			this.current_mode = GameMode.INSTRUCTIONS;
 			break;
@@ -298,7 +299,7 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (this.current_mode == GameMode.REDKNOT) {
-			Bird b = RedKnotGS.getRK();
+			RedKnot b = RedKnotGS.getRK();
 			switch (key) {
 			case KeyEvent.VK_UP:
 				b.setFlyState((b.getFlyState() == 1 ? 0 : b.getFlyState()));

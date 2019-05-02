@@ -38,11 +38,11 @@ public class ClapperRailView extends GameView{
 //	private int xpos = 5;
 	
 	int background_x=5;
-	Bird clapper;
+	ClapperRail clapper;
 	
 	public ClapperRailView() {
 		super();
-		clapper=new Bird();
+		clapper=new ClapperRail();
 		
 		try {
 			loadAllImages("/resources/images/clapperrail");

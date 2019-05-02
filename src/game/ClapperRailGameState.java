@@ -11,18 +11,13 @@ import java.util.ArrayList;
  * -keeps track of the data for the ClapperRail mini-game
  */
 public class ClapperRailGameState extends GameState {
-	private Bird CR;
+	private ClapperRail CR;
 	private ArrayList<GameObject> Materials;
-	private final int XSTART = 100;
-	private final int YSTART = 380;
-	private final int VXSTART = 10;
-	private final int VYSTART = 0;
-	private final int SIZE = 80;
 	
 	
 	public ClapperRailGameState(Controller controller){
 		super(controller);
-		this.CR = new Bird(new Position(XSTART,YSTART), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART), BirdType.CLAPPERRAIL);
+		this.CR = new ClapperRail();
 		this.Materials = new ArrayList<>();
 		
 	}
