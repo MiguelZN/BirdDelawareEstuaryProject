@@ -150,11 +150,10 @@ public class Controller implements KeyListener {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				updateModel();
+				SwingUtilities.invokeLater(() -> updateModel());
 			}
 		});
 		t.start();
-
 		return true;
 	}
 

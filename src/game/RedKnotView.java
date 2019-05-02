@@ -112,14 +112,17 @@ public class RedKnotView extends GameView {
 	
 	//Takes the Clouds ArrayList and draws individual clouds
 	public void drawClouds(Graphics g) {
+		
+		
+		for(int i = 0; i < clouds.size();i++){
+			drawCloud(clouds.get(i),g);
+		}
+		/*
 		for(Cloud c:clouds) {
-//			drawAndMoveCloud(c,g);
-			drawCloud(c,g);
-			
-			
+			drawCloud(c,g);	
 			//the hitbox drawing needs to be restructured, if we want to still use it.
 //			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
-		}
+		}*/
 	}
 	public void drawCloud(Cloud c, Graphics g){
 		Position current_pos = c.getPosition();
