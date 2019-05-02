@@ -34,10 +34,10 @@ public class Controller implements KeyListener {
 		this.ClapperRailGS = new ClapperRailGameState(this);
 		this.InstructionsGS = new InstructionsModel(this);
 		this.screen.addKeyListener(this);
-		view = new TitleScreenView(this);
+		view = new TitleScreenView();
 		
 		//this will be uncommented after the todos are fixed.
-//		setUpTitleButtons();
+		setUpTitleButtons();
 		
 	}
 
@@ -97,9 +97,9 @@ public class Controller implements KeyListener {
 		System.out.println("title buttons are set up");
 		BorderLayout layout = new BorderLayout();
 		tsv.setLayout(layout);
-		tsv.add(tsv.RedKnot, BorderLayout.EAST);
-		tsv.add(tsv.Instructions, BorderLayout.PAGE_START);
 		tsv.add(tsv.RedKnot, BorderLayout.WEST);
+		tsv.add(tsv.Instructions, BorderLayout.PAGE_START);
+		tsv.add(tsv.ClapperRail, BorderLayout.EAST);
 		
 	}
 
@@ -232,7 +232,8 @@ public class Controller implements KeyListener {
 		case TITLESCREEN:
 			this.view.setVisible(false);
 			// this.view = new TitleScreenView(this,this.TitleGS);
-			this.view = new TitleScreenView(this);
+			this.view = new TitleScreenView();
+			setUpTitleButtons();
 			this.screen.add(this.view);
 			this.current_mode = GameMode.TITLESCREEN;
 			break;

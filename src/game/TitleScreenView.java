@@ -20,39 +20,14 @@ public class TitleScreenView extends GameView{
 	JButton ClapperRail;
 	JButton Instructions;
 	
-	
-	
-	
-	
-	Controller contr;
-	
 	/*TODO: fix later
 	 * This isn't mvc but I'm leaving it for now.
 	 */
-	public TitleScreenView(Controller c) {
+	public TitleScreenView() {
 		super();
-		contr=c;
 		this.RedKnot = new JButton("RED KNOT");
 		this.ClapperRail = new JButton("CLAPPER RAIL");
 		this.Instructions = new JButton("INSTRUCTIONS");
-		this.RedKnot.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("button pressed");
-				contr.changeView(GameMode.REDKNOT);
-			}
-		});
-		this.ClapperRail.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				contr.changeView(GameMode.CLAPPERRAIL);
-			}
-		});
-		this.Instructions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contr.changeView(GameMode.INSTRUCTIONS);
-			}
-		});
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 		this.add(ClapperRail, BorderLayout.EAST);
