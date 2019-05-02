@@ -26,6 +26,8 @@ public abstract class GameState extends Model {
 	
 	public abstract void ontick();
 	
+	public abstract ArrayList<GameObject> getUpdateableGameObjects();
+	
 	public abstract void addGameObject(GameObject o);
 	
 	public void setBackgroundX(int x) {

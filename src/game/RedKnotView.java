@@ -27,11 +27,28 @@ public class RedKnotView extends GameView {
 	/**
 	 * 
 	 */
+	
+	/*
+	 *  Clouds 
+	 *  Bird
+	 *  Score
+	 * 
+	 */
+	private final int BACKGROUND_SPEED = 5;
+	private ArrayList<Cloud> clouds;
+	private Bird redKnot;
+//	private ArrayList<Bird> flock; to be used later when we add the flock
+	private int score;
+	
+	int background_x = 5;
+	
+	
 	private static final long serialVersionUID = 1L;
-	public RedKnotView(Controller controller){
-		super(controller);
-		controller.getScreen().setPlaySize();
-		
+	public RedKnotView(){
+		super();
+		score=0;
+		redKnot= new Bird();
+		clouds = new ArrayList<>();
 		//Charizard Sprite animation using the Redknot's position to draw it
 //		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,15,60);
 		
@@ -43,6 +60,8 @@ public class RedKnotView extends GameView {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	/*
 	 * NOTE: 
@@ -51,20 +70,31 @@ public class RedKnotView extends GameView {
 	public void paintComponent(Graphics g) {
 		scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
 		g.setColor(Color.RED);
-		Bird RK = this.controller.getRedKnotGS().getRK();
 //		birdMovement(RK);
 		drawClouds(g);
 		drawScore(g);
-		drawBird(g,RK);
+		drawBird(g);
 		g.setColor(Color.BLUE);
-		Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);
-
-		
+//		Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);	
+	}
+	
+	public void update(ArrayList<GameObject> gameObjects){
+		clouds = new ArrayList<>();
+		redKnot = (Bird)gameObjects.get(0);
+		gameObjects.remove(0);
+		for(GameObject go : gameObjects){
+			if(go instanceof Cloud){
+				clouds.add((Cloud)go);
+			}
+		}
+	}
+	public void setScore(int x){
+		this.score=x;
 	}
 	//draw our character, the bird.
-	public void drawBird(Graphics g,Bird b){
+	public void drawBird(Graphics g){
 		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
-		g.drawImage(birdAnim.currImage(),b.getPosition().getX(),b.getPosition().getY(),b.getSize().getWidth(),b.getSize().getHeight(),null,this);
+		g.drawImage(birdAnim.currImage(),redKnot.getPosition().getX(),redKnot.getPosition().getY(),redKnot.getSize().getWidth(),redKnot.getSize().getHeight(),null,this);
 	}
 	
 	public void drawScore(Graphics g){
@@ -74,7 +104,7 @@ public class RedKnotView extends GameView {
 		//System.out.println(fm.getFont());
 		
 		//The String being drawn
-		String toDrawString = RedKnotGameState.SCORE_TEXT + controller.getRedKnotGS().getScore();
+		String toDrawString = RedKnotGameState.SCORE_TEXT + score;
 		int string_width = fm.stringWidth(toDrawString);
 		
 		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
@@ -82,12 +112,13 @@ public class RedKnotView extends GameView {
 	
 	//Takes the Clouds ArrayList and draws individual clouds
 	public void drawClouds(Graphics g) {
-		ArrayList<Cloud> clouds = this.getController().getRedKnotGS().getClouds();
 		for(Cloud c:clouds) {
 //			drawAndMoveCloud(c,g);
 			drawCloud(c,g);
 			
-			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
+			
+			//the hitbox drawing needs to be restructured, if we want to still use it.
+//			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
 		}
 	}
 	public void drawCloud(Cloud c, Graphics g){
@@ -107,12 +138,11 @@ public class RedKnotView extends GameView {
 	
 	//Moves the background 
 	public void scrollImage(Graphics g, Object background1, Object background2){
-		int new_background_x = (this.controller.getRedKnotGS().getBackgroundX() % GameScreen.PLAY_SCREEN_WIDTH)+this.controller.getRedKnotGS().getRK().getVelocity().getXSpeed();
-		this.controller.getRedKnotGS().setBackgroundX(new_background_x);
-		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
-		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
+		background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)+BACKGROUND_SPEED;
+		g.drawImage((Image) objectMap.get(background1), background_x*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
 	}
-
+    
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);

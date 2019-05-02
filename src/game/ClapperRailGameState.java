@@ -64,6 +64,12 @@ public class ClapperRailGameState extends GameState {
 			this.getCR().setPosition(new Position(0,this.getCR().getPosition().getY()));
 		}
 	}
+
+	@Override
+	public ArrayList<GameObject> getUpdateableGameObjects() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

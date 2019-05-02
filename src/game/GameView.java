@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -18,12 +19,11 @@ import javax.swing.JPanel;
  * -contains methods and all the images required to draw onto the screen
  */
 public abstract class GameView extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BufferedImage gameImage;
-	private BufferedImage miniMap;
-	private BufferedImage birdImage;
-	private BufferedImage foodImage;
-	private BufferedImage nestImage;
-	protected Controller controller;
 	protected HashMap<Object, Object> objectMap;
 	protected HashMap<String, Object> fnameMap; //takes in a string and an Enum for the views
 	
@@ -31,28 +31,22 @@ public abstract class GameView extends JPanel{
 		
 	}
 	
-	public GameView(Controller c) {
-		this.controller=c;
+	public GameView() {
 //		this.setSize(this.controller.getScreen().PLAY_SCREEN_WIDTH, this.controller.getScreen().PLAY_SCREEN_HEIGHT);
 //		this.revalidate();
 		objectMap = new HashMap<>();
 		fnameMap = new HashMap<>();
 	}
 	
-	
+	public abstract void setScore(int x);
+	public abstract void update(ArrayList<GameObject> gameObjects);
 	public void updateView() {
 		
-	}
-	public void setController(Controller c){
-		controller=c;
 	}
 	private BufferedImage createImage() {
 		gameImage = new BufferedImage(500,500,BufferedImage.TYPE_INT_RGB);
 		
 		return gameImage;
-	}
-	public Controller getController(){
-		return controller;
 	}
 	
 	/*

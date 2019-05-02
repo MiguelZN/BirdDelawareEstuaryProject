@@ -20,6 +20,7 @@ public class GameObject {
 	/*Contructor: 
 	 * -takes in an x,y ints to set the starting Position of the GameObject
 	 */
+	public GameObject(){}
 	public GameObject(int x, int y) {
 		this.hitBox = new HitBox(x,y,0,0);
 	}

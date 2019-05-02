@@ -19,6 +19,10 @@ public class Bird extends DynamicGameObject {
 		this.size = s;
 	}
 
+	public Bird(){
+		this(new Position(100,20), new Size(100,50), new Velocity(5,5), BirdType.REDKNOT);
+	}
+	
 	public BirdType getBird_type() {
 		return bird_type;
 	}

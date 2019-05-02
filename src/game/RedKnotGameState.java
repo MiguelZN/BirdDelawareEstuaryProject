@@ -74,6 +74,18 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	public ArrayList<GameObject> getUpdateableGameObjects(){
+//		RK flock clouds
+		ArrayList<GameObject> output = new ArrayList<>();
+		output.add(RK);//it is important that we insert the redknot first.
+		output.addAll(clouds);
+		
+//		output.addAll(flock);
+		
+		return output;
+		
+	}
+	
 	
 	public void addClouds() {
 		for(int i=0;i<this.AMOUNT_OF_CLOUDS;i++) {

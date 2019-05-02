@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -45,8 +46,8 @@ public class InstructionsView extends GameView{
 	public JButton getBacktoMenuButton() {
 		return backtoMenuButton;
 	}
-	public InstructionsView(Controller c) {
-		super(c);
+	public InstructionsView() {
+		super();
 		
 		try {
 			loadAllImages("/resources/images/instructions");
@@ -63,13 +64,6 @@ public class InstructionsView extends GameView{
 		});
 		
 		this.backtoMenuButton = new JButton("Back-to-Menu");
-		this.backtoMenuButton.addActionListener(new ActionListener() {
-
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        c.changeView(GameMode.TITLESCREEN);
-		    }
-		});
 		this.nextButton.setSize(75, 30);
 		this.backtoMenuButton.setSize(75,30);
 		BorderLayout layout = new BorderLayout();
@@ -145,6 +139,19 @@ public class InstructionsView extends GameView{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void update(ArrayList<GameObject> gameObjects) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	//maybe we need to split our views that aren't games from the gameview, but
+	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
+	// here since it changes nothing.
+	@Override
+	public void setScore(int x) {}
 	
 	
 }

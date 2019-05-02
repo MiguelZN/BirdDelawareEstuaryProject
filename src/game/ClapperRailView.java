@@ -15,6 +15,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -36,8 +37,12 @@ import javax.swing.JButton;
 public class ClapperRailView extends GameView{
 //	private int xpos = 5;
 	
-	public ClapperRailView(Controller controller) {
-		super(controller);
+	int background_x=5;
+	Bird clapper;
+	
+	public ClapperRailView() {
+		super();
+		clapper=new Bird();
 		
 		try {
 			loadAllImages("/resources/images/clapperrail");
@@ -45,18 +50,14 @@ public class ClapperRailView extends GameView{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		controller.getScreen().setPlaySize();
-		
-		Container current_layout = controller.getScreen().getContentPane();
 	}
 	
 	
 	public void paintComponent(Graphics g) {
 		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		g.setColor(new Color(224,160, 42));
-		Position p = this.controller.getClapperRailGS().getCR().getPosition();
-		g.fillOval(p.getX(),p.getY(),controller.getClapperRailGS().getCR().getSize().getWidth(),controller.getClapperRailGS().getCR().getSize().getWidth());
+		Position p = clapper.getPosition();
+		g.fillOval(p.getX(),p.getY(),clapper.getSize().getWidth(),clapper.getSize().getWidth());
 		this.setVisible(true);
 		
 	}
@@ -70,10 +71,22 @@ public class ClapperRailView extends GameView{
 
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
-		int new_background_x = (this.controller.getClapperRailGS().getBackgroundX());
-		this.controller.getClapperRailGS().setBackgroundX(new_background_x);
-		g.drawImage((Image) objectMap.get(background1), new_background_x*-1, -5, 1005, 505, null, this);
-		g.drawImage((Image) objectMap.get(background2), (new_background_x*-1)+1000, -5, 1005, 505, null, null);
+		g.drawImage((Image) objectMap.get(background1), background_x*-1, -5, 1005, 505, null, this);
+		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+1000, -5, 1005, 505, null, null);
+		
+	}
+
+
+	@Override
+	public void update(ArrayList<GameObject> gameObjects) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setScore(int x) {
+		// TODO Auto-generated method stub
 		
 	}
 

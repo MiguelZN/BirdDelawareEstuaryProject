@@ -6,6 +6,7 @@ package game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JButton;
@@ -19,35 +20,45 @@ public class TitleScreenView extends GameView{
 	JButton ClapperRail;
 	JButton Instructions;
 	
+	
+	
+	
+	
+	Controller contr;
+	
+	/*TODO: fix later
+	 * This isn't mvc but I'm leaving it for now.
+	 */
 	public TitleScreenView(Controller c) {
-		super(c);
+		super();
+		contr=c;
 		this.RedKnot = new JButton("RED KNOT");
-		this.RedKnot.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        c.changeView(GameMode.REDKNOT);
-		    }
-		});
 		this.ClapperRail = new JButton("CLAPPER RAIL");
-		this.ClapperRail.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        c.changeView(GameMode.CLAPPERRAIL);
-		    }
-		});
 		this.Instructions = new JButton("INSTRUCTIONS");
+		this.RedKnot.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("button pressed");
+				contr.changeView(GameMode.REDKNOT);
+			}
+		});
+		this.ClapperRail.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				contr.changeView(GameMode.CLAPPERRAIL);
+			}
+		});
 		this.Instructions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				c.changeView(GameMode.INSTRUCTIONS);
+			public void actionPerformed(ActionEvent e) {
+				contr.changeView(GameMode.INSTRUCTIONS);
 			}
 		});
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
-		this.add(RedKnot, BorderLayout.WEST);
 		this.add(ClapperRail, BorderLayout.EAST);
 		this.add(Instructions, BorderLayout.PAGE_START);
+		this.add(RedKnot, BorderLayout.WEST);
 	}
-	
 
 	@Override
 	public void fnameMapCreate() {
@@ -62,6 +73,23 @@ public class TitleScreenView extends GameView{
 
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void update(ArrayList<GameObject> gameObjects) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	//maybe we need to split our views that aren't games from the gameview, but
+	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
+	// here since it changes nothing.
+	@Override
+	public void setScore(int x) {
 		// TODO Auto-generated method stub
 		
 	}
