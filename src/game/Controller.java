@@ -146,6 +146,7 @@ public class Controller implements KeyListener {
 	 * 
 	 */
 	public boolean loop() {
+		SwingUtilities.invokeLater(() -> screen.redraw());
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -153,7 +154,7 @@ public class Controller implements KeyListener {
 			}
 		});
 		t.start();
-		SwingUtilities.invokeLater(() -> screen.redraw());
+
 		return true;
 	}
 
