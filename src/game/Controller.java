@@ -20,27 +20,54 @@ import javax.swing.SwingUtilities;
 public class Controller implements KeyListener {
 	private GameView view;
 	private GameScreen screen;
-	private GameMode current_mode;
+	private Model current_state;
 
 	// All gamestates:
+	/*
 	private RedKnotGameState RedKnotGS;
 	private ClapperRailGameState ClapperRailGS;
 	private TitleScreenModel TitleGS;
 	private InstructionsModel InstructionsGS;
-
+	*/
 	public Controller() {
 		this.screen = new GameScreen(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT);
-		this.RedKnotGS = new RedKnotGameState(this);
-		this.ClapperRailGS = new ClapperRailGameState(this);
-		this.InstructionsGS = new InstructionsModel(this);
 		this.screen.addKeyListener(this);
-		view = new TitleScreenView();
-		
-		//this will be uncommented after the todos are fixed.
-		setUpTitleButtons();
-		
+		setUpTitleScreen();
 	}
 
+	
+	
+	/* This method will exist for each view, for safety purposes.
+	 * 
+	 * Sets our view to the titlescreenview, this methods purpose is to make sure we don't forget
+	 * to set up the buttons when we switch to the title screen. Make sure
+	 * that we use this method to switch to the titlescreen, and not just typing
+	 * view = new titleScreenView();
+	 */
+	public void setUpTitleScreen(){
+		view = new TitleScreenView();
+		setUpTitleButtons();
+		this.screen.add(view);
+		current_state = new TitleScreenModel(this);
+	}
+	public void setUpInstructions(){
+		view = new InstructionsView();
+		setUpInstructionsButton();
+		this.screen.add(view);
+		current_state = new InstructionsModel(this);
+		
+	}
+	public void setUpRedKnotGame(){
+		view=new RedKnotView();
+		this.screen.add(view);
+		current_state = new RedKnotGameState(this);
+		
+	}
+	public void setUpClapperRailGame(){
+		view= new ClapperRailView();
+		this.screen.add(view);
+		current_state = new ClapperRailGameState(this);
+	}
 	
 	//TODO: finish/fix this.
 	//same thing as the below method, this doesn't work.
@@ -161,42 +188,13 @@ public class Controller implements KeyListener {
 	 * Calls the Current Models Update Method
 	 */
 	public void updateModel() {
-		if (current_mode == GameMode.CLAPPERRAIL) {
-			ClapperRailGS.ontick();
-			ArrayList<GameObject> gameObjects = ClapperRailGS.getUpdateableGameObjects();
+		if(current_state instanceof GameState){
+			GameState gs=(GameState)current_state;
+			gs.ontick();
+			ArrayList<GameObject> gameObjects = gs.getUpdateableGameObjects();
 			view.update(gameObjects);
-		} else if (current_mode == GameMode.REDKNOT) {
-			RedKnotGS.ontick();
-			ArrayList<GameObject> gameObjects = RedKnotGS.getUpdateableGameObjects();
-			view.update(gameObjects);
-			view.setScore(RedKnotGS.getScore());
-		} else if (current_mode == GameMode.INSTRUCTIONS) {
-
-		} else if (current_mode == GameMode.TITLESCREEN) {
-
 		}
 	}
-
-	public GameMode getCurrent_mode() {
-		return current_mode;
-	}
-
-	public RedKnotGameState getRedKnotGS() {
-		return RedKnotGS;
-	}
-
-	public ClapperRailGameState getClapperRailGS() {
-		return ClapperRailGS;
-	}
-
-	public TitleScreenModel getTitleGS() {
-		return TitleGS;
-	}
-
-	public InstructionsModel getInstructionsGS() {
-		return InstructionsGS;
-	}
-
 	public GameView getView() {
 		return view;
 	}
@@ -209,33 +207,19 @@ public class Controller implements KeyListener {
 		switch (mode) {
 		case INSTRUCTIONS:
 			this.view.setVisible(false);
-			// this.view = new InstructionsView(this,this.InstructionsGS);
-			this.view = new InstructionsView();
-			setUpInstructionsButton();
-			this.screen.add(this.view);
-			this.current_mode = GameMode.INSTRUCTIONS;
+			setUpInstructions();
 			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
-			// this.view = new ClapperRailView(this,this.ClapperRailGS);
-			this.view = new ClapperRailView();
-			this.screen.add(this.view);
-			this.current_mode = GameMode.CLAPPERRAIL;
+			setUpClapperRailGame();
 			break;
 		case REDKNOT:
 			this.view.setVisible(false);
-			// this.view = new RedKnotView(this,this.RedKnotGS);
-			this.view = new RedKnotView();
-			this.screen.add(this.view);
-			this.current_mode = GameMode.REDKNOT;
+			setUpRedKnotGame();
 			break;
 		case TITLESCREEN:
 			this.view.setVisible(false);
-			// this.view = new TitleScreenView(this,this.TitleGS);
-			this.view = new TitleScreenView();
-			setUpTitleButtons();
-			this.screen.add(this.view);
-			this.current_mode = GameMode.TITLESCREEN;
+			setUpTitleScreen();
 			break;
 
 		}
@@ -262,34 +246,35 @@ public class Controller implements KeyListener {
 			changeView(GameMode.TITLESCREEN);
 		}
 
-		if (this.current_mode == GameMode.CLAPPERRAIL) {
+		if (current_state instanceof ClapperRailGameState) {
+			ClapperRailGameState ClapperRailGS = (ClapperRailGameState)current_state;
 			System.out.println("CURRENT MODE IS CLAPPERRAIL");
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
-				this.ClapperRailGS.getCR().move();
-				this.ClapperRailGS.moveBackground();
-				this.ClapperRailGS.checkRightBounds(getScreen().PLAY_SCREEN_WIDTH);
+				ClapperRailGS.getCR().move();
+				ClapperRailGS.moveBackground();
+				ClapperRailGS.checkRightBounds(getScreen().PLAY_SCREEN_WIDTH);
 				break;
 			case KeyEvent.VK_LEFT:
-				this.ClapperRailGS.getCR().moveLeft();
+				ClapperRailGS.getCR().moveLeft();
 				break;
 			case KeyEvent.VK_SPACE:
-				this.getClapperRailGS().getCR().jump();
+				ClapperRailGS.getCR().jump();
 				break;
 			}
-		} else if (this.current_mode == GameMode.REDKNOT) {
+		} else if (current_state instanceof RedKnotGameState) {
+			RedKnotGameState RedKnotGS = (RedKnotGameState) current_state;
 			System.out.println("CURRENT MODE IS REDKNOT");
 			switch (key) {
 			case KeyEvent.VK_UP:
-				this.RedKnotGS.getRK().newFlyUp();
-				;
+				RedKnotGS.getRK().newFlyUp();
 				break;
 			// change these to be setUp and setDown
 			case KeyEvent.VK_DOWN:
-				this.RedKnotGS.getRK().newFlyDown();
+				RedKnotGS.getRK().newFlyDown();
 				break;
 			case KeyEvent.VK_S:
-				this.RedKnotGS.switchDebugMode();
+				RedKnotGS.switchDebugMode();
 				break;
 			}
 		}
@@ -298,7 +283,8 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-		if (this.current_mode == GameMode.REDKNOT) {
+		if (current_state instanceof RedKnotGameState) {
+			RedKnotGameState RedKnotGS = (RedKnotGameState) current_state;
 			RedKnot b = RedKnotGS.getRK();
 			switch (key) {
 			case KeyEvent.VK_UP:
