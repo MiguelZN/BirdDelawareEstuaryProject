@@ -37,7 +37,7 @@ public class RedKnotView extends GameView {
 	private final int BACKGROUND_SPEED = 5;
 	private ArrayList<Cloud> clouds;
 	private RedKnot redKnot;
-//	private ArrayList<Bird> flock; to be used later when we add the flock
+	private ArrayList<FlockBird> flock;
 	private int score;
 	
 	int background_x = 5;
@@ -49,9 +49,7 @@ public class RedKnotView extends GameView {
 		score=0;
 		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
-		//Charizard Sprite animation using the Redknot's position to draw it
-//		test_anim = new Animation("resources/images/redknot/redknotspritesheet2.png", new Size(200,100),1,6,15,60);
-		
+		flock = new ArrayList<>();
 		
 		try {
 			loadAllImages("/resources/images/redknot");
@@ -75,18 +73,26 @@ public class RedKnotView extends GameView {
 		drawScore(g);
 		drawBird(g);
 		g.setColor(Color.BLUE);
+		drawFlockBirds(g);
 		//Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);	
 	}
 	
 	public void update(ArrayList<GameObject> gameObjects){
 		clouds = new ArrayList<>();
 		redKnot = (RedKnot)gameObjects.get(0);
+		flock = new ArrayList<>();
 		//gameObjects.remove(0);
 		for(GameObject go : gameObjects){
 			if(go instanceof Cloud){
 				clouds.add((Cloud)go);
 			}
+			else if(go instanceof FlockBird) {
+				System.out.println("ADDED FLOCK BIRD");
+				flock.add((FlockBird)go);
+			}
 		}
+		
+		System.out.println(flock.size());
 	}
 	public void setScore(int x){
 		this.score=x;
@@ -110,12 +116,24 @@ public class RedKnotView extends GameView {
 		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
 	}
 	
+	public void drawFlockBird(FlockBird FB, Graphics g) {
+		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
+		g.drawImage(birdAnim.currImage(FB.frameIndex),FB.getPosition().getX(),FB.getPosition().getY(),FB.getSize().getWidth(),FB.getSize().getHeight(),null,this);
+		FB.updateCurrImage();
+	}
+	
+	public void drawFlockBirds(Graphics g) {
+		for(FlockBird FB: flock) {
+			drawFlockBird(FB, g);
+		}
+	}
+	
 	//Takes the Clouds ArrayList and draws individual clouds
 	public void drawClouds(Graphics g) {
 		
 		
-		for(int i = 0; i < clouds.size();i++){
-			drawCloud(clouds.get(i),g);
+		for(Cloud c:clouds){
+			drawCloud(c,g);
 		}
 		/*
 		for(Cloud c:clouds) {

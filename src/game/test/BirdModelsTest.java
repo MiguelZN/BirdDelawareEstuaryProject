@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import game.Energy;
+import game.FlockBird;
 import game.GameObject;
 import game.RedKnotGameState;
 import game.Bird;
@@ -30,7 +31,7 @@ public class BirdModelsTest {
 	@Test
 	public void testGetFlock() {
 		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
-		ArrayList<Bird> flock = redknotgamestate.getFlock();
+		ArrayList<FlockBird> flock = redknotgamestate.getFlock();
 		assertEquals(redknotgamestate.getFlock(), flock);
 	}
 	

@@ -29,7 +29,7 @@ public class Cloud extends DynamicGameObject{
 	
 	
 	public Cloud(int x, int y, int width, int height) {
-		super(x, y, width, height, Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
+		super(x, y, width, height, -1*Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY);
 		this.reSize(); //resizes the Cloud
 		this.hitBox.updateRectangleHitBox();
 	}
@@ -93,7 +93,7 @@ public class Cloud extends DynamicGameObject{
 	 */
 	@Override
 	public void move() {
-		int new_x = this.getPosition().getX()-this.getVelocity().getXSpeed();
+		int new_x = this.getPosition().getX()+this.getVelocity().getXSpeed();
 		this.setPosition(new Position(new_x, this.getPosition().getY()));
 	}
 	

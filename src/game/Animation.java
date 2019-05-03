@@ -44,9 +44,18 @@ public class Animation {
 		}
 		return images[frameIndex];
 	}
+	
+	//Given a frameIndex, this returns the Animation image corresponding to it (FOR FLOCKBIRD)
+	public BufferedImage currImage(int frameIndex) {
+		return images[frameIndex];
+	}
 	//frameIndex++
 	public void incrementIndex(){
 		frameIndex=(frameIndex+1)%frameCount;
+	}
+	
+	public int getFrameCount() {
+		return this.frameCount;
 	}
 	
 }

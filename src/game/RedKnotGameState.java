@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class RedKnotGameState extends GameState {
 	private RedKnot RK;
-	private ArrayList<Bird> flock;
 	private int score;
 	static final String SCORE_TEXT = "Score: ";
 	static final int SCORE_FONT_SIZE = 40;
@@ -25,6 +24,13 @@ public class RedKnotGameState extends GameState {
 	//Enemy clouds
 	private ArrayList<Cloud> clouds; 
 	private final int AMOUNT_OF_CLOUDS = 5;
+	
+	//FlockBirds
+	private ArrayList<FlockBird> flock; 
+	//The range which controls how low/high of a chance for a FlockBird to appear
+	private final int FB_CHANCE_MAX = 1000; 
+	private final int FB_CHANCE_LOW = 0;
+	private final int FB_THRESHOLD = 10;
 	
 
 	
@@ -40,7 +46,7 @@ public class RedKnotGameState extends GameState {
 	}
 	
 	public void collectBird() {
-		this.flock.add(new Bird(new Position(0,0), new Size(20,20), new Velocity(10,0)));
+		this.flock.add(FlockBird.spawnFlockBird(RK));
 	}
 	
 	public void lostBird() {
@@ -52,8 +58,9 @@ public class RedKnotGameState extends GameState {
 
 	@Override
 	public void ontick() {
-		checkClouds();
+		updateClouds();
 		moveBird();
+		updateFlockBirds();
 	
 	}
 	
@@ -70,7 +77,7 @@ public class RedKnotGameState extends GameState {
 	 * -Handles any cloud related actions in order to keep it O(n) and
 	 * to keep game logic more organized
 	 */
-	public void checkClouds(){
+	public void updateClouds(){
 		addClouds(); //adds the clouds intially and readds clouds
 		
 		//Added iterator to remove clouds once they reach the end
@@ -84,7 +91,7 @@ public class RedKnotGameState extends GameState {
 			//it then gets removed from 'clouds' and a new 'Cloud'
 			//instance is created
 			boolean outofbounce = c.checkIfOutOfBounds(Cloud.LEFT_MOST);
-			System.out.println(outofbounce);
+			//System.out.println(outofbounce);
 			if(outofbounce){
 				//System.out.println("REMOVING");
 				cloud_iter.remove();
@@ -103,6 +110,7 @@ public class RedKnotGameState extends GameState {
 		ArrayList<GameObject> output = new ArrayList<>();
 		output.add(RK);//it is important that we insert the redknot first.
 		output.addAll(clouds);
+		output.addAll(flock);
 		return output;
 		
 	}
@@ -123,6 +131,37 @@ public class RedKnotGameState extends GameState {
 				int screen_height = this.controller.getScreen().getY();
 				this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, Cloud.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-Cloud.Y_MARGIN));
 			}
+		}
+	}
+	
+	public void updateFlockBirds() {
+		addRandomFlockBirds();
+		
+		//Added iterator to remove clouds once they reach the end
+		Iterator<FlockBird> fb_iter = flock.iterator();
+		
+		while(fb_iter.hasNext()) {
+			FlockBird FB = fb_iter.next();
+			FB.move();
+			
+			//If the cloud goes out of bounds (exits the left side of screen)
+			//it then gets removed from 'clouds' and a new 'Cloud'
+			//instance is created
+			boolean outofbounce = FB.checkIfOutOfBounds(FlockBird.LEFT_MOST);
+			System.out.println(outofbounce);
+			if(outofbounce){
+				//System.out.println("REMOVING");
+				fb_iter.remove();
+			}
+		}
+	}
+	
+	public void addRandomFlockBirds() {
+		int chance = Utility.randRangeInt(this.FB_CHANCE_LOW, this.FB_CHANCE_MAX);
+		int threshold = this.FB_THRESHOLD;
+		
+		if(chance<threshold) {
+			this.flock.add(FlockBird.spawnRandomFlockBird(GameScreen.PLAY_SCREEN_WIDTH+FlockBird.X_MARGIN, 0+FlockBird.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-FlockBird.Y_MARGIN));
 		}
 	}
 	
@@ -164,7 +203,7 @@ public class RedKnotGameState extends GameState {
 		return RK;
 	}
 
-	public ArrayList<Bird> getFlock() {
+	public ArrayList<FlockBird> getFlock() {
 		return flock;
 	}
 	
@@ -181,5 +220,6 @@ public class RedKnotGameState extends GameState {
 	public int getAMOUNT_OF_CLOUDS() {
 		return AMOUNT_OF_CLOUDS;
 	}
+
 	
 }
