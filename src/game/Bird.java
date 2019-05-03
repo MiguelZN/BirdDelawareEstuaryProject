@@ -29,11 +29,22 @@ public class Bird extends DynamicGameObject {
 		int newY = this.getPosition().getY() + vy;
 		this.setPosition(new Position(newX,newY));
 	}
+	/*Method: move()
+	 *-takes in a velocity v, so we can move the bird
+	 *based on what we want to move it by/returns nothing
+	 *-updates the position of the bird 
+	 */
+	public void move(Velocity v) {
+		move(v.getXSpeed(),v.getYSpeed());
+	}
 
 	
+	/*
+	 * default move, moves based on the birds velocity.
+	 */
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
+		move(this.getVelocity());
 		
 	}
 }

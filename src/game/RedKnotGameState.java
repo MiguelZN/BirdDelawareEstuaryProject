@@ -91,7 +91,7 @@ public class RedKnotGameState extends GameState {
 			//it then gets removed from 'clouds' and a new 'Cloud'
 			//instance is created
 			boolean outofbounce = c.checkIfOutOfBounds(Cloud.LEFT_MOST);
-			//System.out.println(outofbounce);
+
 			if(outofbounce){
 				//System.out.println("REMOVING");
 				cloud_iter.remove();

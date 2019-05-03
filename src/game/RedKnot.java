@@ -4,6 +4,8 @@ public class RedKnot extends Bird{
 	
 	
 	private int updownstop=0;
+	private double accel_mult_down = 1.0;
+	private double accel_mult_up = 1.0;
 	
 	//Constants for the RedKnot (to keep it organized)
 	private final static int RK_WIDTH = 120;
@@ -43,7 +45,9 @@ public class RedKnot extends Bird{
 	}
 	public void FlyUp() {
 		Position p = this.getPosition();
-		int new_y = p.getY()-this.getVelocity().getYSpeed();
+		int new_y = p.getY()-((int)(this.getVelocity().getYSpeed() * accel_mult_up));
+		accel_mult_down=1.0;
+		accel_mult_up+=0.02;
 		//if this will place the bird off the screen, dont move the bird.
 		if(new_y < 0)
 			return;
@@ -52,10 +56,10 @@ public class RedKnot extends Bird{
 	
 	public void FlyDown() {
 		Position p = this.getPosition();
-		int new_y = p.getY()+this.getVelocity().getYSpeed();
+		int new_y = p.getY()+((int)(this.getVelocity().getYSpeed()*accel_mult_down));
 		//if this will place the bird off the screen, dont move the bird.
-		System.out.println(new_y);
-		System.out.println(this.getSize().getHeight());
+		accel_mult_up=1.0;
+		accel_mult_down+=0.02;
 		if((new_y + this.getSize().getHeight() + GameScreen.TITLE_BAR_HEIGHT) > GameScreen.PLAY_SCREEN_HEIGHT)
 			return;
 		this.setPosition(new Position(p.getX(),new_y));
