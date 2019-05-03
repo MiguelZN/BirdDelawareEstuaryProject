@@ -272,13 +272,17 @@ public class Controller implements KeyListener {
 			switch (key) {
 			case KeyEvent.VK_UP:
 				RedKnotGS.getRK().newFlyUp();
+				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,-1*RedKnotGS.getRK().getVelocity().getYSpeed()));
 				break;
 			// change these to be setUp and setDown
 			case KeyEvent.VK_DOWN:
 				RedKnotGS.getRK().newFlyDown();
+				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,RedKnotGS.getRK().getVelocity().getYSpeed()));
+				
 				break;
 			case KeyEvent.VK_S:
 				RedKnotV.updateDebugging(RedKnotGS.updateDebugging());
+		
 				break;
 			}
 		}
@@ -295,9 +299,12 @@ public class Controller implements KeyListener {
 			switch (key) {
 			case KeyEvent.VK_UP:
 				b.setFlyState((b.getFlyState() == 1 ? 0 : b.getFlyState()));
+				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,-1*RedKnotGS.getRK().getVelocity().getYSpeed()));
 				break;
 			case KeyEvent.VK_DOWN:
 				b.setFlyState((b.getFlyState() == -1 ? 0 : b.getFlyState()));
+				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,RedKnotGS.getRK().getVelocity().getYSpeed()));
+				
 				break;
 			}
 		}

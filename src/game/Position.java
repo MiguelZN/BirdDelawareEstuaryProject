@@ -17,6 +17,10 @@ public class Position {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Position moveByVelocity(Velocity v) {
+		return new Position(this.getX()+v.getXSpeed(), this.getY()+v.getYSpeed());
+	}
 
 	/*Getters, Setters*/
 	public int getX() {

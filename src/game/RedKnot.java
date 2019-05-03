@@ -11,7 +11,7 @@ public class RedKnot extends Bird{
 	private final static int RK_WIDTH = 120;
 	private final static int RK_HEIGHT = 80;
 	
-	private final static int START_X = 100;
+	private final static int START_X = 150;
 	private final static int START_Y = 20;
 	
 	private final static int RK_VX = 5;

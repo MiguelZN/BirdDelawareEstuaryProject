@@ -28,6 +28,9 @@ public class FlockBird extends Bird{
 	static final int BIRD_VX_MAX = 10;
 	static final int BIRD_VX_MIN = 4;
 	
+	static final int RELATIVE_OFFSET_X = 20;
+	static final int RELATIVE_OFFSET_Y = 50;
+	
 	private final String FLOCKBIRD_FILE_NAME = "sprite-6-flockbird.png";
 	
 	static final int LEFT_MOST = -200; //the left-most point the birds get to until new ones are spawned
@@ -61,9 +64,17 @@ public class FlockBird extends Bird{
 	 */
 	@Override
 	public void move() {
-		int new_x = this.getPosition().getX()+this.getVelocity().getXSpeed();
-		this.setPosition(new Position(new_x, this.getPosition().getY()));
+		if(!isCollected) {
+			Position new_position = this.getPosition().moveByVelocity(this.getVelocity());
+			this.setPosition(new_position);
+		}
 	}
+	
+	public void move(Velocity v) {
+		Position new_position = this.getPosition().moveByVelocity(v);
+		this.setPosition(new_position);
+	}
+	
 	
 	/*Created by Miguel:
 	 * -Creates and returns a FlockBird instance on given x position and randomly 
@@ -73,12 +84,12 @@ public class FlockBird extends Bird{
 	public static FlockBird spawnFlockBird(RedKnot RK) {
 		Position RK_position = RK.getPosition();
 		int x_offset = 5; //adds 5 pixels so that the Flock Bird does not start at x=0 
-		int y_offset = 50; //How high the Flock bird is away from the Player's RedKnot bird
+		//int y_offset = 50; //How high the Flock bird is away from the Player's RedKnot bird
 		
 		
 		//Generates a random x, random y values 
-		int relative_x = Utility.randRangeInt(x_offset, RK_position.getX());
-		int relative_y = Utility.randRangeInt(RK_position.getY()-y_offset, RK_position.getY()+y_offset);
+		int relative_x = Utility.randRangeInt(x_offset, RK_position.getX()-RELATIVE_OFFSET_X);
+		int relative_y = Utility.randRangeInt(RK_position.getY()-RELATIVE_OFFSET_Y, RK_position.getY()+ RELATIVE_OFFSET_Y);
 
 		
 		
@@ -86,7 +97,7 @@ public class FlockBird extends Bird{
 		int random_width = Utility.randRangeInt(BIRD_MIN_WIDTH, BIRD_MAX_WIDTH);
 		int random_height = Utility.randRangeInt(BIRD_MIN_HEIGHT,BIRD_MAX_HEIGHT);
 		
-		return new FlockBird(new Position(relative_x, relative_y), new Size(random_width,random_height), RK.getVelocity(), true);
+		return new FlockBird(new Position(relative_x, relative_y), new Size(random_width,random_height), new Velocity(0,RK.getVelocity().getYSpeed()), true);
 	}
 	
 	/*Created by Miguel:
@@ -107,6 +118,10 @@ public class FlockBird extends Bird{
 		int vy = 0;
 		
 		return new FlockBird(new Position(random_x, random_y), new Size(random_width,random_height), new Velocity(random_vx,0), false);
+	}
+	
+	public boolean getIsCollected() {
+		return this.isCollected;
 	}
 	
 	public void incrementIndex(){

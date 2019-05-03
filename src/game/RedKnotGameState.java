@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /*Class: RedKnotGameState
  * -extends the abstract class GameState (Model) 
@@ -30,7 +31,7 @@ public class RedKnotGameState extends GameState {
 	//The range which controls how low/high of a chance for a FlockBird to appear
 	private final int FB_CHANCE_MAX = 1000; 
 	private final int FB_CHANCE_LOW = 0;
-	private final int FB_THRESHOLD = 200;
+	private final int FB_THRESHOLD = 20;
 	
 
 	
@@ -47,6 +48,10 @@ public class RedKnotGameState extends GameState {
 	
 	public void collectBird() {
 		this.flock.add(FlockBird.spawnFlockBird(RK));
+	}
+	
+	public void collectBird(ListIterator<FlockBird> fb_iter) {
+		fb_iter.add(FlockBird.spawnFlockBird(RK));
 	}
 	
 	public void lostBird() {
@@ -146,11 +151,13 @@ public class RedKnotGameState extends GameState {
 		addRandomFlockBirds();
 		
 		//Added iterator to remove clouds once they reach the end
-		Iterator<FlockBird> fb_iter = flock.iterator();
+		ListIterator<FlockBird> fb_iter = flock.listIterator();
 		
 		while(fb_iter.hasNext()) {
 			FlockBird FB = fb_iter.next();
 			FB.move();
+			
+			
 			
 			detectCollection(this.getRK(),FB,fb_iter);
 			
@@ -166,10 +173,25 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	public void detectCollection(RedKnot RK, FlockBird FB, Iterator iter) {
-		if(Utility.GameObjectCollision(RK, FB)) {
-			//this.collectBird();
-			iter.remove(); //removes the FlockBird
+	public void updateFlockBirdsRKMove(Velocity v) {
+		addRandomFlockBirds();
+		
+		//Added iterator to remove clouds once they reach the end
+		ListIterator<FlockBird> fb_iter = flock.listIterator();
+		
+		while(fb_iter.hasNext()) {
+			FlockBird FB = fb_iter.next();
+			if(FB.getIsCollected()) {
+				FB.move(v);
+				System.out.println("MOVING BY INPUTTED VELOCITY");
+			}
+		}
+	}
+	
+	public void detectCollection(RedKnot RK, FlockBird FB, ListIterator fb_iter) {
+		if(Utility.GameObjectCollision(RK, FB) && !FB.getIsCollected()) {
+			fb_iter.remove(); //removes the FlockBird
+			this.collectBird(fb_iter);
 		}
 	}
 	
