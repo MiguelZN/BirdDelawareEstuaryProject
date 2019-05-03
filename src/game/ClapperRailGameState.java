@@ -14,6 +14,9 @@ public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
 	private ArrayList<GameObject> Materials;
 	
+	//The Ground Level of the game (temporary)
+	static int GROUND = GameScreen.PLAY_SCREEN_HEIGHT-(int)(GameScreen.PLAY_SCREEN_HEIGHT*.25);
+	
 	
 	public ClapperRailGameState(Controller controller){
 		super(controller);
@@ -23,14 +26,14 @@ public class ClapperRailGameState extends GameState {
 	}
 	
 	public void collectMaterial() {
-		this.Materials.add(new GameObject(0,0));
+		this.Materials.add(new GameObject(0,0,0,0));
 	}
 	
 	public int countMaterials() {
 		return this.Materials.size();
 	}
 
-	public Bird getCR() {
+	public ClapperRail getCR() {
 		return CR;
 	}
 

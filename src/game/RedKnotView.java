@@ -75,13 +75,13 @@ public class RedKnotView extends GameView {
 		drawScore(g);
 		drawBird(g);
 		g.setColor(Color.BLUE);
-//		Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);	
+		//Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);	
 	}
 	
 	public void update(ArrayList<GameObject> gameObjects){
 		clouds = new ArrayList<>();
 		redKnot = (RedKnot)gameObjects.get(0);
-		gameObjects.remove(0);
+		//gameObjects.remove(0);
 		for(GameObject go : gameObjects){
 			if(go instanceof Cloud){
 				clouds.add((Cloud)go);

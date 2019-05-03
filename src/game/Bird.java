@@ -20,27 +20,20 @@ public class Bird extends DynamicGameObject {
 	}
 	
 	/*Method: move()
-	 *-takes in no arguments/returns nothing
+	 *-takes in two integers: vx, vy, so we can move the bird
+	 *based on what we want to move it by/returns nothing
 	 *-updates the position of the bird 
 	 */
+	public void move(int vx, int vy) {
+		int newX = this.getPosition().getX() + vx;
+		int newY = this.getPosition().getY() + vy;
+		this.setPosition(new Position(newX,newY));
+	}
+
+	
+	@Override
 	public void move() {
-		int newX = this.getPosition().getX() + this.getVelocity().getXSpeed();
-		int newY = this.getPosition().getY() + this.getVelocity().getYSpeed();
-		this.setPosition(new Position(newX,newY));
-	}
-	
-	public void moveLeft() {
-		int newX = this.getPosition().getX() - this.getVelocity().getXSpeed();
-		int newY = this.getPosition().getY() + this.getVelocity().getYSpeed();
-		this.setPosition(new Position(newX,newY));
-	}
-	
-	public void jump() {
-		if(this.getPosition().getY() <= 300) {
-			this.setPosition(new Position(this.getPosition().getX(),this.getPosition().getY()));
-		}
-		int newX = this.getPosition().getX();
-		int newY = this.getPosition().getY() - 50;
-		this.setPosition(new Position(newX,newY));
+		// TODO Auto-generated method stub
+		
 	}
 }

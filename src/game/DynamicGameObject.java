@@ -19,9 +19,6 @@ public abstract class DynamicGameObject extends GameObject implements Moveable {
 //		v = new Velocity(vx,vy);
 //	}
 	
-	public DynamicGameObject(){
-		super();
-	}
 	public DynamicGameObject(int x, int y, int width, int height, int vx, int vy) {
 		super(x,y,width,height);
 		v = new Velocity(vx,vy);

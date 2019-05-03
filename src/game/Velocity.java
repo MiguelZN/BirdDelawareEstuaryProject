@@ -18,6 +18,7 @@ public class Velocity {
 		this.ySpeed = y;
 	}
 
+	/*Getters, Setters*/
 	public int getXSpeed() {
 		return xSpeed;
 	}

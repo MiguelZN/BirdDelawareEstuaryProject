@@ -12,7 +12,7 @@ public class Food extends GameObject {
 	private int energyAdd;
 	
 	public Food(int x, int y, int energy) {
-		super(x, y);
+		super(x,y,0,0);
 		energyAdd = energy;
 	}
 	

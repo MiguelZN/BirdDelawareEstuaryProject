@@ -18,6 +18,7 @@ public class Position {
 		this.y = y;
 	}
 
+	/*Getters, Setters*/
 	public int getX() {
 		return x;
 	}
@@ -34,5 +35,9 @@ public class Position {
 		this.y = y;
 	}
 	
+	/*toString*/
+	public String toString() {
+		return "("+this.getX()+","+this.getY()+")";
+	}
 	
 }

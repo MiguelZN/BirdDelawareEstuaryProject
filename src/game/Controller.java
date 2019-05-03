@@ -251,14 +251,15 @@ public class Controller implements KeyListener {
 			System.out.println("CURRENT MODE IS CLAPPERRAIL");
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
-				ClapperRailGS.getCR().move();
+				ClapperRailGS.getCR().moveRight();;
 				ClapperRailGS.moveBackground();
 				ClapperRailGS.checkRightBounds(getScreen().PLAY_SCREEN_WIDTH);
 				break;
 			case KeyEvent.VK_LEFT:
-				ClapperRailGS.getCR().moveLeft();
+				ClapperRailGS.getCR().moveLeft();;
 				break;
 			case KeyEvent.VK_SPACE:
+				System.out.println("SPACE");
 				ClapperRailGS.getCR().jump();
 				break;
 			}
