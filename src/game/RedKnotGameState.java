@@ -18,19 +18,19 @@ public class RedKnotGameState extends GameState {
 	static final String SCORE_TEXT = "Score: ";
 	static final int SCORE_FONT_SIZE = 40;
 	
-	static boolean debug_mode;
+	private boolean debug_mode;
 	
 
 	//Enemy clouds
 	private ArrayList<Cloud> clouds; 
-	private final int AMOUNT_OF_CLOUDS = 5;
+	private final int AMOUNT_OF_CLOUDS = 3;
 	
 	//FlockBirds
 	private ArrayList<FlockBird> flock; 
 	//The range which controls how low/high of a chance for a FlockBird to appear
 	private final int FB_CHANCE_MAX = 1000; 
 	private final int FB_CHANCE_LOW = 0;
-	private final int FB_THRESHOLD = 10;
+	private final int FB_THRESHOLD = 200;
 	
 
 	
@@ -58,11 +58,19 @@ public class RedKnotGameState extends GameState {
 
 	@Override
 	public void ontick() {
+		
+		//Modify GameObjects, then GameObjects are passed to the controller
 		updateClouds();
 		moveBird();
 		updateFlockBirds();
 	
 	}
+	
+	public boolean updateDebugging() {
+		this.switchDebugMode();
+		return this.debug_mode;
+	}
+
 	
 	public void moveBird(){
 		switch(RK.getFlyState()) {
@@ -144,15 +152,24 @@ public class RedKnotGameState extends GameState {
 			FlockBird FB = fb_iter.next();
 			FB.move();
 			
+			detectCollection(this.getRK(),FB,fb_iter);
+			
 			//If the cloud goes out of bounds (exits the left side of screen)
 			//it then gets removed from 'clouds' and a new 'Cloud'
 			//instance is created
 			boolean outofbounce = FB.checkIfOutOfBounds(FlockBird.LEFT_MOST);
-			System.out.println(outofbounce);
+			//System.out.println(outofbounce);
 			if(outofbounce){
 				//System.out.println("REMOVING");
 				fb_iter.remove();
 			}
+		}
+	}
+	
+	public void detectCollection(RedKnot RK, FlockBird FB, Iterator iter) {
+		if(Utility.GameObjectCollision(RK, FB)) {
+			//this.collectBird();
+			iter.remove(); //removes the FlockBird
 		}
 	}
 	
@@ -161,9 +178,11 @@ public class RedKnotGameState extends GameState {
 		int threshold = this.FB_THRESHOLD;
 		
 		if(chance<threshold) {
-			this.flock.add(FlockBird.spawnRandomFlockBird(GameScreen.PLAY_SCREEN_WIDTH+FlockBird.X_MARGIN, 0+FlockBird.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-FlockBird.Y_MARGIN));
+			this.flock.add(FlockBird.spawnRandomFlockBird(GameScreen.PLAY_SCREEN_WIDTH+FlockBird.X_MARGIN, 0+FlockBird.TOP_Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-FlockBird.BOTTOM_Y_MARGIN));
 		}
 	}
+
+	
 	
 	/*Created by Miguel:
 	 * -Takes in no arguments, returns nothing
@@ -173,11 +192,11 @@ public class RedKnotGameState extends GameState {
 	 * and any future possible debug mode for bug testing
 	 */
 	public void switchDebugMode() {
-		if(RedKnotGameState.debug_mode) {
-			RedKnotGameState.debug_mode = false;
+		if(this.debug_mode) {
+			this.debug_mode = false;
 		}
 		else {
-			RedKnotGameState.debug_mode = true;
+			this.debug_mode = true;
 		}
 	}
 

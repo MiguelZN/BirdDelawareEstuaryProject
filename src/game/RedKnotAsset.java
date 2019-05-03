@@ -5,7 +5,8 @@ public enum RedKnotAsset {
 	SABACKGROUND("SABACKGROUND"),
 	FOREST1("FOREST1"),
 	CLOUD("CLOUD"),
-	MAINBIRD("MAINBIRD");
+	MAINBIRD("MAINBIRD"),
+	FLOCKBIRD("FLOCKBIRD");
 
 	private String asset_key = null;
 

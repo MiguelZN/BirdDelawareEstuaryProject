@@ -263,8 +263,11 @@ public class Controller implements KeyListener {
 				ClapperRailGS.getCR().jump();
 				break;
 			}
-		} else if (current_state instanceof RedKnotGameState) {
+		} else if (current_state instanceof RedKnotGameState && view instanceof RedKnotView) {
 			RedKnotGameState RedKnotGS = (RedKnotGameState) current_state;
+			RedKnotView RedKnotV= (RedKnotView) view;
+			RedKnot b = RedKnotGS.getRK();
+			
 			System.out.println("CURRENT MODE IS REDKNOT");
 			switch (key) {
 			case KeyEvent.VK_UP:
@@ -275,7 +278,7 @@ public class Controller implements KeyListener {
 				RedKnotGS.getRK().newFlyDown();
 				break;
 			case KeyEvent.VK_S:
-				RedKnotGS.switchDebugMode();
+				RedKnotV.updateDebugging(RedKnotGS.updateDebugging());
 				break;
 			}
 		}
@@ -284,9 +287,11 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-		if (current_state instanceof RedKnotGameState) {
+		if (current_state instanceof RedKnotGameState && view instanceof RedKnotView) {
 			RedKnotGameState RedKnotGS = (RedKnotGameState) current_state;
+			RedKnotView RedKnotV= (RedKnotView) view;
 			RedKnot b = RedKnotGS.getRK();
+			
 			switch (key) {
 			case KeyEvent.VK_UP:
 				b.setFlyState((b.getFlyState() == 1 ? 0 : b.getFlyState()));

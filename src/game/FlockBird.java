@@ -18,16 +18,17 @@ public class FlockBird extends Bird{
 	
 	//Currently not used...
 	private final static int BIRD_HEIGHT_OFFSET = 30;
-	private final int BIRD_WIDTH_OFFSET = 50;
+	private final static int BIRD_WIDTH_OFFSET = 50;
 	
 	//Offsets the spawning of the birds
-	static final int Y_MARGIN = 100; //EX: this starts the Birds at Min: y=0+Y_MARGIN and Max: y=GameScreen.PlayHeight - Y_MARGIN
+	static final int TOP_Y_MARGIN = 50; //Controls the y offset from the top of the screen, EX: y=0 + TOP_Y_MARGIN
+	static final int BOTTOM_Y_MARGIN = 150;  //Controls the y offset from the bottom of the screen, EX: y= GameScreen.PlayHeight - BOTTOM_Y_MARGIN
 	static final int X_MARGIN = 50;
 	
 	static final int BIRD_VX_MAX = 10;
 	static final int BIRD_VX_MIN = 4;
 	
-	private final String FLOCKBIRD_FILE_NAME = "sprite-6-redknot";
+	private final String FLOCKBIRD_FILE_NAME = "sprite-6-flockbird.png";
 	
 	static final int LEFT_MOST = -200; //the left-most point the birds get to until new ones are spawned
 

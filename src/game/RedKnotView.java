@@ -39,6 +39,7 @@ public class RedKnotView extends GameView {
 	private RedKnot redKnot;
 	private ArrayList<FlockBird> flock;
 	private int score;
+	private boolean debug_mode;
 	
 	int background_x = 5;
 	
@@ -74,7 +75,7 @@ public class RedKnotView extends GameView {
 		drawBird(g);
 		g.setColor(Color.BLUE);
 		drawFlockBirds(g);
-		//Utility.drawHitBoxPoint(g, RK.hitBox, this.controller.getRedKnotGS().debug_mode);	
+		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
 	}
 	
 	public void update(ArrayList<GameObject> gameObjects){
@@ -87,13 +88,18 @@ public class RedKnotView extends GameView {
 				clouds.add((Cloud)go);
 			}
 			else if(go instanceof FlockBird) {
-				System.out.println("ADDED FLOCK BIRD");
+				//System.out.println("ADDED FLOCK BIRD");
 				flock.add((FlockBird)go);
 			}
 		}
 		
-		System.out.println(flock.size());
+		//System.out.println(flock.size());
 	}
+	
+	public void updateDebugging(boolean debug_mode) {
+		this.debug_mode = debug_mode;
+	}
+	
 	public void setScore(int x){
 		this.score=x;
 	}
@@ -117,14 +123,18 @@ public class RedKnotView extends GameView {
 	}
 	
 	public void drawFlockBird(FlockBird FB, Graphics g) {
-		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
-		g.drawImage(birdAnim.currImage(FB.frameIndex),FB.getPosition().getX(),FB.getPosition().getY(),FB.getSize().getWidth(),FB.getSize().getHeight(),null,this);
+		Animation FlockBirdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
+		g.drawImage(FlockBirdAnim.currImage(FB.frameIndex),FB.getPosition().getX(),FB.getPosition().getY(),FB.getSize().getWidth(),FB.getSize().getHeight(),null,this);
 		FB.updateCurrImage();
 	}
 	
 	public void drawFlockBirds(Graphics g) {
 		for(FlockBird FB: flock) {
 			drawFlockBird(FB, g);
+			Utility.drawHitBoxPoint(g, FB.hitBox, this.debug_mode);
+			if(Utility.GameObjectCollision(this.redKnot, FB)) {
+				System.out.println("COLLISION!");
+			}
 		}
 	}
 	
@@ -134,6 +144,10 @@ public class RedKnotView extends GameView {
 		
 		for(Cloud c:clouds){
 			drawCloud(c,g);
+			Utility.drawHitBoxPoint(g, c.hitBox, this.debug_mode);
+			if(Utility.GameObjectCollision(this.redKnot, c) && this.debug_mode) {
+				System.out.println("COLLISION!");
+			}
 		}
 		/*
 		for(Cloud c:clouds) {
@@ -171,6 +185,7 @@ public class RedKnotView extends GameView {
 		fnameMap.put("cloudnorain.png",RedKnotAsset.CLOUD);
 		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
+		fnameMap.put("sprite-6-flockbird.png", RedKnotAsset.FLOCKBIRD);
 	}
 	
 }
