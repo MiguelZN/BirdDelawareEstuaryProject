@@ -41,7 +41,7 @@ public class Position {
 	
 	/*toString*/
 	public String toString() {
-		return "("+this.getX()+","+this.getY()+")";
+		return "Position:("+this.getX()+","+this.getY()+")";
 	}
 	
 }

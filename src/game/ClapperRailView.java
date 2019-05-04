@@ -35,14 +35,14 @@ import javax.swing.JButton;
  *	process that we will use to load images, and draw them to the screen from the model. - Derek
  */
 public class ClapperRailView extends GameView{
-//	private int xpos = 5;
-	
+	private int score;
 	int background_x=5;
 	ClapperRail clapper;
 	
 	public ClapperRailView() {
 		super();
 		clapper=new ClapperRail();
+		this.score = 0;
 		
 		try {
 			loadAllImages("/resources/images/clapperrail");
@@ -84,10 +84,10 @@ public class ClapperRailView extends GameView{
 	}
 
 
+
 	@Override
-	public void setScore(int x) {
-		// TODO Auto-generated method stub
-		
+	public void updateScore(int x) {
+		this.score = x;
 	}
 
 }

@@ -35,44 +35,44 @@ public class BirdModelsTest {
 		assertEquals(redknotgamestate.getFlock(), flock);
 	}
 	
-	@Test
-	public void testCollectingBirds() {
-		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		assertEquals(redknotgamestate.countBirds(),2);
-	}
+//	@Test
+//	public void testCollectingBirds() {
+//		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		assertEquals(redknotgamestate.countBirds(),2);
+//	}
 	
-	@Test
-	public void testCollectingBirds2() {
-		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		assertEquals(redknotgamestate.countBirds(),6);
-	}
+//	@Test
+//	public void testCollectingBirds2() {
+//		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		assertEquals(redknotgamestate.countBirds(),6);
+//	}
 	
-	@Test
-	public void testLosingBirds() {
-		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		redknotgamestate.collectBird();
-		redknotgamestate.lostBird();
-		redknotgamestate.lostBird();
-		assertEquals(redknotgamestate.countBirds(),1);
-	}
+//	@Test
+//	public void testLosingBirds() {
+//		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		redknotgamestate.collectBird();
+//		redknotgamestate.lostBird();
+//		redknotgamestate.lostBird();
+//		assertEquals(redknotgamestate.countBirds(),1);
+//	}
 	
-	@Test
-	public void testLosingBirds2() {
-		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
-		redknotgamestate.collectBird();
-		redknotgamestate.lostBird();
-		assertEquals(redknotgamestate.countBirds(),0);
-	}
+//	@Test
+//	public void testLosingBirds2() {
+//		RedKnotGameState redknotgamestate = new RedKnotGameState(c);
+//		redknotgamestate.collectBird();
+//		redknotgamestate.lostBird();
+//		assertEquals(redknotgamestate.countBirds(),0);
+//	}
 	
 	@Test
 	public void testLosingBirds3() {

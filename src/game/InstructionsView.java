@@ -150,8 +150,12 @@ public class InstructionsView extends GameView{
 	//maybe we need to split our views that aren't games from the gameview, but
 	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
 	// here since it changes nothing.
+
 	@Override
-	public void setScore(int x) {}
+	public void updateScore(int x) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

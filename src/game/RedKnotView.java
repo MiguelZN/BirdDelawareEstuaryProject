@@ -92,17 +92,13 @@ public class RedKnotView extends GameView {
 				flock.add((FlockBird)go);
 			}
 		}
-		
-		//System.out.println(flock.size());
+
 	}
 	
 	public void updateDebugging(boolean debug_mode) {
 		this.debug_mode = debug_mode;
 	}
 	
-	public void setScore(int x){
-		this.score=x;
-	}
 	//draw our character, the bird.
 	public void drawBird(Graphics g){
 		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
@@ -116,7 +112,7 @@ public class RedKnotView extends GameView {
 		//System.out.println(fm.getFont());
 		
 		//The String being drawn
-		String toDrawString = RedKnotGameState.SCORE_TEXT + score;
+		String toDrawString = RedKnotGameState.SCORE_TEXT + this.score;
 		int string_width = fm.stringWidth(toDrawString);
 		
 		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
@@ -132,7 +128,7 @@ public class RedKnotView extends GameView {
 		for(FlockBird FB: flock) {
 			drawFlockBird(FB, g);
 			Utility.drawHitBoxPoint(g, FB.hitBox, this.debug_mode);
-			if(Utility.GameObjectCollision(this.redKnot, FB)) {
+			if(Utility.GameObjectCollision(this.redKnot, FB) && this.debug_mode) {
 				System.out.println("COLLISION!");
 			}
 		}
@@ -173,7 +169,7 @@ public class RedKnotView extends GameView {
 	
 	//Moves the background 
 	public void scrollImage(Graphics g, Object background1, Object background2){
-		background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)+BACKGROUND_SPEED;
+		background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)+redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
 		g.drawImage((Image) objectMap.get(background1), background_x*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
 		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
 	}
@@ -186,6 +182,15 @@ public class RedKnotView extends GameView {
 		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
 		fnameMap.put("sprite-6-flockbird.png", RedKnotAsset.FLOCKBIRD);
+	}
+
+
+
+	@Override
+	public void updateScore(int x) {
+		this.score = x;
+		System.out.println("VIEW IS UPDATING SCORE");
+		System.out.println(this.score);
 	}
 	
 }

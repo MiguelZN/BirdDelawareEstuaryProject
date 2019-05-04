@@ -11,10 +11,10 @@ public class RedKnot extends Bird{
 	private final static int RK_WIDTH = 120;
 	private final static int RK_HEIGHT = 80;
 	
-	private final static int START_X = 150;
+	private final static int START_X = 200;
 	private final static int START_Y = 20;
 	
-	private final static int RK_VX = 5;
+	private final static int RK_VX = 15;
 	private final static int RK_VY = 5;
 	
 	
@@ -23,6 +23,13 @@ public class RedKnot extends Bird{
 	 */
 	public RedKnot(){
 		super(new Position(START_X,START_Y), new Size(RK_WIDTH,RK_HEIGHT), new Velocity(RK_VX, RK_VY));
+	}
+	
+	public void move(){
+		switch(this.getFlyState()) {
+		case 1:this.FlyUp();break;
+		case -1:this.FlyDown();break;
+		}
 	}
 
 	public void newFlyUp() {
