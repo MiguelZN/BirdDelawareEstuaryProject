@@ -18,6 +18,7 @@ public class ClapperRailGameState extends GameState {
 	static int GROUND = GameScreen.PLAY_SCREEN_HEIGHT-(int)(GameScreen.PLAY_SCREEN_HEIGHT*.25);
 	static final String ENERGY_TEXT = "Energy: ";
 	static final int ENERGY_FONT_SIZE = 40;
+	int BackgroundX = 5;
 	
 	
 	public ClapperRailGameState(Controller controller){
@@ -46,7 +47,7 @@ public class ClapperRailGameState extends GameState {
 	
 	@Override
 	public void ontick() {
-		
+		moveBackground();
 	}
 
 	@Override
@@ -55,8 +56,12 @@ public class ClapperRailGameState extends GameState {
 		
 	}
 	
+	public int getBackgroundX() {
+		return this.BackgroundX;
+	}
+	
 	public void moveBackground() {
-		this.setBackgroundX((this.getBackgroundX() % 1000)+this.getCR().getVelocity().getXSpeed());
+		this.setBackgroundX((this.BackgroundX % 1000)+this.getCR().getVelocity().getXSpeed());
 	}
 	
 	public void checkRightBounds(int right_most_x) {

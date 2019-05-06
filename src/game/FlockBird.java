@@ -141,6 +141,7 @@ public class FlockBird extends Bird{
 		int relative_x = Utility.randRangeInt(x_offset, RK_position.getX()-RELATIVE_OFFSET_X);
 		int relative_y = Utility.randRangeInt(RK_position.getY()-RELATIVE_OFFSET_Y, RK_position.getY()+ RELATIVE_OFFSET_Y);
 		
+		Position Relative_Pos = new Position(relative_x, relative_y);
 		
 		return new FlockBird(new Position(relative_x, relative_y), FB.getSize(), new Velocity(0,RK.getVelocity().getYSpeed()), true);
 	}

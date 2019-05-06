@@ -56,4 +56,8 @@ public class GameObject {
 		this.hitBox.setPosition(newPos);
 		
 	}
+	
+	public void shiftGameObject(Velocity v) {
+		this.getPosition().Shift(v);
+	}
 }

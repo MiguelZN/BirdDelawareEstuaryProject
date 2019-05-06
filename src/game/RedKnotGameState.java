@@ -98,9 +98,7 @@ public class RedKnotGameState extends GameState {
 	 * to keep game logic more organized
 	 */
 	
-	
-	
-	/*NOTE: -Miguel
+	/*NOTE: 
 	 * Added collision with clouds and everything works perfectly but
 	 * if the Red Knot touches more than one cloud at a time the game
 	 * 'overticks' and removes all the birds/removes the player's score a lot
@@ -154,8 +152,27 @@ public class RedKnotGameState extends GameState {
 		output.add(RK);//it is important that we insert the redknot first.
 		output.addAll(clouds);
 		output.addAll(flock);
+		
+		output = updateGameObjects(RK, output);
+		
 		return output;
 		
+	}
+	
+	public ArrayList<GameObject> updateGameObjects(RedKnot RK, ArrayList<GameObject> GO_AL) {
+		for(GameObject GO:GO_AL) {
+			
+			//Shifts all of the game objects by the RedKnots velocity
+			if(GO!=RK && (GO instanceof FlockBird == false)) {
+				System.out.println("BEFORE POS:"+GO.getPosition());
+				int x_speed=  -1*RK.getVelocity().getXSpeed();
+				GO.shiftGameObject(new Velocity(x_speed,0));
+				System.out.println("UPDATING VELOCITIES:"+x_speed);
+				System.out.println("AFTER POS:"+GO.getPosition());
+			}
+		}
+		
+		return GO_AL;
 	}
 	
 	/*Created by Miguel:

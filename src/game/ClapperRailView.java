@@ -38,13 +38,14 @@ import javax.swing.JButton;
  */
 public class ClapperRailView extends GameView{
 	private int score;
-	int background_x=5;
-	ClapperRail clapper;
+	int BackgroundX;
+	ClapperRail CL;
 	
 	public ClapperRailView() {
 		super();
-		clapper=new ClapperRail();
+		CL=new ClapperRail();
 		this.score = 0;
+		this.BackgroundX = 5;
 		
 		try {
 			loadAllImages("/resources/images/clapperrail");
@@ -58,9 +59,10 @@ public class ClapperRailView extends GameView{
 	public void paintComponent(Graphics g) {
 		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		g.setColor(new Color(224,160, 42));
-		Position p = clapper.getPosition();
-		g.fillOval(p.getX(),p.getY(),clapper.getSize().getWidth(),clapper.getSize().getWidth());
+		Position p = CL.getPosition();
+		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawEnergy(g);
+
 		this.setVisible(true);
 		
 	}
@@ -75,16 +77,19 @@ public class ClapperRailView extends GameView{
 
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
-		g.drawImage((Image) objectMap.get(background1), background_x*-1, -5, 1005, 505, null, this);
-		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+1000, -5, 1005, 505, null, null);
-		
+		g.drawImage((Image) objectMap.get(background1), BackgroundX*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), (BackgroundX*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
 	}
 
 
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
-		clapper = (ClapperRail)gameObjects.get(0);
+		this.CL = (ClapperRail)gameObjects.get(0);
 		
+	}
+	
+	public void update(int BackgroundX) {
+		this.BackgroundX = BackgroundX;
 	}
 
 
