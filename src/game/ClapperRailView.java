@@ -68,6 +68,7 @@ public class ClapperRailView extends GameView{
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
+		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		
 	}
 
@@ -98,6 +99,7 @@ public class ClapperRailView extends GameView{
 		int string_width = fm.stringWidth(toDrawString);
 		
 		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
 	}
 
 	@Override
