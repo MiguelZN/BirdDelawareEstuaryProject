@@ -16,6 +16,8 @@ public class ClapperRailGameState extends GameState {
 	
 	//The Ground Level of the game (temporary)
 	static int GROUND = GameScreen.PLAY_SCREEN_HEIGHT-(int)(GameScreen.PLAY_SCREEN_HEIGHT*.25);
+	static final String ENERGY_TEXT = "Energy: ";
+	static final int ENERGY_FONT_SIZE = 40;
 	
 	
 	public ClapperRailGameState(Controller controller){

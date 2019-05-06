@@ -6,6 +6,8 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -58,6 +60,7 @@ public class ClapperRailView extends GameView{
 		g.setColor(new Color(224,160, 42));
 		Position p = clapper.getPosition();
 		g.fillOval(p.getX(),p.getY(),clapper.getSize().getWidth(),clapper.getSize().getWidth());
+		drawEnergy(g);
 		this.setVisible(true);
 		
 	}
@@ -84,6 +87,18 @@ public class ClapperRailView extends GameView{
 	}
 
 
+	public void drawEnergy(Graphics g){
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.ENERGY_FONT_SIZE));
+		FontMetrics fm = g.getFontMetrics();
+		//System.out.println(fm.getFont());
+		
+		//The String being drawn
+		String toDrawString = ClapperRailGameState.ENERGY_TEXT;
+		int string_width = fm.stringWidth(toDrawString);
+		
+		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
+	}
 
 	@Override
 	public void updateScore(int x) {
