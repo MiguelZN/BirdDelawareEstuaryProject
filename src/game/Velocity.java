@@ -35,5 +35,10 @@ public class Velocity {
 		this.ySpeed = ySpeed;
 	}
 	
+	/*toString*/
+	public String toString() {
+		return "Velocity:("+this.getXSpeed()+","+this.getYSpeed()+")";
+	}
+	
 	
 }

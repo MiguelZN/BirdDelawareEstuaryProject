@@ -186,14 +186,37 @@ public class Controller implements KeyListener {
 
 	/*
 	 * Calls the Current Models Update Method
+	 * -This method should pass the updated data from the Model
+	 * to the View
 	 */
 	public void updateModel() {
+		//Passes generic GameState updated data to all GameViews
 		if(current_state instanceof GameState){
 			GameState gs=(GameState)current_state;
 			gs.ontick();
 			ArrayList<GameObject> gameObjects = gs.getUpdateableGameObjects();
 			view.update(gameObjects);
 		}
+		
+		//Passes RedKnotGS updated data to the RedKnotView 
+		if(current_state instanceof RedKnotGameState) {
+			RedKnotGameState RK_GS = (RedKnotGameState)current_state;
+			System.out.println("GS_SCORE:"+RK_GS.getScore());
+			view.updateScore(RK_GS.getScore());
+		}
+		
+		//Passes RedKnotGS updated data to the RedKnotView 
+			if(current_state instanceof ClapperRailGameState) {
+				ClapperRailGameState CL_GS = (ClapperRailGameState)current_state;
+				ClapperRailView CL_V = (ClapperRailView) view;
+				
+				CL_V.update(CL_GS.BackgroundX);
+//				System.out.println("GS_SCORE:"+CL_GS.getScore());
+//				view.updateScore(CL_GS.getScore());
+				
+			}
+					
+			
 	}
 	public GameView getView() {
 		return view;
@@ -272,12 +295,12 @@ public class Controller implements KeyListener {
 			switch (key) {
 			case KeyEvent.VK_UP:
 				RedKnotGS.getRK().newFlyUp();
-				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,-1*RedKnotGS.getRK().getVelocity().getYSpeed()));
+				RedKnotGS.allFlockBirdsFlyUp();
 				break;
 			// change these to be setUp and setDown
 			case KeyEvent.VK_DOWN:
 				RedKnotGS.getRK().newFlyDown();
-				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,RedKnotGS.getRK().getVelocity().getYSpeed()));
+				RedKnotGS.allFlockBirdsFlyDown();
 				
 				break;
 			case KeyEvent.VK_S:
@@ -299,11 +322,11 @@ public class Controller implements KeyListener {
 			switch (key) {
 			case KeyEvent.VK_UP:
 				b.setFlyState((b.getFlyState() == 1 ? 0 : b.getFlyState()));
-				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,-1*RedKnotGS.getRK().getVelocity().getYSpeed()));
+				RedKnotGS.setFlyStateAllFlockBirds();;
 				break;
 			case KeyEvent.VK_DOWN:
 				b.setFlyState((b.getFlyState() == -1 ? 0 : b.getFlyState()));
-				RedKnotGS.updateFlockBirdsRKMove(new Velocity(0,RedKnotGS.getRK().getVelocity().getYSpeed()));
+				RedKnotGS.setFlyStateAllFlockBirds();;
 				
 				break;
 			}

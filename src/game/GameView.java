@@ -38,7 +38,7 @@ public abstract class GameView extends JPanel{
 		fnameMap = new HashMap<>();
 	}
 	
-	public abstract void setScore(int x);
+	public abstract void updateScore(int x); //receives the updated score from the controller which received it from the GameState
 	public abstract void update(ArrayList<GameObject> gameObjects);
 	public void updateView() {
 		

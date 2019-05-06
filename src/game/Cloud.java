@@ -9,8 +9,8 @@ package game;
 
 //REDKNOT MINIGAME
 public class Cloud extends DynamicGameObject{
-	private static final int CLOUD_VX_MAX = 10;
-	private static final int CLOUD_VX_MIN = 4;
+	private static final int CLOUD_VX_MAX = 8;//10;
+	private static final int CLOUD_VX_MIN = 2;//4;
 	private static final int CLOUD_VY = 0; //never changes y velocity
 	
 	private static final int CLOUD_WIDTH = 120;

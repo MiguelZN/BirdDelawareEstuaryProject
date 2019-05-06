@@ -1,12 +1,19 @@
 package game;
 
 public class FlockBird extends Bird{
-	private boolean isCollected;
+	private boolean isCollected; //boolean if false, this causes the 'move()' function to move the bird leftwards, if true, this moves the bird
+								//alongside the RedKnot Player bird
+	private boolean gotLostInStorm; //boolean that if false, this means the bird is still with the flock of birds and does not sink down
 	
 	//Holds Animation Code in order to not create multiple Animation Instances (might change)
 	int frameCount;
 	private int tick;
 	int frameIndex;//current frame index
+	
+	/*RedKnot Code for moving the FlockBirds up and down similar to RedKnot*/
+	private int updownstop=0;
+	private double accel_mult_down = 1.0;
+	private double accel_mult_up = 1.0;
 	
 	/*Constants*/
 	
@@ -28,21 +35,25 @@ public class FlockBird extends Bird{
 	static final int BIRD_VX_MAX = 10;
 	static final int BIRD_VX_MIN = 4;
 	
-	static final int RELATIVE_OFFSET_X = 20;
+	static final int RELATIVE_OFFSET_X = 50;
 	static final int RELATIVE_OFFSET_Y = 50;
 	
 	private final String FLOCKBIRD_FILE_NAME = "sprite-6-flockbird.png";
 	
+	//Boundaries (if the birds go past these boundaries, they are removed from 'flock')
 	static final int LEFT_MOST = -200; //the left-most point the birds get to until new ones are spawned
+	static final int BOTTOM_MOST = GameScreen.PLAY_SCREEN_HEIGHT+300; //the most bottom most (y> GameScreen.HEIGHT) that the bird can go before getting removed
 
-	//The position should be similar to the Clouds where it initally starts
-	//at right side of the screen (x position) and at a random y position
-	public FlockBird(Position p, Size s, Velocity v) {
-		super(p,s,v);
-		this.isCollected = false; //this means the FlockBird is not collected by the Player
-		
-		
-	}
+	
+	
+//	//The position should be similar to the Clouds where it initally starts
+//	//at right side of the screen (x position) and at a random y position
+//	public FlockBird(Position p, Size s, Velocity v) {
+//		super(p,s,v);
+//		this.isCollected = false; //this means the FlockBird is not collected by the Player
+//		
+//		
+//	}
 	
 	public FlockBird(Position p, Size s, Velocity v, boolean isCollected) {
 		super(p,s,v);
@@ -64,24 +75,63 @@ public class FlockBird extends Bird{
 	 */
 	@Override
 	public void move() {
-		if(!isCollected) {
+		if(!isCollected && !gotLostInStorm) { //Not collected = false which means the birds that are not collected move left otherwise they fall down
 			Position new_position = this.getPosition().moveByVelocity(this.getVelocity());
 			this.setPosition(new_position);
 		}
+		else if(isCollected && !gotLostInStorm) {
+			switch(this.getFlyState()) {
+			case 1:this.FlyUp();break;
+			case -1:this.FlyDown();break;
+			}
+		}
+		
+		else if(isCollected && gotLostInStorm) {
+			this.setVelocity(new Velocity(0,5));
+			this.move(this.getVelocity());
+		}
+		
+		//chance !isCollected to false 
 	}
 	
 	public void move(Velocity v) {
 		Position new_position = this.getPosition().moveByVelocity(v);
 		this.setPosition(new_position);
+		
+		//System.out.println(this.getVelocity());
 	}
 	
+	
+//	/*Created by Miguel:
+//	 * -Creates and returns a FlockBird instance on given x position and randomly 
+//	 * from [y_offset, range_y] with a random width and random height
+//	 * -This spawns a flock bird NEAR THE PLAYER Redknot
+//	 */
+//	public static FlockBird spawnFlockBird(RedKnot RK) {
+//		Position RK_position = RK.getPosition();
+//		int x_offset = 5; //adds 5 pixels so that the Flock Bird does not start at x=0 
+//		//int y_offset = 50; //How high the Flock bird is away from the Player's RedKnot bird
+//		
+//		
+//		//Generates a random x, random y values 
+//		int relative_x = Utility.randRangeInt(x_offset, RK_position.getX()-RELATIVE_OFFSET_X);
+//		int relative_y = Utility.randRangeInt(RK_position.getY()-RELATIVE_OFFSET_Y, RK_position.getY()+ RELATIVE_OFFSET_Y);
+//
+//		
+//		
+//		//Chooses a random width and height for the clouds
+//		int random_width = Utility.randRangeInt(BIRD_MIN_WIDTH, BIRD_MAX_WIDTH);
+//		int random_height = Utility.randRangeInt(BIRD_MIN_HEIGHT,BIRD_MAX_HEIGHT);
+//		
+//		return new FlockBird(new Position(relative_x, relative_y), new Size(random_width,random_height), new Velocity(0,RK.getVelocity().getYSpeed()), true);
+//	}
 	
 	/*Created by Miguel:
 	 * -Creates and returns a FlockBird instance on given x position and randomly 
 	 * from [y_offset, range_y] with a random width and random height
 	 * -This spawns a flock bird NEAR THE PLAYER Redknot
 	 */
-	public static FlockBird spawnFlockBird(RedKnot RK) {
+	public static FlockBird spawnFlockBird(RedKnot RK, FlockBird FB) {
 		Position RK_position = RK.getPosition();
 		int x_offset = 5; //adds 5 pixels so that the Flock Bird does not start at x=0 
 		//int y_offset = 50; //How high the Flock bird is away from the Player's RedKnot bird
@@ -90,14 +140,10 @@ public class FlockBird extends Bird{
 		//Generates a random x, random y values 
 		int relative_x = Utility.randRangeInt(x_offset, RK_position.getX()-RELATIVE_OFFSET_X);
 		int relative_y = Utility.randRangeInt(RK_position.getY()-RELATIVE_OFFSET_Y, RK_position.getY()+ RELATIVE_OFFSET_Y);
-
 		
+		Position Relative_Pos = new Position(relative_x, relative_y);
 		
-		//Chooses a random width and height for the clouds
-		int random_width = Utility.randRangeInt(BIRD_MIN_WIDTH, BIRD_MAX_WIDTH);
-		int random_height = Utility.randRangeInt(BIRD_MIN_HEIGHT,BIRD_MAX_HEIGHT);
-		
-		return new FlockBird(new Position(relative_x, relative_y), new Size(random_width,random_height), new Velocity(0,RK.getVelocity().getYSpeed()), true);
+		return new FlockBird(new Position(relative_x, relative_y), FB.getSize(), new Velocity(0,RK.getVelocity().getYSpeed()), true);
 	}
 	
 	/*Created by Miguel:
@@ -141,10 +187,10 @@ public class FlockBird extends Bird{
 	 * value of whether or not the inputted FlockBird instance's x position has
 	 * passed the 'x_bounds' integer.
 	 */
-	public boolean checkIfOutOfBounds(int x_bounds) {
+	public boolean checkIfOutOfBoundsLeft() {
 		Position p = this.getPosition();
 		
-		if(p.getX()<x_bounds){
+		if(p.getX()<LEFT_MOST){
 //			System.out.println("CLOUDX:"+p.getX());
 //			System.out.println("TRUE");
 			return true;
@@ -152,5 +198,64 @@ public class FlockBird extends Bird{
 		else {
 			return false;
 		}
+	}
+	
+	public boolean checkIfOutOfBoundsBottom() {
+		Position p = this.getPosition();
+		
+		if(p.getY()>BOTTOM_MOST){
+//			System.out.println("CLOUDX:"+p.getX());
+//			System.out.println("TRUE");
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void setGotLostInStorm(boolean bool) {
+		this.gotLostInStorm = bool;
+	}
+	
+	public void newFlyUp() {
+		updownstop=1;
+	}
+	public void newFlyDown() {
+		updownstop=-1;
+	}
+	public void flyDownStop() {
+		updownstop=0;
+	}
+	public void flyUpStop() {
+		updownstop=0;
+	}
+	public int getFlyState() {
+		return updownstop;
+	}
+	public void setFlyState(int x) {
+		updownstop=x;
+	}
+	
+	public void FlyUp() {
+		Position p = this.getPosition();
+		int new_y = p.getY()-((int)(this.getVelocity().getYSpeed() * accel_mult_up));
+		accel_mult_down=1.0;
+		accel_mult_up+=0.02;
+		//if this will place the bird off the screen, dont move the bird.
+		if(new_y < 0)
+			return;
+		this.setPosition(new Position(p.getX(),new_y));
+	}
+	
+	public void FlyDown() {
+		Position p = this.getPosition();
+		int new_y = p.getY()+((int)(this.getVelocity().getYSpeed()*accel_mult_down));
+		//if this will place the bird off the screen, dont move the bird.
+		accel_mult_up=1.0;
+		accel_mult_down+=0.02;
+		if(new_y > GameScreen.PLAY_SCREEN_HEIGHT){;
+			return;
+		}
+		this.setPosition(new Position(p.getX(),new_y));
 	}
 }

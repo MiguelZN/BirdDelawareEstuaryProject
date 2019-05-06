@@ -21,6 +21,11 @@ public class Position {
 	public Position moveByVelocity(Velocity v) {
 		return new Position(this.getX()+v.getXSpeed(), this.getY()+v.getYSpeed());
 	}
+	
+	public void Shift(Velocity v) {
+		this.x = this.getX()+v.getXSpeed();
+		this.y = this.getY()+v.getYSpeed();
+	}
 
 	/*Getters, Setters*/
 	public int getX() {
@@ -41,7 +46,7 @@ public class Position {
 	
 	/*toString*/
 	public String toString() {
-		return "("+this.getX()+","+this.getY()+")";
+		return "Position:("+this.getX()+","+this.getY()+")";
 	}
 	
 }

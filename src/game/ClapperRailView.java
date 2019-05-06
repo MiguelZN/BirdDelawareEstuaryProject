@@ -6,6 +6,8 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -35,14 +37,15 @@ import javax.swing.JButton;
  *	process that we will use to load images, and draw them to the screen from the model. - Derek
  */
 public class ClapperRailView extends GameView{
-//	private int xpos = 5;
-	
-	int background_x=5;
-	ClapperRail clapper;
+	private int score;
+	int BackgroundX;
+	ClapperRail CL;
 	
 	public ClapperRailView() {
 		super();
-		clapper=new ClapperRail();
+		CL=new ClapperRail();
+		this.score = 0;
+		this.BackgroundX = 5;
 		
 		try {
 			loadAllImages("/resources/images/clapperrail");
@@ -56,8 +59,10 @@ public class ClapperRailView extends GameView{
 	public void paintComponent(Graphics g) {
 		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		g.setColor(new Color(224,160, 42));
-		Position p = clapper.getPosition();
-		g.fillOval(p.getX(),p.getY(),clapper.getSize().getWidth(),clapper.getSize().getWidth());
+		Position p = CL.getPosition();
+		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
+		drawEnergy(g);
+
 		this.setVisible(true);
 		
 	}
@@ -65,29 +70,46 @@ public class ClapperRailView extends GameView{
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
+		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		
 	}
 
 
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
-		g.drawImage((Image) objectMap.get(background1), background_x*-1, -5, 1005, 505, null, this);
-		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+1000, -5, 1005, 505, null, null);
-		
+		g.drawImage((Image) objectMap.get(background1), BackgroundX*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), (BackgroundX*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
 	}
 
 
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
-		clapper = (ClapperRail)gameObjects.get(0);
+		this.CL = (ClapperRail)gameObjects.get(0);
 		
+	}
+	
+	public void update(int BackgroundX) {
+		this.BackgroundX = BackgroundX;
 	}
 
 
-	@Override
-	public void setScore(int x) {
-		// TODO Auto-generated method stub
+	public void drawEnergy(Graphics g){
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.ENERGY_FONT_SIZE));
+		FontMetrics fm = g.getFontMetrics();
+		//System.out.println(fm.getFont());
 		
+		//The String being drawn
+		String toDrawString = ClapperRailGameState.ENERGY_TEXT;
+		int string_width = fm.stringWidth(toDrawString);
+		
+		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
+	}
+
+	@Override
+	public void updateScore(int x) {
+		this.score = x;
 	}
 
 }
