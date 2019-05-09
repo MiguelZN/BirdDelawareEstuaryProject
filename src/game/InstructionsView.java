@@ -36,16 +36,28 @@ public class InstructionsView extends GameView{
 	BirdType current_bird_info;
 	
 	
+	/**
+	 * @return
+	 */
 	public ImageIcon getTitleImage() {
 		return titleImage;
 	}
 	
+	/**
+	 * @return
+	 */
 	public JButton getNextButton() {
 		return nextButton;
 	}
+	/**
+	 * @return
+	 */
 	public JButton getBacktoMenuButton() {
 		return backtoMenuButton;
 	}
+	/**
+	 * 
+	 */
 	public InstructionsView() {
 		super();
 		
@@ -93,6 +105,9 @@ public class InstructionsView extends GameView{
 	}
 
 	
+	/**
+	 * 
+	 */
 	public void showcaseNextInstructions() {
 		if(this.current_bird_info==BirdType.REDKNOT) {
 			this.current_bird_info = BirdType.CLAPPERRAIL;
@@ -114,6 +129,9 @@ public class InstructionsView extends GameView{
 		this.currentInstructions.setVisible(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameView#fnameMapCreate()
+	 */
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
@@ -121,6 +139,9 @@ public class InstructionsView extends GameView{
 		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);	
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameView#loadImage(java.io.File)
+	 */
 	@Override
 	public ImageIcon loadImage(File f){
 		ImageIcon output=null;
@@ -134,12 +155,18 @@ public class InstructionsView extends GameView{
 	}
 
 	//Not Needed for InstructionsView
+	/* (non-Javadoc)
+	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameView#update(java.util.ArrayList)
+	 */
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
 		// TODO Auto-generated method stub
@@ -151,6 +178,9 @@ public class InstructionsView extends GameView{
 	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
 	// here since it changes nothing.
 
+	/* (non-Javadoc)
+	 * @see game.GameView#updateScore(int)
+	 */
 	@Override
 	public void updateScore(int x) {
 		// TODO Auto-generated method stub

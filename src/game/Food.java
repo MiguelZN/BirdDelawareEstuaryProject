@@ -11,11 +11,19 @@ package game;
 public class Food extends GameObject {
 	private int energyAdd;
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @param energy
+	 */
 	public Food(int x, int y, int energy) {
 		super(x,y,0,0);
 		energyAdd = energy;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getEnergyAdd() {
 		return energyAdd;
 	}

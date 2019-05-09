@@ -27,10 +27,16 @@ public abstract class GameView extends JPanel{
 	protected HashMap<Object, Object> objectMap;
 	protected HashMap<String, Object> fnameMap; //takes in a string and an Enum for the views
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	public void paintComponent(Graphics g) {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public GameView() {
 //		this.setSize(this.controller.getScreen().PLAY_SCREEN_WIDTH, this.controller.getScreen().PLAY_SCREEN_HEIGHT);
 //		this.revalidate();
@@ -38,11 +44,23 @@ public abstract class GameView extends JPanel{
 		fnameMap = new HashMap<>();
 	}
 	
+	/**
+	 * @param x
+	 */
 	public abstract void updateScore(int x); //receives the updated score from the controller which received it from the GameState
+	/**
+	 * @param gameObjects
+	 */
 	public abstract void update(ArrayList<GameObject> gameObjects);
+	/**
+	 * 
+	 */
 	public void updateView() {
 		
 	}
+	/**
+	 * @return
+	 */
 	private BufferedImage createImage() {
 		gameImage = new BufferedImage(500,500,BufferedImage.TYPE_INT_RGB);
 		
@@ -54,12 +72,19 @@ public abstract class GameView extends JPanel{
 	 * Put all files that will be loaded in both this method, and in the
 	 * red knot asset enum.
 	 */
+	/**
+	 * 
+	 */
 	public abstract void fnameMapCreate();
 	
 	
 	/*
 	 * This method loads all images that we will ever use in this view, and puts them
 	 * into a hashmap as the values, each with a key that we know, and will use when drawing images frmo objects.
+	 */
+	/**
+	 * @param relevent_res_path
+	 * @throws IOException
 	 */
 	public void loadAllImages(String relevent_res_path) throws IOException{
 		fnameMapCreate(); //Creates the fileNameMap (places the image names of the images into a hashMap)
@@ -86,6 +111,10 @@ public abstract class GameView extends JPanel{
 	
 	//Returns an object (so either a BufferedImage or ImageIcon)
 	//public abstract Object loadImage(File f);
+	/**
+	 * @param f
+	 * @return
+	 */
 	public Object loadImage(File f) {
 		Object output=null;
 		try{
@@ -98,6 +127,11 @@ public abstract class GameView extends JPanel{
 	
 	
 	//Moves the background 
+	/**
+	 * @param g
+	 * @param background1
+	 * @param background2
+	 */
 	public abstract void scrollImage(Graphics g, Object background1, Object background2);
 
 }

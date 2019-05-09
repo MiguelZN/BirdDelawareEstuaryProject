@@ -45,6 +45,9 @@ public class RedKnotView extends GameView {
 	
 	
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	public RedKnotView(){
 		super();
 		score=0;
@@ -66,6 +69,9 @@ public class RedKnotView extends GameView {
 	 * NOTE: 
 	 * NEVER CHANGE THE MODEL IN HERE EVER. ONLY DRAW WHAT THE MODEL IS.
 	 */
+	/* (non-Javadoc)
+	 * @see game.GameView#paintComponent(java.awt.Graphics)
+	 */
 	public void paintComponent(Graphics g) {
 		scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
 		g.setColor(Color.RED);
@@ -78,6 +84,9 @@ public class RedKnotView extends GameView {
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameView#update(java.util.ArrayList)
+	 */
 	public void update(ArrayList<GameObject> gameObjects){
 		clouds = new ArrayList<>();
 		redKnot = (RedKnot)gameObjects.get(0);
@@ -95,16 +104,25 @@ public class RedKnotView extends GameView {
 
 	}
 	
+	/**
+	 * @param debug_mode
+	 */
 	public void updateDebugging(boolean debug_mode) {
 		this.debug_mode = debug_mode;
 	}
 	
 	//draw our character, the bird.
+	/**
+	 * @param g
+	 */
 	public void drawBird(Graphics g){
 		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
 		g.drawImage(birdAnim.currImage(),redKnot.getPosition().getX(),redKnot.getPosition().getY(),redKnot.getSize().getWidth(),redKnot.getSize().getHeight(),null,this);
 	}
 	
+	/**
+	 * @param g
+	 */
 	public void drawScore(Graphics g){
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,RedKnotGameState.SCORE_FONT_SIZE));
@@ -118,12 +136,19 @@ public class RedKnotView extends GameView {
 		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
 	}
 	
+	/**
+	 * @param FB
+	 * @param g
+	 */
 	public void drawFlockBird(FlockBird FB, Graphics g) {
 		Animation FlockBirdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
 		g.drawImage(FlockBirdAnim.currImage(FB.frameIndex),FB.getPosition().getX(),FB.getPosition().getY(),FB.getSize().getWidth(),FB.getSize().getHeight(),null,this);
 		FB.updateCurrImage();
 	}
 	
+	/**
+	 * @param g
+	 */
 	public void drawFlockBirds(Graphics g) {
 		for(FlockBird FB: flock) {
 			drawFlockBird(FB, g);
@@ -135,6 +160,9 @@ public class RedKnotView extends GameView {
 	}
 	
 	//Takes the Clouds ArrayList and draws individual clouds
+	/**
+	 * @param g
+	 */
 	public void drawClouds(Graphics g) {
 		
 		
@@ -152,6 +180,10 @@ public class RedKnotView extends GameView {
 //			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
 		}*/
 	}
+	/**
+	 * @param c
+	 * @param g
+	 */
 	public void drawCloud(Cloud c, Graphics g){
 		Position current_pos = c.getPosition();
 		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
@@ -168,12 +200,18 @@ public class RedKnotView extends GameView {
 	 */
 	
 	//Moves the background 
+	/* (non-Javadoc)
+	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
+	 */
 	public void scrollImage(Graphics g, Object background1, Object background2){
 		background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)+redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
 		g.drawImage((Image) objectMap.get(background1), background_x*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
 		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
 	}
     
+	/* (non-Javadoc)
+	 * @see game.GameView#fnameMapCreate()
+	 */
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
@@ -186,6 +224,9 @@ public class RedKnotView extends GameView {
 
 
 
+	/* (non-Javadoc)
+	 * @see game.GameView#updateScore(int)
+	 */
 	@Override
 	public void updateScore(int x) {
 		this.score = x;

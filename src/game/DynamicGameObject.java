@@ -19,11 +19,24 @@ public abstract class DynamicGameObject extends GameObject implements Moveable {
 //		v = new Velocity(vx,vy);
 //	}
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param vx
+	 * @param vy
+	 */
 	public DynamicGameObject(int x, int y, int width, int height, int vx, int vy) {
 		super(x,y,width,height);
 		v = new Velocity(vx,vy);
 	}
 	
+	/**
+	 * @param p
+	 * @param s
+	 * @param v
+	 */
 	public DynamicGameObject(Position p, Size s, Velocity v) {
 		super(p.getX(),p.getY(),s.getWidth(),s.getHeight());
 		this.v = v;
@@ -33,12 +46,21 @@ public abstract class DynamicGameObject extends GameObject implements Moveable {
 	 *-takes in no arguments/returns nothing
 	 *-updates the position of the DynamicGameObject by the velocity (v) 
 	 */
+	/* (non-Javadoc)
+	 * @see game.Moveable#move()
+	 */
 	public abstract void move();
 	
+	/**
+	 * @return
+	 */
 	public Velocity getVelocity() {
 		return v;
 	}
 	
+	/**
+	 * @param newVel
+	 */
 	public void setVelocity(Velocity newVel) {
 		v = newVel;
 	}

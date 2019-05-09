@@ -17,19 +17,31 @@ public class ClapperRail extends Bird{
 	private Energy e;
 	
 	
+	/**
+	 * 
+	 */
 	public ClapperRail(){
 		super(new Position(XSTART,YSTART), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
 	}
 	
+	/**
+	 * 
+	 */
 	public void moveLeft() {
 		move(-1*this.getVelocity().getXSpeed(),0);
 	}
 	
+	/**
+	 * 
+	 */
 	public void moveRight() {
 		move(this.getVelocity().getXSpeed(),0);
 	}
 	
 	
+	/**
+	 * 
+	 */
 	public void jump() {
 		if(this.getPosition().getY() <= 300) {
 			this.setPosition(new Position(this.getPosition().getX(),ClapperRailGameState.GROUND));
@@ -43,9 +55,15 @@ public class ClapperRail extends Bird{
 	 *-takes in no arguments/returns nothing
 	 *-restores/updates the Bird's Energy 
 	 */
+	/**
+	 * @param f
+	 */
 	public void eat(Food f) {
 		this.e.setEnergy(this.e.getEnergy() + f.getEnergyAdd());
 	}
+	/**
+	 * @return
+	 */
 	public Energy getEnergy() {
 		return e;
 	}
