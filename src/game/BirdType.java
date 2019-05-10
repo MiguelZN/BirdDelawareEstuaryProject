@@ -10,6 +10,9 @@ public enum BirdType {
 	private BirdType(String s){
 		this.name = s;
 	}
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return this.name;
 	}

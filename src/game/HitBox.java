@@ -8,6 +8,12 @@ public class HitBox extends Rectangle{
 	Position p;
 	
 	/*Constructors*/
+	/**
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	HitBox(int x, int y, int width, int height){
 		super(x, y,width,height); //Sets the Rectangle position and width/height
 		this.p  =new Position(x,y);
@@ -15,6 +21,11 @@ public class HitBox extends Rectangle{
 		this.height = height;
 	}
 	
+	/**
+	 * @param p
+	 * @param width
+	 * @param height
+	 */
 	HitBox(Position p, int width, int height){
 		super(p.getX(), p.getY(), width, height);
 		this.p = p;
@@ -23,6 +34,9 @@ public class HitBox extends Rectangle{
 	}
 	
 	/*Getters*/
+	/**
+	 * @return
+	 */
 	public Position getPosition() {
 		return this.p;
 	}
@@ -35,6 +49,9 @@ public class HitBox extends Rectangle{
 	 *the GameObject (in order to unify them and only have one 'true' position
 	 *and width/height)
 	 */
+	/**
+	 * @param p
+	 */
 	public void setPosition(Position p) {
 		this.p = p;
 		this.updateRectangleHitBox();
@@ -45,6 +62,9 @@ public class HitBox extends Rectangle{
 	 *-Sets the Java AWT Rectangle to a new bounds (or containing area)
 	 *in order to make sure the size of the 'hitbox' for collisions is updated
 	 */
+	/**
+	 * 
+	 */
 	public void updateRectangleHitBox() {
 		this.setBounds(p.getX(), p.getY(), this.width, this.height);
 //		System.out.println(this.getBounds());
@@ -54,6 +74,9 @@ public class HitBox extends Rectangle{
 	 *-Takes in an integer, returns nothing
 	 *-Changes the width property to a new width value
 	 */
+	/**
+	 * @param new_width
+	 */
 	public void changeWidth(int new_width) {
 		this.width = new_width;
 	}
@@ -62,6 +85,9 @@ public class HitBox extends Rectangle{
 	 *-Takes in an integer, returns nothing
 	 *-Changes the height property to a new height value
 	 */
+	/**
+	 * @param new_height
+	 */
 	public void changeHeight(int new_height) {
 		this.height = new_height;
 	}
@@ -69,6 +95,9 @@ public class HitBox extends Rectangle{
 	/*Created by Miguel:
 	 *-Takes in two integers, returns nothing
 	 *-Sets the width, height properties to new values 
+	 */
+	/* (non-Javadoc)
+	 * @see java.awt.Rectangle#setSize(int, int)
 	 */
 	public void setSize(int new_width, int new_height) {
 		this.width = new_width;

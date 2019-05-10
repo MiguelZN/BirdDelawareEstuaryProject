@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ import javax.swing.SwingUtilities;
  * -controls updates between state and the view 
  */
 public class Controller implements KeyListener {
-	private GameView view;
+	private WindowView view;
 	private GameScreen screen;
 	private Model current_state;
 
@@ -29,6 +30,9 @@ public class Controller implements KeyListener {
 	private TitleScreenModel TitleGS;
 	private InstructionsModel InstructionsGS;
 	*/
+	/**
+	 * 
+	 */
 	public Controller() {
 		this.screen = new GameScreen(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT);
 		this.screen.addKeyListener(this);
@@ -44,12 +48,19 @@ public class Controller implements KeyListener {
 	 * that we use this method to switch to the titlescreen, and not just typing
 	 * view = new titleScreenView();
 	 */
+	/**
+	 * 
+	 */
 	public void setUpTitleScreen(){
 		view = new TitleScreenView();
 		setUpTitleButtons();
 		this.screen.add(view);
+		view.setBackground(Color.CYAN); //sets the background color of the TitleScreenView
 		current_state = new TitleScreenModel(this);
 	}
+	/**
+	 * 
+	 */
 	public void setUpInstructions(){
 		view = new InstructionsView();
 		setUpInstructionsButton();
@@ -57,12 +68,18 @@ public class Controller implements KeyListener {
 		current_state = new InstructionsModel(this);
 		
 	}
+	/**
+	 * 
+	 */
 	public void setUpRedKnotGame(){
 		view=new RedKnotView();
 		this.screen.add(view);
 		current_state = new RedKnotGameState(this);
 		
 	}
+	/**
+	 * 
+	 */
 	public void setUpClapperRailGame(){
 		view= new ClapperRailView();
 		this.screen.add(view);
@@ -71,6 +88,9 @@ public class Controller implements KeyListener {
 	
 	//TODO: finish/fix this.
 	//same thing as the below method, this doesn't work.
+	/**
+	 * 
+	 */
 	public void setUpInstructionsButton() {
 		InstructionsView isv = null;
 		if(view instanceof InstructionsView){
@@ -92,6 +112,9 @@ public class Controller implements KeyListener {
 	 * in here by accessing them from the controller, so that we don't
 	 * have to pass the controller to the view of the titlescreen.
 	 * However, I didn't finish this, but I'm leaving it here. 
+	 * 
+	 */
+	/**
 	 * 
 	 */
 	public void setUpTitleButtons() {
@@ -147,6 +170,9 @@ public class Controller implements KeyListener {
 	 * thread.
 	 * 
 	 */
+	/**
+	 * @param tickdelay
+	 */
 	public void start(int tickdelay) {
 		long bef, aft;
 		bef = System.currentTimeMillis();
@@ -172,6 +198,9 @@ public class Controller implements KeyListener {
 	 * called. NOT INSIDE PAINTCOMPONENT.
 	 * 
 	 */
+	/**
+	 * @return
+	 */
 	public boolean loop() {
 		SwingUtilities.invokeLater(() -> screen.redraw());
 		Thread t = new Thread(new Runnable() {
@@ -189,20 +218,26 @@ public class Controller implements KeyListener {
 	 * -This method should pass the updated data from the Model
 	 * to the View
 	 */
+	/**
+	 * 
+	 */
 	public void updateModel() {
 		//Passes generic GameState updated data to all GameViews
 		if(current_state instanceof GameState){
 			GameState gs=(GameState)current_state;
+			GameView gv = (GameView)view;
 			gs.ontick();
 			ArrayList<GameObject> gameObjects = gs.getUpdateableGameObjects();
-			view.update(gameObjects);
+			gv.update(gameObjects);
 		}
 		
 		//Passes RedKnotGS updated data to the RedKnotView 
 		if(current_state instanceof RedKnotGameState) {
 			RedKnotGameState RK_GS = (RedKnotGameState)current_state;
-			System.out.println("GS_SCORE:"+RK_GS.getScore());
-			view.updateScore(RK_GS.getScore());
+			RedKnotView RK_V = (RedKnotView) view;
+			//System.out.println("GS_SCORE:"+RK_GS.getScore());
+			
+			RK_V.updateScore(RK_GS.getScore());
 		}
 		
 		//Passes RedKnotGS updated data to the RedKnotView 
@@ -218,14 +253,23 @@ public class Controller implements KeyListener {
 					
 			
 	}
-	public GameView getView() {
+	/**
+	 * @return
+	 */
+	public WindowView getView() {
 		return view;
 	}
 
+	/**
+	 * @return
+	 */
 	public GameScreen getScreen() {
 		return this.screen;
 	}
 
+	/**
+	 * @param mode
+	 */
 	public void changeView(GameMode mode) {
 		switch (mode) {
 		case INSTRUCTIONS:
@@ -250,12 +294,18 @@ public class Controller implements KeyListener {
 		this.screen.revalidate();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -311,6 +361,9 @@ public class Controller implements KeyListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();

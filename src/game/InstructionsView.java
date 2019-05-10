@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 /*Class: InstructionsView
  * -contains the drawing methods/images for the Instructions mode
  */
-public class InstructionsView extends GameView{
+public class InstructionsView extends WindowView{
 	ImageIcon titleImage;
 	ImageIcon redknot;
 	ImageIcon clapperrail;
@@ -36,16 +36,28 @@ public class InstructionsView extends GameView{
 	BirdType current_bird_info;
 	
 	
+	/**
+	 * @return
+	 */
 	public ImageIcon getTitleImage() {
 		return titleImage;
 	}
 	
+	/**
+	 * @return
+	 */
 	public JButton getNextButton() {
 		return nextButton;
 	}
+	/**
+	 * @return
+	 */
 	public JButton getBacktoMenuButton() {
 		return backtoMenuButton;
 	}
+	/**
+	 * 
+	 */
 	public InstructionsView() {
 		super();
 		
@@ -93,6 +105,9 @@ public class InstructionsView extends GameView{
 	}
 
 	
+	/**
+	 * 
+	 */
 	public void showcaseNextInstructions() {
 		if(this.current_bird_info==BirdType.REDKNOT) {
 			this.current_bird_info = BirdType.CLAPPERRAIL;
@@ -113,14 +128,10 @@ public class InstructionsView extends GameView{
 		
 		this.currentInstructions.setVisible(true);
 	}
-
-	@Override
-	public void fnameMapCreate() {
-		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
-		fnameMap.put("rk_instructions.png", InstructionsAsset.RK_INSTRUCTIONS);
-		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);	
-	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameView#loadImage(java.io.File)
+	 */
 	@Override
 	public ImageIcon loadImage(File f){
 		ImageIcon output=null;
@@ -133,29 +144,15 @@ public class InstructionsView extends GameView{
 		return output;
 	}
 
-	//Not Needed for InstructionsView
-	@Override
-	public void scrollImage(Graphics g, Object background1, Object background2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(ArrayList<GameObject> gameObjects) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	//maybe we need to split our views that aren't games from the gameview, but
-	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
-	// here since it changes nothing.
-
-	@Override
-	public void updateScore(int x) {
-		// TODO Auto-generated method stub
-		
+	/* (non-Javadoc)
+	 * @see game.GameView#fnameMapCreate()
+	 */
+	public void fnameMapCreate() {
+		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
+		fnameMap.put("rk_instructions.png", InstructionsAsset.RK_INSTRUCTIONS);
+		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);	
 	}
 	
+
 	
 }

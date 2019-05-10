@@ -21,6 +21,9 @@ public class ClapperRailGameState extends GameState {
 	int BackgroundX = 5;
 	
 	
+	/**
+	 * @param controller
+	 */
 	public ClapperRailGameState(Controller controller){
 		super(controller);
 		this.CR = new ClapperRail();
@@ -28,48 +31,78 @@ public class ClapperRailGameState extends GameState {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public void collectMaterial() {
 		this.Materials.add(new GameObject(0,0,0,0));
 	}
 	
+	/**
+	 * @return
+	 */
 	public int countMaterials() {
 		return this.Materials.size();
 	}
 
+	/**
+	 * @return
+	 */
 	public ClapperRail getCR() {
 		return CR;
 	}
 
+	/**
+	 * @return
+	 */
 	public ArrayList<GameObject> getMaterials() {
 		return Materials;
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see game.GameState#ontick()
+	 */
 	@Override
 	public void ontick() {
 		moveBackground();
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameState#addGameObject(game.GameObject)
+	 */
 	@Override
 	public void addGameObject(GameObject o) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameState#getBackgroundX()
+	 */
 	public int getBackgroundX() {
 		return this.BackgroundX;
 	}
 	
+	/**
+	 * 
+	 */
 	public void moveBackground() {
 		this.setBackgroundX((this.BackgroundX % 1000)+this.getCR().getVelocity().getXSpeed());
 	}
 	
+	/**
+	 * @param right_most_x
+	 */
 	public void checkRightBounds(int right_most_x) {
 		if(this.getCR().getPosition().getX()>right_most_x) {
 			this.getCR().setPosition(new Position(0,this.getCR().getPosition().getY()));
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameState#getUpdateableGameObjects()
+	 */
 	@Override
 	public ArrayList<GameObject> getUpdateableGameObjects() {
 		ArrayList<GameObject> output = new ArrayList<>();

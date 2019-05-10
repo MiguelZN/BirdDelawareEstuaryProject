@@ -22,10 +22,16 @@ public class RedKnot extends Bird{
 	/*
 	 * Default constructor/Start values for our red knot bird.
 	 */
+	/**
+	 * 
+	 */
 	public RedKnot(){
 		super(new Position(100,20), new Size(100,50), new Velocity(5,5));
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.Bird#move()
+	 */
 	public void move(){
 		switch(this.getFlyState()) {
 		case 1:this.FlyUp();break;
@@ -33,24 +39,45 @@ public class RedKnot extends Bird{
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void newFlyUp() {
 		updownstop=1;
 	}
+	/**
+	 * 
+	 */
 	public void newFlyDown() {
 		updownstop=-1;
 	}
+	/**
+	 * 
+	 */
 	public void flyDownStop() {
 		updownstop=0;
 	}
+	/**
+	 * 
+	 */
 	public void flyUpStop() {
 		updownstop=0;
 	}
+	/**
+	 * @return
+	 */
 	public int getFlyState() {
 		return updownstop;
 	}
+	/**
+	 * @param x
+	 */
 	public void setFlyState(int x) {
 		updownstop=x;
 	}
+	/**
+	 * 
+	 */
 	public void FlyUp() {
 		Position p = this.getPosition();
 		int new_y = p.getY()-this.getVelocity().getYSpeed();
@@ -61,6 +88,9 @@ public class RedKnot extends Bird{
 		this.setPosition(new Position(p.getX(),new_y));
 	}
 	
+	/**
+	 * 
+	 */
 	public void FlyDown() {
 		Position p = this.getPosition();
 		int new_y = p.getY()+this.getVelocity().getYSpeed();

@@ -9,15 +9,25 @@ public class Size {
 	private int width,height;
 	
 	/*Contructor*/
+	/**
+	 * @param width
+	 * @param height
+	 */
 	public Size(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
 	
 	/*Getters*/
+	/**
+	 * @return
+	 */
 	public int getWidth() {
 		return width;
 	}
+	/**
+	 * @return
+	 */
 	public int getHeight() {
 		return height;
 	}

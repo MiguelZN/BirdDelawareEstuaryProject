@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.TimerTask;
 
 /*Class: RedKnotGameState
  * -extends the abstract class GameState (Model) 
@@ -37,11 +38,22 @@ public class RedKnotGameState extends GameState {
 	private Cloud lastCloudTouched;
 	
 	
+	//GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
+	//EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as 
+	//this is what the Java.util.Timer takes in
+	private final int MAX_GAME_TIME = GameTimer.ONE_MINUTE;
+	private GameTimer game_timer;
+	private int current_time;
+	
+	
 	/*Score final constants*/
 	static final int COLLECTED_BIRD_SCORE = 200;
 	static final int TOUCHED_CLOUD_SCORE = -200;
 
 	
+	/**
+	 * @param controller
+	 */
 	public RedKnotGameState(Controller controller){
 		super(controller);
 		this.lastCloudTouched = null;
@@ -51,6 +63,26 @@ public class RedKnotGameState extends GameState {
 		this.clouds = new ArrayList<>();
 		this.addGameObject(new GameObject(new Position(5,5), new Size(30,30), RedKnotAsset.BACKGROUND));
 		debug_mode = false; //initially turns off debug mode
+		
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				
+				if(getIsGameRunning()) {
+					//System.out.println("TIMER");
+					current_time+=GameTimer.ONE_SECOND;
+					//System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
+					
+					if(current_time>= MAX_GAME_TIME) {
+						//System.exit(0);
+						setIsGameRunning(false);
+					}
+				}
+			}
+		};
+		
+		//the game timer runs every second and updates the counter 'current_time'
+		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
 		
 	}
 	
@@ -62,10 +94,18 @@ public class RedKnotGameState extends GameState {
 //		fb_iter.add(FlockBird.spawnFlockBird(RK));
 //	}
 	
+	
+	/**
+	 * @param fb_iter
+	 * @param FB
+	 */
 	public void collectBird(ListIterator<FlockBird> fb_iter, FlockBird FB) {
 		fb_iter.add(FlockBird.spawnFlockBird(RK, FB));
 	}
 	
+	/**
+	 * 
+	 */
 	public void lostBird() {
 		if(this.flock.size()>0) {
 			this.flock.remove(0);
@@ -73,15 +113,24 @@ public class RedKnotGameState extends GameState {
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see game.GameState#ontick()
+	 */
 	@Override
 	public void ontick() {
-		//Modify GameObjects, then GameObjects are passed to the controller
-		checkClouds();
-		RK.move();
-		checkFlockBirds();
+		//Modify GameObjects, then GameObjects are passed to the controller	
+		//Only runs the game if the game is currently running
+		if(this.getIsGameRunning()) {
+			checkClouds();
+			RK.move();
+			checkFlockBirds();
+		}
 	
 	}
 	
+	/**
+	 * @return
+	 */
 	public boolean updateDebugging() {
 		this.switchDebugMode();
 		return this.debug_mode;
@@ -102,6 +151,9 @@ public class RedKnotGameState extends GameState {
 	 * Added collision with clouds and everything works perfectly but
 	 * if the Red Knot touches more than one cloud at a time the game
 	 * 'overticks' and removes all the birds/removes the player's score a lot
+	 */
+	/**
+	 * 
 	 */
 	public void checkClouds(){
 		addClouds(); //adds the clouds intially and readds clouds
@@ -146,6 +198,9 @@ public class RedKnotGameState extends GameState {
 	 * which then passes them to the RedKnotView in order to draw
 	 * them onto the screen
 	 */
+	/* (non-Javadoc)
+	 * @see game.GameState#getUpdateableGameObjects()
+	 */
 	public ArrayList<GameObject> getUpdateableGameObjects(){
 //		RK flock clouds
 		ArrayList<GameObject> output = new ArrayList<>();
@@ -159,16 +214,21 @@ public class RedKnotGameState extends GameState {
 		
 	}
 	
+	/**
+	 * @param RK
+	 * @param GO_AL
+	 * @return
+	 */
 	public ArrayList<GameObject> updateGameObjects(RedKnot RK, ArrayList<GameObject> GO_AL) {
 		for(GameObject GO:GO_AL) {
 			
 			//Shifts all of the game objects by the RedKnots velocity
 			if(GO!=RK && (GO instanceof FlockBird == false)) {
-				System.out.println("BEFORE POS:"+GO.getPosition());
+				//System.out.println("BEFORE POS:"+GO.getPosition());
 				int x_speed=  -1*RK.getVelocity().getXSpeed();
 				GO.shiftGameObject(new Velocity(x_speed,0));
-				System.out.println("UPDATING VELOCITIES:"+x_speed);
-				System.out.println("AFTER POS:"+GO.getPosition());
+				//System.out.println("UPDATING VELOCITIES:"+x_speed);
+				//System.out.println("AFTER POS:"+GO.getPosition());
 			}
 		}
 		
@@ -179,6 +239,9 @@ public class RedKnotGameState extends GameState {
 	 * -Takes in no arguments, returns nothing
 	 * -Adds 'Cloud' instances into 'clouds' ArrayList
 	 * -Currently re-adds 'Cloud' instances when they go off-screen
+	 */
+	/**
+	 * 
 	 */
 	public void addClouds() {
 //		System.out.println("READDING CLOUDS");
@@ -194,6 +257,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void checkFlockBirds() {
 		addRandomFlockBirds();
 		
@@ -220,6 +286,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void setFlyStateAllFlockBirds() {
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
 		
@@ -242,6 +311,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void allFlockBirdsFlyUp() {
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
 		
@@ -251,6 +323,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void allFlockBirdsFlyDown() {
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
 		
@@ -260,15 +335,25 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**
+	 * @param RK
+	 * @param FB
+	 * @param fb_iter
+	 */
 	public void detectFlockBirdCollection(RedKnot RK, FlockBird FB, ListIterator fb_iter) {
 		if(Utility.GameObjectCollision(RK, FB) && !FB.getIsCollected()) {
 			fb_iter.remove(); //removes the FlockBird
 			this.collectBird(fb_iter, FB);
 			this.incrementScore(COLLECTED_BIRD_SCORE);
-			System.out.println(this.score);
+			//System.out.println(this.score);
 		}
 	}
 	
+	/**
+	 * @param RK
+	 * @param c
+	 * @return
+	 */
 	public boolean detectCloudCollision(RedKnot RK, Cloud c) {
 		if(Utility.GameObjectCollision(RK, c)){
 			return true;
@@ -278,6 +363,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void addRandomFlockBirds() {
 		int chance = Utility.randRangeInt(this.FB_CHANCE_LOW, this.FB_CHANCE_MAX);
 		int threshold = this.FB_THRESHOLD;
@@ -296,6 +384,9 @@ public class RedKnotGameState extends GameState {
 	 * -When true, this allows the RedKnotView to draw the hitBoxes
 	 * and any future possible debug mode for bug testing
 	 */
+	/**
+	 * 
+	 */
 	public void switchDebugMode() {
 		if(this.debug_mode) {
 			this.debug_mode = false;
@@ -308,6 +399,9 @@ public class RedKnotGameState extends GameState {
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see game.GameState#addGameObject(game.GameObject)
+	 */
 	@Override
 	public void addGameObject(GameObject o) {
 		
@@ -315,32 +409,56 @@ public class RedKnotGameState extends GameState {
 	
 	/*Getters*/
 	
+	/**
+	 * @return
+	 */
 	public ArrayList<Cloud> getClouds(){
 		return this.clouds;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int countBirds() {
 		return flock.size();
 	}
 	
+	/**
+	 * @return
+	 */
 	public RedKnot getRK() {
 		return RK;
 	}
 
+	/**
+	 * @return
+	 */
 	public ArrayList<FlockBird> getFlock() {
 		return flock;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getScore(){
 		return score;
 	}
+	/**
+	 * @param x
+	 */
 	public void setScore(int x){
 		score=x;
 	}
+	/**
+	 * @param x
+	 */
 	public void incrementScore(int x){
 		score+=x;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getAMOUNT_OF_CLOUDS() {
 		return AMOUNT_OF_CLOUDS;
 	}

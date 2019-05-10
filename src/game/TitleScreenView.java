@@ -15,13 +15,16 @@ import javax.swing.JButton;
  * -class that acts as the View of the TitleScreen 
  * -contains methods and control over the drawing of the TitleScreen
  */
-public class TitleScreenView extends GameView{
+public class TitleScreenView extends WindowView{
 	JButton RedKnot;
 	JButton ClapperRail;
 	JButton Instructions;
 	
 	/*TODO: fix later
 	 * This isn't mvc but I'm leaving it for now.
+	 */
+	/**
+	 * 
 	 */
 	public TitleScreenView() {
 		super();
@@ -35,39 +38,20 @@ public class TitleScreenView extends GameView{
 		this.add(RedKnot, BorderLayout.WEST);
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameView#fnameMapCreate()
+	 */
 	@Override
 	public void fnameMapCreate() {
 		//Title currently does not have any images
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameView#loadImage(java.io.File)
+	 */
 	public Object loadImage(File f) {
 		return null;
 	}
 
-
-	@Override
-	public void scrollImage(Graphics g, Object background1, Object background2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void update(ArrayList<GameObject> gameObjects) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	//maybe we need to split our views that aren't games from the gameview, but
-	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
-	// here since it changes nothing.
-
-
-	@Override
-	public void updateScore(int x) {
-		// TODO Auto-generated method stub
-		
-	}
 }

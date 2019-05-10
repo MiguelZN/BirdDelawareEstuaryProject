@@ -18,30 +18,45 @@ public class Energy {
 	 * -sets the depletionRate (int) 
 	 * -sets the restoreRate (int)
 	 */
+	/**
+	 * 
+	 */
 	public Energy() {
 		this.energy = 100; //begins at 100 energy
 	}
 	
 	
 	
+	/**
+	 * @return
+	 */
 	public int getDepletionRate() {
 		return depletionRate;
 	}
 
 
 
+	/**
+	 * @param depletionRate
+	 */
 	public void setDepletionRate(int depletionRate) {
 		this.depletionRate = depletionRate;
 	}
 
 
 
+	/**
+	 * @return
+	 */
 	public int getRestoreRate() {
 		return restoreRate;
 	}
 
 
 
+	/**
+	 * @param restoreRate
+	 */
 	public void setRestoreRate(int restoreRate) {
 		this.restoreRate = restoreRate;
 	}
@@ -52,6 +67,9 @@ public class Energy {
 	 *-takes in no arguments/returns nothing
 	 *-restores the energy(int) to 100
 	 */
+	/**
+	 * 
+	 */
 	public void restoreFull() {
 		this.energy = 100;
 	}
@@ -59,6 +77,9 @@ public class Energy {
 	/*Method: restoreDefault()
 	 *-takes in no arguments/returns nothing
 	 *-similar to restoreFull(), restores based on the restoration rate
+	 */
+	/**
+	 * 
 	 */
 	public void restoreDefault() {
 		this.energy+=this.restoreRate;
@@ -68,6 +89,9 @@ public class Energy {
 	 *-takes in no arguments/returns nothing
 	 *-reduces (subtracts) the energy(int) property 
 	 */
+	/**
+	 * 
+	 */
 	public void depleteFull() {
 		this.energy = 0;
 	}
@@ -76,6 +100,9 @@ public class Energy {
 	 *-takes in no arguments/returns nothing
 	 *-similar to deleteFull(), reduces (subtracts) the energy (int) property
 	 */
+	/**
+	 * 
+	 */
 	public void depleteDefault() {
 		this.energy-=this.depletionRate;
 	}
@@ -83,10 +110,16 @@ public class Energy {
 	/*
 	 * Setter for the energy int
 	 */
+	/**
+	 * @param e
+	 */
 	public void setEnergy(int e){
 		this.energy=e;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getEnergy(){
 		return energy;
 	}

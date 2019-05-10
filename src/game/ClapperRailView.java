@@ -41,6 +41,9 @@ public class ClapperRailView extends GameView{
 	int BackgroundX;
 	ClapperRail CL;
 	
+	/**
+	 * 
+	 */
 	public ClapperRailView() {
 		super();
 		CL=new ClapperRail();
@@ -56,6 +59,9 @@ public class ClapperRailView extends GameView{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see game.GameView#paintComponent(java.awt.Graphics)
+	 */
 	public void paintComponent(Graphics g) {
 		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		g.setColor(new Color(224,160, 42));
@@ -67,6 +73,9 @@ public class ClapperRailView extends GameView{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameView#fnameMapCreate()
+	 */
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
@@ -75,6 +84,9 @@ public class ClapperRailView extends GameView{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
+	 */
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
 		g.drawImage((Image) objectMap.get(background1), BackgroundX*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
@@ -82,17 +94,26 @@ public class ClapperRailView extends GameView{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see game.GameView#update(java.util.ArrayList)
+	 */
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
 		this.CL = (ClapperRail)gameObjects.get(0);
 		
 	}
 	
+	/**
+	 * @param BackgroundX
+	 */
 	public void update(int BackgroundX) {
 		this.BackgroundX = BackgroundX;
 	}
 
 
+	/**
+	 * @param g
+	 */
 	public void drawEnergy(Graphics g){
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.ENERGY_FONT_SIZE));
@@ -107,9 +128,19 @@ public class ClapperRailView extends GameView{
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
 	}
 
+	/* (non-Javadoc)
+	 * @see game.GameView#updateScore(int)
+	 */
 	@Override
 	public void updateScore(int x) {
 		this.score = x;
+	}
+
+
+	@Override
+	public void drawEndGame() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

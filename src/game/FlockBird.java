@@ -55,6 +55,12 @@ public class FlockBird extends Bird{
 //		
 //	}
 	
+	/**
+	 * @param p
+	 * @param s
+	 * @param v
+	 * @param isCollected
+	 */
 	public FlockBird(Position p, Size s, Velocity v, boolean isCollected) {
 		super(p,s,v);
 		this.isCollected = isCollected;
@@ -72,6 +78,9 @@ public class FlockBird extends Bird{
 	 * -Takes in no arguments, returns nothing
 	 * -When called, updates the FlockBird's position and moves its x position to the left
 	 * by the FlockBird's x velocity
+	 */
+	/* (non-Javadoc)
+	 * @see game.Bird#move()
 	 */
 	@Override
 	public void move() {
@@ -94,6 +103,9 @@ public class FlockBird extends Bird{
 		//chance !isCollected to false 
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.Bird#move(game.Velocity)
+	 */
 	public void move(Velocity v) {
 		Position new_position = this.getPosition().moveByVelocity(v);
 		this.setPosition(new_position);
@@ -166,14 +178,23 @@ public class FlockBird extends Bird{
 		return new FlockBird(new Position(random_x, random_y), new Size(random_width,random_height), new Velocity(random_vx,0), false);
 	}
 	
+	/**
+	 * @return
+	 */
 	public boolean getIsCollected() {
 		return this.isCollected;
 	}
 	
+	/**
+	 * 
+	 */
 	public void incrementIndex(){
 		frameIndex=(frameIndex+1)%frameCount;
 	}
 	
+	/**
+	 * 
+	 */
 	public void updateCurrImage() {
 		this.tick++;
 		if(GameScreen.GAME_FPS/frameCount==tick){
@@ -186,6 +207,9 @@ public class FlockBird extends Bird{
 	 * Method that takes in a FlockBird object and returns a boolean
 	 * value of whether or not the inputted FlockBird instance's x position has
 	 * passed the 'x_bounds' integer.
+	 */
+	/**
+	 * @return
 	 */
 	public boolean checkIfOutOfBoundsLeft() {
 		Position p = this.getPosition();
@@ -200,6 +224,9 @@ public class FlockBird extends Bird{
 		}
 	}
 	
+	/**
+	 * @return
+	 */
 	public boolean checkIfOutOfBoundsBottom() {
 		Position p = this.getPosition();
 		
@@ -212,30 +239,54 @@ public class FlockBird extends Bird{
 			return false;
 		}
 	}
-	
+
+	/**
+	 * @param bool
+	 */
 	public void setGotLostInStorm(boolean bool) {
 		this.gotLostInStorm = bool;
 	}
 	
+	/**
+	 * 
+	 */
 	public void newFlyUp() {
 		updownstop=1;
 	}
+	/**
+	 * 
+	 */
 	public void newFlyDown() {
 		updownstop=-1;
 	}
+	/**
+	 * 
+	 */
 	public void flyDownStop() {
 		updownstop=0;
 	}
+	/**
+	 * 
+	 */
 	public void flyUpStop() {
 		updownstop=0;
 	}
+	/**
+	 * @return
+	 */
 	public int getFlyState() {
 		return updownstop;
 	}
+	/**
+	 * @param x
+	 */
 	public void setFlyState(int x) {
 		updownstop=x;
 	}
 	
+	/**
+	 * 
+	 */
 	public void FlyUp() {
 		Position p = this.getPosition();
 		int new_y = p.getY()-((int)(this.getVelocity().getYSpeed() * accel_mult_up));
@@ -247,15 +298,18 @@ public class FlockBird extends Bird{
 		this.setPosition(new Position(p.getX(),new_y));
 	}
 	
+	/**
+	 * 
+	 */
 	public void FlyDown() {
 		Position p = this.getPosition();
 		int new_y = p.getY()+((int)(this.getVelocity().getYSpeed()*accel_mult_down));
 		//if this will place the bird off the screen, dont move the bird.
 		accel_mult_up=1.0;
 		accel_mult_down+=0.02;
-		if(new_y > GameScreen.PLAY_SCREEN_HEIGHT){;
+		
+		if((new_y + this.getSize().getHeight() + GameScreen.TITLE_BAR_HEIGHT) > GameScreen.PLAY_SCREEN_HEIGHT)
 			return;
-		}
 		this.setPosition(new Position(p.getX(),new_y));
 	}
 }

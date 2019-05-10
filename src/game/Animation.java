@@ -15,6 +15,10 @@ public class Animation {
 	 * Constructor, given an Object o which will be the whole sprite image, we will then store that
 	 * in our array.
 	 */
+	/**
+	 * @param o
+	 * @param frameCount
+	 */
 	public Animation(Object o, int frameCount){
 		BufferedImage sprite=null;
 		frameIndex=0;
@@ -36,6 +40,9 @@ public class Animation {
 	 * then we would like to increment to the next frame of the animation every 
 	 * 10 times this is called.
 	 */
+	/**
+	 * @return
+	 */
 	public BufferedImage currImage(){
 		tick++;
 		if(GameScreen.GAME_FPS/frameCount==tick){
@@ -46,14 +53,24 @@ public class Animation {
 	}
 	
 	//Given a frameIndex, this returns the Animation image corresponding to it (FOR FLOCKBIRD)
+	/**
+	 * @param frameIndex
+	 * @return
+	 */
 	public BufferedImage currImage(int frameIndex) {
 		return images[frameIndex];
 	}
 	//frameIndex++
+	/**
+	 * 
+	 */
 	public void incrementIndex(){
 		frameIndex=(frameIndex+1)%frameCount;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getFrameCount() {
 		return this.frameCount;
 	}

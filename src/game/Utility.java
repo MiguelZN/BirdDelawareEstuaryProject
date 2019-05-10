@@ -14,6 +14,11 @@ public class Utility {
 	 * -Takes in two integers: a min, and max
 	 * -Returns a random int from the [inputted min, inputted max]
 	 */
+	/**
+	 * @param min_num
+	 * @param max_num
+	 * @return
+	 */
 	public static int randRangeInt(int min_num,int max_num){
 		return (int)(Math.random()*((max_num - min_num) + 1)+min_num);
 	}
@@ -21,6 +26,11 @@ public class Utility {
 	/*Created by Miguel:
 	 * -Takes in two GameObject instances
 	 * -Returns either true or false if the two GameObjects intersect (collision occurs)
+	 */
+	/**
+	 * @param o1
+	 * @param o2
+	 * @return
 	 */
 	public static boolean GameObjectCollision(GameObject o1, GameObject o2) {
 		return o1.hitBox.intersects(o2.hitBox);
@@ -31,6 +41,11 @@ public class Utility {
 	 * a boolean value
 	 * -If the 'debug' boolean is true, this allows the Graphics instance
 	 * to draw a rectangle based on the HitBox's properties
+	 */
+	/**
+	 * @param g
+	 * @param hb
+	 * @param debug
 	 */
 	public static void drawHitBox(Graphics g, HitBox hb, boolean debug) {
 		if(debug) {
@@ -44,6 +59,11 @@ public class Utility {
 	 * -If the 'debug' boolean is true, this allows the Graphics instance
 	 * to draw a rectangle based on the HitBox's properties
 	 * -Draws a circle at the HitBox's position
+	 */
+	/**
+	 * @param g
+	 * @param hb
+	 * @param debug
 	 */
 	public static void drawHitBoxPoint(Graphics g, HitBox hb, boolean debug) {
 		if(debug) {

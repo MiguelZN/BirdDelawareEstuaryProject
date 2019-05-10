@@ -24,15 +24,30 @@ public class GameObject {
 	/*Contructor: 
 	 * -takes in an x,y ints to set the starting Position of the GameObject
 	 */
+	/**
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public GameObject(int x, int y, int width, int height) {
 		this.hitBox = new HitBox(x,y,width,height);
 	}
 	
+	/**
+	 * @param p
+	 * @param s
+	 */
 	public GameObject(Position p, Size s) {
 		this.hitBox = new HitBox(p.getX(),p.getY(),s.getWidth(),s.getHeight());
 		this.type = null; //'type' is currently not used
 	}
 	
+	/**
+	 * @param p
+	 * @param s
+	 * @param type
+	 */
 	public GameObject(Position p, Size s, Object type) {
 		this.hitBox = new HitBox(p.getX(),p.getY(),s.getWidth(),s.getHeight());
 		this.type = type;
@@ -44,6 +59,9 @@ public class GameObject {
 	 * we currently have the position, height, width contained within the
 	 * HitBox class in order to unify and keep everything organized 
 	 */
+	/**
+	 * @return
+	 */
 	public Position getPosition() {
 		return this.hitBox.getPosition();
 	}
@@ -52,11 +70,17 @@ public class GameObject {
 	 * -Takes in a Position instance, returns nothing
 	 * -Sets the location of the HitBox (top left point of HitBox)
 	 */
+	/**
+	 * @param newPos
+	 */
 	public void setPosition(Position newPos) {
 		this.hitBox.setPosition(newPos);
 		
 	}
 	
+	/**
+	 * @param v
+	 */
 	public void shiftGameObject(Velocity v) {
 		this.getPosition().Shift(v);
 	}
