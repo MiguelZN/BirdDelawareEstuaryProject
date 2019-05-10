@@ -3,22 +3,36 @@ package game;
  * 
  */
 
+import java.awt.image.BufferedImage;
+
 /*Class: MiniMap
  * -extends the GameObject in order to have a position
  * -contains methods/properties to track where the bird currently is in its travel
  */
 public class MiniMap extends GameObject{
-	private Position birdPosition;
+	private BufferedImage map_image;
+	private int birdPosition; //This is going to be a percentage indicating how much of the game has ran thus far
 	
-	public MiniMap(int x, int y) {
-		super(x,y,0,0);
+	
+	
+	
+	//Note:
+	/*The minimap shall use the Size s from within hitbox but will not be needed for collision detection*/
+	
+	public MiniMap(Position p, Size s) {
+		super(p, s);
+		
+		this.birdPosition = 0;
 	}
+
 	
-	public Position getBirdPosition() {
+	
+	
+	public int getBirdPosition() {
 		return birdPosition;
 	}
 	
-	public void setBirdPosition(Position pos) {
+	public void setBirdPosition(int pos) {
 		this.birdPosition = pos;
 	}
 	

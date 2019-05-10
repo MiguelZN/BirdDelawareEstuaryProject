@@ -231,7 +231,7 @@ public class Controller implements KeyListener {
 		//Passes RedKnotGS updated data to the RedKnotView 
 		if(current_state instanceof RedKnotGameState) {
 			RedKnotGameState RK_GS = (RedKnotGameState)current_state;
-			System.out.println("GS_SCORE:"+RK_GS.getScore());
+			//System.out.println("GS_SCORE:"+RK_GS.getScore());
 			view.updateScore(RK_GS.getScore());
 		}
 		

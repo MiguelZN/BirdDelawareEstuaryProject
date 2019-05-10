@@ -230,8 +230,8 @@ public class RedKnotView extends GameView {
 	@Override
 	public void updateScore(int x) {
 		this.score = x;
-		System.out.println("VIEW IS UPDATING SCORE");
-		System.out.println(this.score);
+//		System.out.println("VIEW IS UPDATING SCORE");
+//		System.out.println(this.score);
 	}
 	
 }

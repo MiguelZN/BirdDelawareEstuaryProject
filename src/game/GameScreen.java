@@ -1,5 +1,7 @@
 package game;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -64,6 +66,8 @@ public class GameScreen extends JFrame{
 		this.setVisible(true);
 		this.setFocusable(true);
 		this.revalidate();
+		
+		
 	}
 	
 	//When called, this redraws the JFrame, Background, etc
