@@ -6,12 +6,15 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.FlatteningPathIterator;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 
 /*
@@ -51,7 +54,10 @@ public class RedKnotView extends GameView {
 	//MAP:
 	private FlatteningPathIterator iter;
 	private Path2D.Double map_curve;
+	private ArrayList<Point> points;
 	
+	private GameTimer test_timer;
+	int current_time;
 	
 	private static final long serialVersionUID = 1L;
 	/**
@@ -63,10 +69,25 @@ public class RedKnotView extends GameView {
 		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
 		flock = new ArrayList<>();
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				
+				
+				current_time+=1;
+				//System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
+			}
+		};
+		test_timer = new GameTimer(1000, task);
 		
-		//Map:
+		//Map: (Curve works for any map size, used ratios to determine curve points etc)
 		Size map_size = new Size(150,150);
 		map = new MiniMap(new Position(GameScreen.PLAY_SCREEN_WIDTH-map_size.getWidth()-MiniMap.LEFT_MARGIN,GameScreen.PLAY_SCREEN_HEIGHT-map_size.getHeight()-MiniMap.BOTTOM_MARGIN), map_size);
+		this.current_time = 0;
+		this.map_curve = new Path2D.Double();
+		createMapPoints();
+		
+	
 		
 		try {
 			loadAllImages("/resources/images/redknot");
@@ -97,18 +118,30 @@ public class RedKnotView extends GameView {
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
 		
 		//MAP:
-		
-		this.map_curve = new Path2D.Double();
 		drawMap(g);
 		drawMapCurve(g);
 	}
 	
 	public void drawMapCurve(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-		Size map_size = new Size(map.hitBox.width,map.hitBox.height);
 //		System.out.println(map_size.getWidth());
 //		System.out.println(map_size.getHeight());
+//		System.out.println("X1Y1:"+x1+','+y1);
+//		System.out.println("X3Y3:"+x3+','+y3);
+//		System.out.println("X2Y2:"+x2+","+y2);
+		g2d.draw(map_curve);
+		
+		if(points.size()>0) {
+			System.out.println(points.size());
+			g.setColor(Color.RED);
+			int i = this.current_time;
+			g.fillOval((int)points.get(i%points.size()).getX(), (int)points.get(i%points.size()).getY(), 5, 5);
+		}
+		
+	}
 	
+	public void createMapPoints() {
+		Size map_size = new Size(map.hitBox.width,map.hitBox.height);
 		int x1 = (int) ((320d/500d)*map_size.getWidth())+map.getPosition().getX(); //gives the width ratio of first x1
 		int y1 = (int) ((420d/500d)*map_size.getHeight())+map.getPosition().getY(); //gives height ratio
 		int x3 = (int) ((260d/500d)*map_size.getWidth())+map.getPosition().getX();
@@ -117,14 +150,21 @@ public class RedKnotView extends GameView {
 		
 		int x2 = (x1-x3)+x3;
 		int y2 = (y3-y1)+y3+(int)(y1*.075);
-//		System.out.println("X1Y1:"+x1+','+y1);
-//		System.out.println("X3Y3:"+x3+','+y3);
-//		System.out.println("X2Y2:"+x2+","+y2);
 		
 		map_curve.moveTo(x1, y1);
 		map_curve.curveTo(x1, y1, x2, y2, x3, y3);
-		g2d.draw(map_curve);
 		
+        float[] coords=new float[6];
+        this.points = new ArrayList<>();
+		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.01);
+        while (!this.iter.isDone()) {
+            this.iter.currentSegment(coords);
+            int x=(int)coords[0];
+            int y=(int)coords[1];
+            this.points.add(new Point(x,y));
+            this.iter.next();
+        }
+        System.out.println(points.size());
 	}
 	
 	/* (non-Javadoc)
