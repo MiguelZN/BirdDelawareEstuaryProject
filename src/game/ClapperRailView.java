@@ -136,4 +136,11 @@ public class ClapperRailView extends GameView{
 		this.score = x;
 	}
 
+
+	@Override
+	public void drawEndGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

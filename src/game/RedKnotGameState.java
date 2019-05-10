@@ -38,8 +38,9 @@ public class RedKnotGameState extends GameState {
 	private Cloud lastCloudTouched;
 	
 	
-	//GAME_TIME:
-	//private final int TWO_MINS_MILLISECONDS = GameTimer.ONE_MINUTE*2;
+	//GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
+	//EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as 
+	//this is what the Java.util.Timer takes in
 	private final int MAX_GAME_TIME = GameTimer.ONE_MINUTE;
 	private GameTimer game_timer;
 	private int current_time;
@@ -66,19 +67,22 @@ public class RedKnotGameState extends GameState {
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("TIMER");
-				current_time++;
-				System.out.println("GAMETIME RAN:"+current_time);
 				
-				if(current_time>= MAX_GAME_TIME) {
-					System.exit(0);
+				if(getIsGameRunning()) {
+					System.out.println("TIMER");
+					current_time+=GameTimer.ONE_SECOND;
+					System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
+					
+					if(current_time>= MAX_GAME_TIME) {
+						//System.exit(0);
+						setIsGameRunning(false);
+					}
 				}
-				
 			}
 		};
 		
 		//the game timer runs every second and updates the counter 'current_time'
-		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,MAX_GAME_TIME,task);
+		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
 		
 	}
 	
@@ -89,6 +93,7 @@ public class RedKnotGameState extends GameState {
 //	public void collectBird(ListIterator<FlockBird> fb_iter) {
 //		fb_iter.add(FlockBird.spawnFlockBird(RK));
 //	}
+	
 	
 	/**
 	 * @param fb_iter
@@ -113,10 +118,13 @@ public class RedKnotGameState extends GameState {
 	 */
 	@Override
 	public void ontick() {
-		//Modify GameObjects, then GameObjects are passed to the controller
-		checkClouds();
-		RK.move();
-		checkFlockBirds();
+		//Modify GameObjects, then GameObjects are passed to the controller	
+		//Only runs the game if the game is currently running
+		if(this.getIsGameRunning()) {
+			checkClouds();
+			RK.move();
+			checkFlockBirds();
+		}
 	
 	}
 	

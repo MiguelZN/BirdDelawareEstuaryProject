@@ -18,6 +18,7 @@ public abstract class GameState extends Model {
 	protected MiniMap map;
 	protected int background_x = 5; //Starts the background image at x=5, and moves left
 	protected ArrayList<GameObject> objects; //all game objects that we have to draw on the screen
+	protected boolean isGameRunning;
 	
 	/**
 	 * @param controller
@@ -25,6 +26,7 @@ public abstract class GameState extends Model {
 	public GameState(Controller controller) {
 		super(controller);
 		objects = new ArrayList<>();
+		this.isGameRunning = true;
 	}
 	
 	/**
@@ -54,5 +56,13 @@ public abstract class GameState extends Model {
 	 */
 	public int getBackgroundX() {
 		return this.background_x;
+	}
+	
+	public boolean getIsGameRunning() {
+		return this.isGameRunning;
+	}
+	
+	public void setIsGameRunning(boolean game_running) {
+		this.isGameRunning = game_running;
 	}
 }

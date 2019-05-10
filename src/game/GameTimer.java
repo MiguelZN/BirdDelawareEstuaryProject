@@ -25,14 +25,14 @@ public class GameTimer extends Timer {
 		
 	//The timer is delayed by 'delay' then performs 
 	//a task after every 'interval' time (in milliseconds)
-	public GameTimer(int delay, int interval, int max_game_time, TimerTask task){
+	public GameTimer(int delay, int interval,TimerTask task){
 		this.scheduleAtFixedRate(task, delay,interval);
 		System.out.println("TIMER");
 	}
 	
 	//The timer is delayed by 'delay' then performs 
 	//a task after every 'interval' time (in milliseconds)
-	public GameTimer(int interval, int max_game_time, TimerTask task){
+	public GameTimer(int interval,TimerTask task){
 		int delay = 0; //this means that immediately start the game timer
 		this.scheduleAtFixedRate(task, delay,interval);
 		System.out.println("TIMER");

@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 /*Class: InstructionsView
  * -contains the drawing methods/images for the Instructions mode
  */
-public class InstructionsView extends GameView{
+public class InstructionsView extends WindowView{
 	ImageIcon titleImage;
 	ImageIcon redknot;
 	ImageIcon clapperrail;
@@ -128,16 +128,6 @@ public class InstructionsView extends GameView{
 		
 		this.currentInstructions.setVisible(true);
 	}
-
-	/* (non-Javadoc)
-	 * @see game.GameView#fnameMapCreate()
-	 */
-	@Override
-	public void fnameMapCreate() {
-		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
-		fnameMap.put("rk_instructions.png", InstructionsAsset.RK_INSTRUCTIONS);
-		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);	
-	}
 	
 	/* (non-Javadoc)
 	 * @see game.GameView#loadImage(java.io.File)
@@ -154,38 +144,15 @@ public class InstructionsView extends GameView{
 		return output;
 	}
 
-	//Not Needed for InstructionsView
 	/* (non-Javadoc)
-	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
+	 * @see game.GameView#fnameMapCreate()
 	 */
-	@Override
-	public void scrollImage(Graphics g, Object background1, Object background2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see game.GameView#update(java.util.ArrayList)
-	 */
-	@Override
-	public void update(ArrayList<GameObject> gameObjects) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	//maybe we need to split our views that aren't games from the gameview, but
-	// if it is only for the purpose of this single method that they don't share, id be fine just leaving this
-	// here since it changes nothing.
-
-	/* (non-Javadoc)
-	 * @see game.GameView#updateScore(int)
-	 */
-	@Override
-	public void updateScore(int x) {
-		// TODO Auto-generated method stub
-		
+	public void fnameMapCreate() {
+		fnameMap.put("cl_instructions.png", InstructionsAsset.CL_INSTRUCTIONS);
+		fnameMap.put("rk_instructions.png", InstructionsAsset.RK_INSTRUCTIONS);
+		fnameMap.put("instructions_label.png", InstructionsAsset.INSTRUCTIONS_LABEL);	
 	}
 	
+
 	
 }

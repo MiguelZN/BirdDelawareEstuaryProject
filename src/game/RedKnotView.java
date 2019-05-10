@@ -233,5 +233,13 @@ public class RedKnotView extends GameView {
 //		System.out.println("VIEW IS UPDATING SCORE");
 //		System.out.println(this.score);
 	}
+
+
+
+	@Override
+	public void drawEndGame() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
