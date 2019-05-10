@@ -78,7 +78,7 @@ public class RedKnotView extends GameView {
 				//System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
 			}
 		};
-		test_timer = new GameTimer(1000, task);
+		test_timer = new GameTimer(GameTimer.ONE_SECOND, task);
 		
 		//Map: (Curve works for any map size, used ratios to determine curve points etc)
 		Size map_size = new Size(150,150);
@@ -124,6 +124,7 @@ public class RedKnotView extends GameView {
 	
 	public void drawMapCurve(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
+		g.setColor(Color.ORANGE);
 //		System.out.println(map_size.getWidth());
 //		System.out.println(map_size.getHeight());
 //		System.out.println("X1Y1:"+x1+','+y1);
@@ -135,8 +136,90 @@ public class RedKnotView extends GameView {
 			System.out.println(points.size());
 			g.setColor(Color.RED);
 			int i = this.current_time;
-			g.fillOval((int)points.get(i%points.size()).getX(), (int)points.get(i%points.size()).getY(), 5, 5);
+			
+			double time_ratio = (double)current_time/(RedKnotGameState.MAX_GAME_TIME/GameTimer.ONE_SECOND);
+			
+			i = (int)(time_ratio*points.size()); //gets the index in reference to how much time has gone by
+			
+			Position p = new Position((int)points.get(i%points.size()).getX(), (int)points.get(i%points.size()).getY());
+			
+			int point_x = p.getX();
+			int point_y = p.getY();
+			int relative_x = point_x - map.getPosition().getX();
+			int relative_y = point_y - map.getPosition().getY();
+			
+			Position relative_pos = new Position(relative_x,relative_y);
+			
+			System.out.println("REL:"+relative_pos);
+			
+			double ratio_x = (relative_x/(double)map.hitBox.width);
+			double ratio_y = (relative_y/(double)map.hitBox.height);
+			System.out.println(map.hitBox.width);
+			System.out.println("Ratiox, ratioy:"+ratio_x+","+ratio_y);
+			
+			BufferedImage map_image = (BufferedImage)objectMap.get(RedKnotAsset.MAP);
+			Position absolute_pos = new Position((int)((map_image.getWidth()*ratio_x)+1),(int)(map_image.getHeight()*ratio_y));
+			//System.out.println(map_image.getRGB(499,499));
+			//System.out.println(relative_pos);
+			System.out.println(absolute_pos);
+			checkPixel(map_image, absolute_pos);
+			System.out.println("B:"+checkPixel(map_image,absolute_pos,"B"));
+			g.fillOval(p.getX(), p.getY(), 5, 5);
 		}
+		
+	}
+	
+	public void checkPixel(BufferedImage img, Position p) {
+		int rgb_value = img.getRGB(p.getX(), p.getY());
+		int a = (rgb_value>>24) & 0xff; //Bitmasks to get alpha
+		int r = (rgb_value>>16) & 0xff; //Bitmasks to get red
+		int g =  (rgb_value>>8) & 0xff; //Bitmasks to get green
+		int b = (rgb_value) & 0xff; //Bitmasks to get blue
+		
+		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
+		int high_blue_value = 200;
+		int high_green_value = 200;
+		
+		if(b>high_blue_value) {
+			System.out.println("WATER");
+		}
+		
+		if(g>high_green_value) {
+			System.out.println("LAND");
+		}
+		
+	}
+	
+	public int checkPixel(BufferedImage img, Position p, String s) {
+		int rgb_value = img.getRGB(p.getX(), p.getY());
+		int a = (rgb_value>>24) & 0xff; //Bitmasks to get alpha
+		int r = (rgb_value>>16) & 0xff; //Bitmasks to get red
+		int g =  (rgb_value>>8) & 0xff; //Bitmasks to get green
+		int b = (rgb_value) & 0xff; //Bitmasks to get blue
+		
+		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
+		int high_blue_value = 200;
+		int high_green_value = 200;
+		
+		switch(s.toLowerCase()) {
+		case "r":
+			return r;
+		case "g":
+			return g;
+		case "b":
+			
+			return b;
+		case "a":
+			
+			return a;
+			
+		default:
+			System.out.println("Error, wrong string input: input either 'r', 'g', 'b', or 'a'");
+			return -1;
+		}
+		
+		
+
 		
 	}
 	
@@ -148,15 +231,15 @@ public class RedKnotView extends GameView {
 		int y3 = (int) ((140d/500d)*map_size.getHeight())+map.getPosition().getY();
 		
 		
-		int x2 = (x1-x3)+x3;
-		int y2 = (y3-y1)+y3+(int)(y1*.075);
+		int x2 = (x1-x3)+x3+(int)(x1*0.0125);
+		int y2 = (y3-y1)+y3+(int)(y1*.3);
 		
 		map_curve.moveTo(x1, y1);
 		map_curve.curveTo(x1, y1, x2, y2, x3, y3);
 		
         float[] coords=new float[6];
         this.points = new ArrayList<>();
-		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.01);
+		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.5);
         while (!this.iter.isDone()) {
             this.iter.currentSegment(coords);
             int x=(int)coords[0];

@@ -41,7 +41,7 @@ public class RedKnotGameState extends GameState {
 	//GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
 	//EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as 
 	//this is what the Java.util.Timer takes in
-	private final int MAX_GAME_TIME = GameTimer.ONE_MINUTE;
+	static final int MAX_GAME_TIME = GameTimer.ONE_MINUTE;
 	private GameTimer game_timer;
 	private int current_time;
 	

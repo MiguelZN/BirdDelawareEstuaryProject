@@ -14,7 +14,7 @@ public class RedKnot extends Bird{
 	private final static int START_X = 200;
 	private final static int START_Y = 20;
 	
-	private final static int RK_VX = 5;
+	private final static int RK_VX = 4;
 	private final static int RK_VY = 5;
 	
 	
