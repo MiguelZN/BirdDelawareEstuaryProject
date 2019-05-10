@@ -3,6 +3,8 @@ package game;
  * 
  */
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /*Class: MiniMap
@@ -13,6 +15,9 @@ public class MiniMap extends GameObject{
 	private BufferedImage map_image;
 	private int birdPosition; //This is going to be a percentage indicating how much of the game has ran thus far
 	
+	//The margins of how far away the map is the the bottom left corner
+	static final int LEFT_MARGIN = 20;
+	static final int BOTTOM_MARGIN = 30;
 	
 	
 	
@@ -24,8 +29,6 @@ public class MiniMap extends GameObject{
 		
 		this.birdPosition = 0;
 	}
-
-	
 	
 	
 	public int getBirdPosition() {

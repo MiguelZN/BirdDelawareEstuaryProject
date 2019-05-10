@@ -69,9 +69,9 @@ public class RedKnotGameState extends GameState {
 			public void run() {
 				
 				if(getIsGameRunning()) {
-					System.out.println("TIMER");
+					//System.out.println("TIMER");
 					current_time+=GameTimer.ONE_SECOND;
-					System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
+					//System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
 					
 					if(current_time>= MAX_GAME_TIME) {
 						//System.exit(0);

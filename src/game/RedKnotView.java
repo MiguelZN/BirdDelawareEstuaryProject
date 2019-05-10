@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Shape;
+import java.awt.geom.FlatteningPathIterator;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,10 +42,15 @@ public class RedKnotView extends GameView {
 	private ArrayList<Cloud> clouds;
 	private RedKnot redKnot;
 	private ArrayList<FlockBird> flock;
+	private MiniMap map;
 	private int score;
 	private boolean debug_mode;
 	
 	int background_x = 5;
+	
+	//MAP:
+	private FlatteningPathIterator iter;
+	private Path2D.Double map_curve;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -54,6 +63,10 @@ public class RedKnotView extends GameView {
 		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
 		flock = new ArrayList<>();
+		
+		//Map:
+		Size map_size = new Size(150,150);
+		map = new MiniMap(new Position(GameScreen.PLAY_SCREEN_WIDTH-map_size.getWidth()-MiniMap.LEFT_MARGIN,GameScreen.PLAY_SCREEN_HEIGHT-map_size.getHeight()-MiniMap.BOTTOM_MARGIN), map_size);
 		
 		try {
 			loadAllImages("/resources/images/redknot");
@@ -82,6 +95,36 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.BLUE);
 		drawFlockBirds(g);
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
+		
+		//MAP:
+		
+		this.map_curve = new Path2D.Double();
+		drawMap(g);
+		drawMapCurve(g);
+	}
+	
+	public void drawMapCurve(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
+		Size map_size = new Size(map.hitBox.width,map.hitBox.height);
+//		System.out.println(map_size.getWidth());
+//		System.out.println(map_size.getHeight());
+	
+		int x1 = (int) ((320d/500d)*map_size.getWidth())+map.getPosition().getX(); //gives the width ratio of first x1
+		int y1 = (int) ((420d/500d)*map_size.getHeight())+map.getPosition().getY(); //gives height ratio
+		int x3 = (int) ((260d/500d)*map_size.getWidth())+map.getPosition().getX();
+		int y3 = (int) ((140d/500d)*map_size.getHeight())+map.getPosition().getY();
+		
+		
+		int x2 = (x1-x3)+x3;
+		int y2 = (y3-y1)+y3+(int)(y1*.075);
+//		System.out.println("X1Y1:"+x1+','+y1);
+//		System.out.println("X3Y3:"+x3+','+y3);
+//		System.out.println("X2Y2:"+x2+","+y2);
+		
+		map_curve.moveTo(x1, y1);
+		map_curve.curveTo(x1, y1, x2, y2, x3, y3);
+		g2d.draw(map_curve);
+		
 	}
 	
 	/* (non-Javadoc)
@@ -189,6 +232,10 @@ public class RedKnotView extends GameView {
 		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
 	}
 	
+	public void drawMap(Graphics g) {
+		g.drawImage((Image) objectMap.get(RedKnotAsset.MAP), map.getPosition().getX(),map.getPosition().getY(),map.hitBox.width,map.hitBox.height,null);
+	}
+	
 	/* collision comment: 
 	 * 
 	 * //Testing Collision for Clouds and RedKnot (Works -Miguel)
@@ -220,6 +267,7 @@ public class RedKnotView extends GameView {
 		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
 		fnameMap.put("sprite-6-flockbird.png", RedKnotAsset.FLOCKBIRD);
+		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
 	}
 
 

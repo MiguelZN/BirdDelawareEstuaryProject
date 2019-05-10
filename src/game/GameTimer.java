@@ -16,7 +16,7 @@ public class GameTimer extends Timer {
 		this.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("TIMER");
+				//System.out.println("TIMER");
 			}
 		}, 5000);
 		
@@ -27,7 +27,7 @@ public class GameTimer extends Timer {
 	//a task after every 'interval' time (in milliseconds)
 	public GameTimer(int delay, int interval,TimerTask task){
 		this.scheduleAtFixedRate(task, delay,interval);
-		System.out.println("TIMER");
+		//System.out.println("TIMER");
 	}
 	
 	//The timer is delayed by 'delay' then performs 
@@ -35,6 +35,6 @@ public class GameTimer extends Timer {
 	public GameTimer(int interval,TimerTask task){
 		int delay = 0; //this means that immediately start the game timer
 		this.scheduleAtFixedRate(task, delay,interval);
-		System.out.println("TIMER");
+		//System.out.println("TIMER");
 	}
 }
