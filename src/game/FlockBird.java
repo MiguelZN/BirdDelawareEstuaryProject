@@ -284,14 +284,44 @@ public class FlockBird extends Bird{
 		updownstop=x;
 	}
 	
-	/**
-	 * 
-	 */
+//	/**
+//	 * 
+//	 */
+//	public void FlyUp() {
+//		Position p = this.getPosition();
+//		int new_y = p.getY()-((int)(this.getVelocity().getYSpeed() * accel_mult_up));
+//		accel_mult_down=1.0;
+//		accel_mult_up+=0.02;
+//		//if this will place the bird off the screen, dont move the bird.
+//		if(new_y < 0)
+//			return;
+//		this.setPosition(new Position(p.getX(),new_y));
+//	}
+//	
+//	/**
+//	 * 
+//	 */
+//	public void FlyDown() {
+//		Position p = this.getPosition();
+//		int new_y = p.getY()+((int)(this.getVelocity().getYSpeed()*accel_mult_down));
+//		//if this will place the bird off the screen, dont move the bird.
+//		accel_mult_up=1.0;
+//		accel_mult_down+=0.02;
+//		
+//		if((new_y + this.getSize().getHeight() + GameScreen.TITLE_BAR_HEIGHT) > GameScreen.PLAY_SCREEN_HEIGHT)
+//			return;
+//		this.setPosition(new Position(p.getX(),new_y));
+//	}
+	
+	/*NOTE: commented out the acceleration because the movement is
+	 * pretty iffy, the movement is smoother by just adding/subtracting
+	 * the bird's velocity from its position*/
+	 
+	
 	public void FlyUp() {
 		Position p = this.getPosition();
-		int new_y = p.getY()-((int)(this.getVelocity().getYSpeed() * accel_mult_up));
-		accel_mult_down=1.0;
-		accel_mult_up+=0.02;
+		int new_y = p.getY()-this.getVelocity().getYSpeed();
+		
 		//if this will place the bird off the screen, dont move the bird.
 		if(new_y < 0)
 			return;
@@ -303,11 +333,10 @@ public class FlockBird extends Bird{
 	 */
 	public void FlyDown() {
 		Position p = this.getPosition();
-		int new_y = p.getY()+((int)(this.getVelocity().getYSpeed()*accel_mult_down));
+		int new_y = p.getY()+this.getVelocity().getYSpeed();
 		//if this will place the bird off the screen, dont move the bird.
-		accel_mult_up=1.0;
-		accel_mult_down+=0.02;
-		
+		System.out.println(new_y);
+		System.out.println(this.getSize().getHeight());
 		if((new_y + this.getSize().getHeight() + GameScreen.TITLE_BAR_HEIGHT) > GameScreen.PLAY_SCREEN_HEIGHT)
 			return;
 		this.setPosition(new Position(p.getX(),new_y));

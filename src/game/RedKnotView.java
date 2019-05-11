@@ -31,6 +31,18 @@ import java.util.TimerTask;
  * -contains methods and control over the drawing of the RedKnot minigame
  */
 public class RedKnotView extends GameView {
+	
+	//Private enum for just the RedKnotView 
+	private enum RKBackgrounds {
+		SA("SA"), //south america (jungly background)
+		OCEAN("OCEAN");
+
+		private String asset_key = null;
+
+		private RKBackgrounds(String s){
+			asset_key=s;
+		}
+	}
 	/**
 	 * 
 	 */
@@ -49,12 +61,14 @@ public class RedKnotView extends GameView {
 	private int score;
 	private boolean debug_mode;
 	
+	
 	int background_x = 5;
 	
 	//MAP:
 	private FlatteningPathIterator iter;
 	private Path2D.Double map_curve;
 	private ArrayList<Point> points;
+	private RKBackgrounds previous; //keeps track of the previous background 
 	
 	private GameTimer test_timer;
 	int current_time;
@@ -86,6 +100,7 @@ public class RedKnotView extends GameView {
 		this.current_time = 0;
 		this.map_curve = new Path2D.Double();
 		createMapPoints();
+		this.previous = RKBackgrounds.SA; //starst the background in the water
 		
 	
 		
@@ -107,9 +122,11 @@ public class RedKnotView extends GameView {
 	 * @see game.GameView#paintComponent(java.awt.Graphics)
 	 */
 	public void paintComponent(Graphics g) {
-		scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
 		g.setColor(Color.RED);
 //		birdMovement(RK);
+		//MAP:
+		drawCheckMapCurve(g); //draws and checks the map curve
+		
 		drawClouds(g);
 		drawScore(g);
 		drawBird(g);
@@ -117,12 +134,9 @@ public class RedKnotView extends GameView {
 		drawFlockBirds(g);
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
 		
-		//MAP:
-		drawMap(g);
-		drawMapCurve(g);
 	}
 	
-	public void drawMapCurve(Graphics g) {
+	public void drawCheckMapCurve(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g.setColor(Color.ORANGE);
 //		System.out.println(map_size.getWidth());
@@ -130,7 +144,6 @@ public class RedKnotView extends GameView {
 //		System.out.println("X1Y1:"+x1+','+y1);
 //		System.out.println("X3Y3:"+x3+','+y3);
 //		System.out.println("X2Y2:"+x2+","+y2);
-		g2d.draw(map_curve);
 		
 		if(points.size()>0) {
 			System.out.println(points.size());
@@ -162,39 +175,82 @@ public class RedKnotView extends GameView {
 			//System.out.println(map_image.getRGB(499,499));
 			//System.out.println(relative_pos);
 			System.out.println(absolute_pos);
-			checkPixel(map_image, absolute_pos);
+			//checkPixel(map_image, absolute_pos);
 			System.out.println("B:"+checkPixel(map_image,absolute_pos,"B"));
+			
+			
+			//Checking if bird is 'over' water and land on the map:
+			int green_rgb = checkPixel(map_image,absolute_pos,"g");
+			int blue_rgb = checkPixel(map_image, absolute_pos, "b");
+			
+			RKBackgrounds current = null;
+			
+			//Checks for a blue pixel (Water)
+			if(blue_rgb>200 && green_rgb<200) {
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
+				current = RKBackgrounds.OCEAN;
+			}
+			else if(green_rgb>200 && blue_rgb<200) {
+				current = RKBackgrounds.SA;
+			}
+			else {
+				System.out.println("ERROR-BACKGROUND");
+			}
+			
+			
+			
+			if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.SA) {
+				scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
+			}
+			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.OCEAN) {
+				scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
+			}
+			else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.OCEAN) {
+				scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.BACKGROUND);
+			}
+			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.SA) {
+				scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+			}
+			
+			this.previous = current;
+			
+			drawMap(g);
+			g2d.draw(map_curve);
 			g.fillOval(p.getX(), p.getY(), 5, 5);
+			
+			
 		}
 		
 	}
 	
-	public void checkPixel(BufferedImage img, Position p) {
-		int rgb_value = img.getRGB(p.getX(), p.getY());
-		int a = (rgb_value>>24) & 0xff; //Bitmasks to get alpha
-		int r = (rgb_value>>16) & 0xff; //Bitmasks to get red
-		int g =  (rgb_value>>8) & 0xff; //Bitmasks to get green
-		int b = (rgb_value) & 0xff; //Bitmasks to get blue
-		
-		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
-		int high_blue_value = 200;
-		int high_green_value = 200;
-		
-		if(b>high_blue_value) {
-			System.out.println("WATER");
-		}
-		
-		if(g>high_green_value) {
-			System.out.println("LAND");
-		}
-		
-	}
+//	public void checkPixel(BufferedImage img, Position p) {
+//		int rgb_value = img.getRGB(p.getX(), p.getY());
+//		int one_byte = 8;
+//		int a = (rgb_value>>one_byte*3) & 0xff; //Bitmasks to get alpha
+//		int r = (rgb_value>>one_byte*2) & 0xff; //Bitmasks to get red
+//		int g =  (rgb_value>>one_byte) & 0xff; //Bitmasks to get green
+//		int b = (rgb_value) & 0xff; //Bitmasks to get blue
+//		
+//		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
+//		int high_blue_value = 200;
+//		int high_green_value = 200;
+//		
+//		if(b>high_blue_value) {
+//			System.out.println("WATER");
+//		}
+//		
+//		if(g>high_green_value) {
+//			System.out.println("LAND");
+//		}
+//		
+//	}
 	
 	public int checkPixel(BufferedImage img, Position p, String s) {
 		int rgb_value = img.getRGB(p.getX(), p.getY());
-		int a = (rgb_value>>24) & 0xff; //Bitmasks to get alpha
-		int r = (rgb_value>>16) & 0xff; //Bitmasks to get red
-		int g =  (rgb_value>>8) & 0xff; //Bitmasks to get green
+		int one_byte = 8;
+		int a = (rgb_value>>one_byte*3) & 0xff; //Bitmasks to get alpha
+		int r = (rgb_value>>one_byte*2) & 0xff; //Bitmasks to get red
+		int g =  (rgb_value>>one_byte) & 0xff; //Bitmasks to get green
 		int b = (rgb_value) & 0xff; //Bitmasks to get blue
 		
 		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
