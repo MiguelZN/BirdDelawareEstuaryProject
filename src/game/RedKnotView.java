@@ -14,6 +14,7 @@ import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.TimerTask;
 
 
@@ -62,7 +63,13 @@ public class RedKnotView extends GameView {
 	private boolean debug_mode;
 	
 	
-	int background_x = 5;
+	int background_x = 0;
+	
+	//New Scroll Image
+	int backgroundx1 = 0;
+	int backgroundx2 = GameScreen.PLAY_SCREEN_WIDTH;
+	RedKnotAsset current_background1;
+	RedKnotAsset current_background2;
 	
 	//MAP:
 	private FlatteningPathIterator iter;
@@ -72,6 +79,8 @@ public class RedKnotView extends GameView {
 	
 	private GameTimer test_timer;
 	int current_time;
+	
+	private LinkedList<RedKnotAsset> backgrounds;
 	
 	private static final long serialVersionUID = 1L;
 	/**
@@ -102,6 +111,10 @@ public class RedKnotView extends GameView {
 		createMapPoints();
 		this.previous = RKBackgrounds.SA; //starst the background in the water
 		
+		this.backgrounds = new LinkedList<>();
+		this.backgrounds.add(RedKnotAsset.SABACKGROUND);
+		this.backgrounds.add(RedKnotAsset.COAST);
+		this.backgrounds.add(RedKnotAsset.OCEAN);
 	
 		
 		try {
@@ -145,6 +158,8 @@ public class RedKnotView extends GameView {
 //		System.out.println("X3Y3:"+x3+','+y3);
 //		System.out.println("X2Y2:"+x2+","+y2);
 		
+		
+		
 		if(points.size()>0) {
 			System.out.println(points.size());
 			g.setColor(Color.RED);
@@ -163,18 +178,18 @@ public class RedKnotView extends GameView {
 			
 			Position relative_pos = new Position(relative_x,relative_y);
 			
-			System.out.println("REL:"+relative_pos);
+			//System.out.println("REL:"+relative_pos);
 			
 			double ratio_x = (relative_x/(double)map.hitBox.width);
 			double ratio_y = (relative_y/(double)map.hitBox.height);
-			System.out.println(map.hitBox.width);
-			System.out.println("Ratiox, ratioy:"+ratio_x+","+ratio_y);
+			//System.out.println(map.hitBox.width);
+			//System.out.println("Ratiox, ratioy:"+ratio_x+","+ratio_y);
 			
 			BufferedImage map_image = (BufferedImage)objectMap.get(RedKnotAsset.MAP);
 			Position absolute_pos = new Position((int)((map_image.getWidth()*ratio_x)+1),(int)(map_image.getHeight()*ratio_y));
 			//System.out.println(map_image.getRGB(499,499));
 			//System.out.println(relative_pos);
-			System.out.println(absolute_pos);
+			//System.out.println(absolute_pos);
 			//checkPixel(map_image, absolute_pos);
 			System.out.println("B:"+checkPixel(map_image,absolute_pos,"B"));
 			
@@ -186,30 +201,45 @@ public class RedKnotView extends GameView {
 			RKBackgrounds current = null;
 			
 			//Checks for a blue pixel (Water)
-			if(blue_rgb>200 && green_rgb<200) {
+			if(blue_rgb>green_rgb) {
 				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
 				current = RKBackgrounds.OCEAN;
 			}
-			else if(green_rgb>200 && blue_rgb<200) {
+			else if(green_rgb> blue_rgb) {
 				current = RKBackgrounds.SA;
 			}
-			else {
+			else{
 				System.out.println("ERROR-BACKGROUND");
+				System.exit(0);
 			}
 			
+			System.out.println(this.previous);
+			System.out.println(current);
+			
+			RedKnotAsset[] background_arr = {
+					RedKnotAsset.SABACKGROUND,RedKnotAsset.SABACKGROUND,RedKnotAsset.BACKGROUND,
+					RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND};
 			
 			
 			if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.SA) {
-				scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
+				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);
 			}
 			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.OCEAN) {
-				scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.OCEAN);
+				this.newScrollImage2(g,RedKnotAsset.OCEAN);
 			}
 			else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.OCEAN) {
-				scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.BACKGROUND);
+				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.BACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.SABACKGROUND);
+				this.newScrollImage2(g,RedKnotAsset.OCEAN);
 			}
 			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.SA) {
-				scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.OCEAN);
+				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);
 			}
 			
 			this.previous = current;
@@ -222,28 +252,6 @@ public class RedKnotView extends GameView {
 		}
 		
 	}
-	
-//	public void checkPixel(BufferedImage img, Position p) {
-//		int rgb_value = img.getRGB(p.getX(), p.getY());
-//		int one_byte = 8;
-//		int a = (rgb_value>>one_byte*3) & 0xff; //Bitmasks to get alpha
-//		int r = (rgb_value>>one_byte*2) & 0xff; //Bitmasks to get red
-//		int g =  (rgb_value>>one_byte) & 0xff; //Bitmasks to get green
-//		int b = (rgb_value) & 0xff; //Bitmasks to get blue
-//		
-//		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
-//		int high_blue_value = 200;
-//		int high_green_value = 200;
-//		
-//		if(b>high_blue_value) {
-//			System.out.println("WATER");
-//		}
-//		
-//		if(g>high_green_value) {
-//			System.out.println("LAND");
-//		}
-//		
-//	}
 	
 	public int checkPixel(BufferedImage img, Position p, String s) {
 		int rgb_value = img.getRGB(p.getX(), p.getY());
@@ -288,14 +296,14 @@ public class RedKnotView extends GameView {
 		
 		
 		int x2 = (x1-x3)+x3+(int)(x1*0.0125);
-		int y2 = (y3-y1)+y3+(int)(y1*.3);
+		int y2 = (y3-y1)+y3+(int)(y1*.1);
 		
 		map_curve.moveTo(x1, y1);
 		map_curve.curveTo(x1, y1, x2, y2, x3, y3);
 		
         float[] coords=new float[6];
         this.points = new ArrayList<>();
-		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.5);
+		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.01);
         while (!this.iter.isDone()) {
             this.iter.currentSegment(coords);
             int x=(int)coords[0];
@@ -425,14 +433,109 @@ public class RedKnotView extends GameView {
 	 * 
 	 */
 	
+	public void addBackground(RedKnotAsset b) {
+		this.backgrounds.push(b);
+	}
+	
+	public void removeFirstBackground() {
+		this.backgrounds.removeFirst();
+	}
+	
 	//Moves the background 
 	/* (non-Javadoc)
 	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
 	 */
-	public void scrollImage(Graphics g, Object background1, Object background2){
-		background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)+redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
-		g.drawImage((Image) objectMap.get(background1), background_x*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
-		g.drawImage((Image) objectMap.get(background2), (background_x*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
+//	public void scrollImage(Graphics g, Object background1, Object background2){
+////		this.background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
+////		System.out.println(this.background_x%GameScreen.PLAY_SCREEN_WIDTH);
+////		int background1_x1 = this.background_x;
+////		int background1_y1 = 0;
+////		Image background1_image = (Image)objectMap.get(background1);
+////		
+////		int background2_x1 = (background_x)+GameScreen.PLAY_SCREEN_WIDTH;
+////		int background2_y1 = 0;
+////		Image background2_image = (Image)objectMap.get(background2);
+//		
+//		
+//		this.background_x = this.background_x-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
+//		System.out.println(this.background_x%GameScreen.PLAY_SCREEN_WIDTH);
+//		int background1_x1 = this.background_x;
+//		int background1_y1 = 0;
+//		Image background1_image = (Image)objectMap.get(background1);
+//		
+//		int background2_x1 = (background_x)+GameScreen.PLAY_SCREEN_WIDTH-5;
+//		int background2_y1 = 0;
+//		Image background2_image = (Image)objectMap.get(background2);
+//		
+//		int background3_x1 = (background_x)+GameScreen.PLAY_SCREEN_WIDTH*2-5;
+//		int background3_y1 = 0;
+//		Image background3_image = (Image)objectMap.get(background2);
+//		
+//		if(this.background_x<=GameScreen.PLAY_SCREEN_WIDTH*2*-1) {
+//			this.background_x = 0;
+//			this.removeFirstBackground();
+//			
+//			int random = Utility.randRangeInt(0, 1);
+//			switch(random) {
+//			case 0:
+//				this.addBackground(RedKnotAsset.OCEAN);
+//				break;
+//			
+//			case 1:
+//				this.addBackground(RedKnotAsset.SABACKGROUND);
+//				break;
+//			default:
+//				System.out.println("NOT WORKING");
+//				break;
+//		}
+//		}
+//		
+//		background1_image = (Image)objectMap.get(this.backgrounds.getFirst());
+//		background2_image = (Image)objectMap.get(this.backgrounds.get(1));
+//		//background3_image = (Image)objectMap.get(this.backgrounds.getLast());
+//		
+//		System.out.println(background1_x1);
+//		System.out.println(background2_x1);
+//		g.drawImage(background1_image, background1_x1, background1_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
+//		g.drawImage(background2_image, background2_x1, background2_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
+//		
+//		
+//		//g.drawImage(background3_image, background3_x1, background2_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
+//	}
+	
+	//scrolls an image to the left from x_start (rightmost) to x_end (leftmost)
+	public void newScrollImage1(Graphics g, RedKnotAsset next_background) {
+		this.backgroundx1 = this.backgroundx1-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
+		if(this.current_background1==null) {
+			this.current_background1 = this.backgrounds.get(0);
+		}
+		
+		Image background_image = (Image)objectMap.get(this.current_background1);
+		
+		if(this.backgroundx1< -1*GameScreen.PLAY_SCREEN_WIDTH) {
+			this.current_background1 = RedKnotAsset.OCEAN;
+			this.backgroundx1 = GameScreen.PLAY_SCREEN_WIDTH;
+			this.current_background1 = next_background;
+		}
+		
+		g.drawImage(background_image, this.backgroundx1, 0, GameScreen.PLAY_SCREEN_WIDTH+20, GameScreen.PLAY_SCREEN_HEIGHT, this);
+	}
+	
+	//scrolls an image to the left from x_start (rightmost) to x_end (leftmost)
+	public void newScrollImage2(Graphics g, RedKnotAsset next_background) {
+		this.backgroundx2 = this.backgroundx2-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
+		if(this.current_background2==null) {
+			this.current_background2 = this.backgrounds.get(1);
+		}
+		Image background_image = (Image)objectMap.get(this.current_background2);
+		
+		if(this.backgroundx2< -1*GameScreen.PLAY_SCREEN_WIDTH) {
+			this.current_background2 = RedKnotAsset.OCEAN;
+			this.backgroundx2 = GameScreen.PLAY_SCREEN_WIDTH;
+			this.current_background2 = next_background;
+		}
+		
+		g.drawImage(background_image, this.backgroundx2, 0, GameScreen.PLAY_SCREEN_WIDTH+20, GameScreen.PLAY_SCREEN_HEIGHT, this);
 	}
     
 	/* (non-Javadoc)
@@ -443,10 +546,12 @@ public class RedKnotView extends GameView {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
 		fnameMap.put("cloudnorain.png",RedKnotAsset.CLOUD);
-		fnameMap.put("southamericabackground.jpeg", RedKnotAsset.SABACKGROUND);
+		fnameMap.put("SAbackground3.png", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
 		fnameMap.put("sprite-6-flockbird.png", RedKnotAsset.FLOCKBIRD);
 		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
+		fnameMap.put("ocean.png",RedKnotAsset.OCEAN);
+		fnameMap.put("coast2.png",RedKnotAsset.COAST);
 	}
 
 
@@ -465,6 +570,14 @@ public class RedKnotView extends GameView {
 
 	@Override
 	public void drawEndGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void scrollImage(Graphics g, Object background1, Object background2) {
 		// TODO Auto-generated method stub
 		
 	}
