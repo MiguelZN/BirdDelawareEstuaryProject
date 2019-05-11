@@ -36,7 +36,8 @@ public class RedKnotView extends GameView {
 	//Private enum for just the RedKnotView 
 	private enum RKBackgrounds {
 		SA("SA"), //south america (jungly background)
-		OCEAN("OCEAN");
+		OCEAN("OCEAN"),
+		COAST("COAST");
 
 		private String asset_key = null;
 
@@ -159,22 +160,32 @@ public class RedKnotView extends GameView {
 //		System.out.println("X2Y2:"+x2+","+y2);
 		
 		
-		
+		//If the points on the curve, were successfully created..
 		if(points.size()>0) {
 			System.out.println(points.size());
 			g.setColor(Color.RED);
-			int i = this.current_time;
+			int i = this.current_time; //Using time as index to get the curve point and draw where the bird is currently
 			
+			//Used to tell how far the bird is on the curve in respect to how much time has gone by
 			double time_ratio = (double)current_time/(RedKnotGameState.MAX_GAME_TIME/GameTimer.ONE_SECOND);
 			
 			i = (int)(time_ratio*points.size()); //gets the index in reference to how much time has gone by
 			
 			Position p = new Position((int)points.get(i%points.size()).getX(), (int)points.get(i%points.size()).getY());
 			
+			//Position on the curve (the position is based on where it is on the 
+			//JFrame window Not relative to the actual map itself)
 			int point_x = p.getX();
 			int point_y = p.getY();
+			
+			//System.out.println("POINT ON CURVE POS:"+p);
+			
+			//Where the bird is relative to the ingame map size
 			int relative_x = point_x - map.getPosition().getX();
 			int relative_y = point_y - map.getPosition().getY();
+			int ingame_mapwidth = map.hitBox.width;
+			int ingame_mapheight = map.hitBox.height;
+			int halfheight_ingamemap = ingame_mapheight/2;
 			
 			Position relative_pos = new Position(relative_x,relative_y);
 			
@@ -205,8 +216,14 @@ public class RedKnotView extends GameView {
 				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
 				current = RKBackgrounds.OCEAN;
 			}
-			else if(green_rgb> blue_rgb) {
+			//if the bird is on the bottom half of the map (-> draw jungle background)
+			else if(green_rgb> blue_rgb && relative_y>halfheight_ingamemap) {
 				current = RKBackgrounds.SA;
+			}
+			//if the bird is on the top half of the map (-> draw coastal background)
+			else if(green_rgb> blue_rgb && relative_y<halfheight_ingamemap) {
+				current = RKBackgrounds.COAST;
+
 			}
 			else{
 				System.out.println("ERROR-BACKGROUND");
@@ -216,30 +233,49 @@ public class RedKnotView extends GameView {
 			System.out.println(this.previous);
 			System.out.println(current);
 			
-			RedKnotAsset[] background_arr = {
-					RedKnotAsset.SABACKGROUND,RedKnotAsset.SABACKGROUND,RedKnotAsset.BACKGROUND,
-					RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND};
 			
-			
+			//Handles the Background Transitions
+			//Checks what the previous background was (background1) and
+			//checks what the current background is (background2)
 			if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.SA) {
 				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
+				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
 			}
 			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.OCEAN) {
 				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.OCEAN);
-				this.newScrollImage2(g,RedKnotAsset.OCEAN);
+				this.newScrollImage1(g,RedKnotAsset.OCEAN);//previous
+				this.newScrollImage2(g,RedKnotAsset.OCEAN);//current
 			}
 			else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.OCEAN) {
 				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.BACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.SABACKGROUND);
-				this.newScrollImage2(g,RedKnotAsset.OCEAN);
+				this.newScrollImage1(g,RedKnotAsset.SABACKGROUND); //previous
+				this.newScrollImage2(g,RedKnotAsset.OCEAN);//current
 			}
 			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.SA) {
 				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.OCEAN);
-				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.OCEAN); //previous
+				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
+			}
+			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.COAST) {
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.OCEAN); //previous
+				this.newScrollImage2(g,RedKnotAsset.COAST); //current
+			}
+			else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.OCEAN) {
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.COAST); //previous
+				this.newScrollImage2(g,RedKnotAsset.OCEAN); //current
+			}
+			else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.SA) {
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.COAST); //previous
+				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND); //current
+			}
+			else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.COAST) {
+				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g,RedKnotAsset.COAST); //previous
+				this.newScrollImage2(g,RedKnotAsset.COAST); //current
 			}
 			
 			this.previous = current;
