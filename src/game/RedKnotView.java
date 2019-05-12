@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.Color;
+
+
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -45,15 +47,11 @@ public class RedKnotView extends GameView {
 			asset_key=s;
 		}
 	}
-	/**
-	 * 
-	 */
 	
 	/*
 	 *  Clouds 
 	 *  Bird
 	 *  Score
-	 * 
 	 */
 	private final int BACKGROUND_SPEED = 5;
 	private ArrayList<Cloud> clouds;
@@ -78,8 +76,8 @@ public class RedKnotView extends GameView {
 	private ArrayList<Point> points;
 	private RKBackgrounds previous; //keeps track of the previous background 
 	
-	private GameTimer test_timer;
-	int current_time;
+	GameTimer Timer;
+	int time_allocated;
 	
 	private LinkedList<RedKnotAsset> backgrounds;
 	
@@ -90,52 +88,57 @@ public class RedKnotView extends GameView {
 	public RedKnotView(){
 		super();
 		
+		this.time_allocated = 0; //Starts at 0, because 0 time has gone by yet
+		/*GameTimer*/
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				time_allocated++;
+			}
+				//System.out.println("TIMER");
+		};
+		
+		Timer = new GameTimer(GameTimer.ONE_SECOND,task);
+			
+		
+		
+		//Test QuestionBox (for quiz)
 		Thread question_thread = new Thread( new Runnable() {
-
 			@Override
 			public void run() {
 				ArrayList<String> responses = new ArrayList<>();
 				responses.add("South America");
 				responses.add("North America");
 				responses.add("Europe");
+				responses.add("Asia");
+				responses.add("Mars");
 				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),"Where does a redknot begin migrating from?", responses);
-				//add(qw);
 			}
 			
 		});
-		
 		question_thread.run();
 		
+		/*Initializing redknot, clouds, flock, score, map, etc)*/
 		score=0;
 		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
 		flock = new ArrayList<>();
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				
-				
-				current_time+=1;
-				//System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
-			}
-		};
-		test_timer = new GameTimer(GameTimer.ONE_SECOND, task);
 		
 		//Map: (Curve works for any map size, used ratios to determine curve points etc)
 		Size map_size = new Size(150,150);
 		map = new MiniMap(new Position(GameScreen.PLAY_SCREEN_WIDTH-map_size.getWidth()-MiniMap.LEFT_MARGIN,GameScreen.PLAY_SCREEN_HEIGHT-map_size.getHeight()-MiniMap.BOTTOM_MARGIN), map_size);
-		this.current_time = 0;
 		this.map_curve = new Path2D.Double();
 		createMapPoints();
-		this.previous = RKBackgrounds.SA; //starst the background in the water
 		
+		/*Initializes Background*/
+		this.previous = RKBackgrounds.SA; //starst the background in the water
 		this.backgrounds = new LinkedList<>();
 		this.backgrounds.add(RedKnotAsset.SABACKGROUND);
 		this.backgrounds.add(RedKnotAsset.COAST);
 		this.backgrounds.add(RedKnotAsset.OCEAN);
 		
 	
-		
+		/*Initializes loading of images*/
 		try {
 			loadAllImages("/resources/images/redknot");
 		} catch (IOException e) {
@@ -154,10 +157,12 @@ public class RedKnotView extends GameView {
 	 * @see game.GameView#paintComponent(java.awt.Graphics)
 	 */
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.RED);
-//		birdMovement(RK);
+		super.paintComponent(g);
+		
 		//MAP:
 		drawMapBackgroundClouds(g); //draws the map (map image, map curve, bird position), background, and the clouds
+		
+		/*Draws the score, flock birds, redknot*/
 		drawScore(g);
 		drawFlockBirds(g);
 		drawBird(g);
@@ -166,6 +171,12 @@ public class RedKnotView extends GameView {
 		
 	}
 	
+	/**@author Miguel
+	 * @param g
+	 * @return void
+	 * -Draws the map, the curves, and clouds
+	 * -Deals with drawing the migrating bird, testing if the bird is over water, and transitioning the backgrounds
+	 */
 	public void drawMapBackgroundClouds(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g.setColor(Color.ORANGE);
@@ -178,16 +189,17 @@ public class RedKnotView extends GameView {
 		
 		//If the points on the curve, were successfully created..
 		if(points.size()>0) {
+			System.out.println("ENTERING");
 			System.out.println(points.size());
 			g.setColor(Color.RED);
-			int i = this.current_time; //Using time as index to get the curve point and draw where the bird is currently
+			//Using time as index to get the curve point and draw where the bird is currently
 			
 			//Used to tell how far the bird is on the curve in respect to how much time has gone by
-			double time_ratio = (double)current_time/(RedKnotGameState.MAX_GAME_TIME/GameTimer.ONE_SECOND);
+			double time_ratio = (double)this.time_allocated/(RedKnotGameState.MAX_GAME_TIME/GameTimer.ONE_SECOND);
 			
-			i = (int)(time_ratio*points.size()); //gets the index in reference to how much time has gone by
+			int time_index = (int)(time_ratio*points.size()); //gets the index in reference to how much time has gone by
 			
-			Position p = new Position((int)points.get(i%points.size()).getX(), (int)points.get(i%points.size()).getY());
+			Position p = new Position((int)points.get(time_index%points.size()).getX(), (int)points.get(time_index%points.size()).getY());
 			
 			//Position on the curve (the position is based on where it is on the 
 			//JFrame window Not relative to the actual map itself)
@@ -311,6 +323,15 @@ public class RedKnotView extends GameView {
 		
 	}
 	
+
+	/**@author Miguel
+	 * @param img
+	 * @param p
+	 * @param s
+	 * @return an integer representing an r,g,b, or a value
+	 * -Checks the current pixel of a point from the map curve
+	 * (in order to tell if the red knot is over a blue or green pixel)
+	 */
 	public int checkPixel(BufferedImage img, Position p, String s) {
 		int rgb_value = img.getRGB(p.getX(), p.getY());
 		int one_byte = 8;
@@ -392,23 +413,26 @@ public class RedKnotView extends GameView {
 
 	}
 	
-	/**
+	/**@author Miguel
 	 * @param debug_mode
+	 * @return void
+	 * -Takes in a boolean and sets the 'debug_mode' property 
 	 */
 	public void updateDebugging(boolean debug_mode) {
 		this.debug_mode = debug_mode;
 	}
 	
-	//draw our character, the bird.
-	/**
+
+	/**@author Miguel
 	 * @param g
+	 * -Draws the bird with the associated red knot sprite sheet
 	 */
 	public void drawBird(Graphics g){
 		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
 		g.drawImage(birdAnim.currImage(),redKnot.getPosition().getX(),redKnot.getPosition().getY(),redKnot.getSize().getWidth(),redKnot.getSize().getHeight(),null,this);
 	}
 	
-	/**
+	/**@author Miguel
 	 * @param g
 	 */
 	public void drawScore(Graphics g){
@@ -424,9 +448,12 @@ public class RedKnotView extends GameView {
 		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
 	}
 	
-	/**
+
+
+	/**@author Miguel
 	 * @param FB
 	 * @param g
+	 * -Takes FlockBird(FB) and draws it onto the screen
 	 */
 	public void drawFlockBird(FlockBird FB, Graphics g) {
 		Animation FlockBirdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
@@ -434,8 +461,9 @@ public class RedKnotView extends GameView {
 		FB.updateCurrImage();
 	}
 	
-	/**
+	/**@author Miguel
 	 * @param g
+	 * -Iterates through the 'flock' List of FlockBirds and draws them onto the screen
 	 */
 	public void drawFlockBirds(Graphics g) {
 		for(FlockBird FB: flock) {
@@ -446,10 +474,11 @@ public class RedKnotView extends GameView {
 			}
 		}
 	}
+
 	
-	//Takes the Clouds ArrayList and draws individual clouds
-	/**
+	/**@author Miguel
 	 * @param g
+	 * -Iterates through the 'clouds' List of Clouds and draws them onto the screen
 	 */
 	public void drawClouds(Graphics g) {
 		
@@ -461,40 +490,30 @@ public class RedKnotView extends GameView {
 				System.out.println("COLLISION!");
 			}
 		}
-		/*
-		for(Cloud c:clouds) {
-			drawCloud(c,g);	
-			//the hitbox drawing needs to be restructured, if we want to still use it.
-//			Utility.drawHitBoxPoint(g, c.hitBox, this.controller.getRedKnotGS().debug_mode);
-		}*/
+		
+		
 	}
-	/**
+	/**@author Miguel
 	 * @param c
 	 * @param g
+	 * -Takes in an individual Cloud instance and draws it onto the screen
 	 */
 	public void drawCloud(Cloud c, Graphics g){
 		Position current_pos = c.getPosition();
 		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
 	}
 	
+	
+	/**@author Miguel
+	 * @param g
+	 * -Draws map image onto the screen (simply draws the map image, does not deal with the curve, bird migrating,etc)
+	 */
 	public void drawMap(Graphics g) {
 		g.drawImage((Image) objectMap.get(RedKnotAsset.MAP), map.getPosition().getX(),map.getPosition().getY(),map.hitBox.width,map.hitBox.height,null);
 	}
 	
-	/* collision comment: 
-	 * 
-	 * //Testing Collision for Clouds and RedKnot (Works -Miguel)
-		if(Utility.GameObjectCollision(this.controller.getRedKnotGS().getRK(), c)) {
-			System.out.println("COLLISION!");
-		}
-	 * 
-	 * 
-	 */
+
 	
-	//Moves the background 
-	/* (non-Javadoc)
-	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
-	 */
 //	public void scrollImage(Graphics g, Object background1, Object background2){
 ////		this.background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
 ////		System.out.println(this.background_x%GameScreen.PLAY_SCREEN_WIDTH);
@@ -553,7 +572,12 @@ public class RedKnotView extends GameView {
 //		//g.drawImage(background3_image, background3_x1, background2_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
 //	}
 	
-	//scrolls an image to the left from x_start (rightmost) to x_end (leftmost)
+	
+	/**@author Miguel
+	 * @param g
+	 * @param next_background
+	 * -Scrolls the first background image from the right side to the left 
+	 */
 	public void newScrollImage1(Graphics g, RedKnotAsset next_background) {
 		this.backgroundx1 = this.backgroundx1-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
 		if(this.current_background1==null) {
@@ -568,10 +592,16 @@ public class RedKnotView extends GameView {
 			this.current_background1 = next_background;
 		}
 		
-		g.drawImage(background_image, this.backgroundx1, 0, GameScreen.PLAY_SCREEN_WIDTH+20, GameScreen.PLAY_SCREEN_HEIGHT, this);
+		int minorwidth = 20; //adds a little more width to the width of the background
+		
+		g.drawImage(background_image, this.backgroundx1, 0, GameScreen.PLAY_SCREEN_WIDTH+minorwidth, GameScreen.PLAY_SCREEN_HEIGHT, this);
 	}
 	
-	//scrolls an image to the left from x_start (rightmost) to x_end (leftmost)
+	/**@author Miguel
+	 * @param g
+	 * @param next_background
+	 * -Scrolls the second background image from the right side to the left 
+	 */
 	public void newScrollImage2(Graphics g, RedKnotAsset next_background) {
 		this.backgroundx2 = this.backgroundx2-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
 		if(this.current_background2==null) {
@@ -584,12 +614,14 @@ public class RedKnotView extends GameView {
 			this.backgroundx2 = GameScreen.PLAY_SCREEN_WIDTH;
 			this.current_background2 = next_background;
 		}
+		int minorwidth = 20; //adds a little more width to the width of the background
 		
-		g.drawImage(background_image, this.backgroundx2, 0, GameScreen.PLAY_SCREEN_WIDTH+20, GameScreen.PLAY_SCREEN_HEIGHT, this);
+		g.drawImage(background_image, this.backgroundx2, 0, GameScreen.PLAY_SCREEN_WIDTH+minorwidth, GameScreen.PLAY_SCREEN_HEIGHT, this);
 	}
     
+
 	/* (non-Javadoc)
-	 * @see game.GameView#fnameMapCreate()
+	 * @see game.WindowView#fnameMapCreate()
 	 */
 	@Override
 	public void fnameMapCreate() {
@@ -631,5 +663,6 @@ public class RedKnotView extends GameView {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 }

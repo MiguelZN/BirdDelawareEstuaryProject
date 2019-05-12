@@ -136,6 +136,8 @@ public class Cloud extends DynamicGameObject{
 		this.setPosition(new Position(new_x, this.getPosition().getY()));
 	}
 	
+	
+	
 	/*Created by Miguel:
 	 * -Takes no arguments and returns nothing
 	 * -Changes the Current Cloud instance's x velocity
@@ -148,17 +150,16 @@ public class Cloud extends DynamicGameObject{
 		this.setVelocity(new Velocity(new_vx,CLOUD_VY));
 	}
 	
-	
-	/*Created by Miguel:
-	 * -Takes in three integers: x, min y, max y values
-	 * -Re-randomizes the current Cloud instance (assigns it a new position, size, and speed)
-	 */
-	//Places the cloud at the starting x position, and at a random y position
-	/**
+
+	/**@author Miguel
 	 * @param x
 	 * @param min_y
 	 * @param max_y
-	 */
+	 *
+	 * -Takes in three integers: x, min y, max y values
+	 * -Re-randomizes the current Cloud instance (assigns it a new position, size, and speed)
+	 *-Places the cloud at the starting x position, and at a random y position
+	 **/
 	public void resetCloud(int x, int min_y, int max_y) {
 		int random_y = Utility.randRangeInt(min_y, max_y);
 		this.setPosition(new Position(x, random_y));

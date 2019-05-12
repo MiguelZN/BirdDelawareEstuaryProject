@@ -6,6 +6,7 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -49,7 +50,9 @@ public class ClapperRailView extends GameView{
 		CL=new ClapperRail();
 		this.score = 0;
 		this.BackgroundX = 5;
-		
+		this.setBackground(Color.RED);
+		this.setOpaque(true);
+		this.setPreferredSize(new Dimension(GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT));
 		try {
 			loadAllImages("/resources/images/clapperrail");
 		} catch (IOException e) {
@@ -63,13 +66,15 @@ public class ClapperRailView extends GameView{
 	 * @see game.GameView#paintComponent(java.awt.Graphics)
 	 */
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		//scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
+		this.setBackground(Color.RED);
 		g.setColor(new Color(224,160, 42));
 		Position p = CL.getPosition();
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawEnergy(g);
-
-		this.setVisible(true);
+		this.setBackground(Color.RED);
+		this.setOpaque(true);
 		
 	}
 

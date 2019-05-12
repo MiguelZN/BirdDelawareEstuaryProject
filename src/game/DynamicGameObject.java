@@ -11,14 +11,7 @@ package game;
 public abstract class DynamicGameObject extends GameObject implements Moveable {
 	private Velocity v;
 
-	/*Contructor:
-	 * -Takes in an x,y ints as the DynamicGameObject's starting position
-	 */
-//	public DynamicGameObject(int x, int y, int vx, int vy) {
-//		super(x,y);
-//		v = new Velocity(vx,vy);
-//	}
-	
+	/*Constructors*/
 	/**
 	 * @param x
 	 * @param y
@@ -33,9 +26,10 @@ public abstract class DynamicGameObject extends GameObject implements Moveable {
 	}
 	
 	/**
-	 * @param p
-	 * @param s
-	 * @param v
+	 * @param p - starting position
+	 * @param s - starting size
+	 * @param v - starting velocity
+	 * 
 	 */
 	public DynamicGameObject(Position p, Size s, Velocity v) {
 		super(p.getX(),p.getY(),s.getWidth(),s.getHeight());
@@ -46,20 +40,18 @@ public abstract class DynamicGameObject extends GameObject implements Moveable {
 	 *-takes in no arguments/returns nothing
 	 *-updates the position of the DynamicGameObject by the velocity (v) 
 	 */
-	/* (non-Javadoc)
-	 * @see game.Moveable#move()
-	 */
 	public abstract void move();
 	
 	/**
-	 * @return
+	 * @return Velocity
 	 */
 	public Velocity getVelocity() {
 		return v;
 	}
 	
 	/**
-	 * @param newVel
+	 * @param newVel 
+	 * -Sets the current velocity to a new velocity
 	 */
 	public void setVelocity(Velocity newVel) {
 		v = newVel;

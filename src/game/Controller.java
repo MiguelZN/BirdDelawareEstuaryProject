@@ -50,9 +50,6 @@ public class Controller implements KeyListener {
 	 * that we use this method to switch to the titlescreen, and not just typing
 	 * view = new titleScreenView();
 	 */
-	/**
-	 * 
-	 */
 	public void setUpTitleScreen(){
 		view = new TitleScreenView();
 		setUpTitleButtons();
@@ -61,8 +58,9 @@ public class Controller implements KeyListener {
 		view.setBackground(Color.CYAN); //sets the background color of the TitleScreenView
 		current_state = new TitleScreenModel(this);
 	}
+	
 	/**
-	 * 
+	 * -Sets up our IntructionsView
 	 */
 	public void setUpInstructions(){
 		view = new InstructionsView();
@@ -72,7 +70,7 @@ public class Controller implements KeyListener {
 		
 	}
 	/**
-	 * 
+	 * -Sets up our RedKnotView
 	 */
 	public void setUpRedKnotGame(){
 		view=new RedKnotView();
@@ -82,7 +80,7 @@ public class Controller implements KeyListener {
 		
 	}
 	/**
-	 * 
+	 * -Sets up our ClapperRailView
 	 */
 	public void setUpClapperRailGame(){
 		view = new ClapperRailView();
@@ -194,6 +192,7 @@ public class Controller implements KeyListener {
 		}
 	}
 
+	
 	/*
 	 * Main loop for the game Everything that happens once per tick goes in
 	 * here.
@@ -203,9 +202,6 @@ public class Controller implements KeyListener {
 	 * ANYTHING THAT UPDATES THE MODEL MUUST HAPPEN WHEN updateModel() is
 	 * called. NOT INSIDE PAINTCOMPONENT.
 	 * 
-	 */
-	/**
-	 * @return
 	 */
 	public boolean loop() {
 		SwingUtilities.invokeLater(() -> screen.redraw());
@@ -219,14 +215,11 @@ public class Controller implements KeyListener {
 		return true;
 	}
 
-	/*
+	/**
 	 * Calls the Current Models Update Method
 	 * -This method should pass the updated data from the Model
 	 * to the View
-	 */
-	/**
-	 * 
-	 */
+	 **/
 	public void updateModel() {
 		//Passes generic GameState updated data to all GameViews
 		if(current_state instanceof GameState){
@@ -252,6 +245,7 @@ public class Controller implements KeyListener {
 				ClapperRailView CL_V = (ClapperRailView) view;
 				
 				CL_V.update(CL_GS.BackgroundX);
+				
 //				System.out.println("GS_SCORE:"+CL_GS.getScore());
 //				view.updateScore(CL_GS.getScore());
 				
@@ -260,21 +254,22 @@ public class Controller implements KeyListener {
 			
 	}
 	/**
-	 * @return
+	 * @return WindowView
 	 */
 	public WindowView getView() {
 		return view;
 	}
 
 	/**
-	 * @return
+	 * @return GameScreen
 	 */
 	public GameScreen getScreen() {
 		return this.screen;
 	}
 
-	/**
+	/**@author Miguel
 	 * @param mode
+	 * -Allows the controller to change the current view to a different view (switching screens)
 	 */
 	public void changeView(GameMode mode) {
 		switch (mode) {
@@ -300,7 +295,8 @@ public class Controller implements KeyListener {
 		this.screen.revalidate();
 	}
 
-	/* (non-Javadoc)
+	/*CURRENTLY NOT USED
+	 *  (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 	 */
 	@Override
@@ -309,8 +305,8 @@ public class Controller implements KeyListener {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	/* 
+	 * -Handles key presses for RedKnot and ClapperRail
 	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -369,8 +365,8 @@ public class Controller implements KeyListener {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	/* 
+	 * -Handles movement for RedKnot when pressing up and down arrow keys
 	 */
 	@Override
 	public void keyReleased(KeyEvent e) {

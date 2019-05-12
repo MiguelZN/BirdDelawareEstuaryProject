@@ -1,12 +1,16 @@
 package game;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 
 public class QuestionWindow extends JFrame{
@@ -16,12 +20,13 @@ public class QuestionWindow extends JFrame{
 	
 	//Java Swing Components
 	private JLabel QuestionLabel;
-	private ButtonGroup RadioResponses;
+	private ButtonGroup ResponsesGroup;
 
 	final int LABEL_HEIGHT = 30;
 	static final int QUESTIONBOX_WIDTH = 300;
-	static final int QUESTIONBOX_HEIGHT = 150;
+	static final int QUESTIONBOX_HEIGHT = 200;
 	
+	GridLayout gl;
 	
 	
 	
@@ -31,9 +36,14 @@ public class QuestionWindow extends JFrame{
 		this.position = p;
 		this.size = s;
 	
-		this.setSize(QUESTIONBOX_WIDTH,QUESTIONBOX_HEIGHT);
+		//this.setSize(QUESTIONBOX_WIDTH,QUESTIONBOX_HEIGHT);
 		this.setLocation(p.getX(),p.getY());
 		this.setTitle("Quiz Question!");
+		
+		//Grid Layout
+		this.gl = new GridLayout(1,1);
+		
+		this.setLayout(gl);
 		
 		//Label
 		this.QuestionLabel = new JLabel();
@@ -42,26 +52,25 @@ public class QuestionWindow extends JFrame{
 		this.add(this.QuestionLabel);
 		
 		//Radio Button Responses
-		this.RadioResponses = new ButtonGroup();
+		this.ResponsesGroup = new ButtonGroup();
 		this.createResponses(responses);
+		this.pack();
 		this.setVisible(true);
 	}
 	
 	public void createResponses(List<String> responses) {
+		//Readjusts the grid layout to fit the amount of radio buttons + label
+		this.gl.setRows(responses.size()+1);
+		this.gl.setColumns(1);
 		
-		int current_y = LABEL_HEIGHT;
-		int current_x = 0;
 		for(String r: responses) {
-			int radio_height = this.getWindowSize().getHeight()/responses.size()/2;
-			int radio_width = this.getWindowSize().getWidth();
 			JRadioButton response_button = new JRadioButton(r);
-
-			response_button.setBounds(current_x, current_y, radio_width,radio_height);
-			current_y+=radio_height;
-			System.out.println("CREATING");
+			response_button.setHorizontalAlignment(SwingConstants.CENTER); //Adjusts the radio buttons to be in the center
+			//System.out.println("CREATING");
+			this.ResponsesGroup.add(response_button);
 			this.add(response_button);
-			this.RadioResponses.add(response_button);
 		}
+		
 	}
 
 

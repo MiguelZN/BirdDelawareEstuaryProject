@@ -60,16 +60,16 @@ public class Animation {
 	public BufferedImage currImage(int frameIndex) {
 		return images[frameIndex];
 	}
-	//frameIndex++
+
 	/**
-	 * 
+	 * -Increments the current frameIndex
 	 */
 	public void incrementIndex(){
 		frameIndex=(frameIndex+1)%frameCount;
 	}
 	
 	/**
-	 * @return
+	 * @return this.frameCount
 	 */
 	public int getFrameCount() {
 		return this.frameCount;

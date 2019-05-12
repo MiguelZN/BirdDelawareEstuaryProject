@@ -12,8 +12,6 @@ public class FlockBird extends Bird{
 	
 	/*RedKnot Code for moving the FlockBirds up and down similar to RedKnot*/
 	private int updownstop=0;
-	private double accel_mult_down = 1.0;
-	private double accel_mult_up = 1.0;
 	
 	/*Constants*/
 	

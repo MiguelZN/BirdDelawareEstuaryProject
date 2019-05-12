@@ -1,5 +1,7 @@
 package game;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 
@@ -32,7 +34,7 @@ public class GameScreen extends JFrame{
 	public static final int PLAY_SCREEN_HEIGHT = 600;//600;
 	
 	public static final int CR_SCREEN_WIDTH = 600;
-	public static final int CR_SCREEN_HEIGHT = 1000;
+	public static final int CR_SCREEN_HEIGHT = 800;//(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()-100);
 	
 	public static final int GAME_FPS = 100;
 	
@@ -61,14 +63,13 @@ public class GameScreen extends JFrame{
 	public GameScreen(int width, int height) {
 		this.setResizable(false);
 //		this.setUndecorated(true);
-		setSize(width, height);
+		//setSize(width, height);
 		this.width = width;
 		this.height = height;
 		this.setBackground(Color.CYAN);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setFocusable(true);
-		this.revalidate();
 		
 		
 	}
@@ -85,7 +86,8 @@ public class GameScreen extends JFrame{
 	 * 
 	 */
 	public void setPlaySize() {
-		this.setSize(PLAY_SCREEN_WIDTH, PLAY_SCREEN_HEIGHT);
+		this.setPreferredSize(new Dimension(PLAY_SCREEN_WIDTH, PLAY_SCREEN_HEIGHT));
+		this.pack();
 	}
 	
 	/**
