@@ -19,6 +19,7 @@ public class ClapperRail extends Bird{
 	private Energy e;
 	
 	private boolean isJumping = false;
+	private boolean isFalling = false;
 	private int jumpPos;
 	
 	
@@ -64,11 +65,16 @@ public class ClapperRail extends Bird{
 			this.move(0, -1* this.getVelocity().getYSpeed());
 			if(this.getPosition().getY() == this.jumpPos) {
 				this.isJumping = false;
+				this.isFalling = true;
 			}
 		}
-		else {
-			if(this.getPosition().getY() != ClapperRailGameState.GROUND)
+		else if(isFalling){
+			if(this.getPosition().getY() != ClapperRailGameState.GROUND) {
 				this.move(0, this.GRAVITY);
+			}
+			else {
+				this.isFalling = false;
+			}
 		}
 	}
 	
@@ -96,5 +102,13 @@ public class ClapperRail extends Bird{
 
 	public void setIsJumping(boolean b) {
 		this.isJumping = b;
+	}
+	
+	public boolean getIsFalling() {
+		return this.isFalling;
+	}
+
+	public void setIsFalling(boolean b) {
+		this.isFalling = b;
 	}
 }

@@ -334,7 +334,7 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_SPACE:
 				System.out.println("SPACE");
 				//ClapperRailGS.getCR().jump();
-				if(!ClapperRailGS.getCR().getIsJumping())
+				if(!ClapperRailGS.getCR().getIsJumping() && !ClapperRailGS.getCR().getIsFalling())
 					ClapperRailGS.getCR().startJump(ClapperRailGS.getCR().getPosition());
 				break;
 			}
