@@ -12,16 +12,21 @@ public class ClapperRail extends Bird{
 	private final static int XSTART = 100;
 	private final static int YSTART = 380;
 	private final static int VXSTART = 10;
-	private final static int VYSTART = 50;
+	private final static int VYSTART = 10;
 	private final static int SIZE = 80;
+	private final static int JUMP_AMOUNT = 300;
+	private final static int GRAVITY = 2;
 	private Energy e;
+	
+	private boolean isJumping = false;
+	private int jumpPos;
 	
 	
 	/**
 	 * 
 	 */
 	public ClapperRail(){
-		super(new Position(XSTART,YSTART), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
+		super(new Position(XSTART,ClapperRailGameState.GROUND), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
 	}
 	
 	/**
@@ -39,15 +44,32 @@ public class ClapperRail extends Bird{
 	}
 	
 	
+	public void startJump(Position currentPos) {
+		setIsJumping(true);
+		int yPos = currentPos.getY() - JUMP_AMOUNT;
+		jumpPos = yPos;
+	}
+	
 	/**
 	 * 
 	 */
 	public void jump() {
-		if(this.getPosition().getY() <= 300) {
+		/*if(this.getPosition().getY() <= 300) {
 			this.setPosition(new Position(this.getPosition().getX(),ClapperRailGameState.GROUND));
-		}
-		
+		} 
 		this.move(0, -1* this.getVelocity().getYSpeed());
+		*/
+		
+		if(isJumping) {
+			this.move(0, -1* this.getVelocity().getYSpeed());
+			if(this.getPosition().getY() == this.jumpPos) {
+				this.isJumping = false;
+			}
+		}
+		else {
+			if(this.getPosition().getY() != ClapperRailGameState.GROUND)
+				this.move(0, this.GRAVITY);
+		}
 	}
 	
 	
@@ -67,5 +89,12 @@ public class ClapperRail extends Bird{
 	public Energy getEnergy() {
 		return e;
 	}
+	
+	public boolean getIsJumping() {
+		return this.isJumping;
+	}
 
+	public void setIsJumping(boolean b) {
+		this.isJumping = b;
+	}
 }

@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -20,6 +21,15 @@ public class ClapperRailGameState extends GameState {
 	static final int ENERGY_FONT_SIZE = 40;
 	int BackgroundX = 5;
 	
+	//GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
+	//EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as 
+	//this is what the Java.util.Timer takes in
+	static final int MAX_GAME_TIME = GameTimer.ONE_SECOND*30; //15 seconds (temporary)
+	private GameTimer game_timer;
+	private int current_time;
+	
+	
+	
 	
 	/**
 	 * @param controller
@@ -28,6 +38,26 @@ public class ClapperRailGameState extends GameState {
 		super(controller);
 		this.CR = new ClapperRail();
 		this.Materials = new ArrayList<>();
+		
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				
+				if(getIsGameRunning()) {
+					//System.out.println("TIMER");
+					current_time+=GameTimer.ONE_SECOND;
+					System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
+					
+					if(current_time>= MAX_GAME_TIME) {
+						//System.exit(0);
+						setIsGameRunning(false);
+					}
+				}
+			}
+		};
+		
+		//the game timer runs every second and updates the counter 'current_time'
+		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
 		
 	}
 	
@@ -66,6 +96,8 @@ public class ClapperRailGameState extends GameState {
 	@Override
 	public void ontick() {
 		moveBackground();
+		if(this.getIsGameRunning()) {
+		}
 	}
 
 	/* (non-Javadoc)
@@ -107,6 +139,7 @@ public class ClapperRailGameState extends GameState {
 	public ArrayList<GameObject> getUpdateableGameObjects() {
 		ArrayList<GameObject> output = new ArrayList<>();
 		output.add(CR);
+		this.CR.jump();
 		return output;
 	}
 	

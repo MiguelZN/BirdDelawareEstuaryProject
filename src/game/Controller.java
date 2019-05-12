@@ -333,7 +333,9 @@ public class Controller implements KeyListener {
 				break;
 			case KeyEvent.VK_SPACE:
 				System.out.println("SPACE");
-				ClapperRailGS.getCR().jump();
+				//ClapperRailGS.getCR().jump();
+				if(!ClapperRailGS.getCR().getIsJumping())
+					ClapperRailGS.getCR().startJump(ClapperRailGS.getCR().getPosition());
 				break;
 			}
 		} else if (current_state instanceof RedKnotGameState && view instanceof RedKnotView) {
