@@ -6,6 +6,10 @@ package game;
 /*Class: Position
  * -class that allows us to keep track of each element's position (x,y).
  */
+/**
+ * @author MiguelZN
+ *
+ */
 public class Position {
 	private int x;
 	private int y;
@@ -13,7 +17,8 @@ public class Position {
 	/*Constructor:
 	 * -takes in two integers: an x,y in order to provide where the element is located (x,y)
 	 */
-	/**
+
+	/**@author Miguel
 	 * @param x
 	 * @param y
 	 */
@@ -22,23 +27,27 @@ public class Position {
 		this.y = y;
 	}
 	
-	/**
+
+	/**@author Miguel
 	 * @param v
-	 * @return
+	 * @return Position
+	 * -Generates (returns) a new position by adding the inputed velocity 
 	 */
 	public Position moveByVelocity(Velocity v) {
 		return new Position(this.getX()+v.getXSpeed(), this.getY()+v.getYSpeed());
 	}
 	
-	/**
+
+	/**@author Miguel
 	 * @param v
+	 * -Increments the current position by the given velocity
 	 */
 	public void Shift(Velocity v) {
 		this.x = this.getX()+v.getXSpeed();
 		this.y = this.getY()+v.getYSpeed();
 	}
 
-	/*Getters, Setters*/
+	/*Getters, Setters------------------------*/
 	/**
 	 * @return
 	 */

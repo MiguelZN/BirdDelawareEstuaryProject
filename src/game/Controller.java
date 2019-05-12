@@ -253,19 +253,6 @@ public class Controller implements KeyListener {
 					
 			
 	}
-	/**
-	 * @return WindowView
-	 */
-	public WindowView getView() {
-		return view;
-	}
-
-	/**
-	 * @return GameScreen
-	 */
-	public GameScreen getScreen() {
-		return this.screen;
-	}
 
 	/**@author Miguel
 	 * @param mode
@@ -390,6 +377,20 @@ public class Controller implements KeyListener {
 		}
 		// TODO Auto-generated method stub
 
+	}
+	
+	/**
+	 * @return WindowView
+	 */
+	public WindowView getView() {
+		return view;
+	}
+
+	/**
+	 * @return GameScreen
+	 */
+	public GameScreen getScreen() {
+		return this.screen;
 	}
 
 }

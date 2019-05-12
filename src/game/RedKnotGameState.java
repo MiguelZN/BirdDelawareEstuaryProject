@@ -86,15 +86,6 @@ public class RedKnotGameState extends GameState {
 		
 	}
 	
-//	public void collectBird() {
-//		this.flock.add(FlockBird.spawnFlockBird(RK));
-//	}
-//	
-//	public void collectBird(ListIterator<FlockBird> fb_iter) {
-//		fb_iter.add(FlockBird.spawnFlockBird(RK));
-//	}
-	
-	
 	/**
 	 * @param fb_iter
 	 * @param FB
@@ -103,7 +94,8 @@ public class RedKnotGameState extends GameState {
 		fb_iter.add(FlockBird.spawnNearbyFlockBird(RK, FB));
 	}
 	
-	/**
+
+	/**@author Miguel
 	 * 
 	 */
 	public void lostBird() {
@@ -112,6 +104,7 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+
 
 	/* (non-Javadoc)
 	 * @see game.GameState#ontick()
@@ -128,8 +121,10 @@ public class RedKnotGameState extends GameState {
 	
 	}
 	
-	/**
-	 * @return
+
+	/**@author Miguel
+	 * @return boolean
+	 * -Changes the 'debug_mode' from false to true and vice-versa and returns it
 	 */
 	public boolean updateDebugging() {
 		this.switchDebugMode();
@@ -140,20 +135,17 @@ public class RedKnotGameState extends GameState {
 	
 	
 	
-	/*Created by Miguel:
+
+	/**@author Miguel
 	 * -Takes in no arguments, returns nothing
 	 * -Using an iterator, iterates through the 'clouds' ArrayList
 	 * -Handles any cloud related actions in order to keep it O(n) and
 	 * to keep game logic more organized
 	 */
-	
 	/*NOTE: 
 	 * Added collision with clouds and everything works perfectly but
 	 * if the Red Knot touches more than one cloud at a time the game
 	 * 'overticks' and removes all the birds/removes the player's score a lot
-	 */
-	/**
-	 * 
 	 */
 	public void checkClouds(){
 		addClouds(); //adds the clouds intially and readds clouds
@@ -214,10 +206,13 @@ public class RedKnotGameState extends GameState {
 		
 	}
 	
-	/**
+	/**@author Miguel
 	 * @param RK
 	 * @param GO_AL
-	 * @return
+	 * @return ArrayList<GameObject>
+	 * -Iterates through every GameObject instance and updates it
+	 * -Currently updates every GameObject by moving its position to the left by the RedKnot's velocity (since the redknot is moving towards the 
+	 * clouds, flock birds, etc)
 	 */
 	public ArrayList<GameObject> updateGameObjects(RedKnot RK, ArrayList<GameObject> GO_AL) {
 		for(GameObject GO:GO_AL) {
@@ -234,14 +229,11 @@ public class RedKnotGameState extends GameState {
 		
 		return GO_AL;
 	}
-	
-	/*Created by Miguel:
+
+	/**@author Miguel
 	 * -Takes in no arguments, returns nothing
 	 * -Adds 'Cloud' instances into 'clouds' ArrayList
 	 * -Currently re-adds 'Cloud' instances when they go off-screen
-	 */
-	/**
-	 * 
 	 */
 	public void addClouds() {
 //		System.out.println("READDING CLOUDS");
@@ -257,8 +249,10 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
-	 * 
+
+	/**@author Miguel
+	 *-Iterates through the 'flock' List of FlockBirds and checks them. If a flockBird goes off screen then it removes it from the 
+	 *List of FlockBirds for example. 
 	 */
 	public void checkFlockBirds() {
 		addRandomFlockBirds();
@@ -286,8 +280,10 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
-	 * 
+
+	/**@author Miguel
+	 *-Allows the FlockBirds owned by the Player, to move alongside the player. 
+	 *EX: if the player moves up, the flockbirds owned by the player also move up
 	 */
 	public void setFlyStateAllFlockBirds() {
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
@@ -311,8 +307,10 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
-	 * 
+
+	/**@author Miguel
+	 *-Allows the FlockBirds owned by the Player, to move alongside the player. 
+	 *EX: if the player moves up, the flockbirds owned by the player also move up
 	 */
 	public void allFlockBirdsFlyUp() {
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
@@ -323,8 +321,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
-	 * 
+	/**@author Miguel
+	 *-Allows the FlockBirds owned by the Player, to move alongside the player. 
+	 *EX: if the player moves down, the flockbirds owned by the player also move down
 	 */
 	public void allFlockBirdsFlyDown() {
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
@@ -335,10 +334,12 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
+	/**@author Miguel
 	 * @param RK
 	 * @param FB
 	 * @param fb_iter
+	 * -Checks if the player (Redknot) touched an 'uncollected' flockbird and therefore if they did
+	 * then spawns a FlockBird near the player and travels alongside the player
 	 */
 	public void detectFlockBirdCollection(RedKnot RK, FlockBird FB, ListIterator fb_iter) {
 		if(Utility.GameObjectCollision(RK, FB) && !FB.getIsCollected()) {
@@ -349,10 +350,11 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
+	/**@author Miguel
 	 * @param RK
 	 * @param c
-	 * @return
+	 * @return boolean
+	 * -Checks if the player (Redknot) touched a cloud and if so returns true else returns false
 	 */
 	public boolean detectCloudCollision(RedKnot RK, Cloud c) {
 		if(Utility.GameObjectCollision(RK, c)){
@@ -363,8 +365,9 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**
-	 * 
+
+	/**@author Miguel
+	 * -Adds random FlockBirds (birds that are Not collected by the Player) by the 'FB_CHANCE_LOW' and 'FB_CHANCE_MAX' (chance and randomness)
 	 */
 	public void addRandomFlockBirds() {
 		int chance = Utility.randRangeInt(this.FB_CHANCE_LOW, this.FB_CHANCE_MAX);
@@ -375,17 +378,12 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 
-	
-	
-	/*Created by Miguel:
+	/**@author Miguel
 	 * -Takes in no arguments, returns nothing
 	 * -Switches the 'debug_mode' boolean from true -> false
 	 * and false -> true when called
 	 * -When true, this allows the RedKnotView to draw the hitBoxes
 	 * and any future possible debug mode for bug testing
-	 */
-	/**
-	 * 
 	 */
 	public void switchDebugMode() {
 		if(this.debug_mode) {
@@ -397,7 +395,7 @@ public class RedKnotGameState extends GameState {
 	}
 
 	
-	
+	/*Getters, Setters----------------------*/
 	
 	/* (non-Javadoc)
 	 * @see game.GameState#addGameObject(game.GameObject)

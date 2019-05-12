@@ -13,6 +13,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 
+/**
+ * @author MiguelZN
+ * -A JFrame pop-up window that spawns when a player touches a QuestionCloud in RedKnot
+ * -Contains RadioButtons which allows the user to select their response to a question
+ *
+ */
 public class QuestionWindow extends JFrame{
 	private String question;
 	private Position position;
@@ -26,11 +32,18 @@ public class QuestionWindow extends JFrame{
 	static final int QUESTIONBOX_WIDTH = 300;
 	static final int QUESTIONBOX_HEIGHT = 200;
 	
+	/*GridLayout: in order to layout the radiobuttons neatly*/
 	GridLayout gl;
 	
 	
 	
 	
+	/**@author Miguel
+	 * @param p
+	 * @param s
+	 * @param question
+	 * @param responses
+	 */
 	public QuestionWindow(Position p, Size s, String question, List<String> responses) {
 		this.question =question;
 		this.position = p;
@@ -58,6 +71,11 @@ public class QuestionWindow extends JFrame{
 		this.setVisible(true);
 	}
 	
+	/**@author Miguel
+	 * @param responses
+	 * -Takes in a List of Strings and Generates and adds the RadioButtons 
+	 * onto the radiogroup and onto the JFrame window
+	 */
 	public void createResponses(List<String> responses) {
 		//Readjusts the grid layout to fit the amount of radio buttons + label
 		this.gl.setRows(responses.size()+1);
@@ -73,19 +91,31 @@ public class QuestionWindow extends JFrame{
 		
 	}
 
-
+	/*Getters, Setters--------------------------*/
+	/**
+	 * @return String
+	 */
 	public String getQuestion() {
 		return question;
 	}
 
+	/**
+	 * @return Position
+	 */
 	public Position getPosition() {
 		return position;
 	}
 
+	/**
+	 * @return Size
+	 */
 	public Size getWindowSize() {
 		return size;
 	}
 
+	/**
+	 * @return JLabel
+	 */
 	public JLabel getQuestionLabel() {
 		return QuestionLabel;
 	}

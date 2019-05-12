@@ -3,6 +3,10 @@ package game;
 import java.awt.Rectangle;
 
 //Helps keep track of the GameObject's position, width and height to make it more organized
+/**
+ * @author MiguelZN
+ *
+ */
 public class HitBox extends Rectangle{
 	int width,height;
 	Position p;
@@ -33,14 +37,6 @@ public class HitBox extends Rectangle{
 		this.height = height;
 	}
 	
-	/*Getters*/
-	/**
-	 * @return
-	 */
-	public Position getPosition() {
-		return this.p;
-	}
-	
 	/*Created by Miguel:
 	 *-Takes in a Position instance, returns nothing
 	 *-Updates the position of the hitBox
@@ -57,36 +53,32 @@ public class HitBox extends Rectangle{
 		this.updateRectangleHitBox();
 	}
 	
-	/*Created by Miguel:
+
+	/**@author Miguel
 	 *-Takes in no arguments, returns nothing
 	 *-Sets the Java AWT Rectangle to a new bounds (or containing area)
 	 *in order to make sure the size of the 'hitbox' for collisions is updated
-	 */
-	/**
-	 * 
 	 */
 	public void updateRectangleHitBox() {
 		this.setBounds(p.getX(), p.getY(), this.width, this.height);
 //		System.out.println(this.getBounds());
 	}
 	
-	/*Created by Miguel:
+	/**@author Miguel
+	 * @param new_width
 	 *-Takes in an integer, returns nothing
 	 *-Changes the width property to a new width value
-	 */
-	/**
-	 * @param new_width
 	 */
 	public void changeWidth(int new_width) {
 		this.width = new_width;
 	}
 	
-	/*Created by Miguel:
+
+	 
+	/**@author Miguel
+	 * @param new_height
 	 *-Takes in an integer, returns nothing
 	 *-Changes the height property to a new height value
-	 */
-	/**
-	 * @param new_height
 	 */
 	public void changeHeight(int new_height) {
 		this.height = new_height;
@@ -103,6 +95,13 @@ public class HitBox extends Rectangle{
 		this.width = new_width;
 		this.height = new_height;
 		this.updateRectangleHitBox();
+	}
+	
+	/**
+	 * @return
+	 */
+	public Position getPosition() {
+		return this.p;
 	}
 	
 	

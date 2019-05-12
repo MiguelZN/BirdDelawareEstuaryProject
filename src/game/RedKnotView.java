@@ -53,7 +53,6 @@ public class RedKnotView extends GameView {
 	 *  Bird
 	 *  Score
 	 */
-	private final int BACKGROUND_SPEED = 5;
 	private ArrayList<Cloud> clouds;
 	private RedKnot redKnot;
 	private ArrayList<FlockBird> flock;
@@ -61,10 +60,8 @@ public class RedKnotView extends GameView {
 	private int score;
 	private boolean debug_mode;
 	
-	
-	int background_x = 0;
-	
-	//New Scroll Image
+	//New Scroll Image (Scrolls two background images independently in comparison to before where two were dependent on the same
+	//variables)
 	int backgroundx1 = 0;
 	int backgroundx2 = GameScreen.PLAY_SCREEN_WIDTH;
 	RedKnotAsset current_background1;

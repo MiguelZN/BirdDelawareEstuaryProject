@@ -1,9 +1,19 @@
 package game;
 
+/**
+ * @author MiguelZN
+ *
+ */
 public class FlockBird extends Bird{
 	private boolean isCollected; //boolean if false, this causes the 'move()' function to move the bird leftwards, if true, this moves the bird
 								//alongside the RedKnot Player bird
 	private boolean gotLostInStorm; //boolean that if false, this means the bird is still with the flock of birds and does not sink down
+	
+	/*Explanation: instead of having multiple sprite animations and have to link the spriteanimation to its data counterpart
+	 * it was easier to just have each flockbird have sprite animation code (without the loading of images) and only the frameticks, 
+	 * frameindex, etc. Then when drawing each FlockBird in RedKnotView, the RedKnot sprite animation loaded simply has a method which takes
+	 * in a frameindex, etc and draws it onto the screen
+	 */
 	
 	//Holds Animation Code in order to not create multiple Animation Instances (might change)
 	int frameCount;
@@ -53,7 +63,7 @@ public class FlockBird extends Bird{
 //		
 //	}
 	
-	/**
+	/**@author Miguel
 	 * @param p
 	 * @param s
 	 * @param v
@@ -76,9 +86,6 @@ public class FlockBird extends Bird{
 	 * -Takes in no arguments, returns nothing
 	 * -When called, updates the FlockBird's position and moves its x position to the left
 	 * by the FlockBird's x velocity
-	 */
-	/* (non-Javadoc)
-	 * @see game.Bird#move()
 	 */
 	@Override
 	public void move() {
@@ -111,30 +118,7 @@ public class FlockBird extends Bird{
 		//System.out.println(this.getVelocity());
 	}
 	
-	
-//	/*Created by Miguel:
-//	 * -Creates and returns a FlockBird instance on given x position and randomly 
-//	 * from [y_offset, range_y] with a random width and random height
-//	 * -This spawns a flock bird NEAR THE PLAYER Redknot
-//	 */
-//	public static FlockBird spawnFlockBird(RedKnot RK) {
-//		Position RK_position = RK.getPosition();
-//		int x_offset = 5; //adds 5 pixels so that the Flock Bird does not start at x=0 
-//		//int y_offset = 50; //How high the Flock bird is away from the Player's RedKnot bird
-//		
-//		
-//		//Generates a random x, random y values 
-//		int relative_x = Utility.randRangeInt(x_offset, RK_position.getX()-RELATIVE_OFFSET_X);
-//		int relative_y = Utility.randRangeInt(RK_position.getY()-RELATIVE_OFFSET_Y, RK_position.getY()+ RELATIVE_OFFSET_Y);
-//
-//		
-//		
-//		//Chooses a random width and height for the clouds
-//		int random_width = Utility.randRangeInt(BIRD_MIN_WIDTH, BIRD_MAX_WIDTH);
-//		int random_height = Utility.randRangeInt(BIRD_MIN_HEIGHT,BIRD_MAX_HEIGHT);
-//		
-//		return new FlockBird(new Position(relative_x, relative_y), new Size(random_width,random_height), new Velocity(0,RK.getVelocity().getYSpeed()), true);
-//	}
+
 	
 	/*Created by Miguel:
 	 * -Creates and returns a FlockBird instance on given x position and randomly 
@@ -193,8 +177,15 @@ public class FlockBird extends Bird{
 		frameIndex=(frameIndex+1)%frameCount;
 	}
 	
-	/**
-	 * 
+
+	/**@author Miguel
+	 *-Increments the current FlockBird's 'tick' by 1. 
+	 */
+	
+	/*Explanation: instead of having multiple sprite animations and have to link the spriteanimation to its data counterpart
+	 * it was easier to just have each flockbird have sprite animation code (without the loading of images) and only the frameticks, 
+	 * frameindex, etc. Then when drawing each FlockBird in RedKnotView, the RedKnot sprite animation loaded simply has a method which takes
+	 * in a frameindex, etc and draws it onto the screen
 	 */
 	public void updateCurrImage() {
 		this.tick++;
@@ -208,9 +199,7 @@ public class FlockBird extends Bird{
 	 * Method that takes in a FlockBird object and returns a boolean
 	 * value of whether or not the inputted FlockBird instance's x position has
 	 * passed the 'x_bounds' integer.
-	 */
-	/**
-	 * @return
+	 * -Stops the flockbird from going past a certain left point (x position)
 	 */
 	public boolean checkIfOutOfBoundsLeft() {
 		Position p = this.getPosition();
@@ -225,8 +214,10 @@ public class FlockBird extends Bird{
 		}
 	}
 	
-	/**
+	
+	/**@author Miguel
 	 * @return
+	 * -Stops the flockbird from going past the bottom of the screen
 	 */
 	public boolean checkIfOutOfBoundsBottom() {
 		Position p = this.getPosition();
@@ -248,6 +239,8 @@ public class FlockBird extends Bird{
 		this.gotLostInStorm = bool;
 	}
 	
+	/*------------------*/
+	/*Methods for moving the FlockBird in accordance to the Player*/
 	/**
 	 * 
 	 */
@@ -285,11 +278,12 @@ public class FlockBird extends Bird{
 		updownstop=x;
 	}
 	
-	/*NOTE: commented out the acceleration because the movement is
-	 * pretty iffy, the movement is smoother by just adding/subtracting
-	 * the bird's velocity from its position*/
-	 
+	/*------------------*/
 	
+	
+	/**@author Miguel
+	 * -Moves the FlockBird upwards by its velocity property
+	 */
 	public void FlyUp() {
 		Position p = this.getPosition();
 		int new_y = p.getY()-this.getVelocity().getYSpeed();
@@ -300,8 +294,8 @@ public class FlockBird extends Bird{
 		this.setPosition(new Position(p.getX(),new_y));
 	}
 	
-	/**
-	 * 
+	/**@author Miguel
+	 * -Moves the FlockBird downwards by its velocity property
 	 */
 	public void FlyDown() {
 		Position p = this.getPosition();

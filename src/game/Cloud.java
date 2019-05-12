@@ -8,6 +8,10 @@ package game;
  */
 
 //REDKNOT MINIGAME
+/**
+ * @author MiguelZN
+ *
+ */
 public class Cloud extends DynamicGameObject{
 	private static final int CLOUD_VX_MAX = 8;//10;
 	private static final int CLOUD_VX_MIN = 2;//4;
@@ -28,7 +32,7 @@ public class Cloud extends DynamicGameObject{
 	
 	
 	
-	/**
+	/**@author Miguel
 	 * @param x
 	 * @param y
 	 * @param width
@@ -127,9 +131,6 @@ public class Cloud extends DynamicGameObject{
 	 * -When called, updates the Cloud's position and moves its x position to the left
 	 * by the Cloud's x velocity
 	 */
-	/* (non-Javadoc)
-	 * @see game.DynamicGameObject#move()
-	 */
 	@Override
 	public void move() {
 		int new_x = this.getPosition().getX()+this.getVelocity().getXSpeed();
@@ -138,12 +139,10 @@ public class Cloud extends DynamicGameObject{
 	
 	
 	
-	/*Created by Miguel:
+
+	/**@author Miguel
 	 * -Takes no arguments and returns nothing
-	 * -Changes the Current Cloud instance's x velocity
-	 */
-	/**
-	 * 
+	 * -Changes the Current Cloud instance's x velocity 
 	 */
 	public void changeSpeed() {
 		int new_vx = Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX);
@@ -155,7 +154,6 @@ public class Cloud extends DynamicGameObject{
 	 * @param x
 	 * @param min_y
 	 * @param max_y
-	 *
 	 * -Takes in three integers: x, min y, max y values
 	 * -Re-randomizes the current Cloud instance (assigns it a new position, size, and speed)
 	 *-Places the cloud at the starting x position, and at a random y position
@@ -169,14 +167,12 @@ public class Cloud extends DynamicGameObject{
 	}
 	
 	
-	/*Created by Miguel:
-	 * Method that takes in a Cloud object and returns a boolean
-	 * value of whether or not the inputted Cloud instance's x position has
-	 * passed the 'x_bounds' integer.
-	 */
-	/**
+	/**@author Miguel
 	 * @param x_bounds
 	 * @return
+	 * -Method that takes in a Cloud object and returns a boolean
+	 * value of whether or not the inputted Cloud instance's x position has
+	 * passed the 'x_bounds' integer.
 	 */
 	public boolean checkIfOutOfBounds(int x_bounds) {
 		Position p = this.getPosition();
@@ -191,16 +187,13 @@ public class Cloud extends DynamicGameObject{
 		}
 	}
 
-	
-	/*Created by Miguel:
-	 * Creates and returns a Cloud instance on given x position and randomly 
-	 * from [y_offset, range_y] with a random width and random height
-	 */
-	/**
+	/**@author Miguel
 	 * @param x
 	 * @param min_y
 	 * @param max_y
 	 * @return
+	 * -Creates and returns a Cloud instance on given x position and randomly 
+	 * from [y_offset, range_y] with a random width and random height
 	 */
 	public static Cloud spawnCloud(int x, int min_y, int max_y) {
 		//Generates a random x, random y values 

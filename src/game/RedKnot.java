@@ -1,5 +1,10 @@
 package game;
 
+/**
+ *
+ * -Class for our RedKnot bird character for the RedKnot minigame
+ *
+ */
 public class RedKnot extends Bird{
 	
 	
@@ -21,9 +26,6 @@ public class RedKnot extends Bird{
 	
 	/*
 	 * Default constructor/Start values for our red knot bird.
-	 */
-	/**
-	 * 
 	 */
 	public RedKnot(){
 		super(new Position(START_X,START_Y), new Size(RK_WIDTH,RK_HEIGHT), new Velocity(RK_VX,RK_VY));
@@ -75,8 +77,10 @@ public class RedKnot extends Bird{
 	public void setFlyState(int x) {
 		updownstop=x;
 	}
+	
 	/**
 	 * 
+	 * -When called, moves the bird's position up by the bird's velocity
 	 */
 	public void FlyUp() {
 		Position p = this.getPosition();
@@ -90,6 +94,7 @@ public class RedKnot extends Bird{
 	
 	/**
 	 * 
+	 * -When called, moves the bird's position down by the bird's velocity
 	 */
 	public void FlyDown() {
 		Position p = this.getPosition();
