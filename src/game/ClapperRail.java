@@ -10,7 +10,7 @@ public class ClapperRail extends Bird{
 	
 	
 	private final static int XSTART = 100;
-	private final static int YSTART = 380;
+	private final static int YSTART = 880;
 	private final static int VXSTART = 10;
 	private final static int VYSTART = 10;
 	private final static int SIZE = 80;

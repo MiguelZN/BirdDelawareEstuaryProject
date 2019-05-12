@@ -22,6 +22,8 @@ public class Controller implements KeyListener {
 	private WindowView view;
 	private GameScreen screen;
 	private Model current_state;
+	
+	
 
 	// All gamestates:
 	/*
@@ -55,6 +57,7 @@ public class Controller implements KeyListener {
 		view = new TitleScreenView();
 		setUpTitleButtons();
 		this.screen.add(view);
+		this.screen.setPlaySize();
 		view.setBackground(Color.CYAN); //sets the background color of the TitleScreenView
 		current_state = new TitleScreenModel(this);
 	}
@@ -74,6 +77,7 @@ public class Controller implements KeyListener {
 	public void setUpRedKnotGame(){
 		view=new RedKnotView();
 		this.screen.add(view);
+		this.screen.setPlaySize();
 		current_state = new RedKnotGameState(this);
 		
 	}
@@ -81,8 +85,10 @@ public class Controller implements KeyListener {
 	 * 
 	 */
 	public void setUpClapperRailGame(){
-		view= new ClapperRailView();
+		view = new ClapperRailView();
 		this.screen.add(view);
+		this.screen.setSize(GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
+		//this.screen.setBackground(Color.CYAN);
 		current_state = new ClapperRailGameState(this);
 	}
 	
@@ -326,7 +332,7 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_RIGHT:
 				ClapperRailGS.getCR().moveRight();;
 				ClapperRailGS.moveBackground();
-				ClapperRailGS.checkRightBounds(getScreen().PLAY_SCREEN_WIDTH);
+				ClapperRailGS.checkRightBounds(getScreen().CR_SCREEN_WIDTH);
 				break;
 			case KeyEvent.VK_LEFT:
 				ClapperRailGS.getCR().moveLeft();;
