@@ -109,7 +109,7 @@ public class RedKnotView extends GameView {
 				responses.add("Europe");
 				responses.add("Asia");
 				responses.add("Mars");
-				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),"Where does a redknot begin migrating from?", responses);
+				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),"Where does a redknot begin migrating from?", "South America", responses);
 			}
 			
 		});
@@ -186,8 +186,8 @@ public class RedKnotView extends GameView {
 		
 		//If the points on the curve, were successfully created..
 		if(points.size()>0) {
-			System.out.println("ENTERING");
-			System.out.println(points.size());
+			//System.out.println("ENTERING");
+			//System.out.println(points.size());
 			g.setColor(Color.RED);
 			//Using time as index to get the curve point and draw where the bird is currently
 			
@@ -227,7 +227,7 @@ public class RedKnotView extends GameView {
 			//System.out.println(relative_pos);
 			//System.out.println(absolute_pos);
 			//checkPixel(map_image, absolute_pos);
-			System.out.println("B:"+checkPixel(map_image,absolute_pos,"B"));
+			//System.out.println("B:"+checkPixel(map_image,absolute_pos,"B"));
 			
 			
 			//Checking if bird is 'over' water and land on the map:
@@ -255,8 +255,8 @@ public class RedKnotView extends GameView {
 				System.exit(0);
 			}
 			
-			System.out.println(this.previous);
-			System.out.println(current);
+			//System.out.println(this.previous);
+			//System.out.println(current);
 			
 			
 			//Handles the Background Transitions
@@ -337,7 +337,7 @@ public class RedKnotView extends GameView {
 		int g =  (rgb_value>>one_byte) & 0xff; //Bitmasks to get green
 		int b = (rgb_value) & 0xff; //Bitmasks to get blue
 		
-		System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
+		//System.out.printf("RGBA:(%d,%d,%d,%d)\n",r,g,b,a);
 		int high_blue_value = 200;
 		int high_green_value = 200;
 		
@@ -387,7 +387,7 @@ public class RedKnotView extends GameView {
             this.points.add(new Point(x,y));
             this.iter.next();
         }
-        System.out.println(points.size());
+        //System.out.println(points.size());
 	}
 	
 	/* (non-Javadoc)

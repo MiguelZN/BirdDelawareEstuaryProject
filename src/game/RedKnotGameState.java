@@ -84,6 +84,14 @@ public class RedKnotGameState extends GameState {
 		//the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
 		
+		
+		//Testing the QuestionReader: (WORKS)
+		QuestionReader qr = new QuestionReader("resources/text_files/test.txt");
+		for(QuizQuestion q:qr.getQuizQuestions()) {
+			System.out.println(q+"\n");
+		}
+		//System.exit(0);
+		
 	}
 	
 	/**

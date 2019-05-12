@@ -1,5 +1,10 @@
 package game;
 
+/**
+ * @author MiguelZN
+ *-Allows us to have an emeration of the different game modes and have a property in Controller
+ *indicating which gameMode it currently is
+ */
 public enum GameMode {
 	REDKNOT("REDKNOT"),
 	INSTRUCTIONS("INSTRUCTIONS"),

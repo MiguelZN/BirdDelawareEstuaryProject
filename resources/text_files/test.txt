@@ -1,0 +1,13 @@
+question:Where does the redknot begin?
+answer:South America
+response:sparc lab
+response:no where
+response:wow
+response: South America
+
+question:Where does the redknot end?
+answer:North America
+response:pluto
+response:no where
+response:harvey
+response: North America

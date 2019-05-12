@@ -44,7 +44,7 @@ public class QuestionWindow extends JFrame{
 	 * @param question
 	 * @param responses
 	 */
-	public QuestionWindow(Position p, Size s, String question, List<String> responses) {
+	public QuestionWindow(Position p, Size s, String question, String answer, List<String> responses) {
 		this.question =question;
 		this.position = p;
 		this.size = s;
