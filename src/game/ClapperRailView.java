@@ -63,7 +63,7 @@ public class ClapperRailView extends GameView{
 	 * @see game.GameView#paintComponent(java.awt.Graphics)
 	 */
 	public void paintComponent(Graphics g) {
-		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
+		//scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		g.setColor(new Color(224,160, 42));
 		Position p = CL.getPosition();
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());

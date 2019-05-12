@@ -31,6 +31,9 @@ public class GameScreen extends JFrame{
 	public static final int PLAY_SCREEN_WIDTH = 1000;
 	public static final int PLAY_SCREEN_HEIGHT = 600;//600;
 	
+	public static final int CR_SCREEN_WIDTH = 600;
+	public static final int CR_SCREEN_HEIGHT = 1000;
+	
 	public static final int GAME_FPS = 100;
 	
 	
