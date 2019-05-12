@@ -89,6 +89,23 @@ public class RedKnotView extends GameView {
 	 */
 	public RedKnotView(){
 		super();
+		
+		Thread question_thread = new Thread( new Runnable() {
+
+			@Override
+			public void run() {
+				ArrayList<String> responses = new ArrayList<>();
+				responses.add("South America");
+				responses.add("North America");
+				responses.add("Europe");
+				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),"Where does a redknot begin migrating from?", responses);
+				//add(qw);
+			}
+			
+		});
+		
+		question_thread.run();
+		
 		score=0;
 		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
@@ -116,6 +133,7 @@ public class RedKnotView extends GameView {
 		this.backgrounds.add(RedKnotAsset.SABACKGROUND);
 		this.backgrounds.add(RedKnotAsset.COAST);
 		this.backgrounds.add(RedKnotAsset.OCEAN);
+		
 	
 		
 		try {
@@ -139,18 +157,16 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.RED);
 //		birdMovement(RK);
 		//MAP:
-		drawCheckMapCurve(g); //draws and checks the map curve
-		
-		drawClouds(g);
+		drawMapBackgroundClouds(g); //draws the map (map image, map curve, bird position), background, and the clouds
 		drawScore(g);
+		drawFlockBirds(g);
 		drawBird(g);
 		g.setColor(Color.BLUE);
-		drawFlockBirds(g);
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
 		
 	}
 	
-	public void drawCheckMapCurve(Graphics g) {
+	public void drawMapBackgroundClouds(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g.setColor(Color.ORANGE);
 //		System.out.println(map_size.getWidth());
@@ -242,6 +258,11 @@ public class RedKnotView extends GameView {
 				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
 				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
 			}
+			else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.COAST) {
+				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
+				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
+				this.newScrollImage2(g,RedKnotAsset.COAST);//current
+			}
 			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.OCEAN) {
 				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
 				this.newScrollImage1(g,RedKnotAsset.OCEAN);//previous
@@ -280,6 +301,7 @@ public class RedKnotView extends GameView {
 			
 			this.previous = current;
 			
+			drawClouds(g); //draws the clouds
 			drawMap(g);
 			g2d.draw(map_curve);
 			g.fillOval(p.getX(), p.getY(), 5, 5);
@@ -468,14 +490,6 @@ public class RedKnotView extends GameView {
 	 * 
 	 * 
 	 */
-	
-	public void addBackground(RedKnotAsset b) {
-		this.backgrounds.push(b);
-	}
-	
-	public void removeFirstBackground() {
-		this.backgrounds.removeFirst();
-	}
 	
 	//Moves the background 
 	/* (non-Javadoc)

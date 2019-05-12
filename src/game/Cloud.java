@@ -39,6 +39,12 @@ public class Cloud extends DynamicGameObject{
 		this.reSize(); //resizes the Cloud
 		this.hitBox.updateRectangleHitBox();
 	}
+	
+	public Cloud(Position p, Size s) {
+		super(p,s, new Velocity(-1*Utility.randRangeInt(CLOUD_VX_MIN,CLOUD_VX_MAX), CLOUD_VY));
+		this.reSize(); //resizes the Cloud
+		this.hitBox.updateRectangleHitBox();
+	}
 
 	/*Getters*/
 	/**

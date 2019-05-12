@@ -100,7 +100,7 @@ public class RedKnotGameState extends GameState {
 	 * @param FB
 	 */
 	public void collectBird(ListIterator<FlockBird> fb_iter, FlockBird FB) {
-		fb_iter.add(FlockBird.spawnFlockBird(RK, FB));
+		fb_iter.add(FlockBird.spawnNearbyFlockBird(RK, FB));
 	}
 	
 	/**

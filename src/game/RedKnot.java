@@ -8,8 +8,8 @@ public class RedKnot extends Bird{
 	private double accel_mult_up = 1.0;
 	
 	//Constants for the RedKnot (to keep it organized)
-	private final static int RK_WIDTH = 120;
-	private final static int RK_HEIGHT = 80;
+	final static int RK_WIDTH = 120;
+	final static int RK_HEIGHT = 80;
 	
 	private final static int START_X = 200;
 	private final static int START_Y = 20;
@@ -26,7 +26,7 @@ public class RedKnot extends Bird{
 	 * 
 	 */
 	public RedKnot(){
-		super(new Position(100,20), new Size(100,50), new Velocity(5,5));
+		super(new Position(START_X,START_Y), new Size(RK_WIDTH,RK_HEIGHT), new Velocity(RK_VX,RK_VY));
 	}
 	
 	/* (non-Javadoc)
