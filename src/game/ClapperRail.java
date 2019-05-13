@@ -22,6 +22,9 @@ public class ClapperRail extends Bird{
 	private boolean isFalling = false;
 	private boolean onPlatform = false;
 	private int jumpPos;
+	private int jumpState=-1;
+	private int fallState=0;
+	private boolean colliding = false;
 	
 	
 	/**
@@ -52,31 +55,66 @@ public class ClapperRail extends Bird{
 		jumpPos = yPos;
 	}
 	
+	/*
+	 * Called once per ontick, moves the bird down, in a gravity-like way.
+	 * checks to make sure bird stays on screen.
+	 * 
+	 */
+	@Override
+	public void move(int vx, int vy){
+		int newX = this.getPosition().getX() + vx;
+		int newY = this.getPosition().getY();
+		if((newY + vy) < (GameScreen.PLAY_SCREEN_HEIGHT-this.getSize().getHeight()-GameScreen.TITLE_BAR_HEIGHT)){
+			newY+=vy;
+			colliding = false;
+		}else{
+			newY = GameScreen.PLAY_SCREEN_HEIGHT-this.getSize().getHeight()-GameScreen.TITLE_BAR_HEIGHT;
+			colliding = true;
+			fallState=0;
+		}
+		this.setPosition(new Position(newX,newY));
+	}
+	
+	
+	/*
+	 * The clapper rail has its own on tick method,
+	 * as it has many things to handle on tick. (Gravity, among other things)
+	 * 
+	 */
+	public void ontick(){
+		//if we aren't jumping.
+		if(jumpState == -1)
+			handleCurrentFall();
+		else
+			handleCurrentJump();
+	}
+	
+	public void handleCurrentFall(){
+		if(!colliding){
+			move(0,fallState);
+			fallState++;
+		}
+	}
+	
+	/*
+	 * This is essentially an accelerated jump that we are creating.
+	 * 0    1  2 3 4 5 6 7 8
+	 * -10 -9 -8 -7 -6
+	 */
+	public void handleCurrentJump(){
+		move(0,-20 + jumpState);
+		jumpState++;
+		if(jumpState==20)
+			jumpState=-1;
+		
+	}
+	
 	/**
 	 * 
 	 */
 	public void jump() {
-		/*if(this.getPosition().getY() <= 300) {
-			this.setPosition(new Position(this.getPosition().getX(),ClapperRailGameState.GROUND));
-		} 
-		this.move(0, -1* this.getVelocity().getYSpeed());
-		*/
-		
-		if(isJumping) {
-			this.move(0, -1* this.getVelocity().getYSpeed());
-			if(this.getPosition().getY() == this.jumpPos) {
-				this.isJumping = false;
-				this.isFalling = true;
-			}
-		}
-		else if(isFalling){
-			if(this.getPosition().getY() != ClapperRailGameState.GROUND) {
-				this.move(0, this.GRAVITY);
-			}
-			else {
-				this.isFalling = false;
-			}
-		}
+		if(jumpState==-1 && colliding)
+			jumpState=0;
 	}
 	
 //	public void keepFallingUntilPos(Position p, Size s) {
@@ -123,5 +161,11 @@ public class ClapperRail extends Bird{
 	
 	public void setOnPlatform(boolean b) {
 		this.onPlatform = b;
+	}
+	public void setColliding(boolean b){
+		this.colliding=b;
+	}
+	public boolean getColliding(){
+		return this.colliding;
 	}
 }

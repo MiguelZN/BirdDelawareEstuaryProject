@@ -100,6 +100,7 @@ public class ClapperRailGameState extends GameState {
 	 */
 	@Override
 	public void ontick() {
+		CR.ontick();
 		moveBackground();
 		if (this.getIsGameRunning()) {
 			checkOnPlatform2();
@@ -153,12 +154,10 @@ public class ClapperRailGameState extends GameState {
 		output.add(CR);
 		// this.addPlatforms();
 		output.addAll(platforms);
-		this.CR.jump();
 		/*
 		 * for(Platform p:platforms) { checkOnPlatform(p); }
 		 */
 
-		System.out.println("PLATFORMS:" + platforms.size());
 		return output;
 	}
 
