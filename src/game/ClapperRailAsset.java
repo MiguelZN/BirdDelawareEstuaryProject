@@ -2,7 +2,8 @@ package game;
 
 public enum ClapperRailAsset {
 	BACKGROUND("BACKGROUND"),
-	ENERGY("ENERGY_ICON");
+	ENERGY("ENERGY_ICON"),
+	PLATFORM("PLATFORM");
 
 	private String asset_key = null;
 

@@ -39,6 +39,7 @@ import javax.swing.JButton;
  */
 public class ClapperRailView extends GameView{
 	private int score;
+	private ArrayList<Platform> platforms;
 	int BackgroundX;
 	ClapperRail CL;
 	
@@ -48,6 +49,7 @@ public class ClapperRailView extends GameView{
 	public ClapperRailView() {
 		super();
 		CL=new ClapperRail();
+		platforms = new ArrayList<>();
 		this.score = 0;
 		this.BackgroundX = 5;
 		this.setBackground(Color.RED);
@@ -67,13 +69,14 @@ public class ClapperRailView extends GameView{
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
-		this.setBackground(Color.RED);
+		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
+		//this.setBackground(Color.RED);
 		g.setColor(new Color(224,160, 42));
 		Position p = CL.getPosition();
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawEnergy(g);
-		this.setBackground(Color.RED);
+		drawPlatforms(g);
+		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
 	}
@@ -85,6 +88,7 @@ public class ClapperRailView extends GameView{
 	public void fnameMapCreate() {
 		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
 		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
+		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
 		
 	}
 
@@ -94,8 +98,8 @@ public class ClapperRailView extends GameView{
 	 */
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
-		g.drawImage((Image) objectMap.get(background1), BackgroundX*-1, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, this);
-		g.drawImage((Image) objectMap.get(background2), (BackgroundX*-1)+GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, null, null);
+		g.drawImage((Image) objectMap.get(background1), BackgroundX*-1, 0, GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), (BackgroundX*-1)+GameScreen.CR_SCREEN_WIDTH, 0, GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT, null, null);
 	}
 
 
@@ -104,7 +108,14 @@ public class ClapperRailView extends GameView{
 	 */
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
+		platforms = new ArrayList<>();
 		this.CL = (ClapperRail)gameObjects.get(0);
+		for(GameObject go : gameObjects) {
+			if(go instanceof Platform) {
+				platforms.add((Platform)go);
+				System.out.println("PLATFORMS: " + platforms.size());
+			}
+		}
 		
 	}
 	
@@ -132,6 +143,19 @@ public class ClapperRailView extends GameView{
 		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
 	}
+	
+	public void drawPlatforms(Graphics g) {
+		for(Platform p:platforms) {
+			drawPlatform(p,g);
+		}
+	}
+	
+	public void drawPlatform(Platform p, Graphics g) {
+		Position pos = p.getPosition();
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.PLATFORM), pos.getX(), pos.getY(), p.getWidth(), p.getHeight(),null,this);
+		//System.out.println("DREW A PLATFORM");
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see game.GameView#updateScore(int)

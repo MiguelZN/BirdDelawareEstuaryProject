@@ -14,6 +14,7 @@ import java.util.TimerTask;
 public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
 	private ArrayList<GameObject> Materials;
+	private ArrayList<Platform> platforms;
 	
 	//The Ground Level of the game (temporary)
 	static int GROUND = GameScreen.CR_SCREEN_HEIGHT-(int)(GameScreen.CR_SCREEN_HEIGHT*.3);
@@ -38,6 +39,7 @@ public class ClapperRailGameState extends GameState {
 		super(controller);
 		this.CR = new ClapperRail();
 		this.Materials = new ArrayList<>();
+		this.platforms = new ArrayList<>();
 		
 		TimerTask task = new TimerTask() {
 			@Override
@@ -139,9 +141,15 @@ public class ClapperRailGameState extends GameState {
 	public ArrayList<GameObject> getUpdateableGameObjects() {
 		ArrayList<GameObject> output = new ArrayList<>();
 		output.add(CR);
+		this.addPlatforms();
+		output.addAll(platforms);
+		System.out.println("MODEL: PLATFORMS: " + platforms.size());
 		this.CR.jump();
 		return output;
 	}
 	
-	
+	public void addPlatforms() {
+		if(platforms.size() < 1)
+			this.platforms.add(new Platform(200,200));
+	}
 }
