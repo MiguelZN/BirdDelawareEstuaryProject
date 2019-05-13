@@ -3,11 +3,34 @@ answer:South America
 response:sparc lab
 response:no where
 response:wow
-response: South America
+response:South America
 
 question:Where does the redknot end?
 answer:North America
 response:pluto
 response:no where
 response:harvey
-response: North America
+response:North America
+
+question:Does the redknot travel with many other redknots?
+answer:Yes
+response:Yes
+response:No
+
+question:Does the redknot travel with many other redknots?
+answer:Yes
+response:Yes
+response:No
+
+question: What happens when a redknot 'hits' or enters a bad storm?
+answer:a redknot can get lost from the group
+response:a redknot can get lost from the group
+response:nothing
+response:the group goes faster
+
+question: What happens when a redknot 'hits' or enters a bad storm?
+answer:a redknot can get lost from the group
+response:a redknot can get lost from the group
+response:nothing
+response:the group goes faster
+

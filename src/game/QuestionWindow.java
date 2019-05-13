@@ -1,5 +1,8 @@
 package game;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +24,14 @@ import javax.swing.border.Border;
  */
 public class QuestionWindow extends JFrame{
 	private String question;
+	private String answer;
 	private Position position;
 	private Size size;
 	
 	//Java Swing Components
 	private JLabel QuestionLabel;
 	private ButtonGroup ResponsesGroup;
+	private List<JRadioButton> response_buttons;
 
 	final int LABEL_HEIGHT = 30;
 	static final int QUESTIONBOX_WIDTH = 300;
@@ -34,9 +39,7 @@ public class QuestionWindow extends JFrame{
 	
 	/*GridLayout: in order to layout the radiobuttons neatly*/
 	GridLayout gl;
-	
-	
-	
+
 	
 	/**@author Miguel
 	 * @param p
@@ -46,8 +49,10 @@ public class QuestionWindow extends JFrame{
 	 */
 	public QuestionWindow(Position p, Size s, String question, String answer, List<String> responses) {
 		this.question =question;
+		this.answer = answer;
 		this.position = p;
 		this.size = s;
+		//this.gotAnswerCorrect = false; //Did not get a correct answer yet
 	
 		//this.setSize(QUESTIONBOX_WIDTH,QUESTIONBOX_HEIGHT);
 		this.setLocation(p.getX(),p.getY());
@@ -66,8 +71,10 @@ public class QuestionWindow extends JFrame{
 		
 		//Radio Button Responses
 		this.ResponsesGroup = new ButtonGroup();
+		this.response_buttons = new ArrayList<>();
 		this.createResponses(responses);
 		this.pack();
+
 		this.setVisible(true);
 	}
 	
@@ -85,19 +92,58 @@ public class QuestionWindow extends JFrame{
 			JRadioButton response_button = new JRadioButton(r);
 			response_button.setHorizontalAlignment(SwingConstants.CENTER); //Adjusts the radio buttons to be in the center
 			//System.out.println("CREATING");
+//			response_button.addActionListener(new ActionListener() {
+//		        @Override
+//		        public void actionPerformed(ActionEvent e) {
+//		            System.out.println("SELECTED:"+response_button.getText());
+//		            
+//		            if(!response_button.getText().equalsIgnoreCase(answer)) {
+//		            	System.exit(0);
+//		            	
+//		            }
+//		            else {
+//		            	System.out.println("CORRECT");
+//		            	dispose(); //destroys the JFrame Question window
+//		            }
+//
+//		        }
+//		    });
+			this.response_buttons.add(response_button);
 			this.ResponsesGroup.add(response_button);
 			this.add(response_button);
 		}
 		
 	}
+	
+	
+	/**@author Miguel
+	 * @param AL
+	 * -Iterates through all of the response JRadioButtons and gives them
+	 * the same actionlistener (useful for telling all the buttons that if player
+	 * gets the correct response, increment their score within RedKnotView)
+	 */
+	public void setActionListeners(ActionListener AL) {
+		for(JRadioButton rb:this.response_buttons) {
+			rb.addActionListener(AL);
+		}
+	}
+	
 
 	/*Getters, Setters--------------------------*/
+	
+	
 	/**
 	 * @return String
 	 */
 	public String getQuestion() {
 		return question;
 	}
+	
+
+	public String getAnswer() {
+		return answer;
+	}
+
 
 	/**
 	 * @return Position
@@ -119,6 +165,13 @@ public class QuestionWindow extends JFrame{
 	public JLabel getQuestionLabel() {
 		return QuestionLabel;
 	}
+
+	public List<JRadioButton> getResponse_buttons() {
+		return response_buttons;
+	}
+
+	
+	
 
 	
 }

@@ -85,11 +85,7 @@ public class RedKnotGameState extends GameState {
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
 		
 		
-		//Testing the QuestionReader: (WORKS)
-		QuestionReader qr = new QuestionReader("resources/text_files/test.txt");
-		for(QuizQuestion q:qr.getQuizQuestions()) {
-			System.out.println(q+"\n");
-		}
+	
 		//System.exit(0);
 		
 	}
