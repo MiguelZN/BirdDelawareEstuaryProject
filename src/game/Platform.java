@@ -30,12 +30,18 @@ public class Platform extends DynamicGameObject {
 	}
 	
 	public boolean touchPlatform(Position pos) {
+		//System.out.println("RK:"+pos);
+		//System.out.println("PLATFORM POS:"+this.getPosition());
+		
 		if(pos.getY() == this.getPosition().getY() || pos.getY() == this.getPosition().getY()+1) {
 			if((pos.getX() >= this.getPosition().getX()) 
 					&& (pos.getX() <= (this.getPosition().getX() + (this.getWidth()-PLATFORM_WIDTH_CORRECTION)))) {
+				System.out.println("TOUCHING");
+			//	System.exit(0);
 				return true;
 			}
 		}
+		System.out.println("NOT TOUCHING");
 		return false;
 	}
 

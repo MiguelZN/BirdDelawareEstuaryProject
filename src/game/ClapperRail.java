@@ -79,6 +79,10 @@ public class ClapperRail extends Bird{
 		}
 	}
 	
+//	public void keepFallingUntilPos(Position p, Size s) {
+//		if(this.getPosition().getY())
+//	}
+	
 	
 	/*Method: eat()
 	 *-takes in no arguments/returns nothing

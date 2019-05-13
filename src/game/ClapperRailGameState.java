@@ -29,6 +29,9 @@ public class ClapperRailGameState extends GameState {
 	static final int MAX_GAME_TIME = GameTimer.ONE_SECOND * 30; // 15 seconds (temporary)
 	private GameTimer game_timer;
 	private int current_time;
+	
+	
+	private Platform current_platform =null;
 
 	/**
 	 * @param controller
@@ -46,7 +49,7 @@ public class ClapperRailGameState extends GameState {
 				if (getIsGameRunning()) {
 					// System.out.println("TIMER");
 					current_time += GameTimer.ONE_SECOND;
-					System.out.println("GAMETIME RAN:" + current_time + " milliseconds");
+					//System.out.println("GAMETIME RAN:" + current_time + " milliseconds");
 
 					if (current_time >= MAX_GAME_TIME) {
 						// System.exit(0);
@@ -58,6 +61,7 @@ public class ClapperRailGameState extends GameState {
 
 		// the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND, task);
+		this.addPlatforms();
 
 	}
 
@@ -98,7 +102,7 @@ public class ClapperRailGameState extends GameState {
 	public void ontick() {
 		moveBackground();
 		if (this.getIsGameRunning()) {
-			checkOnPlatform();
+			checkOnPlatform2();
 		}
 	}
 
@@ -160,10 +164,13 @@ public class ClapperRailGameState extends GameState {
 
 	public void checkOnPlatform() {
 		this.addPlatforms();
+		
+		System.out.println(platforms.size());
 
 		Iterator<Platform> plat_it = platforms.iterator();
 		while (plat_it.hasNext()) {
 			Platform p = plat_it.next();
+			System.out.println(this.current_platform.getPosition());
 
 			if (this.CR.getIsFalling()) {
 				if (p.touchPlatform(this.CR.getPosition())) {
@@ -178,11 +185,53 @@ public class ClapperRailGameState extends GameState {
 			}
 		}
 	}
+	
+	public void checkOnPlatform2() {
+		//System.out.println(platforms.size());
+
+		for(Platform p:platforms) {
+			if(this.current_platform!=null) {
+				System.out.println(this.current_platform.getPosition());
+				
+			}
+			
+		
+			//System.out.print(p.getPosition());
+			
+			if(p.touchPlatform(this.CR.getPosition())&&this.current_platform==null) {
+				this.CR.setIsFalling(false);
+				this.current_platform = p;
+				break;
+			}
+			else if(!p.touchPlatform(this.CR.getPosition())&&this.current_platform!=p) {
+				this.CR.setIsFalling(true);
+				this.current_platform = null;
+			}
+			
+//			if (this.CR.getIsFalling()) {
+//			if (p.touchPlatform(this.CR.getPosition())) {
+//				this.CR.setIsFalling(false);
+//				this.CR.setOnPlatform(true);
+//			}
+//		} 
+//		
+//		else if (this.CR.getOnPlatform()) {
+//			if (!p.touchPlatform(this.CR.getPosition())) {
+//				this.CR.setOnPlatform(false);
+//				this.CR.setIsFalling(true);
+//			}
+//		}
+
+		}
+	}
 
 	public void addPlatforms() {
 		if (platforms.size() < 2) {
+			this.platforms.add(new Platform(-200, 200));
 			this.platforms.add(new Platform(200, 200));
 			this.platforms.add(new Platform(400, 200));
+			this.platforms.add(new Platform(600,400));
+			this.platforms.add(new Platform(400,200));
 		}
 	}
 }
