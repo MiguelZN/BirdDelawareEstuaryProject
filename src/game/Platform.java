@@ -27,5 +27,15 @@ public class Platform extends DynamicGameObject {
 	public int getHeight() {
 		return PLATFORM_HEIGHT;
 	}
+	
+	public boolean touchPlatform(Position pos) {
+		if(pos.getY() == this.getPosition().getY()) {
+			if((pos.getX() >= this.getPosition().getX()) 
+					&& (pos.getX() <= (this.getPosition().getX() + this.getWidth()))) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

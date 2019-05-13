@@ -143,13 +143,30 @@ public class ClapperRailGameState extends GameState {
 		output.add(CR);
 		this.addPlatforms();
 		output.addAll(platforms);
-		System.out.println("MODEL: PLATFORMS: " + platforms.size());
 		this.CR.jump();
+		for(Platform p:platforms) {
+			OnPlatform(p);
+		}
 		return output;
 	}
 	
 	public void addPlatforms() {
 		if(platforms.size() < 1)
 			this.platforms.add(new Platform(200,200));
+	}
+	
+	public void OnPlatform(Platform p) {
+		if(this.CR.getIsFalling()) {
+			if(p.touchPlatform(this.CR.getPosition())) {
+				this.CR.setIsFalling(false);
+				this.CR.setOnPlatform(true);
+			}
+		}
+		else if(this.CR.getOnPlatform()){
+			if(!p.touchPlatform(this.CR.getPosition())) {
+				this.CR.setOnPlatform(false);
+				this.CR.setIsFalling(true);
+			}
+		}
 	}
 }

@@ -20,6 +20,7 @@ public class ClapperRail extends Bird{
 	
 	private boolean isJumping = false;
 	private boolean isFalling = false;
+	private boolean onPlatform = false;
 	private int jumpPos;
 	
 	
@@ -110,5 +111,13 @@ public class ClapperRail extends Bird{
 
 	public void setIsFalling(boolean b) {
 		this.isFalling = b;
+	}
+	
+	public boolean getOnPlatform() {
+		return this.onPlatform;
+	}
+	
+	public void setOnPlatform(boolean b) {
+		this.onPlatform = b;
 	}
 }
