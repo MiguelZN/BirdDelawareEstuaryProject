@@ -8,6 +8,7 @@ public class Platform extends DynamicGameObject {
 	private static final int PLATFORM_VY = 0;
 	
 	private static final int PLATFORM_WIDTH = 250;
+	private static final int PLATFORM_WIDTH_CORRECTION = 100; //image must be messed up, this is tempoary
 	private static final int PLATFORM_HEIGHT = 160;
 	
 	public Platform(int x, int y) {
@@ -29,9 +30,9 @@ public class Platform extends DynamicGameObject {
 	}
 	
 	public boolean touchPlatform(Position pos) {
-		if(pos.getY() == this.getPosition().getY()) {
+		if(pos.getY() == this.getPosition().getY() || pos.getY() == this.getPosition().getY()+1) {
 			if((pos.getX() >= this.getPosition().getX()) 
-					&& (pos.getX() <= (this.getPosition().getX() + this.getWidth()))) {
+					&& (pos.getX() <= (this.getPosition().getX() + (this.getWidth()-PLATFORM_WIDTH_CORRECTION)))) {
 				return true;
 			}
 		}

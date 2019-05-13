@@ -15,7 +15,7 @@ public class ClapperRail extends Bird{
 	private final static int VYSTART = 10;
 	private final static int SIZE = 80;
 	private final static int JUMP_AMOUNT = 300;
-	private final static int GRAVITY = 2;
+	private final static int GRAVITY = 3;
 	private Energy e;
 	
 	private boolean isJumping = false;
