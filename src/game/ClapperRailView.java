@@ -113,7 +113,6 @@ public class ClapperRailView extends GameView{
 		for(GameObject go : gameObjects) {
 			if(go instanceof Platform) {
 				platforms.add((Platform)go);
-				System.out.println("PLATFORMS: " + platforms.size());
 			}
 		}
 		
