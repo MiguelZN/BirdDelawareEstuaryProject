@@ -4,11 +4,15 @@ package game;
  */
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.TimerTask;
+
+import javax.swing.JRadioButton;
 
 /*Class: RedKnotGameState
  * -extends the abstract class GameState (Model) 
@@ -49,6 +53,7 @@ public class RedKnotGameState extends GameState {
 	/*Score final constants*/
 	static final int COLLECTED_BIRD_SCORE = 200;
 	static final int TOUCHED_CLOUD_SCORE = -200;
+	static final int QUESTION_CORRECT = 1000;
 
 	
 	/**
@@ -80,6 +85,60 @@ public class RedKnotGameState extends GameState {
 				}
 			}
 		};
+		
+		//Test QuestionBox (for quiz)
+		Thread question_thread = new Thread( new Runnable() {
+			@Override
+			public void run() {
+//				ArrayList<String> responses = new ArrayList<>();
+//				responses.add("South America");
+//				responses.add("North America");
+//				responses.add("Europe");
+//				responses.add("Asia");
+//				responses.add("Mars");
+				
+				//Testing the QuestionReader: (WORKS)
+				QuestionReader qr = new QuestionReader("resources/text_files/test.txt");
+				for(QuizQuestion q:qr.getQuizQuestions()) {
+					System.out.println(q+"\n");
+				}
+				
+				int random_index = Utility.randRangeInt(0, qr.getQuizQuestions().size()-1);
+				QuizQuestion qq = qr.getQuizQuestions().get(random_index);
+				
+				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),qq.getQuestion(), qq.getAnswer(), qq.getResponses());
+				for(JRadioButton rb:qw.getResponse_buttons()) {
+					rb.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		        	System.out.println("SELECTED:"+rb.getText());
+		        
+		            
+		            if(!rb.getText().equalsIgnoreCase(qw.getAnswer())) {
+		            	System.out.println("WRONG");
+		            	qw.dispose();
+		            	//System.exit(0);
+		            	
+		            }
+		            else {
+		            	System.out.println("CORRECT");
+		            	score+=RedKnotGameState.QUESTION_CORRECT; //increments score because player got question correct
+		            	int added_birds = 25; //test
+		            	for(int i=0;i<added_birds;i++) {
+		            		System.out.println("SPAWNING BIRD");
+		            		flock.add(FlockBird.spawnNearbyFlockBird(RK,FlockBird.spawnRandomFlockBird(0, 0, 0)));
+		            	}
+		
+		            	
+		            	qw.dispose(); //destroys the JFrame Question window
+		            }
+		        }});};
+			}});
+		            
+
+		 
+		
+		question_thread.run();
 		
 		//the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);

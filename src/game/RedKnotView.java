@@ -89,6 +89,12 @@ public class RedKnotView extends GameView {
 	public RedKnotView(){
 		super();
 		
+		/*Initializing redknot, clouds, flock, score, map, etc)*/
+		score=0;
+		redKnot= new RedKnot();
+		clouds = new ArrayList<>();
+		flock = new ArrayList<>();
+		
 		this.time_allocated = 0; //Starts at 0, because 0 time has gone by yet
 		/*GameTimer*/
 		TimerTask task = new TimerTask() {
@@ -103,55 +109,9 @@ public class RedKnotView extends GameView {
 			
 		
 		
-		//Test QuestionBox (for quiz)
-		Thread question_thread = new Thread( new Runnable() {
-			@Override
-			public void run() {
-//				ArrayList<String> responses = new ArrayList<>();
-//				responses.add("South America");
-//				responses.add("North America");
-//				responses.add("Europe");
-//				responses.add("Asia");
-//				responses.add("Mars");
-				
-				//Testing the QuestionReader: (WORKS)
-				QuestionReader qr = new QuestionReader("resources/text_files/test.txt");
-				for(QuizQuestion q:qr.getQuizQuestions()) {
-					System.out.println(q+"\n");
-				}
-				
-				int random_index = Utility.randRangeInt(0, qr.getQuizQuestions().size()-1);
-				QuizQuestion qq = qr.getQuizQuestions().get(random_index);
-				
-				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),qq.getQuestion(), qq.getAnswer(), qq.getResponses());
-				for(JRadioButton rb:qw.getResponse_buttons()) {
-					rb.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	System.out.println("SELECTED:"+rb.getText());
-		        
-		            
-		            if(!rb.getText().equalsIgnoreCase(qw.getAnswer())) {
-		            	System.exit(0);
-		            	
-		            }
-		            else {
-		            	System.out.println("CORRECT");
-		            	//qw.dispose(); //destroys the JFrame Question window
-		            }
-		        }});};
-			}});
-		            
 
-		 
 		
-		question_thread.run();
 		
-		/*Initializing redknot, clouds, flock, score, map, etc)*/
-		score=0;
-		redKnot= new RedKnot();
-		clouds = new ArrayList<>();
-		flock = new ArrayList<>();
 		
 		//Map: (Curve works for any map size, used ratios to determine curve points etc)
 		Size map_size = new Size(150,150);

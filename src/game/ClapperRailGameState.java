@@ -231,7 +231,7 @@ public class ClapperRailGameState extends GameState {
 			this.platforms.add(new Platform(200, 200));
 			this.platforms.add(new Platform(400, 200));
 			this.platforms.add(new Platform(600,400));
-			this.platforms.add(new Platform(400,200));
+			this.platforms.add(new Platform(800,200));
 		}
 	}
 }
