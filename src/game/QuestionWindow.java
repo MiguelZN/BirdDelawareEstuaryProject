@@ -73,6 +73,7 @@ public class QuestionWindow extends JFrame{
 		this.ResponsesGroup = new ButtonGroup();
 		this.response_buttons = new ArrayList<>();
 		this.createResponses(responses);
+		this.setAlwaysOnTop(true); //sets the JFrame always on top of the main GameScreen
 		this.pack();
 
 		this.setVisible(true);

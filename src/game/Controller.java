@@ -236,6 +236,7 @@ public class Controller implements KeyListener {
 			RedKnotView RK_V = (RedKnotView) view;
 			//System.out.println("GS_SCORE:"+RK_GS.getScore());
 			
+			RK_V.updateIsGameRunning(RK_GS.getIsGameRunning());
 			RK_V.updateScore(RK_GS.getScore());
 		}
 		

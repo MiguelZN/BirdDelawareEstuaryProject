@@ -63,6 +63,7 @@ public class RedKnotView extends GameView {
 	private MiniMap map;
 	private int score;
 	private boolean debug_mode;
+
 	
 	//New Scroll Image (Scrolls two background images independently in comparison to before where two were dependent on the same
 	//variables)
@@ -100,7 +101,10 @@ public class RedKnotView extends GameView {
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				time_allocated++;
+				//Only updates time if the game is running
+				if(getIsGameRunning()) {
+					time_allocated++;
+				}
 			}
 				//System.out.println("TIMER");
 		};
@@ -182,6 +186,7 @@ public class RedKnotView extends GameView {
 			//System.out.println(points.size());
 			g.setColor(Color.RED);
 			//Using time as index to get the curve point and draw where the bird is currently
+			
 			
 			//Used to tell how far the bird is on the curve in respect to how much time has gone by
 			double time_ratio = (double)this.time_allocated/(RedKnotGameState.MAX_GAME_TIME/GameTimer.ONE_SECOND);
@@ -443,7 +448,7 @@ public class RedKnotView extends GameView {
 	/**@author Miguel
 	 * @param FB
 	 * @param g
-	 * -Takes FlockBird(FB) and draws it onto the screen
+	 * -Takes a single FlockBird(FB) and draws it onto the screen
 	 */
 	public void drawFlockBird(FlockBird FB, Graphics g) {
 		Animation FlockBirdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
@@ -471,10 +476,9 @@ public class RedKnotView extends GameView {
 	 * -Iterates through the 'clouds' List of Clouds and draws them onto the screen
 	 */
 	public void drawClouds(Graphics g) {
-		
-		
 		for(Cloud c:clouds){
-			drawCloud(c,g);
+			drawEnemyCloud(c,g);
+			drawQuestionCloud(c,g);
 			Utility.drawHitBoxPoint(g, c.hitBox, this.debug_mode);
 			if(Utility.GameObjectCollision(this.redKnot, c) && this.debug_mode) {
 				System.out.println("COLLISION!");
@@ -488,9 +492,23 @@ public class RedKnotView extends GameView {
 	 * @param g
 	 * -Takes in an individual Cloud instance and draws it onto the screen
 	 */
-	public void drawCloud(Cloud c, Graphics g){
-		Position current_pos = c.getPosition();
-		g.drawImage((Image) objectMap.get(RedKnotAsset.CLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+	public void drawEnemyCloud(Cloud c, Graphics g){
+		if(c instanceof EnemyCloud) {
+			Position current_pos = c.getPosition();
+			g.drawImage((Image) objectMap.get(RedKnotAsset.ENEMYCLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+		}
+	}
+	
+	/**@author Miguel
+	 * @param c
+	 * @param g
+	 * -Takes in an individual Cloud instance and draws it onto the screen
+	 */
+	public void drawQuestionCloud(Cloud c, Graphics g){
+		if(c instanceof QuestionCloud) {
+			Position current_pos = c.getPosition();
+			g.drawImage((Image) objectMap.get(RedKnotAsset.QUESTIONCLOUD), current_pos.getX(), current_pos.getY(), c.getWidth(),c.getHeight(),null, this);
+		}
 	}
 	
 	
@@ -617,13 +635,14 @@ public class RedKnotView extends GameView {
 	public void fnameMapCreate() {
 		fnameMap.put("background1.png", RedKnotAsset.BACKGROUND);
 		fnameMap.put("forest2.png", RedKnotAsset.FOREST1);
-		fnameMap.put("cloudnorain.png",RedKnotAsset.CLOUD);
+		fnameMap.put("cloudnorain.png",RedKnotAsset.ENEMYCLOUD);
 		fnameMap.put("SAbackground3.png", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot.png", RedKnotAsset.MAINBIRD);
 		fnameMap.put("sprite-6-flockbird.png", RedKnotAsset.FLOCKBIRD);
 		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
 		fnameMap.put("ocean.png",RedKnotAsset.OCEAN);
 		fnameMap.put("coast2.png",RedKnotAsset.COAST);
+		fnameMap.put("QuestionCloud.png",RedKnotAsset.QUESTIONCLOUD);
 	}
 
 

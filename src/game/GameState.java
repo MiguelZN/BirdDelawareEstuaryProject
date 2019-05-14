@@ -62,6 +62,7 @@ public abstract class GameState extends Model {
 		return this.isGameRunning;
 	}
 	
+	
 	public void setIsGameRunning(boolean game_running) {
 		this.isGameRunning = game_running;
 	}

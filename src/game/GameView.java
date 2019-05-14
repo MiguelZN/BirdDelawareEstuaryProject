@@ -19,6 +19,8 @@ import javax.swing.JPanel;
  * -contains methods and all the images required to draw onto the screen
  */
 public abstract class GameView extends WindowView{
+	
+	private boolean isGameRunning;
 	/**
 	 * 
 	 */
@@ -34,6 +36,7 @@ public abstract class GameView extends WindowView{
 	 * 
 	 */
 	public GameView() {
+		this.isGameRunning = true;
 	}
 	
 	/**
@@ -63,7 +66,13 @@ public abstract class GameView extends WindowView{
 //		return gameImage;
 //	}
 	
-
+	public void updateIsGameRunning(boolean gr) {
+		this.isGameRunning = gr;
+	}
+	
+	public boolean getIsGameRunning() {
+		return this.isGameRunning;
+	}
 	
 	
 	//Moves the background 

@@ -17,10 +17,6 @@ answer:Yes
 response:Yes
 response:No
 
-question:Does the redknot travel with many other redknots?
-answer:Yes
-response:Yes
-response:No
 
 question: What happens when a redknot 'hits' or enters a bad storm?
 answer:a redknot can get lost from the group
@@ -28,9 +24,23 @@ response:a redknot can get lost from the group
 response:nothing
 response:the group goes faster
 
-question: What happens when a redknot 'hits' or enters a bad storm?
-answer:a redknot can get lost from the group
-response:a redknot can get lost from the group
-response:nothing
-response:the group goes faster
 
+question:Is this bird migratory (moving to a new location) or non-migratory (stays at the same location)?
+answer:migratory
+response:migratory
+response:non-migratory
+
+question:What is the name of the bird?
+answer:redknot
+response:redknot
+response:red robin
+
+question:What is the name of the bird?
+answer:redknot
+response:redknot
+response:red robin
+
+question:What is the name of the bird?
+answer:redknot
+response:redknot
+response:red robin

@@ -156,13 +156,6 @@ public class QuestionReader {
 				else {
 					System.out.println("THIS LINE IS NOT BEING READ");
 				}
-				
-		
-				
-
-				
-				
-				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

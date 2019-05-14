@@ -29,7 +29,7 @@ public class RedKnotGameState extends GameState {
 
 	//Enemy clouds
 	private ArrayList<Cloud> clouds; 
-	private final int AMOUNT_OF_CLOUDS = 3;
+	private final int AMOUNT_OF_ENEMYCLOUDS = 3;
 	
 	//FlockBirds
 	private ArrayList<FlockBird> flock; 
@@ -37,6 +37,10 @@ public class RedKnotGameState extends GameState {
 	private final int FB_CHANCE_MAX = 1000; 
 	private final int FB_CHANCE_LOW = 0;
 	private final int FB_THRESHOLD = 10;
+	
+	private final int QC_CHANCE_LOW = 0;
+	private final int QC_CHANCE_MAX= 1000;
+	private final int QC_THRESHOLD = 5;
 	
 	//Variable to stop the game from continously removing FlockBirds from 'flock' when touching the same cloud
 	private Cloud lastCloudTouched;
@@ -54,6 +58,7 @@ public class RedKnotGameState extends GameState {
 	static final int COLLECTED_BIRD_SCORE = 200;
 	static final int TOUCHED_CLOUD_SCORE = -200;
 	static final int QUESTION_CORRECT = 1000;
+	static final int AMOUNT_OF_BIRDS_ADDED = 25;
 
 	
 	/**
@@ -85,60 +90,7 @@ public class RedKnotGameState extends GameState {
 				}
 			}
 		};
-		
-		//Test QuestionBox (for quiz)
-		Thread question_thread = new Thread( new Runnable() {
-			@Override
-			public void run() {
-//				ArrayList<String> responses = new ArrayList<>();
-//				responses.add("South America");
-//				responses.add("North America");
-//				responses.add("Europe");
-//				responses.add("Asia");
-//				responses.add("Mars");
-				
-				//Testing the QuestionReader: (WORKS)
-				QuestionReader qr = new QuestionReader("resources/text_files/test.txt");
-				for(QuizQuestion q:qr.getQuizQuestions()) {
-					System.out.println(q+"\n");
-				}
-				
-				int random_index = Utility.randRangeInt(0, qr.getQuizQuestions().size()-1);
-				QuizQuestion qq = qr.getQuizQuestions().get(random_index);
-				
-				QuestionWindow qw = new QuestionWindow(new Position(GameScreen.PLAY_SCREEN_HEIGHT,0), new Size(300,200),qq.getQuestion(), qq.getAnswer(), qq.getResponses());
-				for(JRadioButton rb:qw.getResponse_buttons()) {
-					rb.addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		        	System.out.println("SELECTED:"+rb.getText());
-		        
-		            
-		            if(!rb.getText().equalsIgnoreCase(qw.getAnswer())) {
-		            	System.out.println("WRONG");
-		            	qw.dispose();
-		            	//System.exit(0);
-		            	
-		            }
-		            else {
-		            	System.out.println("CORRECT");
-		            	score+=RedKnotGameState.QUESTION_CORRECT; //increments score because player got question correct
-		            	int added_birds = 25; //test
-		            	for(int i=0;i<added_birds;i++) {
-		            		System.out.println("SPAWNING BIRD");
-		            		flock.add(FlockBird.spawnNearbyFlockBird(RK,FlockBird.spawnRandomFlockBird(0, 0, 0)));
-		            	}
-		
-		            	
-		            	qw.dispose(); //destroys the JFrame Question window
-		            }
-		        }});};
-			}});
-		            
-
-		 
-		
-		question_thread.run();
+		      
 		
 		//the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
@@ -167,6 +119,62 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	public void createQuiz(Position p) {
+		this.isGameRunning = false;
+		Thread question_thread;
+		question_thread = new Thread( new Runnable() {
+			@Override
+			public void run() {
+//				ArrayList<String> responses = new ArrayList<>();
+//				responses.add("South America");
+//				responses.add("North America");
+//				responses.add("Europe");
+//				responses.add("Asia");
+//				responses.add("Mars");
+				
+				//Testing the QuestionReader: (WORKS)
+				QuestionReader qr = new QuestionReader("resources/text_files/test.txt");
+				
+				
+				int random_index = Utility.randRangeInt(0, qr.getQuizQuestions().size()-1);
+				QuizQuestion qq = qr.getQuizQuestions().get(random_index);
+				Position set_pos = new Position(GameScreen.PLAY_SCREEN_HEIGHT,0);
+						
+				
+				QuestionWindow qw = new QuestionWindow(p, new Size(300,200),qq.getQuestion(), qq.getAnswer(), qq.getResponses());
+				for(JRadioButton rb:qw.getResponse_buttons()) {
+					rb.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		        	System.out.println("SELECTED:"+rb.getText());
+		        
+		            
+		            if(!rb.getText().equalsIgnoreCase(qw.getAnswer())) {
+		            	System.out.println("WRONG");
+		            	qw.dispose();
+		            	isGameRunning = true;
+		            	//System.exit(0);
+		            	
+		            }
+		            else {
+		            	isGameRunning = true;
+		            	System.out.println("CORRECT");
+		            	score+=RedKnotGameState.QUESTION_CORRECT; //increments score because player got question correct
+		            	int added_birds = AMOUNT_OF_BIRDS_ADDED; //test
+		            	for(int i=0;i<added_birds;i++) {
+		            		System.out.println("SPAWNING BIRD");
+		            		flock.add(FlockBird.spawnNearbyFlockBird(RK,FlockBird.spawnRandomFlockBird(0, 0, 0)));
+		            	}
+		
+		            	qw.dispose(); //destroys the JFrame Question window
+		            
+		            	
+		            }
+		        }});};
+			}});
+		
+		question_thread.run();
+	}
 
 
 	/* (non-Javadoc)
@@ -214,37 +222,83 @@ public class RedKnotGameState extends GameState {
 		addClouds(); //adds the clouds intially and readds clouds
 		
 		//Added iterator to remove clouds once they reach the end
-		Iterator<Cloud> cloud_iter = clouds.iterator();
+		ListIterator<Cloud> cloud_iter = clouds.listIterator();
 		while(cloud_iter.hasNext()) {
 			Cloud c = cloud_iter.next();
 			c.move();
+			
+			Iterator<FlockBird> fb_iter = flock.iterator();
+			while(fb_iter.hasNext()) {
+				FlockBird FB = fb_iter.next();
 
-			if(detectCloudCollision(RK, c) && this.lastCloudTouched !=c) {
-				this.lastCloudTouched = c;
-				this.incrementScore(TOUCHED_CLOUD_SCORE);
-				Iterator<FlockBird> fb_iter = flock.iterator();
-				while(fb_iter.hasNext()) {
-					FlockBird FB = fb_iter.next();
-					//removes a bird from the flock if it is collected by the Player
-					if(FB.getIsCollected()) {
-						FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
-						break;
+				//Checking Enemy Clouds
+				if(Utility.GameObjectCollision(RK, c) && this.lastCloudTouched !=c && c instanceof EnemyCloud) {
+					this.lastCloudTouched = c;
+					this.incrementScore(TOUCHED_CLOUD_SCORE);
+	
+						//removes a bird from the flock if it is collected by the Player
+						if(FB.getIsCollected()) {
+							FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
+							break;
+						
 					}
 				}
-			}
+				
+				//Checking for QuestionCloud (in order to initialize a quiz)
+				if(Utility.GameObjectCollision(RK, c) && this.lastCloudTouched !=c && c instanceof QuestionCloud) {
+					this.lastCloudTouched = c;
+					this.incrementScore(TOUCHED_CLOUD_SCORE);
+					//Test QuestionBox (for quiz)
+					this.createQuiz(c.getPosition());
+						//removes a bird from the flock if it is collected by the Player
+						if(FB.getIsCollected()) {
+							FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
+							break;
+						}
+	
+					
+					//Removes the current QuestionCloud
+					try {
+						cloud_iter.remove();
+					}
+					catch(Exception e) {
+						//e.printStackTrace();
+					}
+					
+				}
 		
+				System.out.println("CLOUDSIZE:"+clouds.size());
 			
 			//If the cloud goes out of bounds (exits the left side of screen)
 			//it then gets removed from 'clouds' and a new 'Cloud'
 			//instance is created
-			boolean outofbounce = c.checkIfOutOfBounds(Cloud.LEFT_MOST);
-
-			if(outofbounce){
+			if(c.checkIfOutOfBounds(Cloud.LEFT_MOST)){
 				//System.out.println("REMOVING");
-				cloud_iter.remove();
+				try {
+					cloud_iter.remove();
+				}
+				catch(Exception e) {
+					//e.printStackTrace();
+				}
 			}
 		}
 		
+	}}
+	
+	/**@author Miguel
+	 * -Randomly checks and adds a QuestionCloud
+	 */
+	public void addQuestionCloud() {
+		int chance = Utility.randRangeInt(this.QC_CHANCE_LOW, this.QC_CHANCE_MAX);
+		int threshold = this.QC_THRESHOLD;
+		
+		if(chance<threshold) {
+			QuestionCloud qc = new QuestionCloud(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_HEIGHT, 0, GameScreen.PLAY_SCREEN_HEIGHT));
+			if(qc instanceof QuestionCloud) {
+				System.out.println("QUESTIONCLOUD");
+			}
+			clouds.add(qc);
+		}
 	}
 	
 	/*Created by Derek:
@@ -278,15 +332,17 @@ public class RedKnotGameState extends GameState {
 	 * clouds, flock birds, etc)
 	 */
 	public ArrayList<GameObject> updateGameObjects(RedKnot RK, ArrayList<GameObject> GO_AL) {
-		for(GameObject GO:GO_AL) {
-			
-			//Shifts all of the game objects by the RedKnots velocity
-			if(GO!=RK && (GO instanceof FlockBird == false)) {
-				//System.out.println("BEFORE POS:"+GO.getPosition());
-				int x_speed=  -1*RK.getVelocity().getXSpeed();
-				GO.shiftGameObject(new Velocity(x_speed,0));
-				//System.out.println("UPDATING VELOCITIES:"+x_speed);
-				//System.out.println("AFTER POS:"+GO.getPosition());
+		if(this.getIsGameRunning()) {
+			for(GameObject GO:GO_AL) {
+				
+				//Shifts all of the game objects by the RedKnots velocity
+				if(GO!=RK && (GO instanceof FlockBird == false)) {
+					//System.out.println("BEFORE POS:"+GO.getPosition());
+					int x_speed=  -1*RK.getVelocity().getXSpeed();
+					GO.shiftGameObject(new Velocity(x_speed,0));
+					//System.out.println("UPDATING VELOCITIES:"+x_speed);
+					//System.out.println("AFTER POS:"+GO.getPosition());
+				}
 			}
 		}
 		
@@ -303,13 +359,15 @@ public class RedKnotGameState extends GameState {
 //		System.out.println("CLOUDS SIZE:"+clouds.size());
 		
 		//Checks if there are not enough clouds and adds the amount needed
-		if(clouds.size()<this.AMOUNT_OF_CLOUDS) {
-			for(int i=0;i<this.AMOUNT_OF_CLOUDS-clouds.size();i++) {
+		if(clouds.size()<this.AMOUNT_OF_ENEMYCLOUDS) {
+			for(int i=0;i<this.AMOUNT_OF_ENEMYCLOUDS-clouds.size();i++) {
 				int screen_width = this.controller.getScreen().getX();
 				int screen_height = this.controller.getScreen().getY();
-				this.clouds.add(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, Cloud.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-Cloud.Y_MARGIN));
+				this.clouds.add(new EnemyCloud(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, Cloud.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-Cloud.Y_MARGIN)));
 			}
 		}
+		
+		addQuestionCloud();
 	}
 	
 
@@ -413,20 +471,20 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
-	/**@author Miguel
-	 * @param RK
-	 * @param c
-	 * @return boolean
-	 * -Checks if the player (Redknot) touched a cloud and if so returns true else returns false
-	 */
-	public boolean detectCloudCollision(RedKnot RK, Cloud c) {
-		if(Utility.GameObjectCollision(RK, c)){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+//	/**@author Miguel
+//	 * @param RK
+//	 * @param c
+//	 * @return boolean
+//	 * -Checks if the player (Redknot) touched a cloud and if so returns true else returns false
+//	 */
+//	public boolean detectCloudCollision(RedKnot RK, Cloud c) {
+//		if(Utility.GameObjectCollision(RK, c)){
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
 	
 
 	/**@author Miguel
@@ -520,8 +578,8 @@ public class RedKnotGameState extends GameState {
 	/**
 	 * @return
 	 */
-	public int getAMOUNT_OF_CLOUDS() {
-		return AMOUNT_OF_CLOUDS;
+	public int getAMOUNT_OF_ENEMYCLOUDS() {
+		return AMOUNT_OF_ENEMYCLOUDS;
 	}
 
 	
