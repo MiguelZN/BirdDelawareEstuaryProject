@@ -240,7 +240,7 @@ public class Controller implements KeyListener {
 			RK_V.updateScore(RK_GS.getScore());
 		}
 		
-		//Passes RedKnotGS updated data to the RedKnotView 
+		//Passes ClapperRailGS updated data to the RedKnotView 
 			if(current_state instanceof ClapperRailGameState) {
 				ClapperRailGameState CL_GS = (ClapperRailGameState)current_state;
 				ClapperRailView CL_V = (ClapperRailView) view;
@@ -323,9 +323,7 @@ public class Controller implements KeyListener {
 				break;
 			case KeyEvent.VK_SPACE:
 				System.out.println("SPACE");
-				//ClapperRailGS.getCR().jump();
-				if(!ClapperRailGS.getCR().getIsJumping() && !ClapperRailGS.getCR().getIsFalling())
-					ClapperRailGS.getCR().startJump(ClapperRailGS.getCR().getPosition());
+				ClapperRailGS.getCR().jump();
 				break;
 			}
 		} else if (current_state instanceof RedKnotGameState && view instanceof RedKnotView) {
