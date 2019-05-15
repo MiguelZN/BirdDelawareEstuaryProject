@@ -37,8 +37,3 @@ question:What is the name of the bird?
 answer:redknot
 response:redknot
 response:red robin
-
-question:What is the name of the bird?
-answer:redknot
-response:redknot
-response:red robin

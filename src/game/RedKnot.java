@@ -100,8 +100,8 @@ public class RedKnot extends Bird{
 		Position p = this.getPosition();
 		int new_y = p.getY()+this.getVelocity().getYSpeed();
 		//if this will place the bird off the screen, dont move the bird.
-		System.out.println(new_y);
-		System.out.println(this.getSize().getHeight());
+		//System.out.println(new_y);
+		//System.out.println(this.getSize().getHeight());
 		if((new_y + this.getSize().getHeight() + GameScreen.TITLE_BAR_HEIGHT) > GameScreen.PLAY_SCREEN_HEIGHT)
 			return;
 		this.setPosition(new Position(p.getX(),new_y));
