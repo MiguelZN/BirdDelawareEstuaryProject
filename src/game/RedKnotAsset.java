@@ -10,7 +10,8 @@ public enum RedKnotAsset {
 	MAP("MAP"),
 	OCEAN("OCEAN"),
 	COAST("COAST"),
-	QUESTIONCLOUD("QUESTIONCLOUD");
+	QUESTIONCLOUD("QUESTIONCLOUD"),
+	STATICREDKNOT("STATICREDKNOT");
 
 	private String asset_key = null;
 

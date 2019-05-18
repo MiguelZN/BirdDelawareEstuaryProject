@@ -71,6 +71,8 @@ public class RedKnotView extends GameView {
 	int backgroundx2 = GameScreen.PLAY_SCREEN_WIDTH;
 	RedKnotAsset current_background1;
 	RedKnotAsset current_background2;
+	//Keeps track of the backgrounds
+	private LinkedList<RedKnotAsset> backgrounds;
 	
 	//MAP:
 	private FlatteningPathIterator iter;
@@ -78,10 +80,17 @@ public class RedKnotView extends GameView {
 	private ArrayList<Point> points;
 	private RKBackgrounds previous; //keeps track of the previous background 
 	
+	//GameTimer:
 	GameTimer Timer;
 	int time_allocated;
 	
-	private LinkedList<RedKnotAsset> backgrounds;
+	//Drawing Score Variables:
+	static final String SCORE_TEXT = "Score: ";
+	static final String AMOUNT_OF_BIRDS_TEXT = "x";
+	static final int SCORE_FONT_SIZE = 40;
+	
+	
+	
 	
 	private static final long serialVersionUID = 1L;
 	/**
@@ -96,6 +105,10 @@ public class RedKnotView extends GameView {
 		clouds = new ArrayList<>();
 		flock = new ArrayList<>();
 		
+		
+		
+		
+		//GAMETIME:
 		this.time_allocated = 0; //Starts at 0, because 0 time has gone by yet
 		/*GameTimer*/
 		TimerTask task = new TimerTask() {
@@ -109,6 +122,7 @@ public class RedKnotView extends GameView {
 				//System.out.println("TIMER");
 		};
 		
+		//Initializes the GameTimer and sets it to how often to update the time_allocated variable
 		Timer = new GameTimer(GameTimer.ONE_SECOND,task);
 			
 		
@@ -161,6 +175,7 @@ public class RedKnotView extends GameView {
 		drawBird(g);
 		g.setColor(Color.BLUE);
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
+		drawAmountOfRedKnots(g);
 		
 	}
 	
@@ -429,18 +444,59 @@ public class RedKnotView extends GameView {
 	
 	/**@author Miguel
 	 * @param g
+	 * -Draws the GameScore to the Top Right of the Screen
 	 */
 	public void drawScore(Graphics g){
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("TimesRoman",Font.PLAIN,RedKnotGameState.SCORE_FONT_SIZE));
+		g.setFont(new Font("TimesRoman",Font.PLAIN,this.SCORE_FONT_SIZE));
 		FontMetrics fm = g.getFontMetrics();
 		//System.out.println(fm.getFont());
 		
 		//The String being drawn
-		String toDrawString = RedKnotGameState.SCORE_TEXT + this.score;
+		String toDrawString = this.SCORE_TEXT + this.score;
 		int string_width = fm.stringWidth(toDrawString);
 		
-		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+RedKnotGameState.SCORE_FONT_SIZE);
+		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+this.SCORE_FONT_SIZE);
+	}
+	
+	/**@author Miguel
+	 * @return (int) AmountOfRedknots
+	 * -returns the amount of redknots that are owned by the player
+	 */
+	public int checkAmountOfOwnedRedKnots() {
+		int amount_of_redknots =0;
+		
+		for(FlockBird FB:this.flock) {
+			if(FB.getIsCollected()) {
+				amount_of_redknots++;
+			}
+		}
+		
+		return amount_of_redknots;
+	}
+	
+	/**@author Miguel
+	 * @param g
+	 */
+	public void drawAmountOfRedKnots(Graphics g){
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,this.SCORE_FONT_SIZE));
+		FontMetrics fm = g.getFontMetrics();
+		//System.out.println(fm.getFont());
+		
+		//The String being drawn
+		int amount_of_birds = this.checkAmountOfOwnedRedKnots();
+		String toDrawString = this.AMOUNT_OF_BIRDS_TEXT + amount_of_birds;
+		int string_width = fm.stringWidth(toDrawString);
+		
+		int x_offset = 10;
+		int rk_xpos = 0+x_offset;
+		
+		int amount_xpos = rk_xpos + this.SCORE_FONT_SIZE+GameScreen.SCREEN_BORDER_PX;
+		
+		BufferedImage static_redknot_img = (BufferedImage)objectMap.get(RedKnotAsset.STATICREDKNOT);
+		g.drawImage(static_redknot_img,rk_xpos,0,this.SCORE_FONT_SIZE,this.SCORE_FONT_SIZE,null);
+		g.drawString(toDrawString, amount_xpos, 0+this.SCORE_FONT_SIZE);
 	}
 	
 
@@ -451,7 +507,7 @@ public class RedKnotView extends GameView {
 	 * -Takes a single FlockBird(FB) and draws it onto the screen
 	 */
 	public void drawFlockBird(FlockBird FB, Graphics g) {
-		Animation FlockBirdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
+		Animation FlockBirdAnim = (Animation) objectMap.get(RedKnotAsset.FLOCKBIRD);
 		g.drawImage(FlockBirdAnim.currImage(FB.frameIndex),FB.getPosition().getX(),FB.getPosition().getY(),FB.getSize().getWidth(),FB.getSize().getHeight(),null,this);
 		FB.updateCurrImage();
 	}
@@ -638,11 +694,12 @@ public class RedKnotView extends GameView {
 		fnameMap.put("cloudnorain.png",RedKnotAsset.ENEMYCLOUD);
 		fnameMap.put("SAbackground3.png", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot2.png", RedKnotAsset.MAINBIRD);
-		fnameMap.put("sprite-6-flockbird.png", RedKnotAsset.FLOCKBIRD);
+		fnameMap.put("sprite-6-flockbirdblurred.png", RedKnotAsset.FLOCKBIRD);
 		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
 		fnameMap.put("ocean.png",RedKnotAsset.OCEAN);
 		fnameMap.put("coast2.png",RedKnotAsset.COAST);
 		fnameMap.put("QuestionCloud.png",RedKnotAsset.QUESTIONCLOUD);
+		fnameMap.put("redknotimage.png",RedKnotAsset.STATICREDKNOT);
 	}
 
 

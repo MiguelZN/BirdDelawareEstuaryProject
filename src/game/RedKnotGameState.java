@@ -21,8 +21,6 @@ import javax.swing.JRadioButton;
 public class RedKnotGameState extends GameState {
 	private RedKnot RK;
 	private int score;
-	static final String SCORE_TEXT = "Score: ";
-	static final int SCORE_FONT_SIZE = 40;
 	
 	private boolean debug_mode;
 	
@@ -287,12 +285,7 @@ public class RedKnotGameState extends GameState {
 					
 					//Test QuestionBox (for quiz)
 					this.createQuiz(c.getPosition());
-						//removes a bird from the flock if it is collected by the Player
-						if(FB.getIsCollected()) {
-							FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
-							break;
-						}
-					c.setPosition(new Position(GameScreen.PLAY_SCREEN_WIDTH-c.hitBox.width,c.getPosition().getY()));
+					c.setPosition(new Position(0-c.hitBox.width,c.getPosition().getY()));
 					RK.setPosition(RK.getPosition());
 					
 //					//Removes the current QuestionCloud
