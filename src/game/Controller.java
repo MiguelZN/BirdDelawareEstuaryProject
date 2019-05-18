@@ -315,15 +315,14 @@ public class Controller implements KeyListener {
 			System.out.println("CURRENT MODE IS CLAPPERRAIL");
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
-				ClapperRailGS.getCR().moveRight();;
-				ClapperRailGS.moveBackground();
-				ClapperRailGS.checkRightBounds(getScreen().CR_SCREEN_WIDTH);
+				ClapperRailGS.getCR().setLeftRightState(1);
+//				ClapperRailGS.checkRightBounds();
 				break;
 			case KeyEvent.VK_LEFT:
-				ClapperRailGS.getCR().moveLeft();;
+				ClapperRailGS.getCR().setLeftRightState(-1);
+//				ClapperRailGS.checkLeftBounds();
 				break;
 			case KeyEvent.VK_SPACE:
-				System.out.println("SPACE");
 				ClapperRailGS.getCR().jump();
 				break;
 			}
@@ -376,6 +375,17 @@ public class Controller implements KeyListener {
 			}
 		}else if(current_state instanceof ClapperRailGameState && view instanceof ClapperRailView){
 			ClapperRailGameState CGS = (ClapperRailGameState) current_state;
+			ClapperRail CR = CGS.getCR();
+			
+			
+			switch(key) { 
+			case KeyEvent.VK_RIGHT:
+				CR.setLeftRightState((CR.getLeftRightState() == 1 ? 0 : CR.getLeftRightState()));				
+				break;
+			case KeyEvent.VK_LEFT:
+				CR.setLeftRightState((CR.getLeftRightState() == -1 ? 0 : CR.getLeftRightState()));
+				break;
+			}
 			
 		}
 		// TODO Auto-generated method stub

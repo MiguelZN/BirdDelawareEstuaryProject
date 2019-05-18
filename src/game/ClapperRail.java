@@ -25,8 +25,11 @@ public class ClapperRail extends Bird{
 	private int jumpState=-1;
 	private int fallState=0;
 	private boolean colliding = false;
+	private int leftRightState = 0;
 	
 	
+
+
 	/**
 	 * 
 	 */
@@ -64,6 +67,12 @@ public class ClapperRail extends Bird{
 	public void move(int vx, int vy){
 		int newX = this.getPosition().getX() + vx;
 		int newY = this.getPosition().getY();
+		
+		if(newX > GameScreen.CR_SCREEN_WIDTH)
+			newX = 0;
+		else if(newX+getSize().getWidth() < 0)
+			newX = GameScreen.CR_SCREEN_WIDTH;
+		
 		if((newY + vy) < (GameScreen.PLAY_SCREEN_HEIGHT-this.getSize().getHeight()-GameScreen.TITLE_BAR_HEIGHT)){
 			newY+=vy;
 			colliding = false;
@@ -102,9 +111,9 @@ public class ClapperRail extends Bird{
 	 * -10 -9 -8 -7 -6
 	 */
 	public void handleCurrentJump(){
-		move(0,-20 + jumpState);
+		move(0,-24 + jumpState);
 		jumpState++;
-		if(jumpState==20)
+		if(jumpState==24)
 			jumpState=-1;
 		
 	}
@@ -117,6 +126,14 @@ public class ClapperRail extends Bird{
 			jumpState=0;
 	}
 	
+	
+	public int getLeftRightState() {
+		return leftRightState;
+	}
+
+	public void setLeftRightState(int leftRightState) {
+		this.leftRightState = leftRightState;
+	}
 //	public void keepFallingUntilPos(Position p, Size s) {
 //		if(this.getPosition().getY())
 //	}

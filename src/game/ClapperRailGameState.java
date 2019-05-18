@@ -101,9 +101,18 @@ public class ClapperRailGameState extends GameState {
 	@Override
 	public void ontick() {
 		CR.ontick();
+		handleLeftRightMovement();
 		moveBackground();
 		if (this.getIsGameRunning()) {
 			checkOnPlatform2();
+		}
+	}
+	
+	public void handleLeftRightMovement(){
+		int x = CR.getLeftRightState();
+		switch(x){
+		case 1 : CR.moveRight();break;
+		case -1 : CR.moveLeft();break;
 		}
 	}
 
@@ -133,16 +142,6 @@ public class ClapperRailGameState extends GameState {
 	public void moveBackground() {
 		this.setBackgroundX((this.BackgroundX % 1000) + this.getCR().getVelocity().getXSpeed());
 	}
-
-	/**
-	 * @param right_most_x
-	 */
-	public void checkRightBounds(int right_most_x) {
-		if (this.getCR().getPosition().getX() > right_most_x) {
-			this.getCR().setPosition(new Position(0, this.getCR().getPosition().getY()));
-		}
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
