@@ -2,6 +2,8 @@ package game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -55,7 +57,7 @@ public class Controller implements KeyListener {
 		setUpTitleButtons();
 		this.screen.add(view);
 		this.screen.setPlaySize();
-		view.setBackground(Color.CYAN); //sets the background color of the TitleScreenView
+		//view.setBackground(Color.CYAN); //sets the background color of the TitleScreenView
 		current_state = new TitleScreenModel(this);
 	}
 	
@@ -149,11 +151,9 @@ public class Controller implements KeyListener {
 			}
 		});
 		System.out.println("title buttons are set up");
-		BorderLayout layout = new BorderLayout();
-		tsv.setLayout(layout);
-		tsv.add(tsv.RedKnot, BorderLayout.WEST);
-		tsv.add(tsv.Instructions, BorderLayout.PAGE_START);
-		tsv.add(tsv.ClapperRail, BorderLayout.EAST);
+
+
+		
 		
 	}
 

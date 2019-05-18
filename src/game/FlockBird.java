@@ -232,7 +232,7 @@ public class FlockBird extends Bird{
 		}
 	}
 
-	/**
+	/**@author Miguel
 	 * @param bool
 	 */
 	public void setGotLostInStorm(boolean bool) {

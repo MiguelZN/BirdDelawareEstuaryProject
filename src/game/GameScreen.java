@@ -62,15 +62,11 @@ public class GameScreen extends JFrame{
 	 */
 	public GameScreen(int width, int height) {
 		this.setResizable(false);
-//		this.setUndecorated(true);
-		//setSize(width, height);
 		this.width = width;
 		this.height = height;
-		this.setBackground(Color.CYAN);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
 		this.setFocusable(true);
-		
+		this.setVisible(true);
 		
 	}
 	

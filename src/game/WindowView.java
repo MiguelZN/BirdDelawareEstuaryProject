@@ -71,6 +71,7 @@ public abstract class WindowView extends JPanel{
 	 * @return
 	 */
 	public Object loadImage(File f) {
+		System.out.println("LOAD");
 		Object output=null;
 		try{
 			output = ImageIO.read(f);
