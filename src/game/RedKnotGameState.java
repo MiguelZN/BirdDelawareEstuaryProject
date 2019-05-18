@@ -40,6 +40,8 @@ public class RedKnotGameState extends GameState {
 	private final int QC_CHANCE_MAX= 2000;
 	private final int QC_THRESHOLD = 5;
 	
+	private final int MAX_AMOUNT_OF_BIRDS_REMOVED = 5;
+	
 	//Variable to stop the game from continously removing FlockBirds from 'flock' when touching the same cloud
 	private Cloud lastCloudTouched;
 	
@@ -265,12 +267,23 @@ public class RedKnotGameState extends GameState {
 				if(Utility.GameObjectCollision(RK, c) && this.lastCloudTouched !=c && c instanceof EnemyCloud && touching_two_clouds==false) {
 					this.lastCloudTouched = c;
 					this.incrementScore(TOUCHED_CLOUD_SCORE);
+					int random_amount = Utility.randRangeInt(0, this.MAX_AMOUNT_OF_BIRDS_REMOVED);
+					this.setBirdsLost(this.flock, random_amount);
+//					for(int i=0;i<random_amount;i++) {
+//						try{
+//							//removes a bird from the flock if it is collected by the Player
+////							this.setBirdsLost(this.flock, this.MAX_AMOUNT_OF_BIRDS_REMOVED);
+////							if(FB.getIsCollected()) {
+////								FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
+////								break;
+////							}
+//						}
+//						catch(Exception e) {
+//							System.out.println("NOT ENOUGH BIRDS");
+//						}
+//					}
 	
-						//removes a bird from the flock if it is collected by the Player
-						if(FB.getIsCollected()) {
-							FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
-							break;
-					}
+						
 				}
 				
 				//Checking for QuestionCloud (in order to initialize a quiz)
@@ -383,7 +396,7 @@ public class RedKnotGameState extends GameState {
 			for(int i=0;i<this.AMOUNT_OF_ENEMYCLOUDS-clouds.size();i++) {
 				int screen_width = this.controller.getScreen().getX();
 				int screen_height = this.controller.getScreen().getY();
-				this.clouds.add(new EnemyCloud(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, Cloud.Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-Cloud.Y_MARGIN)));
+				this.clouds.add(new EnemyCloud(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_WIDTH, 0, GameScreen.PLAY_SCREEN_HEIGHT-Cloud.Y_MARGIN)));
 			}
 		}
 		
@@ -445,6 +458,32 @@ public class RedKnotGameState extends GameState {
 			else {
 				FB.setFlyState(FB.getFlyState());
 			}
+		}
+	}
+	
+	/**@author Miguel
+	 * @param list
+	 * @param amount
+	 * -Given an integer 'amount', it takes that integer and checks 'amount'
+	 * many times, a random index of the flock list. 
+	 * -If the random index is a bird that is owned by the player, it is 'removed' by the flock
+	 * by setting its 'setGotLostInStorm' variable to true which causes
+	 * the bird to fall.
+	 */
+	public void setBirdsLost(List<FlockBird> list, int amount) {
+		for(int i=0;i<amount;i++) {
+			try {
+				int random_index = Utility.randRangeInt(0, list.size());
+				FlockBird fb = list.get(random_index);
+				
+				if(fb.getIsCollected()) {
+					fb.setGotLostInStorm(true);
+				}
+			}
+			catch(Exception e) {
+				System.out.println("INDEX ERROR");
+			}
+			
 		}
 	}
 	

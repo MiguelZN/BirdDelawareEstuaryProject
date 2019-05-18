@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Graphics;
+import java.util.List;
 
 /*Created by Miguel:
  * -The Utility class is used to hold static helper methods 
@@ -15,6 +16,7 @@ public class Utility {
 	 * -Returns a random int from the [inputted min, inputted max]
 	 */
 	/**
+	 * @author Miguel
 	 * @param min_num
 	 * @param max_num
 	 * @return
@@ -28,6 +30,7 @@ public class Utility {
 	 * -Returns either true or false if the two GameObjects intersect (collision occurs)
 	 */
 	/**
+	 * @author Miguel
 	 * @param o1
 	 * @param o2
 	 * @return
@@ -43,6 +46,7 @@ public class Utility {
 	 * to draw a rectangle based on the HitBox's properties
 	 */
 	/**
+	 * @author Miguel
 	 * @param g
 	 * @param hb
 	 * @param debug
@@ -61,6 +65,7 @@ public class Utility {
 	 * -Draws a circle at the HitBox's position
 	 */
 	/**
+	 * @author Miguel
 	 * @param g
 	 * @param hb
 	 * @param debug
@@ -70,6 +75,19 @@ public class Utility {
 			g.drawRect(hb.x, hb.y, hb.width, hb.height);
 			int circle_size= 10;
 			g.fillOval(hb.getPosition().getX(), hb.getPosition().getY(), circle_size,circle_size);
+		}
+	}
+	
+	/**@author Miguel
+	 * @param list
+	 * @param amount
+	 * -Utility function which takes an a list, and integer 'amount'
+	 * and checks and pulls the object at a random index and removes it
+	 */
+	public void removeElements(List<Object> list, int amount) {
+		for(int i=0;i<amount;i++) {
+			int random_index = Utility.randRangeInt(0, list.size());
+			list.remove(random_index);
 		}
 	}
 	

@@ -87,14 +87,14 @@ public class InstructionsView extends WindowView{
 		this.titlelogolabel.setSize(200, 50);
 
 		this.currentInstructions = new JLabel(clapperrail);
-		this.currentInstructions.setSize(300, 300);
+		this.currentInstructions.setSize(GameScreen.PLAY_SCREEN_HEIGHT/3, GameScreen.PLAY_SCREEN_HEIGHT/3);
 		this.currentInstructions.setBorder(new EmptyBorder(10,10,10,10));
 		this.current_bird_info = BirdType.REDKNOT;
 		
 		
 		this.add(titlelogolabel, BorderLayout.PAGE_START);
 		this.add(this.nextButton, BorderLayout.EAST);
-		this.add(this.currentInstructions, BorderLayout.WEST);
+		this.add(this.currentInstructions, BorderLayout.CENTER);
 		this.add(backtoMenuButton, BorderLayout.PAGE_END);
 		this.titlelogolabel.setVisible(true);
 		System.out.println("TITLELOGO");
