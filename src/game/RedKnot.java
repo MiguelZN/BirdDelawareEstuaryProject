@@ -22,6 +22,10 @@ public class RedKnot extends Bird{
 	private final static int RK_VX = 4;
 	private final static int RK_VY = 5;
 	
+	/*
+	 * Used to flash red while you are colliding with a cloud
+	 */
+	private boolean colliding = false;
 
 	
 	/*
@@ -39,6 +43,12 @@ public class RedKnot extends Bird{
 		case 1:this.FlyUp();break;
 		case -1:this.FlyDown();break;
 		}
+	}
+	public void setColliding(boolean b){
+		this.colliding=b;
+	}
+	public boolean getColliding(){
+		return this.colliding;
 	}
 
 	/**

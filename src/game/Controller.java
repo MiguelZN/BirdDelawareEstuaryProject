@@ -88,6 +88,7 @@ public class Controller implements KeyListener {
 		view = new ClapperRailView();
 		this.screen.add(view);
 		this.screen.setSize(GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
+		this.screen.pack();
 		//this.screen.setBackground(Color.CYAN);
 		current_state = new ClapperRailGameState(this);
 	}
@@ -373,6 +374,9 @@ public class Controller implements KeyListener {
 				
 				break;
 			}
+		}else if(current_state instanceof ClapperRailGameState && view instanceof ClapperRailView){
+			ClapperRailGameState CGS = (ClapperRailGameState) current_state;
+			
 		}
 		// TODO Auto-generated method stub
 

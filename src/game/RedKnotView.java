@@ -438,7 +438,12 @@ public class RedKnotView extends GameView {
 	 * -Draws the bird with the associated red knot sprite sheet
 	 */
 	public void drawBird(Graphics g){
-		Animation birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
+		Animation birdAnim;
+		if(redKnot.getColliding()){
+			birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRDHURT);
+		}else{
+			birdAnim = (Animation) objectMap.get(RedKnotAsset.MAINBIRD);
+		}
 		g.drawImage(birdAnim.currImage(),redKnot.getPosition().getX(),redKnot.getPosition().getY(),redKnot.getSize().getWidth(),redKnot.getSize().getHeight(),null,this);
 	}
 	
@@ -694,7 +699,8 @@ public class RedKnotView extends GameView {
 		fnameMap.put("cloudnorain.png",RedKnotAsset.ENEMYCLOUD);
 		fnameMap.put("SAbackground3.png", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot2.png", RedKnotAsset.MAINBIRD);
-		fnameMap.put("sprite-6-flockbirdblurred.png", RedKnotAsset.FLOCKBIRD);
+		fnameMap.put("sprite-6-redknot2transparent.png", RedKnotAsset.FLOCKBIRD);
+		fnameMap.put("sprite-6-redknot2redflash.png", RedKnotAsset.MAINBIRDHURT);
 		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
 		fnameMap.put("ocean.png",RedKnotAsset.OCEAN);
 		fnameMap.put("coast2.png",RedKnotAsset.COAST);

@@ -54,6 +54,8 @@ public class RedKnotGameState extends GameState {
 	private int current_time;
 	private QuestionWindow current_quiz;
 	
+	private long collisionTime = System.currentTimeMillis();
+	
 	
 	/*Score final constants*/
 	static final int COLLECTED_BIRD_SCORE = 200;
@@ -219,6 +221,8 @@ public class RedKnotGameState extends GameState {
 	 * 'overticks' and removes all the birds/removes the player's score a lot
 	 */
 	public void checkClouds(){
+		if((System.currentTimeMillis() - collisionTime) > 400)
+			this.RK.setColliding(false);
 		addClouds(); //adds the clouds intially and readds clouds
 		
 		//Keeps track of the Player touching one or 2+ clouds
@@ -266,6 +270,8 @@ public class RedKnotGameState extends GameState {
 				//Checking Enemy Clouds
 				if(Utility.GameObjectCollision(RK, c) && this.lastCloudTouched !=c && c instanceof EnemyCloud && touching_two_clouds==false) {
 					this.lastCloudTouched = c;
+					RK.setColliding(true);
+					this.collisionTime = System.currentTimeMillis();
 					this.incrementScore(TOUCHED_CLOUD_SCORE);
 					int random_amount = Utility.randRangeInt(0, this.MAX_AMOUNT_OF_BIRDS_REMOVED);
 					this.setBirdsLost(this.flock, random_amount);
