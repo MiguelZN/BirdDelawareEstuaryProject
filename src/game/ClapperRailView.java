@@ -124,6 +124,7 @@ public class ClapperRailView extends GameView{
 	public void update(ArrayList<GameObject> gameObjects) {
 		platforms = new ArrayList<>();
 		food = new ArrayList<>();
+		materials = new ArrayList<>();
 		this.CL = (ClapperRail)gameObjects.get(0);
 		for(GameObject go : gameObjects) {
 			if(go instanceof Platform) {

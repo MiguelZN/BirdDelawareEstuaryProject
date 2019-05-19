@@ -63,6 +63,14 @@ public class GameObject {
 		this.setPosition(new Position(p.getX(),newY));
 	}
 	
+	public boolean touchObject(Position p, int radius) {
+		if((p.getX() >= this.getPosition().getX()-radius)&&(p.getX() <= this.getPosition().getX()+radius) &&
+				(p.getY() >= this.getPosition().getY()-radius)&&(p.getY() <= this.getPosition().getY()+radius)) {
+			return true;
+		}
+		return false;
+	}
+	
 	/*Created by Miguel:
 	 * -Getter for Position
 	 * Note: Since we are using Java AWT's Rectangle(HitBox extends it),
