@@ -9,6 +9,10 @@ package game;
  * -controls updates between state and the view 
  */
 public class Food extends GameObject {
+	private static final int RADIUS = 25;
+	
+	static final int CRAB_SIZE = 80;
+	
 	private int energyAdd;
 	
 	/**
@@ -17,8 +21,24 @@ public class Food extends GameObject {
 	 * @param energy
 	 */
 	public Food(int x, int y, int energy) {
-		super(x,y,0,0);
+		super(x,y,CRAB_SIZE,CRAB_SIZE);
 		energyAdd = energy;
+	}
+	
+	
+	public void move() {
+		Position p = this.getPosition();
+		
+		this.setPosition(new Position(p.getX(),p.getY()+5));
+	}
+	
+	
+	public boolean touchFood(Position p) {
+		if((p.getX() >= this.getPosition().getX()-RADIUS)&&(p.getX() <= this.getPosition().getX()+RADIUS) &&
+				(p.getY() >= this.getPosition().getY()-RADIUS)&&(p.getY() <= this.getPosition().getY()+RADIUS)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

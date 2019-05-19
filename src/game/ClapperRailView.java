@@ -40,6 +40,7 @@ import javax.swing.JButton;
 public class ClapperRailView extends GameView{
 	private int score;
 	private ArrayList<Platform> platforms;
+	private ArrayList<Food> food;
 	int BackgroundX;
 	ClapperRail CL;
 	
@@ -50,6 +51,7 @@ public class ClapperRailView extends GameView{
 		super();
 		CL=new ClapperRail();
 		platforms = new ArrayList<>();
+		food = new ArrayList<>();
 		this.score = 0;
 		this.BackgroundX = 5;
 		this.setBackground(Color.RED);
@@ -81,7 +83,7 @@ public class ClapperRailView extends GameView{
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawEnergy(g);
 		drawPlatforms(g);
-		drawCrab(g);
+		drawFood(g);
 		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
@@ -116,10 +118,14 @@ public class ClapperRailView extends GameView{
 	@Override
 	public void update(ArrayList<GameObject> gameObjects) {
 		platforms = new ArrayList<>();
+		food = new ArrayList<>();
 		this.CL = (ClapperRail)gameObjects.get(0);
 		for(GameObject go : gameObjects) {
 			if(go instanceof Platform) {
 				platforms.add((Platform)go);
+			}
+			if(go instanceof Food) {
+				food.add((Food) go);
 			}
 		}
 		
@@ -162,8 +168,15 @@ public class ClapperRailView extends GameView{
 		//System.out.println("DREW A PLATFORM");
 	}
 	
-	public void drawCrab(Graphics g) {
-		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), 200,200,80,80,null,this);
+	public void drawFood(Graphics g) {
+		for(Food f:food) {
+			drawCrab(f,g);
+		}
+	}
+	
+	public void drawCrab(Food f, Graphics g) {
+		Position pos = f.getPosition();
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), pos.getX(),pos.getY(),f.CRAB_SIZE,f.CRAB_SIZE,null,this);
 	}
 	
 

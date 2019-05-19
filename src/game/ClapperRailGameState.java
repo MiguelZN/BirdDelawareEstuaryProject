@@ -16,6 +16,7 @@ public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
 	private ArrayList<GameObject> Materials;
 	private ArrayList<Platform> platforms;
+	private ArrayList<Food> food;
 
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
@@ -47,6 +48,7 @@ public class ClapperRailGameState extends GameState {
 		this.CR = new ClapperRail();
 		this.Materials = new ArrayList<>();
 		this.platforms = new ArrayList<>();
+		this.food = new ArrayList<>();
 
 		TimerTask task = new TimerTask() {
 			@Override
@@ -68,6 +70,7 @@ public class ClapperRailGameState extends GameState {
 		// the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND, task);
 		this.addPlatforms();
+		this.addFood();
 
 	}
 
@@ -122,6 +125,9 @@ public class ClapperRailGameState extends GameState {
 		for(Platform p : platforms){
 			p.move();
 		}
+		for(Food f : food) {
+			f.move();
+		}
 		CR.move(0, 5);
 	}
 	
@@ -137,6 +143,7 @@ public class ClapperRailGameState extends GameState {
 		moveBackground();
 		if (this.getIsGameRunning()) {
 			checkOnPlatform2();
+			checkFood();
 		}
 	}
 	
@@ -185,6 +192,7 @@ public class ClapperRailGameState extends GameState {
 		output.add(CR);
 		// this.addPlatforms();
 		output.addAll(platforms);
+		output.addAll(food);
 		/*
 		 * for(Platform p:platforms) { checkOnPlatform(p); }
 		 */
@@ -240,6 +248,17 @@ public class ClapperRailGameState extends GameState {
 
 		}
 	}
+	
+	public void checkFood() {
+		Iterator<Food> food_it = food.iterator();
+		while (food_it.hasNext()) {
+			Food f = food_it.next();
+			
+			if(f.touchFood(this.CR.getPosition())) {
+				food_it.remove();
+			}
+		}
+	}
 
 	public void addPlatforms() {
 			this.platforms.add(new Platform(-200, 200));
@@ -247,5 +266,9 @@ public class ClapperRailGameState extends GameState {
 			this.platforms.add(new Platform(300, 300));
 			this.platforms.add(new Platform(500,200));
 			this.platforms.add(new Platform(700,100));
+	}
+	
+	public void addFood() {
+		this.food.add(new Food(200,400,0));
 	}
 }
