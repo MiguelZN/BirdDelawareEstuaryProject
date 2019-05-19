@@ -26,6 +26,7 @@ public class ClapperRailGameState extends GameState {
 	static final int GROUND = 494;
 	static final String ENERGY_TEXT = "Energy: ";
 	static final int ENERGY_FONT_SIZE = 40;
+	private static final int SPAWN_CHANCE = 5;
 	int BackgroundX = 5;
 	
 	//194 is a very important magic number!
@@ -281,7 +282,7 @@ public class ClapperRailGameState extends GameState {
 	public void addFood() {
 		Random ran = new Random();
 		for(Platform p:platforms) {
-			int n = ran.nextInt(5); //generates number 0-4. 
+			int n = ran.nextInt(SPAWN_CHANCE); //generates random number. 
 			if(!p.getHasFood()&&(n==1)) { //spawn food if number matches
 				Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
 				this.food.add(newF);
