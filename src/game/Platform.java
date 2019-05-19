@@ -2,7 +2,7 @@ package game;
 
 //ClapperRail Game
 
-public class Platform extends DynamicGameObject {
+public class Platform extends GameObject {
 	
 	private static final int PLATFORM_VX = 0;
 	private static final int PLATFORM_VY = 0;
@@ -15,25 +15,8 @@ public class Platform extends DynamicGameObject {
 	private Food f;
 	
 	public Platform(int x, int y) {
-		super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT, PLATFORM_VX, PLATFORM_VY);
+		super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
 		f = null;
-	}
-
-	
-	/*
-	 * For the case of platforms, they only move down.
-	 * (non-Javadoc)
-	 * @see game.DynamicGameObject#move()
-	 */
-	@Override
-	public void move() {
-		Position p = this.getPosition();
-		int newY = p.getY()+5;
-		if(newY > ClapperRailGameState.GROUND+50) {
-			newY = 0;
-		}
-		
-		this.setPosition(new Position(p.getX(),newY));
 	}
 	
 	public int getWidth() {

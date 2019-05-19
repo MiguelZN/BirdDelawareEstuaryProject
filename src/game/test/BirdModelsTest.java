@@ -15,6 +15,7 @@ import game.Bird;
 import game.BirdType;
 import game.ClapperRailGameState;
 import game.Controller;
+import game.Material;
 
 public class BirdModelsTest {
 	private Controller c = new Controller();
@@ -113,7 +114,7 @@ public class BirdModelsTest {
 	@Test
 	public void testGetMaterials() {
 		ClapperRailGameState clapperrailGS = new ClapperRailGameState(c);
-		ArrayList<GameObject> Materials = clapperrailGS.getMaterials();
+		ArrayList<Material> Materials = clapperrailGS.getMaterials();
 		assertEquals(clapperrailGS.getMaterials(), Materials);
 	}
 	
