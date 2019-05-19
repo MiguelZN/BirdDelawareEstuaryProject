@@ -237,19 +237,27 @@ public class Controller implements KeyListener {
 			
 			RK_V.updateIsGameRunning(RK_GS.getIsGameRunning());
 			RK_V.updateScore(RK_GS.getScore());
+			
+			//Updating whether or not the up/down keys are pressed
+			RK_V.updateDownKey(RK_GS.down_key_pressed);
+			RK_V.updateUpKey(RK_GS.up_key_pressed);
 		}
 		
 		//Passes ClapperRailGS updated data to the ClapperRailView 
 			if(current_state instanceof ClapperRailGameState) {
-				ClapperRailGameState CL_GS = (ClapperRailGameState)current_state;
-				ClapperRailView CL_V = (ClapperRailView) view;
+				ClapperRailGameState CR_GS = (ClapperRailGameState)current_state;
+				ClapperRailView CR_V = (ClapperRailView) view;
 				
-				CL_V.update(CL_GS.BackgroundX);
-				if(CL_GS.getCR().gameOver)
+				CR_V.update(CR_GS.BackgroundX);
+				if(CR_GS.getCR().gameOver)
 					changeView(GameMode.TITLESCREEN);
 				
 //				System.out.println("GS_SCORE:"+CL_GS.getScore());
 //				view.updateScore(CL_GS.getScore());
+				
+				//Updating whether or not the up/down keys are pressed
+				CR_V.updateRightKey(CR_GS.down_key_pressed);
+				CR_V.updateLeftKey(CR_GS.up_key_pressed);
 				
 			}
 					
@@ -310,6 +318,7 @@ public class Controller implements KeyListener {
 			changeView(GameMode.TITLESCREEN);
 		}
 
+		
 		if (current_state instanceof ClapperRailGameState) {
 			ClapperRailGameState ClapperRailGS = (ClapperRailGameState)current_state;
 			
@@ -317,10 +326,14 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_RIGHT:
 				ClapperRailGS.getCR().setLeftRightState(1);
 //				ClapperRailGS.checkRightBounds();
+				
+				ClapperRailGS.setRight_key_pressed(true);
 				break;
 			case KeyEvent.VK_LEFT:
 				ClapperRailGS.getCR().setLeftRightState(-1);
 //				ClapperRailGS.checkLeftBounds();
+				
+				ClapperRailGS.setLeft_key_pressed(true);
 				break;
 			case KeyEvent.VK_SPACE:
 				ClapperRailGS.getCR().jump();
@@ -336,12 +349,17 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_UP:
 				RedKnotGS.getRK().newFlyUp();
 				RedKnotGS.allFlockBirdsFlyUp();
+				
+				//ArrowKey up detection
+				RedKnotGS.setUp_key_pressed(true);
 				break;
 			// change these to be setUp and setDown
 			case KeyEvent.VK_DOWN:
 				RedKnotGS.getRK().newFlyDown();
 				RedKnotGS.allFlockBirdsFlyDown();
 				
+				//ArrowKey down detection
+				RedKnotGS.setDown_key_pressed(true);
 				break;
 			case KeyEvent.VK_S:
 				RedKnotV.updateDebugging(RedKnotGS.updateDebugging());
@@ -366,11 +384,17 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_UP:
 				b.setFlyState((b.getFlyState() == 1 ? 0 : b.getFlyState()));
 				RedKnotGS.setFlyStateAllFlockBirds();;
+				
+				//ArrowKey Up release detection
+				RedKnotGS.setUp_key_pressed(false);
 				break;
 			case KeyEvent.VK_DOWN:
 				b.setFlyState((b.getFlyState() == -1 ? 0 : b.getFlyState()));
 				RedKnotGS.setFlyStateAllFlockBirds();;
 				
+				
+				//ArrowKey down release detection
+				RedKnotGS.setDown_key_pressed(false);
 				break;
 			}
 		}else if(current_state instanceof ClapperRailGameState && view instanceof ClapperRailView){
@@ -380,10 +404,14 @@ public class Controller implements KeyListener {
 			
 			switch(key) { 
 			case KeyEvent.VK_RIGHT:
-				CR.setLeftRightState((CR.getLeftRightState() == 1 ? 0 : CR.getLeftRightState()));				
+				CR.setLeftRightState((CR.getLeftRightState() == 1 ? 0 : CR.getLeftRightState()));
+				
+				CGS.setRight_key_pressed(false);
 				break;
 			case KeyEvent.VK_LEFT:
 				CR.setLeftRightState((CR.getLeftRightState() == -1 ? 0 : CR.getLeftRightState()));
+				
+				CGS.setLeft_key_pressed(false);
 				break;
 			}
 			

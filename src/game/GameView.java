@@ -21,6 +21,13 @@ import javax.swing.JPanel;
 public abstract class GameView extends WindowView{
 	
 	private boolean isGameRunning;
+	
+	
+	protected boolean left_key_pressed;
+	protected boolean right_key_pressed;
+	protected boolean down_key_pressed;
+	protected boolean up_key_pressed;
+	
 	/**
 	 * 
 	 */
@@ -37,6 +44,12 @@ public abstract class GameView extends WindowView{
 	 */
 	public GameView() {
 		this.isGameRunning = true;
+		
+		//ArrowKeys
+		this.left_key_pressed = false;
+		this.up_key_pressed = false;
+		this.down_key_pressed = false;
+		this.right_key_pressed = false;
 	}
 	
 	/**
@@ -83,4 +96,38 @@ public abstract class GameView extends WindowView{
 	 */
 	public abstract void scrollImage(Graphics g, Object background1, Object background2);
 
+	
+	
+	public boolean isLeft_key_pressed() {
+		return left_key_pressed;
+	}
+
+	public boolean isRight_key_pressed() {
+		return right_key_pressed;
+	}
+
+	public boolean isDown_key_pressed() {
+		return down_key_pressed;
+	}
+
+	public boolean isUp_key_pressed() {
+		return up_key_pressed;
+	}
+
+	/*ArrowKeys*/
+	public void updateUpKey(boolean b) {
+		this.up_key_pressed = b;
+	}
+	
+	public void updateDownKey(boolean b) {
+		this.down_key_pressed = b;
+	}
+	
+	public void updateRightKey(boolean b) {
+		this.right_key_pressed = b;
+	}
+	
+	public void updateLeftKey(boolean b) {
+		this.left_key_pressed = b;
+	}
 }

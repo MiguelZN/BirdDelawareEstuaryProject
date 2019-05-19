@@ -63,6 +63,8 @@ public class RedKnotGameState extends GameState {
 	static final int TOUCHED_CLOUD_SCORE = -200;
 	static final int QUESTION_CORRECT = 1000;
 	static final int AMOUNT_OF_BIRDS_ADDED = 25;
+	
+	
 
 	
 	/**
@@ -99,35 +101,9 @@ public class RedKnotGameState extends GameState {
 		
 		//the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
-		
-//		TutorialAction ta = new TutorialAction(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				while(current_time<GameTimer.ONE_SECOND*10) {
-//					System.out.println("CURRENT_TIME:"+current_time);
-//				}
-//				
-//			}
-//			
-//		});
-		
-		TutorialAction ta = new TutorialAction(new Thread(new Runnable() {
 
-			@Override
-			public void run() {
-				isGameRunning = false;
-				while(!getIsGameRunning()) {
-					System.out.println("CURRENT_TIME:"+current_time);
-				}
-				
-			}
-			
-		}));
 		
 		
-	
-		//System.exit(0);
 		
 	}
 	
@@ -217,6 +193,8 @@ public class RedKnotGameState extends GameState {
 			RK.move();
 			checkFlockBirds();
 		}
+		
+		
 	
 	}
 	
@@ -673,5 +651,6 @@ public class RedKnotGameState extends GameState {
 		return AMOUNT_OF_ENEMYCLOUDS;
 	}
 
+	
 	
 }

@@ -90,6 +90,8 @@ public class RedKnotView extends GameView {
 	static final int SCORE_FONT_SIZE = 40;
 	
 	
+	//Tutorial 
+	TutorialAction current_TA;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -152,6 +154,25 @@ public class RedKnotView extends GameView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		current_TA = new TutorialAction(new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean isUpKeyPressed = false;
+
+				while(!isUpKeyPressed) {
+					System.out.println("CURRENT_TIME:");
+					System.out.println(isUp_key_pressed());
+					isUpKeyPressed = isUp_key_pressed();
+					//addActionListener(new ActionListener());
+				}
+				
+				current_TA = null;
+				
+			}
+		}), new Position(redKnot.getPosition().getX()+redKnot.getSize().getWidth(),redKnot.getPosition().getY()),new Size(350,200), (Animation)objectMap.get(RedKnotAsset.UPARROWFLASH));
+		
 	}
 	
 	
@@ -168,8 +189,6 @@ public class RedKnotView extends GameView {
 		
 		//MAP:
 		drawMapBackgroundClouds(g); //draws the map (map image, map curve, bird position), background, and the clouds
-		Animation uparrow = (Animation)objectMap.get(RedKnotAsset.RIGHTARROWFLASH);
-		g.drawImage(uparrow.currImage(),0,0,200,150,null);
 		/*Draws the score, flock birds, redknot*/
 		drawScore(g);
 		drawFlockBirds(g);
@@ -177,6 +196,21 @@ public class RedKnotView extends GameView {
 		g.setColor(Color.BLUE);
 		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
 		drawAmountOfRedKnots(g);
+		
+		drawTutorialAction(g, this.current_TA);
+		
+	}
+	
+	/**@author Miguel
+	 * @param g
+	 * @param TA
+	 */
+	public void drawTutorialAction(Graphics g,TutorialAction TA) {
+		if(TA!=null) {
+			Position p = TA.getPosition();
+			Size s = TA.getSize();
+			g.drawImage(TA.anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
+		}
 		
 	}
 	

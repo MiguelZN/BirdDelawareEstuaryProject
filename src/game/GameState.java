@@ -20,6 +20,13 @@ public abstract class GameState extends Model {
 	protected ArrayList<GameObject> objects; //all game objects that we have to draw on the screen
 	protected boolean isGameRunning;
 	
+	
+	//ArrowKey detection
+	protected boolean left_key_pressed;
+	protected boolean right_key_pressed;
+	protected boolean down_key_pressed;
+	protected boolean up_key_pressed;
+	
 	/**
 	 * @param controller
 	 */
@@ -27,6 +34,12 @@ public abstract class GameState extends Model {
 		super(controller);
 		objects = new ArrayList<>();
 		this.isGameRunning = true;
+		
+		//ArrowKeys
+		this.left_key_pressed = false;
+		this.right_key_pressed = false;
+		this.up_key_pressed = false;
+		this.down_key_pressed = false;
 	}
 	
 	/**
@@ -66,4 +79,38 @@ public abstract class GameState extends Model {
 	public void setIsGameRunning(boolean game_running) {
 		this.isGameRunning = game_running;
 	}
+
+	public boolean isLeft_key_pressed() {
+		return left_key_pressed;
+	}
+
+	public void setLeft_key_pressed(boolean left_key_pressed) {
+		this.left_key_pressed = left_key_pressed;
+	}
+
+	public boolean isRight_key_pressed() {
+		return right_key_pressed;
+	}
+
+	public void setRight_key_pressed(boolean right_key_pressed) {
+		this.right_key_pressed = right_key_pressed;
+	}
+
+	public boolean isDown_key_pressed() {
+		return down_key_pressed;
+	}
+
+	public void setDown_key_pressed(boolean down_key_pressed) {
+		this.down_key_pressed = down_key_pressed;
+	}
+
+	public boolean isUp_key_pressed() {
+		return up_key_pressed;
+	}
+
+	public void setUp_key_pressed(boolean up_key_pressed) {
+		this.up_key_pressed = up_key_pressed;
+	}
+	
+	
 }
