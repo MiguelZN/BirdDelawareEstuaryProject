@@ -269,6 +269,8 @@ public class ClapperRailGameState extends GameState {
 	}
 	
 	public void addFood() {
-		this.food.add(new Food(200,400,0));
+		for(Platform p:platforms) {
+			this.food.add(new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0));
+		}
 	}
 }
