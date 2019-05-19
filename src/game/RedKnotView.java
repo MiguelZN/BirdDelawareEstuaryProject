@@ -168,7 +168,8 @@ public class RedKnotView extends GameView {
 		
 		//MAP:
 		drawMapBackgroundClouds(g); //draws the map (map image, map curve, bird position), background, and the clouds
-		
+		Animation uparrow = (Animation)objectMap.get(RedKnotAsset.RIGHTARROWFLASH);
+		g.drawImage(uparrow.currImage(),0,0,200,150,null);
 		/*Draws the score, flock birds, redknot*/
 		drawScore(g);
 		drawFlockBirds(g);
@@ -706,6 +707,10 @@ public class RedKnotView extends GameView {
 		fnameMap.put("coast2.png",RedKnotAsset.COAST);
 		fnameMap.put("QuestionCloud.png",RedKnotAsset.QUESTIONCLOUD);
 		fnameMap.put("redknotimage.png",RedKnotAsset.STATICREDKNOT);
+		fnameMap.put("sprite-2-arrowkeyup.png", RedKnotAsset.UPARROWFLASH);
+		fnameMap.put("sprite-2-arrowkeydown.png", RedKnotAsset.DOWNARROWFLASH);
+		fnameMap.put("sprite-2-arrowkeyright.png", RedKnotAsset.RIGHTARROWFLASH);
+		fnameMap.put("sprite-2-arrowkeyleft.png", RedKnotAsset.LEFTARROWFLASH);
 	}
 
 

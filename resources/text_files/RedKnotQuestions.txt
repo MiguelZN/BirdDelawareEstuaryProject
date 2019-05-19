@@ -1,0 +1,39 @@
+question:Where does the RedKnot begin its migratory travel?
+answer:South America
+response:North America (where we are from!)
+response:Europe
+response:Australia
+response:South America
+
+question:In which continent does the RedKnot finish at?
+answer:North America (where we are from!)
+response:Africa
+response:Asia
+response:North America
+response:South America
+
+question:Does the RedKnot bird travel with many other RedKnots?
+answer:Yes
+response:Yes
+response:No
+
+question: What happens when a RedKnot enters a bad storm (what happens when RedKnot hits a 'Blue' Cloud)?
+answer:a RedKnot can get lost from the group
+response:a RedKnot can get lost from the group
+response:nothing
+response:the flock group goes faster
+
+question:Is this bird migratory (moves to a new location) or non-migratory (stays at the same location)?
+answer:migratory
+response:migratory
+response:non-migratory
+
+question:What is the name of the bird (hint: what color is its stomach)?
+answer:RedKnot
+response:RedKnot
+response:Crow
+
+question:What is the name of the bird (hint: what color is its stomach)?
+answer:RedKnot
+response:RedKnot
+response:Crow
