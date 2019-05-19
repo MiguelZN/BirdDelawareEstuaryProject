@@ -91,7 +91,6 @@ public class ClapperRail extends Bird{
 			fallState=0;
 		}
 		
-		
 		this.setPosition(new Position(newX,newY));
 	}
 	

@@ -81,6 +81,7 @@ public class ClapperRailView extends GameView{
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawEnergy(g);
 		drawPlatforms(g);
+		drawCrab(g);
 		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
@@ -94,6 +95,7 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("clapper-background-pattern.png", ClapperRailAsset.BACKGROUND);
 		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
+		fnameMap.put("crab.png",ClapperRailAsset.CRAB);
 		
 	}
 
@@ -158,6 +160,10 @@ public class ClapperRailView extends GameView{
 		Position pos = p.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.PLATFORM), pos.getX(), pos.getY(), p.getWidth(), p.getHeight(),null,this);
 		//System.out.println("DREW A PLATFORM");
+	}
+	
+	public void drawCrab(Graphics g) {
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), 200,200,80,80,null,this);
 	}
 	
 
