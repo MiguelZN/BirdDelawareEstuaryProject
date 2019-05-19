@@ -18,10 +18,16 @@ public class ClapperRailGameState extends GameState {
 	private ArrayList<Platform> platforms;
 
 	// The Ground Level of the game (temporary)
-	static int GROUND = GameScreen.CR_SCREEN_HEIGHT - (int) (GameScreen.CR_SCREEN_HEIGHT * .3);
+	static final int GROUND = 494;
 	static final String ENERGY_TEXT = "Energy: ";
 	static final int ENERGY_FONT_SIZE = 40;
 	int BackgroundX = 5;
+	
+	//194 is a very important magic number!
+	//the jump height is 300, the ground position of the bird is 494, 
+	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
+	//the screen to not move, but any higher, and we want it to move.
+	private static final int MOVE_SCREEN_HEIGHT = 194;
 
 	// GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
 	// EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as
@@ -123,11 +129,8 @@ public class ClapperRailGameState extends GameState {
 	public void ontick() {
 		CR.ontick(platforms);
 		
-		//194 is a very important magic number!
-		//the jump height is 300, the ground position of the bird is 494, 
-		//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
-		//the screen to not move, but any higher, and we want it to move.
-		if(CR.getPosition().getY() < 194){
+		
+		if(CR.getPosition().getY() < this.MOVE_SCREEN_HEIGHT){
 			objectShift();
 		}
 		handleLeftRightMovement();
@@ -234,31 +237,15 @@ public class ClapperRailGameState extends GameState {
 				this.CR.setIsFalling(true);
 				this.current_platform = null;
 			}
-			
-//			if (this.CR.getIsFalling()) {
-//			if (p.touchPlatform(this.CR.getPosition())) {
-//				this.CR.setIsFalling(false);
-//				this.CR.setOnPlatform(true);
-//			}
-//		} 
-//		
-//		else if (this.CR.getOnPlatform()) {
-//			if (!p.touchPlatform(this.CR.getPosition())) {
-//				this.CR.setOnPlatform(false);
-//				this.CR.setIsFalling(true);
-//			}
-//		}
 
 		}
 	}
 
 	public void addPlatforms() {
-		if (platforms.size() < 2) {
 			this.platforms.add(new Platform(-200, 200));
 			this.platforms.add(new Platform(100, 400));
 			this.platforms.add(new Platform(300, 300));
 			this.platforms.add(new Platform(500,200));
 			this.platforms.add(new Platform(700,100));
-		}
 	}
 }

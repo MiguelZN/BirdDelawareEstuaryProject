@@ -11,9 +11,9 @@ public class ClapperRail extends Bird{
 	 */
 	
 	
-	private final static int XSTART = 100;
+	private final static int XSTART = 50;
 	private final static int YSTART = 880;
-	private final static int VXSTART = 10;
+	private final static int VXSTART = 5;
 	private final static int VYSTART = 10;
 	private final static int SIZE = 80;
 	private final static int JUMP_AMOUNT = 300;
@@ -28,6 +28,7 @@ public class ClapperRail extends Bird{
 	private int fallState=0;
 	private boolean colliding = false;
 	private int leftRightState = 0;
+	boolean gameOver = false;
 
 	private ArrayList<Platform> platforms;
 	
@@ -37,7 +38,7 @@ public class ClapperRail extends Bird{
 	 * 
 	 */
 	public ClapperRail(){
-		super(new Position(XSTART,ClapperRailGameState.GROUND), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
+		super(new Position(XSTART, ClapperRailGameState.GROUND), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
 		platforms = null;
 	}
 	
@@ -77,11 +78,15 @@ public class ClapperRail extends Bird{
 		else if(newX+getSize().getWidth() < 0)
 			newX = GameScreen.CR_SCREEN_WIDTH;
 		
-		if((newY + vy) < (GameScreen.PLAY_SCREEN_HEIGHT-this.getSize().getHeight()-GameScreen.TITLE_BAR_HEIGHT)){
+		if((newY + vy) < (ClapperRailGameState.GROUND)){
 			newY+=vy;
 			colliding = false;
 		}else{
-			newY = GameScreen.PLAY_SCREEN_HEIGHT-this.getSize().getHeight()-GameScreen.TITLE_BAR_HEIGHT;
+			newY = ClapperRailGameState.GROUND;
+			if(fallState > 0) {
+				System.out.println("Game Over");
+				//gameOver = true;
+			}
 			colliding = true;
 			fallState=0;
 		}

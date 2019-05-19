@@ -239,12 +239,14 @@ public class Controller implements KeyListener {
 			RK_V.updateScore(RK_GS.getScore());
 		}
 		
-		//Passes ClapperRailGS updated data to the RedKnotView 
+		//Passes ClapperRailGS updated data to the ClapperRailView 
 			if(current_state instanceof ClapperRailGameState) {
 				ClapperRailGameState CL_GS = (ClapperRailGameState)current_state;
 				ClapperRailView CL_V = (ClapperRailView) view;
 				
 				CL_V.update(CL_GS.BackgroundX);
+				if(CL_GS.getCR().gameOver)
+					changeView(GameMode.TITLESCREEN);
 				
 //				System.out.println("GS_SCORE:"+CL_GS.getScore());
 //				view.updateScore(CL_GS.getScore());
