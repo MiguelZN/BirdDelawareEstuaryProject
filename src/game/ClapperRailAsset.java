@@ -4,6 +4,7 @@ public enum ClapperRailAsset {
 	BACKGROUND("BACKGROUND"),
 	ENERGY("ENERGY_ICON"),
 	CRAB("CRAB"),
+	STICK("STICK"),
 	PLATFORM("PLATFORM");
 
 	private String asset_key = null;

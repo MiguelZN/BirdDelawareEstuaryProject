@@ -53,6 +53,16 @@ public class GameObject {
 		this.type = type;
 	}
 	
+	public void move() {
+		Position p = this.getPosition();
+		int newY = p.getY()+5;
+		if(newY > ClapperRailGameState.GROUND+50) {
+			newY = 0;
+		}
+		
+		this.setPosition(new Position(p.getX(),newY));
+	}
+	
 	/*Created by Miguel:
 	 * -Getter for Position
 	 * Note: Since we are using Java AWT's Rectangle(HitBox extends it),

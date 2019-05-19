@@ -17,7 +17,7 @@ import java.util.TimerTask;
  */
 public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
-	private ArrayList<GameObject> Materials;
+	private ArrayList<Material> materials;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
 	private Map<Food, Platform> foodMap;
@@ -51,7 +51,7 @@ public class ClapperRailGameState extends GameState {
 	public ClapperRailGameState(Controller controller) {
 		super(controller);
 		this.CR = new ClapperRail();
-		this.Materials = new ArrayList<>();
+		this.materials = new ArrayList<>();
 		this.platforms = new ArrayList<>();
 		this.food = new ArrayList<>();
 		this.foodMap = new HashMap<>();
@@ -77,6 +77,7 @@ public class ClapperRailGameState extends GameState {
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND, task);
 		this.addPlatforms();
 		//this.addFood();
+		this.addMaterials();
 
 	}
 
@@ -84,14 +85,14 @@ public class ClapperRailGameState extends GameState {
 	 * 
 	 */
 	public void collectMaterial() {
-		this.Materials.add(new GameObject(0, 0, 0, 0));
+		this.materials.add(new Material(0, 0));
 	}
 
 	/**
 	 * @return
 	 */
 	public int countMaterials() {
-		return this.Materials.size();
+		return this.materials.size();
 	}
 
 	/**
@@ -104,8 +105,8 @@ public class ClapperRailGameState extends GameState {
 	/**
 	 * @return
 	 */
-	public ArrayList<GameObject> getMaterials() {
-		return Materials;
+	public ArrayList<Material> getMaterials() {
+		return materials;
 	}
 
 	/*
@@ -134,6 +135,9 @@ public class ClapperRailGameState extends GameState {
 		for(Food f : food) {
 			f.move();
 		}
+		for(Material m : materials) {
+			m.move();
+		}
 		CR.move(0, 5);
 	}
 	
@@ -153,6 +157,7 @@ public class ClapperRailGameState extends GameState {
 		if (this.getIsGameRunning()) {
 			checkOnPlatform2();
 			checkFood();
+			
 		}
 	}
 	
@@ -202,6 +207,7 @@ public class ClapperRailGameState extends GameState {
 		// this.addPlatforms();
 		output.addAll(platforms);
 		output.addAll(food);
+		output.addAll(materials);
 		/*
 		 * for(Platform p:platforms) { checkOnPlatform(p); }
 		 */
@@ -290,5 +296,9 @@ public class ClapperRailGameState extends GameState {
 				p.setHasFood(true);
 			}
 		}
+	}
+	
+	public void addMaterials() {
+		this.materials.add(new Material(200,200));
 	}
 }

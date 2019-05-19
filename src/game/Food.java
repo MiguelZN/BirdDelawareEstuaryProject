@@ -26,13 +26,6 @@ public class Food extends GameObject {
 	}
 	
 	
-	public void move() {
-		Position p = this.getPosition();
-		
-		this.setPosition(new Position(p.getX(),p.getY()+5));
-	}
-	
-	
 	public boolean touchFood(Position p) {
 		if((p.getX() >= this.getPosition().getX()-RADIUS)&&(p.getX() <= this.getPosition().getX()+RADIUS) &&
 				(p.getY() >= this.getPosition().getY()-RADIUS)&&(p.getY() <= this.getPosition().getY()+RADIUS)) {

@@ -41,6 +41,7 @@ public class ClapperRailView extends GameView{
 	private int score;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
+	private ArrayList<Material> materials;
 	int BackgroundX;
 	ClapperRail CL;
 	
@@ -52,6 +53,7 @@ public class ClapperRailView extends GameView{
 		CL=new ClapperRail();
 		platforms = new ArrayList<>();
 		food = new ArrayList<>();
+		materials = new ArrayList<>();
 		this.score = 0;
 		this.BackgroundX = 5;
 		this.setBackground(Color.RED);
@@ -84,6 +86,7 @@ public class ClapperRailView extends GameView{
 		drawEnergy(g);
 		drawPlatforms(g);
 		drawFood(g);
+		drawMaterials(g);
 		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
@@ -98,6 +101,8 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
 		fnameMap.put("crab.png",ClapperRailAsset.CRAB);
+		fnameMap.put("stick.png",ClapperRailAsset.STICK);
+		
 		
 	}
 
@@ -126,6 +131,9 @@ public class ClapperRailView extends GameView{
 			}
 			if(go instanceof Food) {
 				food.add((Food) go);
+			}
+			if(go instanceof Material) {
+				materials.add((Material) go);
 			}
 		}
 		
@@ -177,6 +185,17 @@ public class ClapperRailView extends GameView{
 	public void drawCrab(Food f, Graphics g) {
 		Position pos = f.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), pos.getX(),pos.getY(),f.CRAB_SIZE,f.CRAB_SIZE,null,this);
+	}
+	
+	public void drawMaterials(Graphics g) {
+		for(Material m:materials) {
+			drawStick(m,g);
+		}
+	}
+	
+	public void drawStick(Material m, Graphics g) {
+		Position pos = m.getPosition();
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK),pos.getX(),pos.getY(),m.MAT_SIZE,m.MAT_SIZE,null,this);
 	}
 	
 
