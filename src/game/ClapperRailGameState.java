@@ -1,7 +1,9 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.TimerTask;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
@@ -17,6 +19,7 @@ public class ClapperRailGameState extends GameState {
 	private ArrayList<GameObject> Materials;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
+	private Map<Food, Platform> foodMap;
 
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
@@ -49,6 +52,7 @@ public class ClapperRailGameState extends GameState {
 		this.Materials = new ArrayList<>();
 		this.platforms = new ArrayList<>();
 		this.food = new ArrayList<>();
+		this.foodMap = new HashMap<>();
 
 		TimerTask task = new TimerTask() {
 			@Override
@@ -70,7 +74,7 @@ public class ClapperRailGameState extends GameState {
 		// the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND, task);
 		this.addPlatforms();
-		this.addFood();
+		//this.addFood();
 
 	}
 
@@ -134,7 +138,9 @@ public class ClapperRailGameState extends GameState {
 	@Override
 	public void ontick() {
 		CR.ontick(platforms);
-		
+		if(this.current_time%(GameTimer.ONE_SECOND*5) == 0) {
+			this.addFood();
+		}
 		
 		if(CR.getPosition().getY() < this.MOVE_SCREEN_HEIGHT){
 			objectShift();
@@ -229,7 +235,7 @@ public class ClapperRailGameState extends GameState {
 
 		for(Platform p:platforms) {
 			if(this.current_platform!=null) {
-				System.out.println(this.current_platform.getPosition());
+				//System.out.println(this.current_platform.getPosition());
 				
 			}
 			
@@ -255,6 +261,8 @@ public class ClapperRailGameState extends GameState {
 			Food f = food_it.next();
 			
 			if(f.touchFood(this.CR.getPosition())) {
+				System.out.println(foodMap.get(f).getPosition());
+				foodMap.get(f).setHasFood(false);
 				food_it.remove();
 			}
 		}
@@ -270,7 +278,12 @@ public class ClapperRailGameState extends GameState {
 	
 	public void addFood() {
 		for(Platform p:platforms) {
-			this.food.add(new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0));
+			if(!p.getHasFood()) {
+				Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
+				this.food.add(newF);
+				foodMap.put(newF, p);
+				p.setHasFood(true);
+			}
 		}
 	}
 }

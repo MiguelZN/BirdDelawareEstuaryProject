@@ -11,8 +11,12 @@ public class Platform extends DynamicGameObject {
 	private static final int PLATFORM_WIDTH_CORRECTION = 100; //image must be messed up, this is tempoary
 	private static final int PLATFORM_HEIGHT = 160;
 	
+	private boolean hasFood = false;
+	private Food f;
+	
 	public Platform(int x, int y) {
 		super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT, PLATFORM_VX, PLATFORM_VY);
+		f = null;
 	}
 
 	
@@ -61,6 +65,29 @@ public class Platform extends DynamicGameObject {
 			}
 		}
 		return false;
+	}
+	
+	
+	
+	public Food getFood() {
+		return f;
+	}
+
+
+	public void addFood() {
+		f = new Food(this.getPosition().getX()+(this.getWidth()/4),this.getPosition().getY()+20,0);
+	}
+	
+	public void removeFood() {
+		f = null;
+	}
+	
+	public boolean getHasFood() {
+		return hasFood;
+	}
+	
+	public void setHasFood(boolean b) {
+		hasFood = b;
 	}
 
 }
