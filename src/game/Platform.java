@@ -24,7 +24,12 @@ public class Platform extends DynamicGameObject {
 	@Override
 	public void move() {
 		Position p = this.getPosition();
-		this.setPosition(new Position(p.getX(),p.getY()+5));
+		int newY = p.getY()+5;
+		if(newY > ClapperRailGameState.GROUND+50) {
+			newY = 0;
+		}
+		
+		this.setPosition(new Position(p.getX(),newY));
 	}
 	
 	public int getWidth() {

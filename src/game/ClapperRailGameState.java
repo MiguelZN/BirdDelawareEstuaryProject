@@ -255,10 +255,10 @@ public class ClapperRailGameState extends GameState {
 	public void addPlatforms() {
 		if (platforms.size() < 2) {
 			this.platforms.add(new Platform(-200, 200));
-			this.platforms.add(new Platform(200, 200));
-			this.platforms.add(new Platform(400, 200));
-			this.platforms.add(new Platform(600,400));
-			this.platforms.add(new Platform(800,200));
+			this.platforms.add(new Platform(100, 400));
+			this.platforms.add(new Platform(300, 300));
+			this.platforms.add(new Platform(500,200));
+			this.platforms.add(new Platform(700,100));
 		}
 	}
 }
