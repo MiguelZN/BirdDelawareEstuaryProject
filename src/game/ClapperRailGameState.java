@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.TimerTask;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
@@ -65,7 +66,7 @@ public class ClapperRailGameState extends GameState {
 
 					if (current_time >= MAX_GAME_TIME) {
 						// System.exit(0);
-						setIsGameRunning(false);
+						//setIsGameRunning(false);
 					}
 				}
 			}
@@ -140,6 +141,7 @@ public class ClapperRailGameState extends GameState {
 		CR.ontick(platforms);
 		if(this.current_time%(GameTimer.ONE_SECOND*5) == 0) {
 			this.addFood();
+			this.current_time += GameTimer.ONE_SECOND;
 		}
 		
 		if(CR.getPosition().getY() < this.MOVE_SCREEN_HEIGHT){
@@ -277,8 +279,11 @@ public class ClapperRailGameState extends GameState {
 	}
 	
 	public void addFood() {
+		Random ran = new Random();
 		for(Platform p:platforms) {
-			if(!p.getHasFood()) {
+			int n = ran.nextInt(5);
+			System.out.println(n);
+			if(!p.getHasFood()&&(n==1)) {
 				Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
 				this.food.add(newF);
 				foodMap.put(newF, p);
