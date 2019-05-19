@@ -55,6 +55,11 @@ public class ClapperRailView extends GameView{
 		this.setBackground(Color.RED);
 		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT));
+		this.setBounds(this.getLocation().x,this.getLocation().y,GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
+		this.revalidate();
+		
+		
+		
 		try {
 			loadAllImages("/resources/images/clapperrail");
 		} catch (IOException e) {
@@ -86,7 +91,7 @@ public class ClapperRailView extends GameView{
 	 */
 	@Override
 	public void fnameMapCreate() {
-		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
+		fnameMap.put("clapper-background-pattern.png", ClapperRailAsset.BACKGROUND);
 		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
 		

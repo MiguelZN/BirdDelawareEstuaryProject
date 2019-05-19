@@ -85,11 +85,9 @@ public class Controller implements KeyListener {
 	 * -Sets up our ClapperRailView
 	 */
 	public void setUpClapperRailGame(){
+		this.screen.setSize(GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
 		view = new ClapperRailView();
 		this.screen.add(view);
-		this.screen.setSize(GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
-		this.screen.pack();
-		//this.screen.setBackground(Color.CYAN);
 		current_state = new ClapperRailGameState(this);
 	}
 	
@@ -312,7 +310,7 @@ public class Controller implements KeyListener {
 
 		if (current_state instanceof ClapperRailGameState) {
 			ClapperRailGameState ClapperRailGS = (ClapperRailGameState)current_state;
-			System.out.println("CURRENT MODE IS CLAPPERRAIL");
+			
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
 				ClapperRailGS.getCR().setLeftRightState(1);
@@ -331,7 +329,7 @@ public class Controller implements KeyListener {
 			RedKnotView RedKnotV= (RedKnotView) view;
 			RedKnot b = RedKnotGS.getRK();
 			
-			System.out.println("CURRENT MODE IS REDKNOT");
+		
 			switch (key) {
 			case KeyEvent.VK_UP:
 				RedKnotGS.getRK().newFlyUp();

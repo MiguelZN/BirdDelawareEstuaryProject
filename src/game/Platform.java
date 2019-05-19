@@ -15,10 +15,16 @@ public class Platform extends DynamicGameObject {
 		super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT, PLATFORM_VX, PLATFORM_VY);
 	}
 
+	
+	/*
+	 * For the case of platforms, they only move down.
+	 * (non-Javadoc)
+	 * @see game.DynamicGameObject#move()
+	 */
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
-
+		Position p = this.getPosition();
+		this.setPosition(new Position(p.getX(),p.getY()+5));
 	}
 	
 	public int getWidth() {
@@ -28,7 +34,20 @@ public class Platform extends DynamicGameObject {
 	public int getHeight() {
 		return PLATFORM_HEIGHT;
 	}
-	
+	/* 
+	 * the only collision we want is the collision during falling,
+	 * and we would like to check if the next tick's movement will bring it into collision
+	 * with the platform.
+	 */
+	public boolean willTouchPlatform(Position pos, int vy){
+		if(pos.getY()+vy >= this.getPosition().getY()) {
+			if((pos.getX() >= this.getPosition().getX()) 
+					&& (pos.getX() <= (this.getPosition().getX() + (this.getWidth()-PLATFORM_WIDTH_CORRECTION)))) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public boolean touchPlatform(Position pos) {
 		if(pos.getY() == this.getPosition().getY() || pos.getY() == this.getPosition().getY()+1) {
 			if((pos.getX() >= this.getPosition().getX()) 

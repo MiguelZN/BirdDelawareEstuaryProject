@@ -98,9 +98,38 @@ public class ClapperRailGameState extends GameState {
 	 * 
 	 * @see game.GameState#ontick()
 	 */
+	
+	
+	
+	/*
+	 * Every object on the screen, (the bird, and the platforms)
+	 * must move down at a constant rate to simulate you rising.
+	 * 
+	 * So, whenever the bird is above some point on the screen, we will shift
+	 * every platform, and the bird, some constant amount, until the bird is below
+	 * that arbitrary point on the screen.
+	 * 
+	 * So, when you are above that point, it will feel as if you are forever going up.
+	 */
+	
+	public void objectShift(){
+		for(Platform p : platforms){
+			p.move();
+		}
+		CR.move(0, 5);
+	}
+	
 	@Override
 	public void ontick() {
-		CR.ontick();
+		CR.ontick(platforms);
+		
+		//194 is a very important magic number!
+		//the jump height is 300, the ground position of the bird is 494, 
+		//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
+		//the screen to not move, but any higher, and we want it to move.
+		if(CR.getPosition().getY() < 194){
+			objectShift();
+		}
 		handleLeftRightMovement();
 		moveBackground();
 		if (this.getIsGameRunning()) {

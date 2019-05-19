@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 public class ClapperRail extends Bird{
 	
 	
@@ -26,7 +28,8 @@ public class ClapperRail extends Bird{
 	private int fallState=0;
 	private boolean colliding = false;
 	private int leftRightState = 0;
-	
+
+	private ArrayList<Platform> platforms;
 	
 
 
@@ -35,6 +38,7 @@ public class ClapperRail extends Bird{
 	 */
 	public ClapperRail(){
 		super(new Position(XSTART,ClapperRailGameState.GROUND), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
+		platforms = null;
 	}
 	
 	/**
@@ -81,16 +85,26 @@ public class ClapperRail extends Bird{
 			colliding = true;
 			fallState=0;
 		}
+		
+		
 		this.setPosition(new Position(newX,newY));
 	}
 	
+	public Platform getCollidingWithPlatform(int vy){
+		for(Platform p : platforms){
+			if(p.willTouchPlatform(getPosition(),vy))
+				return p;
+		}
+		return null;
+	}
 	
 	/*
 	 * The clapper rail has its own on tick method,
 	 * as it has many things to handle on tick. (Gravity, among other things)
 	 * 
 	 */
-	public void ontick(){
+	public void ontick(ArrayList<Platform> platforms){
+		this.platforms=platforms;
 		//if we aren't jumping.
 		if(jumpState == -1)
 			handleCurrentFall();
@@ -100,8 +114,15 @@ public class ClapperRail extends Bird{
 	
 	public void handleCurrentFall(){
 		if(!colliding){
-			move(0,fallState);
-			fallState++;
+			Platform p;
+			if((p=getCollidingWithPlatform(fallState))!=null){
+				setPosition(new Position(getPosition().getX(),p.getPosition().getY()));
+				colliding=true;
+				fallState=0;
+			}else{
+				move(0,fallState);
+				fallState++;
+			}
 		}
 	}
 	
@@ -184,5 +205,8 @@ public class ClapperRail extends Bird{
 	}
 	public boolean getColliding(){
 		return this.colliding;
+	}
+	public int getJumpState(){
+		return this.jumpState;
 	}
 }
