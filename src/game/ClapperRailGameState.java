@@ -281,9 +281,8 @@ public class ClapperRailGameState extends GameState {
 	public void addFood() {
 		Random ran = new Random();
 		for(Platform p:platforms) {
-			int n = ran.nextInt(5);
-			System.out.println(n);
-			if(!p.getHasFood()&&(n==1)) {
+			int n = ran.nextInt(5); //generates number 0-4. 
+			if(!p.getHasFood()&&(n==1)) { //spawn food if number matches
 				Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
 				this.food.add(newF);
 				foodMap.put(newF, p);
