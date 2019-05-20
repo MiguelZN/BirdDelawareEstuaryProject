@@ -183,7 +183,8 @@ public class Controller implements KeyListener {
 			aft = System.currentTimeMillis();
 			// System.out.println("MILLISECONDS:"+(aft-bef));
 			try {
-				Thread.sleep(tickdelay - (aft - bef));
+				if(aft-bef <= tickdelay)
+					Thread.sleep(tickdelay - (aft - bef));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -133,13 +133,13 @@ public class ClapperRailView extends GameView{
 		this.flood = (Flood)gameObjects.get(1);
 		for(GameObject go : gameObjects) {
 			if(go instanceof Platform) {
-				platforms.add((Platform)go);
-			}
-			if(go instanceof Food) {
-				food.add((Food) go);
-			}
-			if(go instanceof Material) {
-				materials.add((Material) go);
+				Platform pf = (Platform)go;
+				platforms.add(pf);
+				if(pf.getFood()!=null){
+					food.add(pf.getFood());
+				}else if(pf.getMaterial() !=null){
+					materials.add(pf.getMaterial());
+				}
 			}
 		}
 		
@@ -207,7 +207,7 @@ public class ClapperRailView extends GameView{
 	
 	public void drawCrab(Food f, Graphics g) {
 		Position pos = f.getPosition();
-		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), pos.getX(),pos.getY(),f.CRAB_SIZE,f.CRAB_SIZE,null,this);
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), pos.getX(),pos.getY(),Food.CRAB_SIZE,Food.CRAB_SIZE,null,this);
 	}
 	
 	public void drawMaterials(Graphics g) {

@@ -82,7 +82,7 @@ public class BirdModelsTest {
 		assertEquals(redknotgamestate.countBirds(),0);
 	}
 	
-	
+	/*
 	//CLAPPERRAIL------------------
 	@Test
 	public void testCollectingMaterial() {
@@ -116,7 +116,7 @@ public class BirdModelsTest {
 		ClapperRailGameState clapperrailGS = new ClapperRailGameState(c);
 		ArrayList<Material> Materials = clapperrailGS.getMaterials();
 		assertEquals(clapperrailGS.getMaterials(), Materials);
-	}
+	}*/
 	
 	
 	

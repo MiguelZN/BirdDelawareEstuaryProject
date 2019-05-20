@@ -13,6 +13,8 @@ public class Flood extends GameObject {
 	public void move() {
 		Position p = this.getPosition();
 		int newY = p.getY()+5;
+		if(newY>700)
+			newY=700;
 		
 		this.setPosition(new Position(p.getX(),newY));
 	}
@@ -20,6 +22,10 @@ public class Flood extends GameObject {
 	public void increaseFlood() {
 		Position pos = this.getPosition();
 		
+		
+		/*
+		 * commented out flood for testing
+		 */
 		this.setPosition(new Position(pos.getX(),pos.getY()-100));
 	}
 	
