@@ -575,7 +575,7 @@ public class RedKnotView extends GameView {
 			//System.out.println(fm.getFont());
 			
 			//The String being drawn
-			String toDrawString = "    "+this.FINAL_SCORE_TEXT + this.score;
+			String toDrawString = "    "+this.FINAL_SCORE_TEXT + this.score+", #RedKnots:"+this.checkAmountOfOwnedRedKnots()+", #Nests:"+this.amountOfNests;
 			int string_width = fm.stringWidth(toDrawString);
 			BufferedImage final_banner = (BufferedImage)objectMap.get(RedKnotAsset.REDKNOTBANNER);
 			g.drawImage(final_banner, (GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())-((GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())/2),0,final_banner.getWidth(),final_banner.getHeight(),null);
