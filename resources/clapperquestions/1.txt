@@ -1,1 +1,1 @@
-0,The Clapper Rail rarely flies, and instead it walks in an often irregular path.
+0:The Clapper Rail rarely flies, and instead it walks in an often irregular path.
