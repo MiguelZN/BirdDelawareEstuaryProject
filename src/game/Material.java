@@ -1,8 +1,8 @@
 package game;
 
 public class Material extends GameObject {
-	static final int MAT_SIZE = 80;
-	static final int RADIUS = 40;
+	static final int MAT_SIZE = 160;
+	static final int RADIUS = 80;
 	
 	public Material(int x, int y) {
 		super(x,y,MAT_SIZE,MAT_SIZE);
