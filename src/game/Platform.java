@@ -11,7 +11,7 @@ public class Platform extends GameObject {
 	private static final int PLATFORM_WIDTH_CORRECTION = 100; //image must be messed up, this is tempoary
 	private static final int PLATFORM_HEIGHT = 160;
 	
-	private boolean hasFood = false;
+	private boolean hasObject = false;
 	private Food f;
 	
 	public Platform(int x, int y) {
@@ -65,12 +65,12 @@ public class Platform extends GameObject {
 		f = null;
 	}
 	
-	public boolean getHasFood() {
-		return hasFood;
+	public boolean getHasObject() {
+		return hasObject;
 	}
 	
-	public void setHasFood(boolean b) {
-		hasFood = b;
+	public void setHasObject(boolean b) {
+		hasObject = b;
 	}
 
 }

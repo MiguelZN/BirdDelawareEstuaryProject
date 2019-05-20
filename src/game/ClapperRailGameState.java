@@ -20,12 +20,14 @@ public class ClapperRailGameState extends GameState {
 	private ArrayList<Material> materials;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
-	private Map<Food, Platform> foodMap;
+	private Map<GameObject, Platform> objectsMap;
 
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
 	static final String ENERGY_TEXT = "Energy: ";
+	static final String MATERIALS_TEXT = "x ";
 	static final int ENERGY_FONT_SIZE = 40;
+	static final int MATERIAL_FONT_SIZE = 40;
 	private static final int SPAWN_CHANCE = 5;
 	int BackgroundX = 5;
 	
@@ -54,7 +56,7 @@ public class ClapperRailGameState extends GameState {
 		this.materials = new ArrayList<>();
 		this.platforms = new ArrayList<>();
 		this.food = new ArrayList<>();
-		this.foodMap = new HashMap<>();
+		this.objectsMap = new HashMap<>();
 
 		TimerTask task = new TimerTask() {
 			@Override
@@ -77,7 +79,7 @@ public class ClapperRailGameState extends GameState {
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND, task);
 		this.addPlatforms();
 		//this.addFood();
-		this.addMaterials();
+		//this.addMaterials();
 
 	}
 
@@ -145,7 +147,7 @@ public class ClapperRailGameState extends GameState {
 	public void ontick() {
 		CR.ontick(platforms);
 		if(this.current_time%(GameTimer.ONE_SECOND*5) == 0) {
-			this.addFood();
+			this.addObjects();
 			this.current_time += GameTimer.ONE_SECOND;
 		}
 		
@@ -157,6 +159,7 @@ public class ClapperRailGameState extends GameState {
 		if (this.getIsGameRunning()) {
 			checkOnPlatform2();
 			checkFood();
+			checkMaterials();
 			
 		}
 	}
@@ -269,10 +272,24 @@ public class ClapperRailGameState extends GameState {
 		while (food_it.hasNext()) {
 			Food f = food_it.next();
 			
-			if(f.touchFood(this.CR.getPosition())) {
-				System.out.println(foodMap.get(f).getPosition());
-				foodMap.get(f).setHasFood(false);
+			if(f.touchObject(this.CR.getPosition(),Food.RADIUS)) {
+				System.out.println(objectsMap.get(f).getPosition());
+				objectsMap.get(f).setHasObject(false);
 				food_it.remove();
+			}
+		}
+	}
+	
+	public void checkMaterials() {
+		Iterator<Material> mat_it = materials.iterator();
+		while (mat_it.hasNext()) {
+			Material m = mat_it.next();
+			
+			if(m.touchObject(this.CR.getPosition(),Material.RADIUS)) {
+				System.out.println(objectsMap.get(m).getPosition());
+				objectsMap.get(m).setHasObject(false);
+				mat_it.remove();
+				this.CR.setMaterialCount(this.CR.getMaterialCount()+1);
 			}
 		}
 	}
@@ -285,20 +302,23 @@ public class ClapperRailGameState extends GameState {
 			this.platforms.add(new Platform(700,100));
 	}
 	
-	public void addFood() {
+	public void addObjects() {
 		Random ran = new Random();
 		for(Platform p:platforms) {
 			int n = ran.nextInt(SPAWN_CHANCE); //generates random number. 
-			if(!p.getHasFood()&&(n==1)) { //spawn food if number matches
-				Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
-				this.food.add(newF);
-				foodMap.put(newF, p);
-				p.setHasFood(true);
+			if(!p.getHasObject()&&(1==1)) { //spawn food if number matches
+				int j = ran.nextInt(3);
+				if(0==0) {
+					Material newM = new Material(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20);
+					this.materials.add(newM);
+					objectsMap.put(newM, p);
+				} else {
+					Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
+					this.food.add(newF);
+					objectsMap.put(newF, p);
+				}
+				p.setHasObject(true);
 			}
 		}
-	}
-	
-	public void addMaterials() {
-		this.materials.add(new Material(200,200));
 	}
 }
