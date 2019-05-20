@@ -26,7 +26,7 @@ public class TitleScreenView extends WindowView{
 	JPanel hold_content;
 	JButton RedKnot;
 	JButton ClapperRail;
-	JButton Instructions;
+//	JButton Instructions;
 	JLabel Title_Logo;
 	
 	/*TODO: fix later
@@ -48,7 +48,7 @@ public class TitleScreenView extends WindowView{
 		this.hold_content = new JPanel(); 
 		this.RedKnot = new JButton("RED KNOT");
 		this.ClapperRail = new JButton("CLAPPER RAIL");
-		this.Instructions = new JButton("INSTRUCTIONS");
+//		this.Instructions = new JButton("INSTRUCTIONS");
 		this.Title_Logo = new JLabel();
 
 		int content_width = (int)(GameScreen.PLAY_SCREEN_WIDTH*.75);
@@ -61,10 +61,10 @@ public class TitleScreenView extends WindowView{
 		//this.hold_content.setPreferredSize(c_dim);
 		this.hold_content.add(this.RedKnot, BorderLayout.NORTH);
 		this.hold_content.add(this.ClapperRail, BorderLayout.CENTER);
-		this.hold_content.add(this.Instructions, BorderLayout.SOUTH);
+//		this.hold_content.add(this.Instructions, BorderLayout.SOUTH);
 
 		this.RedKnot.setPreferredSize(c_dim);
-		this.Instructions.setPreferredSize(c_dim);
+//		this.Instructions.setPreferredSize(c_dim);
 		this.ClapperRail.setPreferredSize(c_dim);
 		
 		Dimension title_dim = new Dimension((int)c_dim.getWidth(),(int)(c_dim.getHeight()*1.25));
