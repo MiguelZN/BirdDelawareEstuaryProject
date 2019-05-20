@@ -86,8 +86,7 @@ public class ClapperRailView extends GameView{
 		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
 		//this.setBackground(Color.RED);
 		g.setColor(new Color(224,160, 42));
-		Position p = CL.getPosition();
-		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
+		drawBird(g);
 		drawFlood(g);
 		drawEnergy(g);
 		drawScore(g);
@@ -124,13 +123,17 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("tutorialimage7.png", ClapperRailAsset.TUTORIALIMAGE7);
 		fnameMap.put("tutorialimage8.png", ClapperRailAsset.TUTORIALIMAGE8);
 		fnameMap.put("questionmark.png", ClapperRailAsset.QUESTIONBLOCK);
-
-		
-		
-		
+		fnameMap.put("clapper.png", ClapperRailAsset.CLAPPERBIRD);
 	}
 
 
+	
+	public void drawBird(Graphics g){
+		Position posn = CL.getPosition();
+		int size = CL.getSize().getWidth();
+		g.drawImage((Image)objectMap.get(ClapperRailAsset.CLAPPERBIRD), posn.getX(), posn.getY(),size,size,null,this);
+	}
+	
 	/* (non-Javadoc)
 	 * @see game.GameView#scrollImage(java.awt.Graphics, java.lang.Object, java.lang.Object)
 	 */
