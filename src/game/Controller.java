@@ -325,6 +325,10 @@ public class Controller implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
+	public void setCRTutMode(boolean b){
+		ClapperRailView cv = (ClapperRailView) view;
+		cv.setTutorialMode(b);
+	}
 
 	/* 
 	 * -Handles key presses for RedKnot and ClapperRail
@@ -343,20 +347,34 @@ public class Controller implements KeyListener {
 		}
 
 		
-		if (current_state instanceof ClapperRailGameState) {
+		if (current_state instanceof ClapperRailGameState && view instanceof ClapperRailView) {
 			ClapperRailGameState ClapperRailGS = (ClapperRailGameState)current_state;
+			ClapperRailView CRV = (ClapperRailView)view;
 			
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
+				if(CRV.getTutorialMode()){
+					if(CRV.getTutImageNum() == 7){
+						CRV.setTutorialMode(false);
+						ClapperRailGS.setStart(false);
+						break;
+					}
+					
+					CRV.setTutImageNum(CRV.getTutImageNum()+1);
+					break;
+				}
 				ClapperRailGS.getCR().setLeftRightState(1);
 //				ClapperRailGS.checkRightBounds();
-				
 				ClapperRailGS.setRight_key_pressed(true);
 				break;
 			case KeyEvent.VK_LEFT:
+				if(CRV.getTutorialMode()){
+					if(CRV.getTutImageNum()>1)
+						CRV.setTutImageNum(CRV.getTutImageNum()-1);
+					break;
+				}
 				ClapperRailGS.getCR().setLeftRightState(-1);
 //				ClapperRailGS.checkLeftBounds();
-				
 				ClapperRailGS.setLeft_key_pressed(true);
 				break;
 			case KeyEvent.VK_SPACE:

@@ -45,6 +45,8 @@ public class ClapperRailView extends GameView{
 	private Flood flood;
 	int BackgroundX;
 	ClapperRail CL;
+	private boolean tutorialMode = false;
+	private int tutorialImageNum = 1;
 	
 	/**
 	 * 
@@ -74,7 +76,6 @@ public class ClapperRailView extends GameView{
 		}
 	}
 	
-	
 	/* (non-Javadoc)
 	 * @see game.GameView#paintComponent(java.awt.Graphics)
 	 */
@@ -95,6 +96,10 @@ public class ClapperRailView extends GameView{
 		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
+		if(tutorialMode){
+			drawTutorialImage(g);
+		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -107,6 +112,14 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
 		fnameMap.put("crab.png",ClapperRailAsset.CRAB);
 		fnameMap.put("stick.png",ClapperRailAsset.STICK);
+		fnameMap.put("tutorialimage1.png", ClapperRailAsset.TUTORIALIMAGE1);
+		fnameMap.put("tutorialimage2.png", ClapperRailAsset.TUTORIALIMAGE2);
+		fnameMap.put("tutorialimage3.png", ClapperRailAsset.TUTORIALIMAGE3);
+		fnameMap.put("tutorialimage4.png", ClapperRailAsset.TUTORIALIMAGE4);
+		fnameMap.put("tutorialimage5.png", ClapperRailAsset.TUTORIALIMAGE5);
+		fnameMap.put("tutorialimage6.png", ClapperRailAsset.TUTORIALIMAGE6);
+		fnameMap.put("tutorialimage7.png", ClapperRailAsset.TUTORIALIMAGE7);
+		
 		
 		
 	}
@@ -145,7 +158,37 @@ public class ClapperRailView extends GameView{
 		}
 		
 	}
-	
+	public void drawTutorialImage(Graphics g){
+		switch(tutorialImageNum){
+			case 1: 
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE1), 100, 100, 400,228,null);
+				break;
+			case 2:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE2), 100, 100, 400,228,null);
+				break;
+			case 3:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE3), 100, 100, 400,228,null);
+				break;
+			case 4:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE4), 100, 100, 400,228,null);
+				break;
+			case 5:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE5), 100, 100, 400,228,null);
+				break;
+			case 6:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE6), 100, 100, 400,228,null);
+				break;
+			case 7:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE7), 100, 100, 400,228,null);
+				break;
+		}
+	}
+	public void setTutImageNum(int x){
+		tutorialImageNum = x;
+	}
+	public int getTutImageNum(){
+		return this.tutorialImageNum;
+	}
 	public void drawScore(Graphics g){
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.SCORE_FONT_SIZE));
@@ -234,7 +277,12 @@ public class ClapperRailView extends GameView{
 		Position pos = m.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK),pos.getX(),pos.getY(),m.MAT_SIZE,m.MAT_SIZE,null,this);
 	}
-	
+	public void setTutorialMode(boolean b){
+		this.tutorialMode=b;
+	}
+	public boolean getTutorialMode(){
+		return this.tutorialMode;
+	}
 
 	/* (non-Javadoc)
 	 * @see game.GameView#updateScore(int)

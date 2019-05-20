@@ -22,7 +22,7 @@ public class ClapperRailGameState extends GameState {
 	private Flood flood;
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
-	static final String ENERGY_TEXT = "Energy: ";
+	static final String ENERGY_TEXT = "Health: ";
 	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
 	static final int ENERGY_FONT_SIZE = 40;
@@ -30,6 +30,11 @@ public class ClapperRailGameState extends GameState {
 	static final int SCORE_FONT_SIZE = 40;
 	private static final int SPAWN_CHANCE = 5;
 	int BackgroundX = 5;
+	
+	/*
+	 * if its the start of the game, show the tutorial.
+	 */
+	private boolean start = true;
 	
 	//194 is a very important magic number!
 	//the jump height is 300, the ground position of the bird is 494, 
@@ -96,6 +101,10 @@ public class ClapperRailGameState extends GameState {
 	@Override
 	public void ontick() {
 		System.out.println(CR.getPosition().getY());
+		if(start){
+			tutorialUpdate();
+			return;
+		}
 		CR.ontick(platforms);
 
 		
@@ -143,6 +152,11 @@ public class ClapperRailGameState extends GameState {
 		return this.BackgroundX;
 	}
 
+	
+	public void tutorialUpdate(){
+		controller.setCRTutMode(true);
+	}
+	
 	/**
 	 * 
 	 */
@@ -261,7 +275,13 @@ public class ClapperRailGameState extends GameState {
 		}	
 		
 	}
+	public void setStart(boolean b){
+		start=b;
+	}
 
+	public boolean getStart(){
+		return this.start;
+	}
 	public void addPlatforms() {
 			this.platforms.add(new Platform(-200, 200));
 			this.platforms.add(new Platform(100, 400));
