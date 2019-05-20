@@ -391,7 +391,7 @@ public class Controller implements KeyListener {
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
 				if(CRV.getTutorialMode()){
-					if(CRV.getTutImageNum() == 7){
+					if(CRV.getTutImageNum() == 9){
 						CRV.setTutorialMode(false);
 						ClapperRailGS.setStart(false);
 						break;

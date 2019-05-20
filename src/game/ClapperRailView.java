@@ -130,6 +130,7 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("tutorialimage6.png", ClapperRailAsset.TUTORIALIMAGE6);
 		fnameMap.put("tutorialimage7.png", ClapperRailAsset.TUTORIALIMAGE7);
 		fnameMap.put("tutorialimage8.png", ClapperRailAsset.TUTORIALIMAGE8);
+		fnameMap.put("tutorialimage9.png", ClapperRailAsset.TUTORIALIMAGE9);
 		fnameMap.put("questionmark.png", ClapperRailAsset.QUESTIONBLOCK);
 		fnameMap.put("clapper.png", ClapperRailAsset.CLAPPERBIRD);
 	}
@@ -203,6 +204,9 @@ public class ClapperRailView extends GameView{
 				break;
 			case 8:
 				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE8), 100, 100, 400,228,null);
+				break;
+			case 9:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE9), 100, 100, 400,228,null);
 				break;
 		}
 	}
