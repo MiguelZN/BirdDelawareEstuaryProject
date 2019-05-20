@@ -7,9 +7,9 @@ public class Platform extends GameObject {
 	private static final int PLATFORM_VX = 0;
 	private static final int PLATFORM_VY = 0;
 	
-	private static final int PLATFORM_WIDTH = 146;
+	private static final int PLATFORM_WIDTH = 292;
 	private static final int PLATFORM_WIDTH_CORRECTION = 0; //image must be messed up, this is tempoary
-	private static final int PLATFORM_HEIGHT = 40;
+	private static final int PLATFORM_HEIGHT = 80;
 	
 	
 	/*

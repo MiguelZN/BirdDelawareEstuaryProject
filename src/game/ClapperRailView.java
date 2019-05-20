@@ -66,7 +66,7 @@ public class ClapperRailView extends GameView{
 		this.setBackground(Color.RED);
 		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT));
-		this.setBounds(this.getLocation().x,this.getLocation().y,GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
+//		this.setBounds(this.getLocation().x,this.getLocation().y,GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
 		this.revalidate();
 		
 		
@@ -77,6 +77,7 @@ public class ClapperRailView extends GameView{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		height_tracker=GameScreen.CR_SCREEN_HEIGHT;
 	}
 	
 	/* (non-Javadoc)
@@ -270,7 +271,7 @@ public class ClapperRailView extends GameView{
 		*/
 		double mult = ((double)CL.getEnergy())/((double)ClapperRail.MAX_ENERGY);
 		g.setColor(Color.RED);
-		g.fillRect((GameScreen.CR_SCREEN_WIDTH/4)-50,15,(int)(mult*200.0), 25);
+		g.fillRect((GameScreen.CR_SCREEN_WIDTH/4)-270,15,(int)(mult*200.0), 25);
 	}
 	
 	public void drawFlood(Graphics g) {
@@ -286,8 +287,8 @@ public class ClapperRailView extends GameView{
 		String toDrawString = ClapperRailGameState.MATERIALS_TEXT + this.CL.getMaterialCount();
 		int string_width = fm.stringWidth(toDrawString);
 		
-		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK), 900-(string_width+50), 5, 50, 50, null,this);
-		g.drawString(toDrawString, 900-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK), 1800-(string_width+50), 5, 50, 50, null,this);
+		g.drawString(toDrawString, 1800-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 	}
 	
 	public void drawPlatforms(Graphics g) {
