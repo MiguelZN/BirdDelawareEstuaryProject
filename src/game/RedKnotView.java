@@ -16,11 +16,13 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.FlatteningPathIterator;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.JRadioButton;
 
 
@@ -86,13 +88,23 @@ public class RedKnotView extends GameView {
 	
 	//Drawing Score Variables:
 	static final String SCORE_TEXT = "Score: ";
+	static final String FINAL_SCORE_TEXT = "FINAL SCORE: ";
 	static final String AMOUNT_OF_BIRDS_TEXT = "x";
 	static final int SCORE_FONT_SIZE = 40;
+	static final int FINAL_SCORE_FONT_SIZE = 100;
 	
 	
 	//Tutorial 
 	RKTutorialAction current_TA;
 	
+	//End Game
+	boolean reachedDestination;
+	private final int amountOfNests = 6; //[1,6]
+	ArrayList<RedKnotNest> redknot_nests;
+	private final int NEST_MIN_WIDTH = 50;
+	private final int NEST_MAX_WIDTH = 150;
+	private final int NEST_MIN_HEIGHT = 50;
+	private final int NEST_MAX_HEIGHT = 100;
 	
 	private static final long serialVersionUID = 1L;
 	/**
@@ -114,6 +126,8 @@ public class RedKnotView extends GameView {
 		redKnot= new RedKnot();
 		clouds = new ArrayList<>();
 		flock = new ArrayList<>();
+		this.reachedDestination = false;
+		this.redknot_nests = new ArrayList<>();
 		
 		
 		
@@ -153,26 +167,7 @@ public class RedKnotView extends GameView {
 		this.backgrounds.add(RedKnotAsset.SABACKGROUND);
 		this.backgrounds.add(RedKnotAsset.COAST);
 		this.backgrounds.add(RedKnotAsset.OCEAN);
-		
-		
-		
-//		current_TA = new TutorialAction(new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				boolean isUpKeyPressed = false;
-//
-//				while(!isUpKeyPressed) {
-//					System.out.println("CURRENT_TIME:");
-//					System.out.println(isUp_key_pressed());
-//					isUpKeyPressed = isUp_key_pressed();
-//					//addActionListener(new ActionListener());
-//				}
-//				
-//				current_TA = null;
-//				
-//			}
-//		}), new Position(redKnot.getPosition().getX()+redKnot.getSize().getWidth(),redKnot.getPosition().getY()),new Size(350,200), (Animation)objectMap.get(RedKnotAsset.UPARROWFLASH));
-		
+
 	}
 	
 	
@@ -191,32 +186,21 @@ public class RedKnotView extends GameView {
 		drawMapBackgroundClouds(g); //draws the map (map image, map curve, bird position), background, and the clouds
 		/*Draws the score, flock birds, redknot*/
 		drawScore(g);
-		drawFlockBirds(g);
-		drawBird(g);
-		g.setColor(Color.BLUE);
-		Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
-		drawAmountOfRedKnots(g);
-		
-		drawTutorialAction(g, this.current_TA);
+		if(this.reachedDestination==false) {
+			drawFlockBirds(g);
+			drawBird(g);
+			g.setColor(Color.BLUE);
+			Utility.drawHitBoxPoint(g, this.redKnot.hitBox, this.debug_mode);	
+			drawAmountOfRedKnots(g);
+			drawTutorialAction(g, this.current_TA);
+		}
 		
 	}
-	
-//	/**@author Miguel
-//	 * @param g
-//	 * @param TA
-//	 */
-//	public void drawTutorialAction(Graphics g,TutorialAction TA) {
-//		if(TA!=null) {
-//			Position p = TA.getPosition();
-//			Size s = TA.getSize();
-//			g.drawImage(TA.anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
-//		}
-//		
-//	}
 	
 	/**@author Miguel
 	 * @param g
 	 * @param TA
+	 * -Allows us to draw different actions 
 	 */
 	public void drawTutorialAction(Graphics g,RKTutorialAction TA) {
 		if(TA!=null) {
@@ -259,7 +243,20 @@ public class RedKnotView extends GameView {
 			
 			int time_index = (int)(time_ratio*points.size()); //gets the index in reference to how much time has gone by
 			
-			Position p = new Position((int)points.get(time_index%points.size()).getX(), (int)points.get(time_index%points.size()).getY());
+			Position p;
+			
+			//Checks if the Bird Reached its destination
+			if(time_index>=points.size()-1) {
+				//System.exit(0);
+				this.reachedDestination = true; //signifies that the bird reached the destination
+				p = new Position((int)points.get(points.size()-1).getX(), (int)points.get(points.size()-1).getY());
+			}
+			else {
+				this.reachedDestination = false;
+				p = new Position((int)points.get(time_index%points.size()).getX(), (int)points.get(time_index%points.size()).getY());
+			}
+			
+			
 			
 			//Position on the curve (the position is based on where it is on the 
 			//JFrame window Not relative to the actual map itself)
@@ -326,62 +323,112 @@ public class RedKnotView extends GameView {
 			//Handles the Background Transitions
 			//Checks what the previous background was (background1) and
 			//checks what the current background is (background2)
-			if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.SA) {
-				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
-				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
+			if(this.reachedDestination==false) {
+				if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.SA) {
+					//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
+					this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
+				}
+				else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.COAST) {
+					//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
+					this.newScrollImage2(g,RedKnotAsset.COAST);//current
+				}
+				else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.OCEAN) {
+					//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.OCEAN);//previous
+					this.newScrollImage2(g,RedKnotAsset.OCEAN);//current
+				}
+				else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.OCEAN) {
+					//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.BACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.SABACKGROUND); //previous
+					this.newScrollImage2(g,RedKnotAsset.OCEAN);//current
+				}
+				else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.SA) {
+					//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.OCEAN); //previous
+					this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
+				}
+				else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.COAST) {
+					//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.OCEAN); //previous
+					this.newScrollImage2(g,RedKnotAsset.COAST); //current
+				}
+				else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.OCEAN) {
+					//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.COAST); //previous
+					this.newScrollImage2(g,RedKnotAsset.OCEAN); //current
+				}
+				else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.SA) {
+					//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.COAST); //previous
+					this.newScrollImage2(g,RedKnotAsset.SABACKGROUND); //current
+				}
+				else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.COAST) {
+					//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
+					this.newScrollImage1(g,RedKnotAsset.COAST); //previous
+					this.newScrollImage2(g,RedKnotAsset.COAST); //current
+				}
 			}
-			else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.COAST) {
-				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g, RedKnotAsset.SABACKGROUND);//previous
-				this.newScrollImage2(g,RedKnotAsset.COAST);//current
-			}
-			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.OCEAN) {
-				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.OCEAN);//previous
-				this.newScrollImage2(g,RedKnotAsset.OCEAN);//current
-			}
-			else if(this.previous==RKBackgrounds.SA && current == RKBackgrounds.OCEAN) {
-				//scrollImage(g, RedKnotAsset.SABACKGROUND, RedKnotAsset.BACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.SABACKGROUND); //previous
-				this.newScrollImage2(g,RedKnotAsset.OCEAN);//current
-			}
-			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.SA) {
-				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.OCEAN); //previous
-				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND);//current
-			}
-			else if(this.previous==RKBackgrounds.OCEAN && current == RKBackgrounds.COAST) {
-				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.OCEAN); //previous
-				this.newScrollImage2(g,RedKnotAsset.COAST); //current
-			}
-			else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.OCEAN) {
-				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.COAST); //previous
-				this.newScrollImage2(g,RedKnotAsset.OCEAN); //current
-			}
-			else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.SA) {
-				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.COAST); //previous
-				this.newScrollImage2(g,RedKnotAsset.SABACKGROUND); //current
-			}
-			else if(this.previous==RKBackgrounds.COAST && current == RKBackgrounds.COAST) {
-				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.SABACKGROUND);
-				this.newScrollImage1(g,RedKnotAsset.COAST); //previous
-				this.newScrollImage2(g,RedKnotAsset.COAST); //current
+			else if(this.reachedDestination){
+				
+				//Adds the nests
+				if(this.redknot_nests.isEmpty()) {
+					this.redknot_nests= this.addNests(this.flock); //sets the redknot_nests property to the newly created list
+				}
+				
+				g.drawImage((Image)objectMap.get(RedKnotAsset.DELAWAREBAY),0,0,GameScreen.PLAY_SCREEN_WIDTH,GameScreen.PLAY_SCREEN_HEIGHT,null);
+				this.drawNests(g, this.redknot_nests);
 			}
 			
 			this.previous = current;
 			
-			drawClouds(g); //draws the clouds
-			drawMap(g);
-			g2d.draw(map_curve);
-			g.fillOval(p.getX(), p.getY(), 5, 5);
+			if(this.reachedDestination==false) {
+				drawClouds(g); //draws the clouds
+				drawMap(g);
+				g2d.draw(map_curve);
+				g.fillOval(p.getX(), p.getY(), 5, 5);
+			}
 			
 			
 		}
 		
+	}
+	
+	public void drawNests(Graphics g, ArrayList<RedKnotNest> rkn) {
+		for(RedKnotNest nest:rkn) {
+			BufferedImage bf = null;
+			String nest_path = "resources/images/redknot/redknotnest"+nest.getNestId()+".png";
+					
+			try{
+				bf = ImageIO.read(new File(nest_path));
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+			g.drawImage(bf, nest.getPosition().getX(),nest.getPosition().getY(),nest.getSize().getWidth(),nest.getSize().getHeight(),null);
+		}
+	}
+	
+	
+	/**@author Miguel
+	 * @param flock_list
+	 * @return
+	 */
+	public ArrayList<RedKnotNest> addNests(ArrayList<FlockBird> flock_list) {
+		ArrayList<RedKnotNest> rkn = new ArrayList<>();
+		
+		for(FlockBird fb:flock_list) {
+			int random_x = Utility.randRangeInt(0, GameScreen.PLAY_SCREEN_WIDTH);
+			int random_y = Utility.randRangeInt((int)(GameScreen.PLAY_SCREEN_HEIGHT*.5), GameScreen.PLAY_SCREEN_HEIGHT);
+			Position p = new Position(random_x, random_y);
+			
+			int random_width = Utility.randRangeInt(NEST_MIN_WIDTH, NEST_MAX_WIDTH);
+			int random_height = Utility.randRangeInt(NEST_MIN_HEIGHT, NEST_MAX_HEIGHT);
+			Size s = new Size(random_width,random_height);
+			rkn.add(new RedKnotNest(p,s));
+		}
+		
+		return rkn;
 	}
 	
 
@@ -505,15 +552,29 @@ public class RedKnotView extends GameView {
 	 */
 	public void drawScore(Graphics g){
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("TimesRoman",Font.PLAIN,this.SCORE_FONT_SIZE));
-		FontMetrics fm = g.getFontMetrics();
-		//System.out.println(fm.getFont());
 		
-		//The String being drawn
-		String toDrawString = this.SCORE_TEXT + this.score;
-		int string_width = fm.stringWidth(toDrawString);
-		
-		g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+this.SCORE_FONT_SIZE);
+		if(this.reachedDestination) {
+			g.setFont(new Font("Serif",Font.PLAIN,this.FINAL_SCORE_FONT_SIZE));
+			FontMetrics fm = g.getFontMetrics();
+			//System.out.println(fm.getFont());
+			
+			//The String being drawn
+			String toDrawString = this.FINAL_SCORE_TEXT + this.score;
+			int string_width = fm.stringWidth(toDrawString);
+			
+			g.drawString(toDrawString, (GameScreen.PLAY_SCREEN_WIDTH/2)-(string_width/2)-GameScreen.SCREEN_BORDER_PX, 0+this.FINAL_SCORE_FONT_SIZE);
+		}
+		else {
+			g.setFont(new Font("Serif",Font.PLAIN,this.SCORE_FONT_SIZE));
+			FontMetrics fm = g.getFontMetrics();
+			//System.out.println(fm.getFont());
+			
+			//The String being drawn
+			String toDrawString = this.SCORE_TEXT + this.score;
+			int string_width = fm.stringWidth(toDrawString);
+			
+			g.drawString(toDrawString, GameScreen.PLAY_SCREEN_WIDTH-string_width-GameScreen.SCREEN_BORDER_PX, 0+this.SCORE_FONT_SIZE);
+		}
 	}
 	
 	/**@author Miguel
@@ -763,6 +824,7 @@ public class RedKnotView extends GameView {
 		fnameMap.put("sprite-2-arrowkeyright.png", RedKnotAsset.RIGHTARROWFLASH);
 		fnameMap.put("sprite-2-arrowkeyleft.png", RedKnotAsset.LEFTARROWFLASH);
 		fnameMap.put("sprite-4-redknot_goals_tutorial.png", RedKnotAsset.RKGOALS);
+		fnameMap.put("delawarebaybackground2.png", RedKnotAsset.DELAWAREBAY);
 	}
 
 

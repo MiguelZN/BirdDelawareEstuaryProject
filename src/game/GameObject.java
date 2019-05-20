@@ -96,6 +96,10 @@ public class GameObject {
 		
 	}
 	
+	public Size getSize() {
+		return new Size(this.hitBox.width,this.hitBox.height);
+	}
+	
 	/**
 	 * @param v
 	 */
