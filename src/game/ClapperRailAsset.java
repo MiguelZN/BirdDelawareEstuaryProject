@@ -2,6 +2,7 @@ package game;
 
 public enum ClapperRailAsset {
 	BACKGROUND("BACKGROUND"),
+	BACKGROUND2("BACKGROUND2"),
 	ENERGY("ENERGY_ICON"),
 	CRAB("CRAB"),
 	STICK("STICK"),

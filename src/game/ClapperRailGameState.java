@@ -98,6 +98,7 @@ public class ClapperRailGameState extends GameState {
 		flood.move();
 		CR.move(0, 5);
 		CR.setScore(CR.getScore()+CR.getScoreIncrease());
+		controller.moveClapperBackground(5);
 	}
 	
 	@Override
@@ -105,7 +106,6 @@ public class ClapperRailGameState extends GameState {
 		if(waitingOnQuestion){
 			return;
 		}
-		System.out.println(CR.getPosition().getY());
 		if(start){
 			tutorialUpdate();
 			return;

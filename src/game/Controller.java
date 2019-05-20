@@ -212,6 +212,13 @@ public class Controller implements KeyListener {
 			bef = System.currentTimeMillis();
 		}
 	}
+	
+	public void moveClapperBackground(int ypix){
+		ClapperRailView crv = (ClapperRailView) view;
+		System.out.println(crv.getBackgroundY() + " this is our backGroundy");
+		crv.updateBackground(ypix+crv.getBackgroundY());
+		System.out.println("we got this");
+	}
 
 	
 	/*
@@ -279,7 +286,6 @@ public class Controller implements KeyListener {
 				ClapperRailGameState CR_GS = (ClapperRailGameState)current_state;
 				ClapperRailView CR_V = (ClapperRailView) view;
 				
-				CR_V.update(CR_GS.BackgroundX);
 				if(CR_GS.getCR().gameOver){
 					changeView(GameMode.TITLESCREEN);
 					/*
