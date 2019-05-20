@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
@@ -255,8 +256,25 @@ public class Controller implements KeyListener {
 				ClapperRailView CR_V = (ClapperRailView) view;
 				
 				CR_V.update(CR_GS.BackgroundX);
-				if(CR_GS.getCR().gameOver)
+				if(CR_GS.getCR().gameOver){
 					changeView(GameMode.TITLESCREEN);
+					/*
+					 * 0: BAD/STOPSIGN
+					 * 2: YELLOW (WARNING)
+					 * 3: GREEN
+					 */
+					int messageType;
+					int score;
+					if((score = CR_GS.getCR().getScore()) <1000){
+						messageType=0;
+					}else if(score < 15000){
+						messageType=2;
+					}else{
+						messageType=3;
+					}
+		
+					JOptionPane.showMessageDialog(view, "Your Final Score: " + score, "GAME OVER!", messageType);
+				}
 				
 //				System.out.println("GS_SCORE:"+CL_GS.getScore());
 //				view.updateScore(CL_GS.getScore());
