@@ -44,11 +44,12 @@ public class ClapperRailView extends GameView{
 	private ArrayList<Material> materials;
 	private ArrayList<ClapperQuestion> questionBlocks;
 	private Flood flood;
-	int BackgroundX;
+	int backgroundY;
 	ClapperRail CL;
 	private boolean tutorialMode = false;
 	private int tutorialImageNum = 1;
-	
+	int height_tracker = GameScreen.CR_SCREEN_HEIGHT;
+	boolean firstScroll = true;
 	/**
 	 * 
 	 */
@@ -61,7 +62,7 @@ public class ClapperRailView extends GameView{
 		flood = new Flood(0,0);
 		questionBlocks = new ArrayList<>();
 		this.score = 0;
-		this.BackgroundX = 5;
+		this.backgroundY = 0;
 		this.setBackground(Color.RED);
 		this.setOpaque(true);
 		this.setPreferredSize(new Dimension(GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT));
@@ -83,7 +84,11 @@ public class ClapperRailView extends GameView{
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND);
+		if(firstScroll){
+			scrollImage(g, ClapperRailAsset.BACKGROUND, ClapperRailAsset.BACKGROUND2);
+		}else{
+			scrollImage(g, ClapperRailAsset.BACKGROUND2, ClapperRailAsset.BACKGROUND2);
+		}
 		//this.setBackground(Color.RED);
 		g.setColor(new Color(224,160, 42));
 		drawBird(g);
@@ -109,7 +114,8 @@ public class ClapperRailView extends GameView{
 	 */
 	@Override
 	public void fnameMapCreate() {
-		fnameMap.put("swamp_background.jpg", ClapperRailAsset.BACKGROUND);
+		fnameMap.put("swamp_background_ground.png", ClapperRailAsset.BACKGROUND);
+		fnameMap.put("swamp_background_sky2.png", ClapperRailAsset.BACKGROUND2);
 //		fnameMap.put("clapper-background-pattern.png", ClapperRailAsset.BACKGROUND);
 		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
@@ -140,8 +146,8 @@ public class ClapperRailView extends GameView{
 	 */
 	@Override
 	public void scrollImage(Graphics g, Object background1, Object background2) {
-		g.drawImage((Image) objectMap.get(background1), BackgroundX*-1, 0, GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT, null, this);
-		g.drawImage((Image) objectMap.get(background2), (BackgroundX*-1)+GameScreen.CR_SCREEN_WIDTH, 0, GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT, null, null);
+		g.drawImage((Image) objectMap.get(background1), 0, backgroundY, GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT, null, this);
+		g.drawImage((Image) objectMap.get(background2), 0, backgroundY-GameScreen.CR_SCREEN_HEIGHT, GameScreen.CR_SCREEN_WIDTH, GameScreen.CR_SCREEN_HEIGHT, null, null);
 	}
 
 
@@ -221,8 +227,23 @@ public class ClapperRailView extends GameView{
 	/**
 	 * @param BackgroundX
 	 */
-	public void update(int BackgroundX) {
-		this.BackgroundX = BackgroundX;
+	public void updateBackground(int backgroundY) {
+		if(backgroundY > GameScreen.CR_SCREEN_HEIGHT){
+			this.backgroundY=0;
+			return;
+		}
+			
+			
+		if(this.height_tracker >= 0){
+			this.height_tracker -= (backgroundY-this.backgroundY);
+			System.out.println("height tracker is " + height_tracker);
+		}else{
+			firstScroll=false;
+		}
+		this.backgroundY = backgroundY;
+	}
+	public int getBackgroundY(){
+		return this.backgroundY;
 	}
 
 
