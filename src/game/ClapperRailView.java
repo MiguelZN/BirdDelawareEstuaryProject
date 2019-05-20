@@ -87,6 +87,7 @@ public class ClapperRailView extends GameView{
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawFlood(g);
 		drawEnergy(g);
+		drawScore(g);
 		drawMaterialCount(g);
 		drawPlatforms(g);
 		drawFood(g);
@@ -143,6 +144,19 @@ public class ClapperRailView extends GameView{
 			}
 		}
 		
+	}
+	
+	public void drawScore(Graphics g){
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.SCORE_FONT_SIZE));
+		FontMetrics fm = g.getFontMetrics();
+		//System.out.println(fm.getFont());
+		
+		//The String being drawn
+		String toDrawString = ClapperRailGameState.SCORE_TEXT + CL.getScore();
+		int string_width = fm.stringWidth(toDrawString);
+		
+		g.drawString(toDrawString, GameScreen.CR_SCREEN_WIDTH/3, 0+ClapperRailGameState.SCORE_FONT_SIZE);
 	}
 	
 	/**

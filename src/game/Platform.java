@@ -13,8 +13,8 @@ public class Platform extends GameObject {
 	
 	
  	private static final int SPAWN_TOTAL = 100; // out of this.
-	private static final int SPAWN_CHANCE = 40; // out of 100
-	private static final int SPAWN_CHANCE_FOOD = 50; // out of 100 
+	private static final int SPAWN_CHANCE = 50; // out of 100
+	private static final int SPAWN_CHANCE_FOOD = 33; // out of 100 
 	// if its not food, it is material.
 	
 	private boolean hasObject = false;

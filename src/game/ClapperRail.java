@@ -10,6 +10,8 @@ public class ClapperRail extends Bird{
 	 * the clapper rail game.
 	 */
 	
+	private int score = 0;
+	
 	
 	private final static int XSTART = 50;
 	private final static int YSTART = 880;
@@ -145,7 +147,10 @@ public class ClapperRail extends Bird{
 			jumpState=-1;
 		
 	}
-	
+	public int getScoreIncrease(){
+		double mult = ((double)getMaterialCount())/10.0;
+		return (int)(5.0*(1.0+mult));
+	}
 	/**
 	 * 
 	 */
@@ -223,5 +228,11 @@ public class ClapperRail extends Bird{
 	}
 	public void setMaterialCount(int count) {
 		this.materialCount = count;
+	}
+	public int getScore(){
+		return this.score;
+	}
+	public void setScore(int x){
+		this.score=x;
 	}
 }

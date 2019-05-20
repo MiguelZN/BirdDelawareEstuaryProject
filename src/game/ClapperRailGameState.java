@@ -20,13 +20,14 @@ public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
 	private ArrayList<Platform> platforms;
 	private Flood flood;
-
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
 	static final String ENERGY_TEXT = "Energy: ";
+	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
 	static final int ENERGY_FONT_SIZE = 40;
 	static final int MATERIAL_FONT_SIZE = 40;
+	static final int SCORE_FONT_SIZE = 40;
 	private static final int SPAWN_CHANCE = 5;
 	int BackgroundX = 5;
 	
@@ -35,6 +36,7 @@ public class ClapperRailGameState extends GameState {
 	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
 	//the screen to not move, but any higher, and we want it to move.
 	private static final int MOVE_SCREEN_HEIGHT = 194;
+	
 
 	// GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
 	// EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as
@@ -88,6 +90,7 @@ public class ClapperRailGameState extends GameState {
 		}
 		flood.move();
 		CR.move(0, 5);
+		CR.setScore(CR.getScore()+CR.getScoreIncrease());
 	}
 	
 	@Override
