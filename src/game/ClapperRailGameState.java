@@ -249,11 +249,13 @@ public class ClapperRailGameState extends GameState {
 	
 	public void checkFlood() {
 		if(CR.getPosition().getY() >= ClapperRailGameState.GROUND-5){
-			if(flood.getPosition().getY() < 600){
+			if(flood.getPosition().getY() <= 600){
 				CR.setEnergy(CR.getEnergy()-ClapperRail.ENERGY_LOSS);
 			}
-			flood.increaseFlood();
-		}
+			if(flood.getPosition().getY() > 400){
+				flood.increaseFlood();
+			}
+		}	
 		
 	}
 

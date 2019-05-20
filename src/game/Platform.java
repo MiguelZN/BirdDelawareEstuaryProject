@@ -85,8 +85,9 @@ public class Platform extends GameObject {
 		removeFood();
 		removeMaterial();
 		int newY = 0;
-		//int newX = (int)(Math.random()*(GameScreen.CR_SCREEN_WIDTH - this.getWidth()));
-		int newX = this.getPosition().getX();
+		int newX = (int)(Math.random()*(GameScreen.CR_SCREEN_WIDTH - this.getWidth()));
+//		int newX = this.getPosition().getX();
+		this.setPosition(new Position(newX,newY));
 		System.out.println();
 		int x = (int)(Math.random()*(Platform.SPAWN_TOTAL));
 		if(x < Platform.SPAWN_CHANCE){
@@ -99,7 +100,7 @@ public class Platform extends GameObject {
 		}
 		
 		
-		this.setPosition(new Position(newX,newY));
+		
 	}
 	
 	
