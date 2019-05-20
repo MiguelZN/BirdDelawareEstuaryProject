@@ -279,6 +279,18 @@ public class Controller implements KeyListener {
 			
 			//TUTORIAL:
 			RK_V.updateTutorialAction(RK_GS.getCurrent_TA());
+			
+			if(RK_GS.reachedDestination && RK_GS.isHasPressedEndDialogue()==false) {
+				RK_GS.setHasPressedEndDialogue(true);
+				
+				int input = JOptionPane.showConfirmDialog(null,
+		                "Press escape(upperleft-most) key or Press OK to return to main-menu",
+		                "End",
+		                JOptionPane.PLAIN_MESSAGE);
+				if(input==JOptionPane.OK_OPTION) {
+					changeView(GameMode.TITLESCREEN);
+				}
+			}
 		}
 		
 		//Passes ClapperRailGS updated data to the ClapperRailView 

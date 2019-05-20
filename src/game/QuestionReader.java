@@ -166,5 +166,9 @@ public class QuestionReader {
 	public ArrayList<QuizQuestion> getQuizQuestions(){
 		return this.quiz_questions;
 	}
+	
+	public QuizQuestion removeQuestion(int index) {
+		return this.quiz_questions.remove(index);
+	}
 
 }

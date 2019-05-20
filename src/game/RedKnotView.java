@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 
@@ -97,6 +98,8 @@ public class RedKnotView extends GameView {
 	//Tutorial 
 	RKTutorialAction current_TA;
 	
+	JOptionPane end_game_window;
+	
 	//End Game
 	boolean reachedDestination;
 	private final int amountOfNests = 6; //[1,6]
@@ -133,9 +136,6 @@ public class RedKnotView extends GameView {
 		flock = new ArrayList<>();
 		this.reachedDestination = false;
 		this.redknot_nests = new ArrayList<>();
-		
-		
-		
 		
 		//GAMETIME:
 		this.time_allocated = 0; //Starts at 0, because 0 time has gone by yet
@@ -323,7 +323,7 @@ public class RedKnotView extends GameView {
 			}
 			else{
 				System.out.println("ERROR-BACKGROUND");
-				System.exit(0);
+				//System.exit(0);
 			}
 			
 			//System.out.println(this.previous);

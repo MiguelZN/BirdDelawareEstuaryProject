@@ -33,13 +33,18 @@ public class GameScreen extends JFrame{
 
 //	public static int PLAY_SCREEN_WIDTH = 1000;
 //	public static int PLAY_SCREEN_HEIGHT = 600;//600;
+	
+	//private int scale_x = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
-	public static int PLAY_SCREEN_WIDTH = 1920;
-	public static int PLAY_SCREEN_HEIGHT = 1080;//600;
+//	public static int PLAY_SCREEN_WIDTH = 1920;
+//	public static int PLAY_SCREEN_HEIGHT = 1080;//600;
+	
+	public static int PLAY_SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	public static int PLAY_SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();//600;
 
 	
-	public static int CR_SCREEN_WIDTH = 1920;
-	public static int CR_SCREEN_HEIGHT = 1080;//(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()-100);
+	public static int CR_SCREEN_WIDTH = PLAY_SCREEN_WIDTH;
+	public static int CR_SCREEN_HEIGHT = PLAY_SCREEN_HEIGHT;//(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()-100);
 	
 	public static final int GAME_FPS = 100;
 	
@@ -86,6 +91,7 @@ public class GameScreen extends JFrame{
 		PLAY_SCREEN_HEIGHT=this.height;
 		CR_SCREEN_WIDTH = this.width;
 		CR_SCREEN_HEIGHT = this.height;
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setFocusable(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
