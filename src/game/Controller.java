@@ -217,7 +217,6 @@ public class Controller implements KeyListener {
 		ClapperRailView crv = (ClapperRailView) view;
 		System.out.println(crv.getBackgroundY() + " this is our backGroundy");
 		crv.updateBackground(ypix+crv.getBackgroundY());
-		System.out.println("we got this");
 	}
 
 	

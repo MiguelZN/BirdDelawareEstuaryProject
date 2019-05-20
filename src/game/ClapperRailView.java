@@ -115,7 +115,7 @@ public class ClapperRailView extends GameView{
 	@Override
 	public void fnameMapCreate() {
 		fnameMap.put("swamp_background_ground.png", ClapperRailAsset.BACKGROUND);
-		fnameMap.put("swamp_background_sky.png", ClapperRailAsset.BACKGROUND2);
+		fnameMap.put("swamp_background_sky2.png", ClapperRailAsset.BACKGROUND2);
 //		fnameMap.put("clapper-background-pattern.png", ClapperRailAsset.BACKGROUND);
 		fnameMap.put("energy_icon.png", ClapperRailAsset.ENERGY);
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
