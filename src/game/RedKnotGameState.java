@@ -165,16 +165,22 @@ public class RedKnotGameState extends GameState {
 				public void run() {
 					isGameRunning = false;
 
-					while((isDown_key_pressed()==false&&isUp_key_pressed()==false)) {
-						
-						//NOTE: DO NOT REMOVE PRINT STATEMENTS,
-						//game is not able to pull boolean values without them
-						System.out.println("DOWNKEY:"+isDown_key_pressed());
-						System.out.println("UPKEY:"+isUp_key_pressed());
-					}
-					current_TA = null;
-					isGameRunning = true;
-					doneTutorial = true; //indicates that the tutorial is completely done 
+					GameTimer delay_timer = new GameTimer(new TimerTask() {
+							@Override
+							public void run() {
+								while((isDown_key_pressed()==false&&isUp_key_pressed()==false)) {
+									
+									//NOTE: DO NOT REMOVE PRINT STATEMENTS,
+									//game is not able to pull boolean values without them
+									System.out.println("DOWNKEY:"+isDown_key_pressed());
+									System.out.println("UPKEY:"+isUp_key_pressed());
+								}
+								current_TA = null;
+								isGameRunning = true;
+								doneTutorial = true; //indicates that the tutorial is completely done 
+							}
+						}, (int)(GameTimer.ONE_SECOND));
+					
 					
 				}
 			}), new Position(RK.getPosition().getX()+RK.getSize().getWidth(),RK.getPosition().getY()), new Size(350,200), RedKnotAsset.RKGOALS);

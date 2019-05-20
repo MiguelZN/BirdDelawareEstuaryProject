@@ -88,10 +88,10 @@ public class RedKnotView extends GameView {
 	
 	//Drawing Score Variables:
 	static final String SCORE_TEXT = "Score: ";
-	static final String FINAL_SCORE_TEXT = "";
+	static final String FINAL_SCORE_TEXT = "Total Score:";
 	static final String AMOUNT_OF_BIRDS_TEXT = "x";
 	static final int SCORE_FONT_SIZE = 40;
-	static final int FINAL_SCORE_FONT_SIZE = 50;
+	static final int FINAL_SCORE_FONT_SIZE = 30;
 	
 	
 	//Tutorial 
@@ -100,6 +100,7 @@ public class RedKnotView extends GameView {
 	//End Game
 	boolean reachedDestination;
 	private final int amountOfNests = 6; //[1,6]
+	int amount_of_end_nests = 0;
 	ArrayList<RedKnotNest> redknot_nests;
 	private final int NEST_MIN_WIDTH = 50;
 	private final int NEST_MAX_WIDTH = 150;
@@ -428,7 +429,7 @@ public class RedKnotView extends GameView {
 		
 		for(FlockBird fb:flock_list) {
 			int random_x = Utility.randRangeInt(0, GameScreen.PLAY_SCREEN_WIDTH);
-			int random_y = Utility.randRangeInt((int)(GameScreen.PLAY_SCREEN_HEIGHT*.5), GameScreen.PLAY_SCREEN_HEIGHT);
+			int random_y = Utility.randRangeInt((int)(GameScreen.PLAY_SCREEN_HEIGHT*.6), (int)(GameScreen.PLAY_SCREEN_HEIGHT*.9));
 			Position p = new Position(random_x, random_y);
 			
 			int random_width = Utility.randRangeInt(NEST_MIN_WIDTH, NEST_MAX_WIDTH);
@@ -507,7 +508,7 @@ public class RedKnotView extends GameView {
 		
         float[] coords=new float[6];
         this.points = new ArrayList<>();
-		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.01);
+		this.iter=new FlatteningPathIterator(map_curve.getPathIterator(new AffineTransform()), 0.001);
         while (!this.iter.isDone()) {
             this.iter.currentSegment(coords);
             int x=(int)coords[0];
@@ -575,11 +576,11 @@ public class RedKnotView extends GameView {
 			//System.out.println(fm.getFont());
 			
 			//The String being drawn
-			String toDrawString = "    "+this.FINAL_SCORE_TEXT + this.score+", #RedKnots:"+this.checkAmountOfOwnedRedKnots()+", #Nests:"+this.amountOfNests;
+			String toDrawString = this.FINAL_SCORE_TEXT + this.score+", #RedKnots:"+this.checkAmountOfOwnedRedKnots()+", #Nests:"+this.redknot_nests.size();
 			int string_width = fm.stringWidth(toDrawString);
 			BufferedImage final_banner = (BufferedImage)objectMap.get(RedKnotAsset.REDKNOTBANNER);
 			g.drawImage(final_banner, (GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())-((GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())/2),0,final_banner.getWidth(),final_banner.getHeight(),null);
-			g.drawString(toDrawString, (GameScreen.PLAY_SCREEN_WIDTH/2)-(string_width/2)-GameScreen.SCREEN_BORDER_PX, 0-this.FINAL_SCORE_FONT_SIZE+final_banner.getHeight()+40);
+			g.drawString(toDrawString, (GameScreen.PLAY_SCREEN_WIDTH/2)-(string_width/2)-GameScreen.SCREEN_BORDER_PX, 0-this.FINAL_SCORE_FONT_SIZE+final_banner.getHeight());
 		}
 		else {
 			g.setFont(new Font("Serif",Font.PLAIN,this.SCORE_FONT_SIZE));

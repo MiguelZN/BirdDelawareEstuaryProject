@@ -21,8 +21,8 @@ public class GameTimer extends Timer {
 		}, 5000);
 	}
 	
-	public GameTimer(TimerTask TK){
-		this.schedule(TK, 5000);
+	public GameTimer(TimerTask TK, int delay){
+		this.schedule(TK, delay);
 	}
 		
 	//The timer is delayed by 'delay' then performs 
