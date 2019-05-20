@@ -93,13 +93,13 @@ public class ClapperRailView extends GameView{
 		g.setColor(new Color(224,160, 42));
 		drawBird(g);
 		drawFlood(g);
-		drawEnergy(g);
-		drawScore(g);
-		drawMaterialCount(g);
 		drawPlatforms(g);
 		drawFood(g);
 		drawMaterials(g);
 		drawQuestionBlocks(g);
+		drawEnergy(g);
+		drawScore(g);
+		drawMaterialCount(g);
 		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
@@ -216,12 +216,11 @@ public class ClapperRailView extends GameView{
 		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.SCORE_FONT_SIZE));
 		FontMetrics fm = g.getFontMetrics();
 		//System.out.println(fm.getFont());
-		
 		//The String being drawn
 		String toDrawString = ClapperRailGameState.SCORE_TEXT + CL.getScore();
 		int string_width = fm.stringWidth(toDrawString);
 		
-		g.drawString(toDrawString, GameScreen.CR_SCREEN_WIDTH/3, 0+ClapperRailGameState.SCORE_FONT_SIZE);
+		g.drawString(toDrawString, GameScreen.CR_SCREEN_WIDTH/3+240, 0+ClapperRailGameState.SCORE_FONT_SIZE);
 	}
 	
 	/**
@@ -261,7 +260,17 @@ public class ClapperRailView extends GameView{
 		int string_width = fm.stringWidth(toDrawString);
 		
 		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
-		//g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
+		/* hol up
+		BufferedImage bi = (BufferedImage) objectMap.get(ClapperRailAsset.ENERGY);
+		double mult = ((double)CL.getEnergy())/((double)ClapperRail.MAX_ENERGY);
+		int height = (int)(((double)bi.getHeight())*mult);
+		System.out.println("What is the " + mult);
+		bi = bi.getSubimage(0, bi.getHeight()-height, bi.getWidth(),height);
+		g.drawImage(bi, 0+string_width, height, bi.getWidth(),height,null,this);
+		*/
+		double mult = ((double)CL.getEnergy())/((double)ClapperRail.MAX_ENERGY);
+		g.setColor(Color.RED);
+		g.fillRect((GameScreen.CR_SCREEN_WIDTH/4)-50,15,(int)(mult*200.0), 25);
 	}
 	
 	public void drawFlood(Graphics g) {
