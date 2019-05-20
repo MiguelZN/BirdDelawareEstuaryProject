@@ -10,33 +10,32 @@ public class ClapperRail extends Bird{
 	 * the clapper rail game.
 	 */
 	
+	private int score = 0;
+	
 	
 	private final static int XSTART = 50;
 	private final static int YSTART = 880;
-	private final static int VXSTART = 5;
+	private final static int VXSTART = 10;
 	private final static int VYSTART = 10;
 	private final static int SIZE = 80;
-	private final static int JUMP_AMOUNT = 300;
-	private final static int GRAVITY = 3;
-	static final int MAX_ENERGY = 100;
-	static final int ENERGY_LOSS = 20;
+	static final int MAX_ENERGY = 150;
+	static final int START_ENERGY = 100;
+	static final int ENERGY_LOSS = 25;
 	static final int ENERGY_GAIN = 10;
 	static final int FLOOD_ENERGY = 10;
 	
 	
-	private int energy = MAX_ENERGY;
+	private int energy = START_ENERGY;
 	private int materialCount = 0;
 	
 	private boolean isJumping = false;
 	private boolean isFalling = false;
 	private boolean onPlatform = false;
-	private int jumpPos;
 	private int jumpState=-1;
 	private int fallState=0;
 	private boolean colliding = false;
 	private int leftRightState = 0;
 	boolean gameOver = false;
-	boolean wet = false;
 
 	private ArrayList<Platform> platforms;
 	
@@ -64,13 +63,6 @@ public class ClapperRail extends Bird{
 		move(this.getVelocity().getXSpeed(),0);
 	}
 	
-	
-	public void startJump(Position currentPos) {
-		setIsJumping(true);
-		int yPos = currentPos.getY() - JUMP_AMOUNT;
-		jumpPos = yPos;
-	}
-	
 	/*
 	 * Called once per ontick, moves the bird down, in a gravity-like way.
 	 * checks to make sure bird stays on screen.
@@ -91,14 +83,15 @@ public class ClapperRail extends Bird{
 			colliding = false;
 		}else{
 			newY = ClapperRailGameState.GROUND;
-			if(fallState > 0) {
-				this.energy-= ENERGY_LOSS;
-				if(this.energy <= 0) {
-					this.energy = 0;
-				}
-			}
+//			if(fallState > 0) {
+//				this.energy-= ENERGY_LOSS;
+//				if(this.energy <= 0) {
+//					this.energy = 0;
+//				}
+//			}
 			colliding = true;
 			fallState=0;
+			jump();
 		}
 		
 		this.setPosition(new Position(newX,newY));
@@ -106,7 +99,8 @@ public class ClapperRail extends Bird{
 	
 	public Platform getCollidingWithPlatform(int vy){
 		for(Platform p : platforms){
-			if(p.willTouchPlatform(getPosition(),vy))
+			Position pos = getPosition();
+			if(p.willTouchPlatform(new Position(pos.getX()+this.getSize().getWidth()/2,pos.getY()+this.getSize().getHeight()),vy))
 				return p;
 		}
 		return null;
@@ -130,9 +124,10 @@ public class ClapperRail extends Bird{
 		if(!colliding){
 			Platform p;
 			if((p=getCollidingWithPlatform(fallState))!=null){
-				setPosition(new Position(getPosition().getX(),p.getPosition().getY()));
+				setPosition(new Position(getPosition().getX(),p.getPosition().getY()-this.getSize().getHeight()));
 				colliding=true;
 				fallState=0;
+				jump();
 			}else{
 				move(0,fallState);
 				fallState++;
@@ -152,7 +147,10 @@ public class ClapperRail extends Bird{
 			jumpState=-1;
 		
 	}
-	
+	public int getScoreIncrease(){
+		double mult = ((double)getMaterialCount())/10.0;
+		return (int)(5.0*(1.0+mult));
+	}
 	/**
 	 * 
 	 */
@@ -231,10 +229,10 @@ public class ClapperRail extends Bird{
 	public void setMaterialCount(int count) {
 		this.materialCount = count;
 	}
-	public boolean getWet() {
-		return this.wet;
+	public int getScore(){
+		return this.score;
 	}
-	public void setWet(boolean b) {
-		this.wet = b;
+	public void setScore(int x){
+		this.score=x;
 	}
 }

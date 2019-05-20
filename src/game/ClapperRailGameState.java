@@ -1,11 +1,12 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Random;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -17,33 +18,36 @@ import java.util.TimerTask;
  */
 public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
-	private ArrayList<Material> materials;
 	private ArrayList<Platform> platforms;
-	private ArrayList<Food> food;
 	private Flood flood;
-	private Map<GameObject, Platform> objectsMap;
-
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
-	static final String ENERGY_TEXT = "Energy: ";
+	static final String ENERGY_TEXT = "Health: ";
+	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
 	static final int ENERGY_FONT_SIZE = 40;
 	static final int MATERIAL_FONT_SIZE = 40;
+	static final int SCORE_FONT_SIZE = 40;
 	private static final int SPAWN_CHANCE = 5;
 	int BackgroundX = 5;
+	
+	/*
+	 * if its the start of the game, show the tutorial.
+	 */
+	private boolean start = true;
+	
+	private boolean waitingOnQuestion = false;
 	
 	//194 is a very important magic number!
 	//the jump height is 300, the ground position of the bird is 494, 
 	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
 	//the screen to not move, but any higher, and we want it to move.
 	private static final int MOVE_SCREEN_HEIGHT = 194;
+	
 
 	// GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
 	// EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as
 	// this is what the Java.util.Timer takes in
-	static final int MAX_GAME_TIME = GameTimer.ONE_SECOND * 30; // 15 seconds (temporary)
-	private GameTimer game_timer;
-	private int current_time;
 	
 	
 	private Platform current_platform =null;
@@ -54,50 +58,16 @@ public class ClapperRailGameState extends GameState {
 	public ClapperRailGameState(Controller controller) {
 		super(controller);
 		this.CR = new ClapperRail();
-		this.materials = new ArrayList<>();
 		this.platforms = new ArrayList<>();
-		this.food = new ArrayList<>();
-		this.objectsMap = new HashMap<>();
 		this.flood = new Flood(0,700);
 
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-
-				if (getIsGameRunning()) {
-					// System.out.println("TIMER");
-					current_time += GameTimer.ONE_SECOND;
-					//System.out.println("GAMETIME RAN:" + current_time + " milliseconds");
-
-					if (current_time >= MAX_GAME_TIME) {
-						// System.exit(0);
-						//setIsGameRunning(false);
-					}
-				}
-			}
-		};
-
-		// the game timer runs every second and updates the counter 'current_time'
-		this.game_timer = new GameTimer(GameTimer.ONE_SECOND, task);
+		
 		this.addPlatforms();
 		//this.addFood();
 		//this.addMaterials();
 
 	}
 
-	/**
-	 * 
-	 */
-	public void collectMaterial() {
-		this.materials.add(new Material(0, 0));
-	}
-
-	/**
-	 * @return
-	 */
-	public int countMaterials() {
-		return this.materials.size();
-	}
 
 	/**
 	 * @return
@@ -106,18 +76,7 @@ public class ClapperRailGameState extends GameState {
 		return CR;
 	}
 
-	/**
-	 * @return
-	 */
-	public ArrayList<Material> getMaterials() {
-		return materials;
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see game.GameState#ontick()
-	 */
 	
 	
 	
@@ -136,34 +95,25 @@ public class ClapperRailGameState extends GameState {
 		for(Platform p : platforms){
 			p.move();
 		}
-		for(Food f : food) {
-			f.move();
-		}
-		for(Material m : materials) {
-			m.move();
-		}
 		flood.move();
 		CR.move(0, 5);
+		CR.setScore(CR.getScore()+CR.getScoreIncrease());
 	}
 	
 	@Override
 	public void ontick() {
+		if(waitingOnQuestion){
+			return;
+		}
+		System.out.println(CR.getPosition().getY());
+		if(start){
+			tutorialUpdate();
+			return;
+		}
 		CR.ontick(platforms);
-		if(this.current_time%(GameTimer.ONE_SECOND*2) == 0) {
-			if(this.CR.getWet()) {
-				this.CR.setEnergy(this.CR.getEnergy() - ClapperRail.FLOOD_ENERGY);
-			}
-			else {
-				flood.increaseFlood();
-			}
-			this.current_time += GameTimer.ONE_SECOND;
-		}
-		if(this.current_time%(GameTimer.ONE_SECOND*5) == 0) {
-			this.addObjects();
-			this.current_time += GameTimer.ONE_SECOND;
-		}
+
 		
-		if(CR.getPosition().getY() < this.MOVE_SCREEN_HEIGHT){
+		if(CR.getPosition().getY() < ClapperRailGameState.MOVE_SCREEN_HEIGHT){
 			objectShift();
 		}
 		handleLeftRightMovement();
@@ -173,6 +123,7 @@ public class ClapperRailGameState extends GameState {
 			checkFood();
 			checkMaterials();
 			checkFlood();
+			checkQuestions();
 			if(this.CR.getEnergy() <= 0) {
 				this.CR.gameOver = true;
 			}
@@ -207,6 +158,11 @@ public class ClapperRailGameState extends GameState {
 		return this.BackgroundX;
 	}
 
+	
+	public void tutorialUpdate(){
+		controller.setCRTutMode(true);
+	}
+	
 	/**
 	 * 
 	 */
@@ -225,8 +181,8 @@ public class ClapperRailGameState extends GameState {
 		output.add(flood);
 		// this.addPlatforms();
 		output.addAll(platforms);
-		output.addAll(food);
-		output.addAll(materials);
+//		output.addAll(food);
+//		output.addAll(materials);
 		/*
 		 * for(Platform p:platforms) { checkOnPlatform(p); }
 		 */
@@ -282,44 +238,86 @@ public class ClapperRailGameState extends GameState {
 
 		}
 	}
+	public void checkQuestions(){
+		Collection<Platform> filtered = platforms.stream().filter(p -> p.getQuestion()!=null).collect(Collectors.toList());
+		Iterator<Platform> plat_it = filtered.iterator();
+		while(plat_it.hasNext()){
+			Platform pl = plat_it.next();
+			ClapperQuestion q = pl.getQuestion();
+			
+			if(q.touchObject(this.CR.getPosition(),ClapperQuestion.RADIUS)){
+				pl.removeQuestion();
+				invokeRandomQuestion();
+			}
+		}
+	}
+	public void setWaitingOnQuestion(boolean b){
+		this.waitingOnQuestion=b;
+	}
+	public boolean getWaitingOnQuestion(){
+		return this.waitingOnQuestion;
+	}
+	/*
+	 * TODO: will call a method in controller, and get data back from it.
+	 */
+	public void invokeRandomQuestion(){
+		setWaitingOnQuestion(true);
+		boolean correct = controller.randomClapperQuestion();
+		if(correct){
+			CR.setMaterialCount(CR.getMaterialCount()+10);
+		}
+		setWaitingOnQuestion(false);
+	}
 	
 	public void checkFood() {
-		Iterator<Food> food_it = food.iterator();
-		while (food_it.hasNext()) {
-			Food f = food_it.next();
+		Collection<Platform> filtered = platforms.stream().filter(p -> p.getFood()!=null).collect(Collectors.toList());
+		Iterator<Platform> plat_it = filtered.iterator();
+		while(plat_it.hasNext()){
+			Platform pl = plat_it.next();
+			Food f = pl.getFood();
 			
 			if(f.touchObject(this.CR.getPosition(),Food.RADIUS)) {
-				System.out.println(objectsMap.get(f).getPosition());
-				objectsMap.get(f).setHasObject(false);
-				food_it.remove();
+				pl.removeFood();
 				this.CR.gainEnergy();
 			}
+			
 		}
 	}
 	
 	public void checkMaterials() {
-		Iterator<Material> mat_it = materials.iterator();
-		while (mat_it.hasNext()) {
-			Material m = mat_it.next();
+		Collection<Platform> filtered = platforms.stream().filter(p -> p.getMaterial()!=null).collect(Collectors.toList());
+		Iterator<Platform> plat_it = filtered.iterator();
+		
+		while(plat_it.hasNext()){
+			Platform pl = plat_it.next();
+			Material m = pl.getMaterial();
 			
 			if(m.touchObject(this.CR.getPosition(),Material.RADIUS)) {
-				System.out.println(objectsMap.get(m).getPosition());
-				objectsMap.get(m).setHasObject(false);
-				mat_it.remove();
+				pl.removeMaterial();
 				this.CR.setMaterialCount(this.CR.getMaterialCount()+1);
 			}
+			
 		}
 	}
 	
 	public void checkFlood() {
-		if(flood.touchingFlood(this.CR.getPosition())) {
-			this.CR.setWet(true);
-		}
-		else {
-			this.CR.setWet(false);
-		}
+		if(CR.getPosition().getY() >= ClapperRailGameState.GROUND-5){
+			if(flood.getPosition().getY() <= 600){
+				CR.setEnergy(CR.getEnergy()-ClapperRail.ENERGY_LOSS);
+			}
+			if(flood.getPosition().getY() > 400){
+				flood.increaseFlood();
+			}
+		}	
+		
+	}
+	public void setStart(boolean b){
+		start=b;
 	}
 
+	public boolean getStart(){
+		return this.start;
+	}
 	public void addPlatforms() {
 			this.platforms.add(new Platform(-200, 200));
 			this.platforms.add(new Platform(100, 400));
@@ -327,7 +325,7 @@ public class ClapperRailGameState extends GameState {
 			this.platforms.add(new Platform(500,200));
 			this.platforms.add(new Platform(700,100));
 	}
-	
+	/*
 	public void addObjects() {
 		Random ran = new Random();
 		for(Platform p:platforms) {
@@ -335,16 +333,16 @@ public class ClapperRailGameState extends GameState {
 			if(!p.getHasObject()&&(n==1)) { //spawn food if number matches
 				int j = ran.nextInt(3);
 				if(j==0) {
-					Material newM = new Material(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20);
+					Material newM = p.addMaterial();
 					this.materials.add(newM);
 					objectsMap.put(newM, p);
 				} else {
-					Food newF = new Food(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20,0);
+					Food newF = p.addFood();
 					this.food.add(newF);
 					objectsMap.put(newF, p);
 				}
 				p.setHasObject(true);
 			}
 		}
-	}
+	}*/
 }

@@ -105,6 +105,10 @@ public class RedKnotView extends GameView {
 	private final int NEST_MAX_WIDTH = 150;
 	private final int NEST_MIN_HEIGHT = 50;
 	private final int NEST_MAX_HEIGHT = 100;
+	private final int NEST_CHANCE_LOW = 0;
+	private final int NEST_CHANCE_MAX = 1000;
+	private final int NEST_THRESHOLD = 200;
+	
 	
 	private static final long serialVersionUID = 1L;
 	/**
@@ -246,9 +250,7 @@ public class RedKnotView extends GameView {
 			Position p;
 			
 			//Checks if the Bird Reached its destination
-			if(time_index>=points.size()-1) {
-				//System.exit(0);
-				this.reachedDestination = true; //signifies that the bird reached the destination
+			if(this.reachedDestination) {
 				p = new Position((int)points.get(points.size()-1).getX(), (int)points.get(points.size()-1).getY());
 			}
 			else {
@@ -425,7 +427,14 @@ public class RedKnotView extends GameView {
 			int random_width = Utility.randRangeInt(NEST_MIN_WIDTH, NEST_MAX_WIDTH);
 			int random_height = Utility.randRangeInt(NEST_MIN_HEIGHT, NEST_MAX_HEIGHT);
 			Size s = new Size(random_width,random_height);
-			rkn.add(new RedKnotNest(p,s));
+			
+			int chance = Utility.randRangeInt(this.NEST_CHANCE_LOW, this.NEST_CHANCE_MAX);
+			int threshold = this.NEST_THRESHOLD;
+			
+			if(chance<threshold) {
+				rkn.add(new RedKnotNest(p,s));
+			}
+			
 		}
 		
 		return rkn;
@@ -845,6 +854,10 @@ public class RedKnotView extends GameView {
 	public void drawEndGame() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void updateHasReachedDestination(boolean b) {
+		this.reachedDestination = b;
 	}
 
 

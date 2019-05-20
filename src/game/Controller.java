@@ -1,15 +1,15 @@
 package game;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
@@ -155,6 +155,26 @@ public class Controller implements KeyListener {
 		
 		
 	}
+	public boolean randomClapperQuestion(){
+		int x = ((int) (Math.random() * 5))+1;
+		String path = "resources/clapperquestions/" + x + ".txt";
+		String raw_message="";
+		try {
+			raw_message = new String(Files.readAllBytes(Paths.get(path)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(raw_message);
+		String message = "";
+		String[] messageSplit = raw_message.split(",");
+		if(!raw_message.equals("")){
+			message = messageSplit[1];
+		}
+		String[] s = {"True","False"};
+		int response = JOptionPane.showOptionDialog(view,message,"True or False?",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE, null, s, s[0]);
+		return response == Integer.parseInt(messageSplit[0]);
+	}
 
 	// Another possibility of a way to do our main loop.
 	// with my testing, however, this does not remove stuttering.
@@ -183,7 +203,8 @@ public class Controller implements KeyListener {
 			aft = System.currentTimeMillis();
 			// System.out.println("MILLISECONDS:"+(aft-bef));
 			try {
-				Thread.sleep(tickdelay - (aft - bef));
+				if(aft-bef <= tickdelay)
+					Thread.sleep(tickdelay - (aft - bef));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -243,6 +264,10 @@ public class Controller implements KeyListener {
 			RK_V.updateUpKey(RK_GS.up_key_pressed);
 			
 			
+			RK_V.updateHasReachedDestination(RK_GS.hasReachedDestination());
+			System.out.println(RK_GS.hasReachedDestination());
+			
+			
 			
 			//TUTORIAL:
 			RK_V.updateTutorialAction(RK_GS.getCurrent_TA());
@@ -254,8 +279,25 @@ public class Controller implements KeyListener {
 				ClapperRailView CR_V = (ClapperRailView) view;
 				
 				CR_V.update(CR_GS.BackgroundX);
-				if(CR_GS.getCR().gameOver)
+				if(CR_GS.getCR().gameOver){
 					changeView(GameMode.TITLESCREEN);
+					/*
+					 * 0: BAD/STOPSIGN
+					 * 2: YELLOW (WARNING)
+					 * 3: GREEN
+					 */
+					int messageType;
+					int score;
+					if((score = CR_GS.getCR().getScore()) <1000){
+						messageType=0;
+					}else if(score < 15000){
+						messageType=2;
+					}else{
+						messageType=3;
+					}
+		
+					JOptionPane.showMessageDialog(view, "Your Final Score: " + score, "GAME OVER!", messageType);
+				}
 				
 //				System.out.println("GS_SCORE:"+CL_GS.getScore());
 //				view.updateScore(CL_GS.getScore());
@@ -306,6 +348,10 @@ public class Controller implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
+	public void setCRTutMode(boolean b){
+		ClapperRailView cv = (ClapperRailView) view;
+		cv.setTutorialMode(b);
+	}
 
 	/* 
 	 * -Handles key presses for RedKnot and ClapperRail
@@ -324,20 +370,34 @@ public class Controller implements KeyListener {
 		}
 
 		
-		if (current_state instanceof ClapperRailGameState) {
+		if (current_state instanceof ClapperRailGameState && view instanceof ClapperRailView) {
 			ClapperRailGameState ClapperRailGS = (ClapperRailGameState)current_state;
+			ClapperRailView CRV = (ClapperRailView)view;
 			
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
+				if(CRV.getTutorialMode()){
+					if(CRV.getTutImageNum() == 7){
+						CRV.setTutorialMode(false);
+						ClapperRailGS.setStart(false);
+						break;
+					}
+					
+					CRV.setTutImageNum(CRV.getTutImageNum()+1);
+					break;
+				}
 				ClapperRailGS.getCR().setLeftRightState(1);
 //				ClapperRailGS.checkRightBounds();
-				
 				ClapperRailGS.setRight_key_pressed(true);
 				break;
 			case KeyEvent.VK_LEFT:
+				if(CRV.getTutorialMode()){
+					if(CRV.getTutImageNum()>1)
+						CRV.setTutImageNum(CRV.getTutImageNum()-1);
+					break;
+				}
 				ClapperRailGS.getCR().setLeftRightState(-1);
 //				ClapperRailGS.checkLeftBounds();
-				
 				ClapperRailGS.setLeft_key_pressed(true);
 				break;
 			case KeyEvent.VK_SPACE:

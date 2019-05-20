@@ -71,6 +71,9 @@ public class RedKnotGameState extends GameState {
 	boolean turnOffTutorial; //is true then game does not play the tutorial, if false then game plays the tutorial
 
 	
+	//Ending
+	boolean reachedDestination = false;
+	
 	/**
 	 * @param controller
 	 */
@@ -100,8 +103,8 @@ public class RedKnotGameState extends GameState {
 					//System.out.println("GAMETIME RAN:"+current_time +" milliseconds");
 					
 					if(current_time>= MAX_GAME_TIME) {
-						//System.exit(0);
 						setIsGameRunning(false);
+						reachedDestination = true;
 					}
 				}
 			}
@@ -284,6 +287,10 @@ public class RedKnotGameState extends GameState {
 	public boolean updateDebugging() {
 		this.switchDebugMode();
 		return this.debug_mode;
+	}
+	
+	public boolean hasReachedDestination() {
+		return this.reachedDestination;
 	}
 
 	

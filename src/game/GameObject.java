@@ -56,9 +56,17 @@ public class GameObject {
 	public void move() {
 		Position p = this.getPosition();
 		int newY = p.getY()+5;
+		
+		/*
+		 * This if statement is only required for objects that must respawn.
+		 * 
+		 * It is now only in the platforms overrided move code.
+		 */
+		
+		/*
 		if(newY > ClapperRailGameState.GROUND+50) {
 			newY = 0;
-		}
+		}*/
 		
 		this.setPosition(new Position(p.getX(),newY));
 	}
