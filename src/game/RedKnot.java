@@ -13,14 +13,14 @@ public class RedKnot extends Bird{
 	private double accel_mult_up = 1.0;
 	
 	//Constants for the RedKnot (to keep it organized)
-	final static int RK_WIDTH = 120;
-	final static int RK_HEIGHT = 80;
+	final static int RK_WIDTH = (int)((120.0/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	final static int RK_HEIGHT = (int)((80.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
-	private final static int START_X = 200;
-	private final static int START_Y = 20;
+	private final static int START_X = (int)((200.0/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	private final static int START_Y = (int)((20.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
-	private final static int RK_VX = 4;
-	private final static int RK_VY = 5;
+	private final static int RK_VX = (int)((4/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	private final static int RK_VY = (int)((5/600.0)*GameScreen.PLAY_SCREEN_WIDTH);
 	
 	/*
 	 * Used to flash red while you are colliding with a cloud

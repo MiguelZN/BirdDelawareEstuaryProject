@@ -49,7 +49,7 @@ public class RedKnotGameState extends GameState {
 	//GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
 	//EX: GameTimer.ONE_SECOND == 1000 for 1000 milliseconds as 
 	//this is what the Java.util.Timer takes in
-	static final int MAX_GAME_TIME = GameTimer.ONE_SECOND*15; //15 seconds (temporary)
+	static final int MAX_GAME_TIME = GameTimer.ONE_MINUTE; //15 seconds (temporary)
 	private GameTimer game_timer;
 	private int current_time;
 	private QuestionWindow current_quiz;
@@ -57,12 +57,18 @@ public class RedKnotGameState extends GameState {
 	
 	private long collisionTime = System.currentTimeMillis();
 	
+	//MAPSIZE
+	static final int MAP_SIZE = (int)((150/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
 	
 	/*Score final constants*/
 	static final int COLLECTED_BIRD_SCORE = 200;
 	static final int TOUCHED_CLOUD_SCORE = -200;
 	static final int QUESTION_CORRECT = 1000;
 	static final int AMOUNT_OF_BIRDS_ADDED = 25;
+	
+	//QUESTION WINDOWS
+	static int QUESTIONBOX_WIDTH = (int)((300/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	static int QUESTIONBOX_HEIGHT = (int)((150/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
 	
 	//Tutorial

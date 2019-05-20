@@ -1,12 +1,12 @@
 question:Where does the RedKnot begin its migratory travel?
 answer:South America
-response:North America (where we are from!)
+response:North America
 response:Europe
 response:Australia
 response:South America
 
 question:In which continent does the RedKnot finish at?
-answer:North America (where we are from!)
+answer:North America
 response:Africa
 response:Asia
 response:North America
@@ -17,7 +17,7 @@ answer:Yes
 response:Yes
 response:No
 
-question: What happens when a RedKnot enters a bad storm (what happens when RedKnot hits a 'Blue' Cloud)?
+question: What happens when a RedKnot enters a bad storm (hint: 'Blue' Cloud)?
 answer:a RedKnot can get lost from the group
 response:a RedKnot can get lost from the group
 response:nothing

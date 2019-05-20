@@ -9,7 +9,7 @@ public class Animation {
 	BufferedImage[] images;
 	int frameCount;
 	private int tick;
-	int frameIndex;//current frame index
+	private int frameIndex;//current frame index
 
 	/*
 	 * Constructor, given an Object o which will be the whole sprite image, we will then store that
@@ -58,6 +58,7 @@ public class Animation {
 	 * @return
 	 */
 	public BufferedImage currImage(int frameIndex) {
+		System.out.println(frameCount);
 		return images[frameIndex];
 	}
 

@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -76,8 +77,8 @@ public class Controller implements KeyListener {
 	 */
 	public void setUpRedKnotGame(){
 		view=new RedKnotView();
+		view.setPreferredSize(new Dimension(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT));
 		this.screen.add(view);
-		this.screen.setPlaySize();
 		current_state = new RedKnotGameState(this);
 		
 	}
@@ -85,7 +86,7 @@ public class Controller implements KeyListener {
 	 * -Sets up our ClapperRailView
 	 */
 	public void setUpClapperRailGame(){
-		this.screen.setSize(GameScreen.CR_SCREEN_WIDTH,GameScreen.CR_SCREEN_HEIGHT);
+		this.screen.setSize(GameScreen.PLAY_SCREEN_WIDTH,GameScreen.PLAY_SCREEN_HEIGHT);
 		view = new ClapperRailView();
 		this.screen.add(view);
 		current_state = new ClapperRailGameState(this);

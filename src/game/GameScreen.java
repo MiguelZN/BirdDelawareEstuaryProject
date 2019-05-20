@@ -30,8 +30,8 @@ public class GameScreen extends JFrame{
 	public static final int PLAY_SCREEN_CONSTRAINT_W = 1000;
 	public static final int PLAY_SCREEN_CONSTRAINT_H = 500;//600;
 	
-	public static final int PLAY_SCREEN_WIDTH = 1000;
-	public static final int PLAY_SCREEN_HEIGHT = 600;//600;
+	public static int PLAY_SCREEN_WIDTH = 1000;
+	public static int PLAY_SCREEN_HEIGHT = 600;//600;
 	
 	public static final int CR_SCREEN_WIDTH = 1000;
 	public static final int CR_SCREEN_HEIGHT = 600;//(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()-100);
@@ -62,10 +62,19 @@ public class GameScreen extends JFrame{
 	 */
 	public GameScreen(int width, int height) {
 		this.setResizable(false);
-		this.width = width;
-		this.height = height;
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.PLAY_SCREEN_WIDTH = (int) screenSize.getWidth();
+		this.PLAY_SCREEN_HEIGHT = (int) screenSize.getHeight();
+		this.width = this.PLAY_SCREEN_WIDTH;
+		this.height = this.PLAY_SCREEN_HEIGHT;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setFocusable(true);
+		
+//		System.out.println(((120.0/1000.0)*GameScreen.PLAY_SCREEN_WIDTH));
+//		System.exit(0);
+//		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setUndecorated(true);
 		this.setVisible(true);
 		
 	}

@@ -13,21 +13,21 @@ package game;
  *
  */
 public class Cloud extends DynamicGameObject{
-	private static final int CLOUD_VX_MAX = 8;//10;
-	private static final int CLOUD_VX_MIN = 2;//4;
+	private static final int CLOUD_VX_MAX = (int)((8/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);//10;
+	private static final int CLOUD_VX_MIN = (int)((2/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);//4;
 	private static final int CLOUD_VY = 0; //never changes y velocity
 	
-	private static final int CLOUD_WIDTH = 120;
-	private static final int CLOUD_HEIGHT = 120;
+	private static final int CLOUD_WIDTH = (int)((120/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	private static final int CLOUD_HEIGHT = (int)((120/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
 	private static final int CLOUD_SIZE_MOD = 20; //the range that the size of a cloud can change
-	static final int Y_MARGIN = 60; //Pushes the clouds' spawn lower than 1000 by 60 and the clouds' spawn higher than 0 by 60
-	static final int X_MARGIN = 60; //Pushes the clouds' spawn lower than 1000 by 60 and the clouds' spawn higher than 0 by 60
+	static final int Y_MARGIN = (int)((60/600.0)*GameScreen.PLAY_SCREEN_HEIGHT); //Pushes the clouds' spawn lower than 1000 by 60 and the clouds' spawn higher than 0 by 60
+	static final int X_MARGIN = (int)((60/1000.0)*GameScreen.PLAY_SCREEN_WIDTH); //Pushes the clouds' spawn lower than 1000 by 60 and the clouds' spawn higher than 0 by 60
 	
 	//Multipliers that affect the size of the clouds (MIN,MAX mods are multiplied with CLOUD_WIDTH/HEIGHT
 	private static final double MIN_MOD = .8; //Higher value: Similar sized clouds
 	private static final double MAX_MOD = .3; //Lower value: Similar sized clouds
-	static final int LEFT_MOST = -200; //the left-most point the clouds get to until new ones are spawned
+	static final int LEFT_MOST = (int)((-200/1000.0)*GameScreen.PLAY_SCREEN_WIDTH); //the left-most point the clouds get to until new ones are spawned
 	
 	
 	

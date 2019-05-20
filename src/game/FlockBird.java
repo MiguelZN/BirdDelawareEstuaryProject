@@ -26,19 +26,19 @@ public class FlockBird extends Bird{
 	/*Constants*/
 	
 	//Bird size modifiers:
-	private final static int BIRD_MIN_WIDTH = 50;
-	private final static int BIRD_MAX_WIDTH = 80;
-	private final static int BIRD_MIN_HEIGHT = 50;
-	private final static int BIRD_MAX_HEIGHT = 80;
+	private final static int BIRD_MIN_WIDTH = (int)((50.0/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	private final static int BIRD_MAX_WIDTH = (int)((80.0/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	private final static int BIRD_MIN_HEIGHT = (int)((50.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
+	private final static int BIRD_MAX_HEIGHT = (int)((80.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
 	//Currently not used...
 	private final static int BIRD_HEIGHT_OFFSET = 30;
 	private final static int BIRD_WIDTH_OFFSET = 50;
 	
 	//Offsets the spawning of the birds
-	static final int TOP_Y_MARGIN = 50; //Controls the y offset from the top of the screen, EX: y=0 + TOP_Y_MARGIN
-	static final int BOTTOM_Y_MARGIN = 150;  //Controls the y offset from the bottom of the screen, EX: y= GameScreen.PlayHeight - BOTTOM_Y_MARGIN
-	static final int X_MARGIN = 50;
+	static final int TOP_Y_MARGIN = (int)((50.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT); //Controls the y offset from the top of the screen, EX: y=0 + TOP_Y_MARGIN
+	static final int BOTTOM_Y_MARGIN = (int)((150.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);  //Controls the y offset from the bottom of the screen, EX: y= GameScreen.PlayHeight - BOTTOM_Y_MARGIN
+	static final int X_MARGIN = (int)((50/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
 	
 	static final int BIRD_VX_MAX = 10;
 	static final int BIRD_VX_MIN = 4;

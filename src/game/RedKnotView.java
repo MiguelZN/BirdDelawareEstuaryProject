@@ -90,7 +90,7 @@ public class RedKnotView extends GameView {
 	static final String SCORE_TEXT = "Score: ";
 	static final String FINAL_SCORE_TEXT = "Total Score:";
 	static final String AMOUNT_OF_BIRDS_TEXT = "x";
-	static final int SCORE_FONT_SIZE = 40;
+	static final int SCORE_FONT_SIZE = (int)((40/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
 	static final int FINAL_SCORE_FONT_SIZE = 30;
 	
 	
@@ -161,7 +161,7 @@ public class RedKnotView extends GameView {
 		
 		
 		//Map: (Curve works for any map size, used ratios to determine curve points etc)
-		Size map_size = new Size(150,150);
+		Size map_size = new Size(RedKnotGameState.MAP_SIZE,RedKnotGameState.MAP_SIZE);
 		map = new MiniMap(new Position(GameScreen.PLAY_SCREEN_WIDTH-map_size.getWidth()-MiniMap.LEFT_MARGIN,GameScreen.PLAY_SCREEN_HEIGHT-map_size.getHeight()-MiniMap.BOTTOM_MARGIN), map_size);
 		this.map_curve = new Path2D.Double();
 		createMapPoints();
@@ -576,7 +576,7 @@ public class RedKnotView extends GameView {
 			//System.out.println(fm.getFont());
 			
 			//The String being drawn
-			String toDrawString = this.FINAL_SCORE_TEXT + this.score+", #RedKnots:"+this.checkAmountOfOwnedRedKnots()+", #Nests:"+this.redknot_nests.size();
+			String toDrawString = this.FINAL_SCORE_TEXT + this.score+", RedKnots:"+this.checkAmountOfOwnedRedKnots()+", Nests:"+this.redknot_nests.size();
 			int string_width = fm.stringWidth(toDrawString);
 			BufferedImage final_banner = (BufferedImage)objectMap.get(RedKnotAsset.REDKNOTBANNER);
 			g.drawImage(final_banner, (GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())-((GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())/2),0,final_banner.getWidth(),final_banner.getHeight(),null);
@@ -625,7 +625,7 @@ public class RedKnotView extends GameView {
 		String toDrawString = this.AMOUNT_OF_BIRDS_TEXT + amount_of_birds;
 		int string_width = fm.stringWidth(toDrawString);
 		
-		int x_offset = 10;
+		int x_offset = (int)((10/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
 		int rk_xpos = 0+x_offset;
 		
 		int amount_xpos = rk_xpos + this.SCORE_FONT_SIZE+GameScreen.SCREEN_BORDER_PX;
@@ -831,6 +831,7 @@ public class RedKnotView extends GameView {
 		fnameMap.put("SAbackground3.png", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot2.png", RedKnotAsset.MAINBIRD);
 		fnameMap.put("sprite-6-redknot2transparent.png", RedKnotAsset.FLOCKBIRD);
+		//fnameMap.put("sprite-4-redknot2transparent.png", RedKnotAsset.FLOCKBIRD);
 		fnameMap.put("sprite-6-redknot2redflash.png", RedKnotAsset.MAINBIRDHURT);
 		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
 		fnameMap.put("ocean.png",RedKnotAsset.OCEAN);
