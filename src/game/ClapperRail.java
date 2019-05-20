@@ -19,6 +19,7 @@ public class ClapperRail extends Bird{
 	private final static int JUMP_AMOUNT = 300;
 	private final static int GRAVITY = 3;
 	private Energy e;
+	private int materialCount = 0;
 	
 	private boolean isJumping = false;
 	private boolean isFalling = false;
@@ -212,5 +213,11 @@ public class ClapperRail extends Bird{
 	}
 	public int getJumpState(){
 		return this.jumpState;
+	}
+	public int getMaterialCount() {
+		return this.materialCount;
+	}
+	public void setMaterialCount(int count) {
+		this.materialCount = count;
 	}
 }

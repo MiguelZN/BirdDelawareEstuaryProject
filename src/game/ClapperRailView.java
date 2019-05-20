@@ -84,6 +84,7 @@ public class ClapperRailView extends GameView{
 		Position p = CL.getPosition();
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
 		drawEnergy(g);
+		drawMaterialCount(g);
 		drawPlatforms(g);
 		drawFood(g);
 		drawMaterials(g);
@@ -163,6 +164,18 @@ public class ClapperRailView extends GameView{
 		
 		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
+	}
+	
+	public void drawMaterialCount(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.ENERGY_FONT_SIZE));
+		FontMetrics fm = g.getFontMetrics();
+		
+		String toDrawString = ClapperRailGameState.MATERIALS_TEXT + this.CL.getMaterialCount();
+		int string_width = fm.stringWidth(toDrawString);
+		
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK), 900-(string_width+50), 5, 50, 50, null,this);
+		g.drawString(toDrawString, 900-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 	}
 	
 	public void drawPlatforms(Graphics g) {

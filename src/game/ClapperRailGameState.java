@@ -25,7 +25,9 @@ public class ClapperRailGameState extends GameState {
 	// The Ground Level of the game (temporary)
 	static final int GROUND = 494;
 	static final String ENERGY_TEXT = "Energy: ";
+	static final String MATERIALS_TEXT = "x ";
 	static final int ENERGY_FONT_SIZE = 40;
+	static final int MATERIAL_FONT_SIZE = 40;
 	private static final int SPAWN_CHANCE = 5;
 	int BackgroundX = 5;
 	
@@ -287,6 +289,7 @@ public class ClapperRailGameState extends GameState {
 				System.out.println(objectsMap.get(m).getPosition());
 				objectsMap.get(m).setHasObject(false);
 				mat_it.remove();
+				this.CR.setMaterialCount(this.CR.getMaterialCount()+1);
 			}
 		}
 	}
@@ -303,9 +306,9 @@ public class ClapperRailGameState extends GameState {
 		Random ran = new Random();
 		for(Platform p:platforms) {
 			int n = ran.nextInt(SPAWN_CHANCE); //generates random number. 
-			if(!p.getHasObject()&&(n==1)) { //spawn food if number matches
+			if(!p.getHasObject()&&(1==1)) { //spawn food if number matches
 				int j = ran.nextInt(3);
-				if(j==0) {
+				if(0==0) {
 					Material newM = new Material(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20);
 					this.materials.add(newM);
 					objectsMap.put(newM, p);
