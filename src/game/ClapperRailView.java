@@ -159,11 +159,11 @@ public class ClapperRailView extends GameView{
 		//System.out.println(fm.getFont());
 		
 		//The String being drawn
-		String toDrawString = ClapperRailGameState.ENERGY_TEXT;
+		String toDrawString = ClapperRailGameState.ENERGY_TEXT + CL.getEnergy();
 		int string_width = fm.stringWidth(toDrawString);
 		
 		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
-		g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
+		//g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
 	}
 	
 	public void drawMaterialCount(Graphics g) {

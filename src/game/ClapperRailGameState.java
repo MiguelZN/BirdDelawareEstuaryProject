@@ -276,6 +276,7 @@ public class ClapperRailGameState extends GameState {
 				System.out.println(objectsMap.get(f).getPosition());
 				objectsMap.get(f).setHasObject(false);
 				food_it.remove();
+				this.CR.gainEnergy();
 			}
 		}
 	}
@@ -306,9 +307,9 @@ public class ClapperRailGameState extends GameState {
 		Random ran = new Random();
 		for(Platform p:platforms) {
 			int n = ran.nextInt(SPAWN_CHANCE); //generates random number. 
-			if(!p.getHasObject()&&(1==1)) { //spawn food if number matches
+			if(!p.getHasObject()&&(n==1)) { //spawn food if number matches
 				int j = ran.nextInt(3);
-				if(0==0) {
+				if(j==0) {
 					Material newM = new Material(p.getPosition().getX()+(p.getWidth()/4),p.getPosition().getY()+20);
 					this.materials.add(newM);
 					objectsMap.put(newM, p);

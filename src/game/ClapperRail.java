@@ -18,7 +18,12 @@ public class ClapperRail extends Bird{
 	private final static int SIZE = 80;
 	private final static int JUMP_AMOUNT = 300;
 	private final static int GRAVITY = 3;
-	private Energy e;
+	static final int MAX_ENERGY = 100;
+	static final int ENERGY_LOSS = 20;
+	static final int ENERGY_GAIN = 10;
+	
+	
+	private int energy = MAX_ENERGY;
 	private int materialCount = 0;
 	
 	private boolean isJumping = false;
@@ -85,8 +90,12 @@ public class ClapperRail extends Bird{
 		}else{
 			newY = ClapperRailGameState.GROUND;
 			if(fallState > 0) {
-				System.out.println("Game Over");
-				//gameOver = true;
+				this.energy-= ENERGY_LOSS;
+				if(this.energy <= 0) {
+					this.energy = 0;
+					System.out.println("Game Over");
+					gameOver = true;
+				}
 			}
 			colliding = true;
 			fallState=0;
@@ -163,23 +172,25 @@ public class ClapperRail extends Bird{
 //	public void keepFallingUntilPos(Position p, Size s) {
 //		if(this.getPosition().getY())
 //	}
+
 	
 	
-	/*Method: eat()
-	 *-takes in no arguments/returns nothing
-	 *-restores/updates the Bird's Energy 
-	 */
-	/**
-	 * @param f
-	 */
-	public void eat(Food f) {
-		this.e.setEnergy(this.e.getEnergy() + f.getEnergyAdd());
+	public int getEnergy() {
+		return energy;
 	}
-	/**
-	 * @return
-	 */
-	public Energy getEnergy() {
-		return e;
+	
+	public void setEnergy(int e) {
+		this.energy = e;
+	}
+	
+	public void gainEnergy() {
+		int newEnergy = this.energy + ENERGY_GAIN;
+		if(newEnergy > MAX_ENERGY) {
+			this.energy = MAX_ENERGY;
+		}
+		else {
+			this.energy = newEnergy;
+		}
 	}
 	
 	public boolean getIsJumping() {
