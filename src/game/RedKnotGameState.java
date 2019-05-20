@@ -76,7 +76,7 @@ public class RedKnotGameState extends GameState {
 	RKTutorialAction current_TA;
 	boolean doneTutorial; //tells the game that the tutorial is done
 	boolean turnOffTutorial; //is true then game does not play the tutorial, if false then game plays the tutorial
-
+	QuestionReader qr;
 	
 	//Ending
 	boolean reachedDestination = false;
@@ -98,6 +98,8 @@ public class RedKnotGameState extends GameState {
 		//Setting Up Tutorial
 		this.current_TA = null;
 		this.doneTutorial = false;
+		
+		this.qr = new QuestionReader("resources/text_files/"+REDKNOTQUESTIONS_TEXTFILE);
 		
 		
 		TimerTask task = new TimerTask() {
@@ -248,18 +250,17 @@ public class RedKnotGameState extends GameState {
 		
 			this.isGameRunning = false;
 			//Testing the QuestionReader: (WORKS)
-			QuestionReader qr = new QuestionReader("resources/text_files/"+REDKNOTQUESTIONS_TEXTFILE);
 			
 			//If there are quiz questions
-			if(qr.getQuizQuestions().isEmpty()==false) {
+			if(this.qr.getQuizQuestions().isEmpty()==false) {
 				int random_index = Utility.randRangeInt(0, qr.getQuizQuestions().size()-1);
-				QuizQuestion qq = qr.getQuizQuestions().get(random_index);
+				QuizQuestion qq = this.qr.getQuizQuestions().get(random_index);
 				Position set_pos = new Position(GameScreen.PLAY_SCREEN_HEIGHT,0);
 		
 				
 				this.current_quiz = new QuestionWindow(p, new Size(300,200),qq.getQuestion(), qq.getAnswer(), qq.getResponses());
 				
-				qr.removeQuestion(random_index); //removes the quiz question after selecting it
+				this.qr.removeQuestion(random_index); //removes the quiz question after selecting it
 				for(JRadioButton rb:this.current_quiz.getResponse_buttons()) {
 					rb.addActionListener(new ActionListener() {
 		        @Override
@@ -455,7 +456,7 @@ public class RedKnotGameState extends GameState {
 		int chance = Utility.randRangeInt(this.QC_CHANCE_LOW, this.QC_CHANCE_MAX);
 		int threshold = this.QC_THRESHOLD;
 		
-		if(chance<threshold) {
+		if(chance<threshold && (this.qr.getQuizQuestions().size()>=1)) {
 			QuestionCloud qc = new QuestionCloud(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_HEIGHT, 0, GameScreen.PLAY_SCREEN_HEIGHT));
 			if(qc instanceof QuestionCloud) {
 				System.out.println("QUESTIONCLOUD");

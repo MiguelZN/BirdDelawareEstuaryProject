@@ -9,9 +9,9 @@ package game;
  * -controls updates between state and the view 
  */
 public class Food extends GameObject {
-	static final int RADIUS = 44;
+	static final int RADIUS = 60;
 	
-	static final int CRAB_SIZE = 80;
+	static final int CRAB_SIZE = 120;
 	
 	private int energyAdd;
 	

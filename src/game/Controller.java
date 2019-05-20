@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,9 @@ public class Controller implements KeyListener {
 	private WindowView view;
 	private GameScreen screen;
 	private Model current_state;
+	public Dimension d;
+	public double heightRatio;
+	public double widthRatio;
 	
 	
 
@@ -39,6 +43,9 @@ public class Controller implements KeyListener {
 	 * 
 	 */
 	public Controller() {
+		d = Toolkit.getDefaultToolkit().getScreenSize();
+		heightRatio=((double)d.getHeight())/(1080.0);
+		widthRatio=((double)d.getWidth())/(1920.0);
 		this.screen = new GameScreen(GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT);
 		this.screen.addKeyListener(this);
 		setUpTitleScreen();
@@ -396,7 +403,7 @@ public class Controller implements KeyListener {
 			switch (key) {
 			case KeyEvent.VK_RIGHT:
 				if(CRV.getTutorialMode()){
-					if(CRV.getTutImageNum() == 7){
+					if(CRV.getTutImageNum() == 9){
 						CRV.setTutorialMode(false);
 						ClapperRailGS.setStart(false);
 						break;

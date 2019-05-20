@@ -2,8 +2,8 @@ package game;
 
 public class ClapperQuestion extends GameObject{
 	
-	static final int RADIUS = 44;
-	static final int BLOCK_SIZE = 80;
+	static final int RADIUS = 80;
+	static final int BLOCK_SIZE = 160;
 	
 	public ClapperQuestion(int x, int y) {
 		super(x,y,BLOCK_SIZE,BLOCK_SIZE);
