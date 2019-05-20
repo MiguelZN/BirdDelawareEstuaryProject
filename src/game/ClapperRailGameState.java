@@ -20,6 +20,7 @@ public class ClapperRailGameState extends GameState {
 	private ArrayList<Material> materials;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
+	private Flood flood;
 	private Map<GameObject, Platform> objectsMap;
 
 	// The Ground Level of the game (temporary)
@@ -57,6 +58,7 @@ public class ClapperRailGameState extends GameState {
 		this.platforms = new ArrayList<>();
 		this.food = new ArrayList<>();
 		this.objectsMap = new HashMap<>();
+		this.flood = new Flood(0,700);
 
 		TimerTask task = new TimerTask() {
 			@Override
@@ -140,12 +142,22 @@ public class ClapperRailGameState extends GameState {
 		for(Material m : materials) {
 			m.move();
 		}
+		flood.move();
 		CR.move(0, 5);
 	}
 	
 	@Override
 	public void ontick() {
 		CR.ontick(platforms);
+		if(this.current_time%(GameTimer.ONE_SECOND*2) == 0) {
+			if(this.CR.getWet()) {
+				this.CR.setEnergy(this.CR.getEnergy() - ClapperRail.FLOOD_ENERGY);
+			}
+			else {
+				flood.increaseFlood();
+			}
+			this.current_time += GameTimer.ONE_SECOND;
+		}
 		if(this.current_time%(GameTimer.ONE_SECOND*5) == 0) {
 			this.addObjects();
 			this.current_time += GameTimer.ONE_SECOND;
@@ -160,7 +172,10 @@ public class ClapperRailGameState extends GameState {
 			checkOnPlatform2();
 			checkFood();
 			checkMaterials();
-			
+			checkFlood();
+			if(this.CR.getEnergy() <= 0) {
+				this.CR.gameOver = true;
+			}
 		}
 	}
 	
@@ -207,6 +222,7 @@ public class ClapperRailGameState extends GameState {
 	public ArrayList<GameObject> getUpdateableGameObjects() {
 		ArrayList<GameObject> output = new ArrayList<>();
 		output.add(CR);
+		output.add(flood);
 		// this.addPlatforms();
 		output.addAll(platforms);
 		output.addAll(food);
@@ -292,6 +308,15 @@ public class ClapperRailGameState extends GameState {
 				mat_it.remove();
 				this.CR.setMaterialCount(this.CR.getMaterialCount()+1);
 			}
+		}
+	}
+	
+	public void checkFlood() {
+		if(flood.touchingFlood(this.CR.getPosition())) {
+			this.CR.setWet(true);
+		}
+		else {
+			this.CR.setWet(false);
 		}
 	}
 

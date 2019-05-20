@@ -21,6 +21,7 @@ public class ClapperRail extends Bird{
 	static final int MAX_ENERGY = 100;
 	static final int ENERGY_LOSS = 20;
 	static final int ENERGY_GAIN = 10;
+	static final int FLOOD_ENERGY = 10;
 	
 	
 	private int energy = MAX_ENERGY;
@@ -35,6 +36,7 @@ public class ClapperRail extends Bird{
 	private boolean colliding = false;
 	private int leftRightState = 0;
 	boolean gameOver = false;
+	boolean wet = false;
 
 	private ArrayList<Platform> platforms;
 	
@@ -93,8 +95,6 @@ public class ClapperRail extends Bird{
 				this.energy-= ENERGY_LOSS;
 				if(this.energy <= 0) {
 					this.energy = 0;
-					System.out.println("Game Over");
-					gameOver = true;
 				}
 			}
 			colliding = true;
@@ -230,5 +230,11 @@ public class ClapperRail extends Bird{
 	}
 	public void setMaterialCount(int count) {
 		this.materialCount = count;
+	}
+	public boolean getWet() {
+		return this.wet;
+	}
+	public void setWet(boolean b) {
+		this.wet = b;
 	}
 }

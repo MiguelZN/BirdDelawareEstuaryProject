@@ -42,6 +42,7 @@ public class ClapperRailView extends GameView{
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
 	private ArrayList<Material> materials;
+	private Flood flood;
 	int BackgroundX;
 	ClapperRail CL;
 	
@@ -54,6 +55,7 @@ public class ClapperRailView extends GameView{
 		platforms = new ArrayList<>();
 		food = new ArrayList<>();
 		materials = new ArrayList<>();
+		flood = new Flood(0,0);
 		this.score = 0;
 		this.BackgroundX = 5;
 		this.setBackground(Color.RED);
@@ -83,6 +85,7 @@ public class ClapperRailView extends GameView{
 		g.setColor(new Color(224,160, 42));
 		Position p = CL.getPosition();
 		g.fillOval(p.getX(),p.getY(),CL.getSize().getWidth(),CL.getSize().getWidth());
+		drawFlood(g);
 		drawEnergy(g);
 		drawMaterialCount(g);
 		drawPlatforms(g);
@@ -127,6 +130,7 @@ public class ClapperRailView extends GameView{
 		food = new ArrayList<>();
 		materials = new ArrayList<>();
 		this.CL = (ClapperRail)gameObjects.get(0);
+		this.flood = (Flood)gameObjects.get(1);
 		for(GameObject go : gameObjects) {
 			if(go instanceof Platform) {
 				platforms.add((Platform)go);
@@ -164,6 +168,11 @@ public class ClapperRailView extends GameView{
 		
 		g.drawString(toDrawString, GameScreen.SCREEN_BORDER_PX, 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 		//g.drawImage((Image) objectMap.get(ClapperRailAsset.ENERGY), 0+string_width, 0, 50, 50,null,this);
+	}
+	
+	public void drawFlood(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.fillRect(flood.getPosition().getX(), flood.getPosition().getY(), GameScreen.CR_SCREEN_WIDTH, Flood.FLOOD_HEIGHT);
 	}
 	
 	public void drawMaterialCount(Graphics g) {
