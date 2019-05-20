@@ -261,6 +261,7 @@ public class ClapperRailGameState extends GameState {
 	 * TODO: will call a method in controller, and get data back from it.
 	 */
 	public void invokeRandomQuestion(){
+		controller.setClapperNotMoving();
 		setWaitingOnQuestion(true);
 		boolean correct = controller.randomClapperQuestion();
 		if(correct){

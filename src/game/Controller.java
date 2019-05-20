@@ -490,6 +490,10 @@ public class Controller implements KeyListener {
 		// TODO Auto-generated method stub
 
 	}
+	public void setClapperNotMoving(){
+		ClapperRailGameState CGS = (ClapperRailGameState) current_state;
+		CGS.getCR().setLeftRightState(0);
+	}
 	
 	/**
 	 * @return WindowView
