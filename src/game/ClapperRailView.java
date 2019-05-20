@@ -93,8 +93,8 @@ public class ClapperRailView extends GameView{
 		//this.setBackground(Color.RED);
 		g.setColor(new Color(224,160, 42));
 		drawBird(g);
-		drawFlood(g);
 		drawPlatforms(g);
+		drawFlood(g);
 		drawFood(g);
 		drawMaterials(g);
 		drawQuestionBlocks(g);
@@ -122,6 +122,7 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("platform1.png", ClapperRailAsset.PLATFORM);
 		fnameMap.put("crab.png",ClapperRailAsset.CRAB);
 		fnameMap.put("stick.png",ClapperRailAsset.STICK);
+		fnameMap.put("water_texture.jpg", ClapperRailAsset.WATER);
 		fnameMap.put("tutorialimage1.png", ClapperRailAsset.TUTORIALIMAGE1);
 		fnameMap.put("tutorialimage2.png", ClapperRailAsset.TUTORIALIMAGE2);
 		fnameMap.put("tutorialimage3.png", ClapperRailAsset.TUTORIALIMAGE3);
@@ -280,7 +281,8 @@ public class ClapperRailView extends GameView{
 	
 	public void drawFlood(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(flood.getPosition().getX(), flood.getPosition().getY(), GameScreen.CR_SCREEN_WIDTH, Flood.FLOOD_HEIGHT);
+		g.drawImage((Image)objectMap.get(ClapperRailAsset.WATER), flood.getPosition().getX(), flood.getPosition().getY(),GameScreen.CR_SCREEN_WIDTH,Flood.FLOOD_HEIGHT,null,this);
+//		g.fillRect(flood.getPosition().getX(), flood.getPosition().getY(), GameScreen.CR_SCREEN_WIDTH, Flood.FLOOD_HEIGHT);
 	}
 	
 	public void drawMaterialCount(Graphics g) {
