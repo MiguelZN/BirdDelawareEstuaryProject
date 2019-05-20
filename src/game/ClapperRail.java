@@ -12,7 +12,7 @@ public class ClapperRail extends Bird{
 	
 	private int score = 0;
 	
-	
+	private final static int JUMP_HEIGHT = 406;
 	private final static int XSTART = 50;
 	private final static int YSTART = 880;
 	private final static int VXSTART = 10;
@@ -141,9 +141,9 @@ public class ClapperRail extends Bird{
 	 * -10 -9 -8 -7 -6
 	 */
 	public void handleCurrentJump(){
-		move(0,-24 + jumpState);
+		move(0,-28 + jumpState);
 		jumpState++;
-		if(jumpState==24)
+		if(jumpState==28)
 			jumpState=-1;
 		
 	}

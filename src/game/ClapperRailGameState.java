@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public class ClapperRailGameState extends GameState {
 	private ArrayList<Platform> platforms;
 	private Flood flood;
 	// The Ground Level of the game (temporary)
-	static final int GROUND = 494;
+	static int GROUND = 974;
 	static final String ENERGY_TEXT = "Health: ";
 	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
@@ -42,7 +44,7 @@ public class ClapperRailGameState extends GameState {
 	//the jump height is 300, the ground position of the bird is 494, 
 	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
 	//the screen to not move, but any higher, and we want it to move.
-	private static final int MOVE_SCREEN_HEIGHT = 194;
+	private static final int MOVE_SCREEN_HEIGHT = 568;
 	
 
 	// GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
@@ -57,9 +59,11 @@ public class ClapperRailGameState extends GameState {
 	 */
 	public ClapperRailGameState(Controller controller) {
 		super(controller);
+		Dimension d  = Toolkit.getDefaultToolkit().getScreenSize();
+		GROUND=((int)d.getHeight())-106;
 		this.CR = new ClapperRail();
 		this.platforms = new ArrayList<>();
-		this.flood = new Flood(0,700);
+		this.flood = new Flood(0,1180);
 
 		
 		this.addPlatforms();
@@ -103,6 +107,7 @@ public class ClapperRailGameState extends GameState {
 	
 	@Override
 	public void ontick() {
+		System.out.println(CR.getPosition());
 		if(waitingOnQuestion){
 			return;
 		}
@@ -320,11 +325,11 @@ public class ClapperRailGameState extends GameState {
 		return this.start;
 	}
 	public void addPlatforms() {
-			this.platforms.add(new Platform(-200, 200));
-			this.platforms.add(new Platform(100, 400));
-			this.platforms.add(new Platform(300, 300));
-			this.platforms.add(new Platform(500,200));
-			this.platforms.add(new Platform(700,100));
+			this.platforms.add(new Platform(1620, 0));
+			this.platforms.add(new Platform(180, 768));
+			this.platforms.add(new Platform(540, 576));
+			this.platforms.add(new Platform(900,384));
+			this.platforms.add(new Platform(1260,192));
 	}
 	/*
 	public void addObjects() {
