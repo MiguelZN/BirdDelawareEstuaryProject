@@ -15,9 +15,8 @@ public class Platform extends GameObject {
 	/*
 	 * So, we do a 50/100 roll to see if something will spawn,
 	 * then we do a 33/100 roll to see if that is food,
-	 * if it is not food, we then do a 5/100 roll to see if it is a question,
-	 * then if it is not a question, it is a material.
-	 * 
+	 * if it is not food, we then do a 8/100 roll to see if it is a question,
+	 * then if it is not a question, it is a material. 
 	 */
  	private static final int SPAWN_TOTAL = 100; // out of this.
 	private static final int SPAWN_CHANCE = 50; // out of 100
