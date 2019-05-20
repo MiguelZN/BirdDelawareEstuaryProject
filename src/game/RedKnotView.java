@@ -91,7 +91,7 @@ public class RedKnotView extends GameView {
 	
 	
 	//Tutorial 
-	TutorialAction current_TA;
+	RKTutorialAction current_TA;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -100,6 +100,14 @@ public class RedKnotView extends GameView {
 	 */
 	public RedKnotView(){
 		super();
+		
+		/*Initializes loading of images*/
+		try {
+			loadAllImages("/resources/images/redknot");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*Initializing redknot, clouds, flock, score, map, etc)*/
 		score=0;
@@ -146,32 +154,24 @@ public class RedKnotView extends GameView {
 		this.backgrounds.add(RedKnotAsset.COAST);
 		this.backgrounds.add(RedKnotAsset.OCEAN);
 		
-	
-		/*Initializes loading of images*/
-		try {
-			loadAllImages("/resources/images/redknot");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		
-		current_TA = new TutorialAction(new Thread(new Runnable() {
-			@Override
-			public void run() {
-				boolean isUpKeyPressed = false;
-
-				while(!isUpKeyPressed) {
-					System.out.println("CURRENT_TIME:");
-					System.out.println(isUp_key_pressed());
-					isUpKeyPressed = isUp_key_pressed();
-					//addActionListener(new ActionListener());
-				}
-				
-				current_TA = null;
-				
-			}
-		}), new Position(redKnot.getPosition().getX()+redKnot.getSize().getWidth(),redKnot.getPosition().getY()),new Size(350,200), (Animation)objectMap.get(RedKnotAsset.UPARROWFLASH));
+//		current_TA = new TutorialAction(new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				boolean isUpKeyPressed = false;
+//
+//				while(!isUpKeyPressed) {
+//					System.out.println("CURRENT_TIME:");
+//					System.out.println(isUp_key_pressed());
+//					isUpKeyPressed = isUp_key_pressed();
+//					//addActionListener(new ActionListener());
+//				}
+//				
+//				current_TA = null;
+//				
+//			}
+//		}), new Position(redKnot.getPosition().getX()+redKnot.getSize().getWidth(),redKnot.getPosition().getY()),new Size(350,200), (Animation)objectMap.get(RedKnotAsset.UPARROWFLASH));
 		
 	}
 	
@@ -201,15 +201,31 @@ public class RedKnotView extends GameView {
 		
 	}
 	
+//	/**@author Miguel
+//	 * @param g
+//	 * @param TA
+//	 */
+//	public void drawTutorialAction(Graphics g,TutorialAction TA) {
+//		if(TA!=null) {
+//			Position p = TA.getPosition();
+//			Size s = TA.getSize();
+//			g.drawImage(TA.anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
+//		}
+//		
+//	}
+	
 	/**@author Miguel
 	 * @param g
 	 * @param TA
 	 */
-	public void drawTutorialAction(Graphics g,TutorialAction TA) {
+	public void drawTutorialAction(Graphics g,RKTutorialAction TA) {
 		if(TA!=null) {
 			Position p = TA.getPosition();
 			Size s = TA.getSize();
-			g.drawImage(TA.anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
+			RedKnotAsset rka = TA.RKA;
+			System.out.println("CURRENT_REDKNOT:"+rka);
+			Animation anim = (Animation)objectMap.get(TA.RKA);
+			g.drawImage(anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
 		}
 		
 	}
@@ -287,6 +303,7 @@ public class RedKnotView extends GameView {
 			if(blue_rgb>green_rgb) {
 				//scrollImage(g, RedKnotAsset.BACKGROUND, RedKnotAsset.BACKGROUND);
 				current = RKBackgrounds.OCEAN;
+				
 			}
 			//if the bird is on the bottom half of the map (-> draw jungle background)
 			else if(green_rgb> blue_rgb && relative_y>halfheight_ingamemap) {
@@ -745,6 +762,7 @@ public class RedKnotView extends GameView {
 		fnameMap.put("sprite-2-arrowkeydown.png", RedKnotAsset.DOWNARROWFLASH);
 		fnameMap.put("sprite-2-arrowkeyright.png", RedKnotAsset.RIGHTARROWFLASH);
 		fnameMap.put("sprite-2-arrowkeyleft.png", RedKnotAsset.LEFTARROWFLASH);
+		fnameMap.put("sprite-4-redknot_goals_tutorial.png", RedKnotAsset.RKGOALS);
 	}
 
 
@@ -773,6 +791,10 @@ public class RedKnotView extends GameView {
 	public void scrollImage(Graphics g, Object background1, Object background2) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void updateTutorialAction(RKTutorialAction TA) {
+		this.current_TA = TA;
 	}
 
 	

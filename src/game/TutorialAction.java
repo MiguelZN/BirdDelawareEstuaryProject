@@ -3,20 +3,7 @@ package game;
 public class TutorialAction {
 	Position position;
 	Size size;
-	Animation anim;
-	
-//	public TutorialAction(Thread f) {
-//		f.start();
-//	}
-//	
-//	public TutorialAction(Runnable f) {
-//		f.run();
-//	}
-//	
-//	public TutorialAction(Thread f, Position p) {
-//		this.position = p;
-//		f.start();
-//	}
+//	Animation anim;
 	
 	public TutorialAction(Thread f, Position p, Size s) {
 		this.position = p;
@@ -24,12 +11,12 @@ public class TutorialAction {
 		f.start();
 	}
 	
-	public TutorialAction(Thread f, Position p, Size s, Animation anim) {
+	public TutorialAction(Runnable r, Position p, Size s) {
 		this.position = p;
 		this.size = s;
-		this.anim =anim;
-		f.start();
+		r.run();
 	}
+	
 
 	public Position getPosition() {
 		return position;

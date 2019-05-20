@@ -16,11 +16,16 @@ public enum RedKnotAsset {
 	UPARROWFLASH("UPARROWFLASH"),
 	DOWNARROWFLASH("DOWNARROWFLASH"),
 	RIGHTARROWFLASH("RIGHTARROWFLASH"),
-	LEFTARROWFLASH("LEFTARROWFLASH");
+	LEFTARROWFLASH("LEFTARROWFLASH"),
+	RKGOALS("RKGOALS");
 
 	private String asset_key = null;
 
 	private RedKnotAsset(String s){
 		asset_key=s;
+	}
+	
+	public String getRKA() {
+		return this.asset_key;
 	}
 }

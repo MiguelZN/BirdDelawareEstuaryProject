@@ -241,6 +241,11 @@ public class Controller implements KeyListener {
 			//Updating whether or not the up/down keys are pressed
 			RK_V.updateDownKey(RK_GS.down_key_pressed);
 			RK_V.updateUpKey(RK_GS.up_key_pressed);
+			
+			
+			
+			//TUTORIAL:
+			RK_V.updateTutorialAction(RK_GS.getCurrent_TA());
 		}
 		
 		//Passes ClapperRailGS updated data to the ClapperRailView 

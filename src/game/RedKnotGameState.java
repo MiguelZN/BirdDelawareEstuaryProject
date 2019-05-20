@@ -65,6 +65,10 @@ public class RedKnotGameState extends GameState {
 	static final int AMOUNT_OF_BIRDS_ADDED = 25;
 	
 	
+	//Tutorial
+	RKTutorialAction current_TA;
+	boolean doneTutorial; //tells the game that the tutorial is done
+	boolean turnOffTutorial; //is true then game does not play the tutorial, if false then game plays the tutorial
 
 	
 	/**
@@ -80,6 +84,11 @@ public class RedKnotGameState extends GameState {
 		this.clouds = new ArrayList<>();
 		this.addGameObject(new GameObject(new Position(5,5), new Size(30,30), RedKnotAsset.BACKGROUND));
 		debug_mode = false; //initially turns off debug mode
+		
+		//Setting Up Tutorial
+		this.current_TA = null;
+		this.doneTutorial = false;
+		
 		
 		TimerTask task = new TimerTask() {
 			@Override
@@ -102,10 +111,79 @@ public class RedKnotGameState extends GameState {
 		//the game timer runs every second and updates the counter 'current_time'
 		this.game_timer = new GameTimer(GameTimer.ONE_SECOND,task);
 
+		if(this.current_TA==null) {
+			RKTutorialAction up_key = new RKTutorialAction(new Thread(new Runnable() {
+				@Override
+				public void run() {
+					isGameRunning = false;
+					while(!isUp_key_pressed()) {
+						//NOTE: DO NOT REMOVE PRINT STATEMENTS,
+						//game is not able to pull boolean values without them
+						System.out.println("UPKEY:"+isUp_key_pressed());
+					}
+					current_TA = null;
+					isGameRunning = true;
+					
+					
+					
+					//DOWN KEY TUTORIAL------------------------
+					RKTutorialAction down_key = new RKTutorialAction(new Thread(new Runnable() {
+						@Override
+						public void run() {
+							isGameRunning = false;
+							while(!isDown_key_pressed()) {
+								//NOTE: DO NOT REMOVE PRINT STATEMENTS,
+								//game is not able to pull boolean values without them
+								System.out.println("UPKEY:"+isUp_key_pressed());
+							}
+							current_TA = null;
+							isGameRunning = true;
+							
+						}}), new Position(RK.getPosition().getX()+RK.getSize().getWidth(),RK.getPosition().getY()),new Size(350,200), RedKnotAsset.DOWNARROWFLASH);
+					
+					createAndSetCurrentTA(down_key);
+					
+					
+					
+					
+				}
+			}), new Position(RK.getPosition().getX()+RK.getSize().getWidth(),RK.getPosition().getY()),new Size(350,200), RedKnotAsset.UPARROWFLASH);
+			
+			createAndSetCurrentTA(up_key);
 		
-		
-		
+		}
 	}
+	
+	public void createCloudTutorial(Cloud c) {
+		int tutorial_threshold = (int)(GameScreen.PLAY_SCREEN_WIDTH*.75);
+		if(c.getPosition().getX()<tutorial_threshold && this.current_TA==null && this.doneTutorial==false) {
+			RKTutorialAction cloud_tutorial = new RKTutorialAction(new Thread(new Runnable(){
+				@Override
+				public void run() {
+					isGameRunning = false;
+
+					while((isDown_key_pressed()==false&&isUp_key_pressed()==false)) {
+						
+						//NOTE: DO NOT REMOVE PRINT STATEMENTS,
+						//game is not able to pull boolean values without them
+						System.out.println("DOWNKEY:"+isDown_key_pressed());
+						System.out.println("UPKEY:"+isUp_key_pressed());
+					}
+					current_TA = null;
+					isGameRunning = true;
+					doneTutorial = true; //indicates that the tutorial is completely done 
+					
+				}
+			}), new Position(RK.getPosition().getX()+RK.getSize().getWidth(),RK.getPosition().getY()), new Size(350,200), RedKnotAsset.RKGOALS);
+			
+			createAndSetCurrentTA(cloud_tutorial);
+		}
+	}
+	
+	public void createAndSetCurrentTA(RKTutorialAction TA){
+		this.current_TA = TA;
+	}
+	
 	
 	/**
 	 * @param fb_iter
@@ -238,6 +316,8 @@ public class RedKnotGameState extends GameState {
 		while(cloud_iter.hasNext()) {
 			Cloud c = cloud_iter.next();
 			c.move();
+			
+			this.createCloudTutorial(c);
 			
 			
 			//Detects if the Player is touching two clouds at the same time and if so 
@@ -651,6 +731,17 @@ public class RedKnotGameState extends GameState {
 		return AMOUNT_OF_ENEMYCLOUDS;
 	}
 
+	public RKTutorialAction getCurrent_TA() {
+		System.out.println("CURRENTTA:"+current_TA);
+		return current_TA;
+	}
+
+	public void setCurrent_RKTA(RKTutorialAction current_TA) {
+		this.current_TA = current_TA;
+	}
+
+	
+	
 	
 	
 }

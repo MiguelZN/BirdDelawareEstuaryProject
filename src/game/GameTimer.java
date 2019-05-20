@@ -19,8 +19,10 @@ public class GameTimer extends Timer {
 				//System.out.println("TIMER");
 			}
 		}, 5000);
-		
-		
+	}
+	
+	public GameTimer(TimerTask TK){
+		this.schedule(TK, 5000);
 	}
 		
 	//The timer is delayed by 'delay' then performs 
