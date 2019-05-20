@@ -88,10 +88,10 @@ public class RedKnotView extends GameView {
 	
 	//Drawing Score Variables:
 	static final String SCORE_TEXT = "Score: ";
-	static final String FINAL_SCORE_TEXT = "FINAL SCORE: ";
+	static final String FINAL_SCORE_TEXT = "";
 	static final String AMOUNT_OF_BIRDS_TEXT = "x";
 	static final int SCORE_FONT_SIZE = 40;
-	static final int FINAL_SCORE_FONT_SIZE = 100;
+	static final int FINAL_SCORE_FONT_SIZE = 50;
 	
 	
 	//Tutorial 
@@ -212,8 +212,15 @@ public class RedKnotView extends GameView {
 			Size s = TA.getSize();
 			RedKnotAsset rka = TA.RKA;
 			System.out.println("CURRENT_REDKNOT:"+rka);
-			Animation anim = (Animation)objectMap.get(TA.RKA);
-			g.drawImage(anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
+			
+			if(objectMap.get(TA.RKA) instanceof Animation) {
+				Animation anim = (Animation)objectMap.get(TA.RKA);
+				g.drawImage(anim.currImage(),p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
+			}
+			else {
+				BufferedImage anim = (BufferedImage)objectMap.get(TA.RKA);
+				g.drawImage(anim,p.getX(),p.getY(),s.getWidth(),s.getHeight(),null);
+			}
 		}
 		
 	}
@@ -568,10 +575,11 @@ public class RedKnotView extends GameView {
 			//System.out.println(fm.getFont());
 			
 			//The String being drawn
-			String toDrawString = this.FINAL_SCORE_TEXT + this.score;
+			String toDrawString = "    "+this.FINAL_SCORE_TEXT + this.score+", #RedKnots:"+this.checkAmountOfOwnedRedKnots()+", #Nests:"+this.amountOfNests;
 			int string_width = fm.stringWidth(toDrawString);
-			
-			g.drawString(toDrawString, (GameScreen.PLAY_SCREEN_WIDTH/2)-(string_width/2)-GameScreen.SCREEN_BORDER_PX, 0+this.FINAL_SCORE_FONT_SIZE);
+			BufferedImage final_banner = (BufferedImage)objectMap.get(RedKnotAsset.REDKNOTBANNER);
+			g.drawImage(final_banner, (GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())-((GameScreen.PLAY_SCREEN_WIDTH-final_banner.getWidth())/2),0,final_banner.getWidth(),final_banner.getHeight(),null);
+			g.drawString(toDrawString, (GameScreen.PLAY_SCREEN_WIDTH/2)-(string_width/2)-GameScreen.SCREEN_BORDER_PX, 0-this.FINAL_SCORE_FONT_SIZE+final_banner.getHeight()+40);
 		}
 		else {
 			g.setFont(new Font("Serif",Font.PLAIN,this.SCORE_FONT_SIZE));
@@ -832,8 +840,9 @@ public class RedKnotView extends GameView {
 		fnameMap.put("sprite-2-arrowkeydown.png", RedKnotAsset.DOWNARROWFLASH);
 		fnameMap.put("sprite-2-arrowkeyright.png", RedKnotAsset.RIGHTARROWFLASH);
 		fnameMap.put("sprite-2-arrowkeyleft.png", RedKnotAsset.LEFTARROWFLASH);
-		fnameMap.put("sprite-4-redknot_goals_tutorial.png", RedKnotAsset.RKGOALS);
+		fnameMap.put("redknotinstructions.png", RedKnotAsset.RKGOALS);
 		fnameMap.put("delawarebaybackground2.png", RedKnotAsset.DELAWAREBAY);
+		fnameMap.put("redknot_banner.png",RedKnotAsset.REDKNOTBANNER);
 	}
 
 
