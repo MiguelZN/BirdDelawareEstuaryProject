@@ -167,11 +167,12 @@ public class Controller implements KeyListener {
 		}
 		System.out.println(raw_message);
 		String message = "";
-		String[] messageSplit = raw_message.split(",");
+		String[] messageSplit = raw_message.split(":");
 		if(!raw_message.equals("")){
 			message = messageSplit[1];
 		}
 		String[] s = {"True","False"};
+		message = "<html><body><p style='width: 150px;'>"+ message + "</p></body></html>";
 		int response = JOptionPane.showOptionDialog(view,message,"True or False?",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE, null, s, s[0]);
 		return response == Integer.parseInt(messageSplit[0]);
 	}
