@@ -12,19 +12,29 @@ public class Platform extends GameObject {
 	private static final int PLATFORM_HEIGHT = 40;
 	
 	
+	/*
+	 * So, we do a 50/100 roll to see if something will spawn,
+	 * then we do a 33/100 roll to see if that is food,
+	 * if it is not food, we then do a 5/100 roll to see if it is a question,
+	 * then if it is not a question, it is a material.
+	 * 
+	 */
  	private static final int SPAWN_TOTAL = 100; // out of this.
 	private static final int SPAWN_CHANCE = 50; // out of 100
 	private static final int SPAWN_CHANCE_FOOD = 33; // out of 100 
+	private static final int SPAWN_CHANCE_QUESTION = 8;
 	// if its not food, it is material.
 	
 	private boolean hasObject = false;
 	private Food f;
 	private Material m;
+	private ClapperQuestion q;
 	
 	public Platform(int x, int y) {
 		super(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
 		f = null;
 		m = null;
+		q=null;
 	}
 	
 	public int getWidth() {
@@ -64,6 +74,8 @@ public class Platform extends GameObject {
 			m.move();
 		if(f!=null)
 			f.move();
+		if(q!=null)
+			q.move();
 		Position p = this.getPosition();
 		int newY = p.getY()+5;
 		if(newY > ClapperRailGameState.GROUND+50) {
@@ -88,14 +100,18 @@ public class Platform extends GameObject {
 		int newX = (int)(Math.random()*(GameScreen.CR_SCREEN_WIDTH - this.getWidth()));
 //		int newX = this.getPosition().getX();
 		this.setPosition(new Position(newX,newY));
-		System.out.println();
 		int x = (int)(Math.random()*(Platform.SPAWN_TOTAL));
 		if(x < Platform.SPAWN_CHANCE){
 			int y = (int)(Math.random()*Platform.SPAWN_TOTAL);
 			if(y < Platform.SPAWN_CHANCE_FOOD){
 				addFood();
 			}else{
-				addMaterial();
+				int z = (int) (Math.random()*Platform.SPAWN_TOTAL);
+				if(z < Platform.SPAWN_CHANCE_QUESTION){
+					addQuestion();
+				}else{
+					addMaterial();
+				}
 			}
 		}
 		
@@ -130,6 +146,17 @@ public class Platform extends GameObject {
 		 */
 		m = new Material(this.getPosition().getX()+(Material.MAT_SIZE/2),-1*(Material.MAT_SIZE));
 		return m;
+	}
+	public ClapperQuestion getQuestion(){
+		return q;
+	}
+	public ClapperQuestion addQuestion(){
+		q = new ClapperQuestion(this.getPosition().getX()+(ClapperQuestion.BLOCK_SIZE/2),-1*(ClapperQuestion.BLOCK_SIZE));
+		return q;
+	}
+	
+	public void removeQuestion(){
+		q=null;
 	}
 
 	public void removeMaterial(){

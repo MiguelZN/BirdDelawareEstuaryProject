@@ -36,6 +36,8 @@ public class ClapperRailGameState extends GameState {
 	 */
 	private boolean start = true;
 	
+	private boolean waitingOnQuestion = false;
+	
 	//194 is a very important magic number!
 	//the jump height is 300, the ground position of the bird is 494, 
 	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
@@ -100,6 +102,9 @@ public class ClapperRailGameState extends GameState {
 	
 	@Override
 	public void ontick() {
+		if(waitingOnQuestion){
+			return;
+		}
 		System.out.println(CR.getPosition().getY());
 		if(start){
 			tutorialUpdate();
@@ -118,6 +123,7 @@ public class ClapperRailGameState extends GameState {
 			checkFood();
 			checkMaterials();
 			checkFlood();
+			checkQuestions();
 			if(this.CR.getEnergy() <= 0) {
 				this.CR.gameOver = true;
 			}
@@ -231,6 +237,36 @@ public class ClapperRailGameState extends GameState {
 			}
 
 		}
+	}
+	public void checkQuestions(){
+		Collection<Platform> filtered = platforms.stream().filter(p -> p.getQuestion()!=null).collect(Collectors.toList());
+		Iterator<Platform> plat_it = filtered.iterator();
+		while(plat_it.hasNext()){
+			Platform pl = plat_it.next();
+			ClapperQuestion q = pl.getQuestion();
+			
+			if(q.touchObject(this.CR.getPosition(),ClapperQuestion.RADIUS)){
+				pl.removeQuestion();
+				invokeRandomQuestion();
+			}
+		}
+	}
+	public void setWaitingOnQuestion(boolean b){
+		this.waitingOnQuestion=b;
+	}
+	public boolean getWaitingOnQuestion(){
+		return this.waitingOnQuestion;
+	}
+	/*
+	 * TODO: will call a method in controller, and get data back from it.
+	 */
+	public void invokeRandomQuestion(){
+		setWaitingOnQuestion(true);
+		boolean correct = controller.randomClapperQuestion();
+		if(correct){
+			CR.setMaterialCount(CR.getMaterialCount()+10);
+		}
+		setWaitingOnQuestion(false);
 	}
 	
 	public void checkFood() {

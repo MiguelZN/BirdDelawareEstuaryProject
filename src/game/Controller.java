@@ -1,13 +1,12 @@
 package game;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -155,6 +154,26 @@ public class Controller implements KeyListener {
 
 		
 		
+	}
+	public boolean randomClapperQuestion(){
+		int x = ((int) (Math.random() * 5))+1;
+		String path = "resources/clapperquestions/" + x + ".txt";
+		String raw_message="";
+		try {
+			raw_message = new String(Files.readAllBytes(Paths.get(path)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(raw_message);
+		String message = "";
+		String[] messageSplit = raw_message.split(",");
+		if(!raw_message.equals("")){
+			message = messageSplit[1];
+		}
+		String[] s = {"True","False"};
+		int response = JOptionPane.showOptionDialog(view,message,"True or False?",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE, null, s, s[0]);
+		return response == Integer.parseInt(messageSplit[0]);
 	}
 
 	// Another possibility of a way to do our main loop.

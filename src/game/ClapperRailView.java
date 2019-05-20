@@ -42,6 +42,7 @@ public class ClapperRailView extends GameView{
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
 	private ArrayList<Material> materials;
+	private ArrayList<ClapperQuestion> questionBlocks;
 	private Flood flood;
 	int BackgroundX;
 	ClapperRail CL;
@@ -58,6 +59,7 @@ public class ClapperRailView extends GameView{
 		food = new ArrayList<>();
 		materials = new ArrayList<>();
 		flood = new Flood(0,0);
+		questionBlocks = new ArrayList<>();
 		this.score = 0;
 		this.BackgroundX = 5;
 		this.setBackground(Color.RED);
@@ -93,6 +95,7 @@ public class ClapperRailView extends GameView{
 		drawPlatforms(g);
 		drawFood(g);
 		drawMaterials(g);
+		drawQuestionBlocks(g);
 		//this.setBackground(Color.RED);
 		this.setOpaque(true);
 		
@@ -119,6 +122,9 @@ public class ClapperRailView extends GameView{
 		fnameMap.put("tutorialimage5.png", ClapperRailAsset.TUTORIALIMAGE5);
 		fnameMap.put("tutorialimage6.png", ClapperRailAsset.TUTORIALIMAGE6);
 		fnameMap.put("tutorialimage7.png", ClapperRailAsset.TUTORIALIMAGE7);
+		fnameMap.put("tutorialimage8.png", ClapperRailAsset.TUTORIALIMAGE8);
+		fnameMap.put("questionmark.png", ClapperRailAsset.QUESTIONBLOCK);
+
 		
 		
 		
@@ -143,6 +149,7 @@ public class ClapperRailView extends GameView{
 		platforms = new ArrayList<>();
 		food = new ArrayList<>();
 		materials = new ArrayList<>();
+		questionBlocks = new ArrayList<>();
 		this.CL = (ClapperRail)gameObjects.get(0);
 		this.flood = (Flood)gameObjects.get(1);
 		for(GameObject go : gameObjects) {
@@ -153,6 +160,8 @@ public class ClapperRailView extends GameView{
 					food.add(pf.getFood());
 				}else if(pf.getMaterial() !=null){
 					materials.add(pf.getMaterial());
+				}else if(pf.getQuestion() != null){
+					questionBlocks.add(pf.getQuestion());
 				}
 			}
 		}
@@ -180,6 +189,9 @@ public class ClapperRailView extends GameView{
 				break;
 			case 7:
 				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE7), 100, 100, 400,228,null);
+				break;
+			case 8:
+				g.drawImage((BufferedImage)objectMap.get(ClapperRailAsset.TUTORIALIMAGE8), 100, 100, 400,228,null);
 				break;
 		}
 	}
@@ -271,6 +283,16 @@ public class ClapperRailView extends GameView{
 		for(Material m:materials) {
 			drawStick(m,g);
 		}
+	}
+	
+	public void drawQuestionBlocks(Graphics g){
+		for(ClapperQuestion q : questionBlocks){
+			drawQuestionBlock(q,g);
+		}
+	}
+	public void drawQuestionBlock(ClapperQuestion cq, Graphics g){
+		Position pos = cq.getPosition();
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.QUESTIONBLOCK), pos.getX(),pos.getY(),ClapperQuestion.BLOCK_SIZE,ClapperQuestion.BLOCK_SIZE,null,this);
 	}
 	
 	public void drawStick(Material m, Graphics g) {
