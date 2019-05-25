@@ -405,6 +405,12 @@ public class RedKnotView extends GameView {
 		
 	}
 	
+	/**@author Miguel
+	 * @param g
+	 * @param rkn
+	 * -Takes in an ArrayList of RedKnotNests and draws them onto the screen
+	 * based on their size property, position property
+	 */
 	public void drawNests(Graphics g, ArrayList<RedKnotNest> rkn) {
 		for(RedKnotNest nest:rkn) {
 			BufferedImage bf = null;
@@ -423,6 +429,8 @@ public class RedKnotView extends GameView {
 	/**@author Miguel
 	 * @param flock_list
 	 * @return
+	 * -Adds the end-game nests to the background
+	 * -The more Redknots the player collected, the more chance of having an end-game nest
 	 */
 	public ArrayList<RedKnotNest> addNests(ArrayList<FlockBird> flock_list) {
 		ArrayList<RedKnotNest> rkn = new ArrayList<>();
@@ -494,14 +502,17 @@ public class RedKnotView extends GameView {
 	
 	public void createMapPoints() {
 		Size map_size = new Size(map.hitBox.width,map.hitBox.height);
-		int x1 = (int) ((320d/500d)*map_size.getWidth())+map.getPosition().getX(); //gives the width ratio of first x1
-		int y1 = (int) ((420d/500d)*map_size.getHeight())+map.getPosition().getY(); //gives height ratio
-		int x3 = (int) ((260d/500d)*map_size.getWidth())+map.getPosition().getX();
-		int y3 = (int) ((140d/500d)*map_size.getHeight())+map.getPosition().getY();
+		//Places the Redknot's starting migration point (SOUTH AMERICA) on the mini-map
+		int x1 = (int) ((315d/500d)*map_size.getWidth())+map.getPosition().getX(); //gives the width ratio of first x1
+		int y1 = (int) ((415d/500d)*map_size.getHeight())+map.getPosition().getY(); //gives height ratio
+				
+		//Places the Redknot's mid-migration point (DELAWARE BAY-migrates through it) on the mini-map
+		int x2 = (int) ((325d/500d)*map_size.getWidth())+map.getPosition().getX(); //gives the width ratio of first x1
+		int y2 = (int) ((130d/500d)*map_size.getHeight())+map.getPosition().getY(); //gives height ratio
 		
-		
-		int x2 = (x1-x3)+x3+(int)(x1*0.0125);
-		int y2 = (y3-y1)+y3+(int)(y1*.1);
+		//Places the Redknot's finishing migration point (NORTHERN CANADA-NESTING LOCATION) on the mini-map
+		int x3 = (int) ((200d/500d)*map_size.getWidth())+map.getPosition().getX();
+		int y3 = (int) ((35d/500d)*map_size.getHeight())+map.getPosition().getY();
 		
 		map_curve.moveTo(x1, y1);
 		map_curve.curveTo(x1, y1, x2, y2, x3, y3);

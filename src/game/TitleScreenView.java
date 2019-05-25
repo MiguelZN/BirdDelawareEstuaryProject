@@ -29,15 +29,11 @@ public class TitleScreenView extends WindowView{
 	JButton Instructions;
 	JLabel Title_Logo;
 	
-	/*TODO: fix later
-	 * This isn't mvc but I'm leaving it for now.
-	 */
-	/**
-	 * 
-	 */
+	
 	public TitleScreenView() {
 		super();
 		
+		//Loads up the images associated with the TitleScreen
 		try {
 			loadAllImages("/resources/images/titlescreen");
 		} catch (IOException e) {
@@ -45,18 +41,24 @@ public class TitleScreenView extends WindowView{
 			e.printStackTrace();
 		}
 		
+		//Initializes JComponents
 		this.hold_content = new JPanel(); 
 		this.RedKnot = new JButton("RED KNOT");
 		this.ClapperRail = new JButton("CLAPPER RAIL");
 		this.Instructions = new JButton("INSTRUCTIONS");
 		this.Title_Logo = new JLabel();
 
-		int content_width = (int)(GameScreen.PLAY_SCREEN_WIDTH*.75);
-		int content_height = (int)(GameScreen.PLAY_SCREEN_HEIGHT*.2);
+		//Sets the ratio and size of the JComponents
+		double width_ratio = .75;
+		double height_ratio = .2;
+		int content_width = (int)(GameScreen.PLAY_SCREEN_WIDTH*width_ratio);
+		int content_height = (int)(GameScreen.PLAY_SCREEN_HEIGHT*height_ratio);
 		Dimension c_dim = new Dimension(content_width,content_height);
 
+		//Organizes the buttons/JComponents on the TitleScreen
+		int row_gap = 20; //20px spacing between JComponents
 		BorderLayout hold_layout = new BorderLayout();
-		hold_layout.setVgap(20);
+		hold_layout.setVgap(row_gap);
 		this.hold_content.setLayout(hold_layout);
 		//this.hold_content.setPreferredSize(c_dim);
 		this.hold_content.add(this.RedKnot, BorderLayout.NORTH);
@@ -67,23 +69,33 @@ public class TitleScreenView extends WindowView{
 		this.Instructions.setPreferredSize(c_dim);
 		this.ClapperRail.setPreferredSize(c_dim);
 		
-		Dimension title_dim = new Dimension((int)c_dim.getWidth(),(int)(c_dim.getHeight()*1.25));
+		//Sets the dimensions and places the Delaware Estuary Logo 
+		double height_extension_ratio = 1.5;
+		Dimension title_dim = new Dimension((int)c_dim.getWidth()/2,(int)(c_dim.getHeight()*height_extension_ratio));
 		BufferedImage title_logo_BF = (BufferedImage)objectMap.get(TitleAsset.TITLELOGO);
 		this.Title_Logo.setIcon(this.createScaledImageIcon(title_logo_BF, (int)title_dim.getWidth(), (int)title_dim.getHeight()));
 		this.Title_Logo.setPreferredSize(title_dim);
-		System.out.println("SDADSA");
+		
 		this.add(Title_Logo);
 		this.add(this.hold_content);
 		
-		Color title_screen_bc = new Color(216, 231, 255);
+		//Hides the instructions button (not needed since we have the tutorials)
+		this.Instructions.setVisible(false);
+		
+		//Sets the background a light blueish color
+		Color light_blue_color = new Color(216,231,255);
+		Color title_screen_bc = light_blue_color;
 		this.setBackground(title_screen_bc);
 		
 	}
 
 
+	/* (non-Javadoc)
+	 * @see game.WindowView#fnameMapCreate()
+	 */
 	public void fnameMapCreate() {
 		System.out.println("ADDED");
-		fnameMap.put("deestuary.png", TitleAsset.TITLELOGO);
+		fnameMap.put("deestuary_actuallogo.png", TitleAsset.TITLELOGO);
 
 	}
 	
@@ -100,20 +112,5 @@ public class TitleScreenView extends WindowView{
 		ImageIcon new_image_icon = new ImageIcon(scaled_image);
 		return new_image_icon;
 	}
-	
-	/* (non-Javadoc)
-	 * @see game.GameView#loadImage(java.io.File)
-	 */
-//	@Override
-//	public ImageIcon loadImage(File f){
-//		ImageIcon output=null;
-//		String res_path = f.getPath();
-//		try{
-//			output = new ImageIcon(res_path);
-//		}catch (Exception e){
-//			e.printStackTrace();
-//		}
-//		return output;
-//	}
 	
 }
