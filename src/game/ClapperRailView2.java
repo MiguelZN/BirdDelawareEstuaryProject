@@ -28,7 +28,8 @@ import javax.swing.JButton;
  * -contains methods and control over the drawing of the ClapperRail minigame
  */
 
-
+//public static int PLAY_SCREEN_WIDTH = 1920;
+//public static int PLAY_SCREEN_HEIGHT = 1080;//600;
 
 
 /*
@@ -37,7 +38,7 @@ import javax.swing.JButton;
  *	I have modified redknot view with recent commits and added generalization to the
  *	process that we will use to load images, and draw them to the screen from the model. - Derek
  */
-public class ClapperRailView extends GameView{
+public class ClapperRailView2 extends GameView{
 	private int score;
 	private ArrayList<Platform> platforms;
 	private ArrayList<Food> food;
@@ -53,7 +54,7 @@ public class ClapperRailView extends GameView{
 	/**
 	 * 
 	 */
-	public ClapperRailView() {
+	public ClapperRailView2() {
 		super();
 		CL=new ClapperRail();
 		platforms = new ArrayList<>();
@@ -293,8 +294,8 @@ public class ClapperRailView extends GameView{
 		String toDrawString = ClapperRailGameState.MATERIALS_TEXT + this.CL.getMaterialCount();
 		int string_width = fm.stringWidth(toDrawString);
 		
-		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK), (int)((1800d/1920d)*GameScreen.PLAY_SCREEN_WIDTH)-(string_width+50), 5, 50, 50, null,this);
-		g.drawString(toDrawString, (int)((1800d/1920d)*GameScreen.PLAY_SCREEN_WIDTH)-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
+		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK), 1800-(string_width+50), 5, 50, 50, null,this);
+		g.drawString(toDrawString, 1800-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 	}
 	
 	public void drawPlatforms(Graphics g) {

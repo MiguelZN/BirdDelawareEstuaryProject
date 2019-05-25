@@ -18,16 +18,17 @@ import java.util.stream.Collectors;
  * -class that acts as the Model of the ClapperRail GameMode
  * -keeps track of the data for the ClapperRail mini-game
  */
-public class ClapperRailGameState extends GameState {
+public class ClapperRailGameState2 extends GameState {
 	private ClapperRail CR;
 	private ArrayList<Platform> platforms;
 	private Flood flood;
 	// The Ground Level of the game (temporary)
 //	public static int PLAY_SCREEN_WIDTH = 1920;
-//	public static int PLAY_SCREEN_HEIGHT = 1080;//600;
-	static double dereks_height = 1080.0;
+//	public static int PLAY_SCREEN_HEIGHT = dereks_width;//600;
 	static double dereks_width = 1920.0;
-	static int GROUND = (int)((974d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+	static double dereks_height = 1080.0;
+	
+	static int GROUND =(GameScreen.PLAY_SCREEN_HEIGHT);
 	static final String ENERGY_TEXT = "Health: ";
 	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
@@ -48,8 +49,7 @@ public class ClapperRailGameState extends GameState {
 	//the jump height is 300, the ground position of the bird is 494, 
 	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
 	//the screen to not move, but any higher, and we want it to move.
-//	(int)((974d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)
-	private static final int MOVE_SCREEN_HEIGHT = (int)((568/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+	private static final int MOVE_SCREEN_HEIGHT = (int)((300d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
 
 	// GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
@@ -62,20 +62,20 @@ public class ClapperRailGameState extends GameState {
 	/**
 	 * @param controller
 	 */
-	public ClapperRailGameState(Controller controller) {
+	public ClapperRailGameState2(Controller controller) {
 		super(controller);
 		Dimension d  = Toolkit.getDefaultToolkit().getScreenSize();
-		GROUND=((int)d.getHeight())-(int)((106/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
 		this.CR = new ClapperRail();
+		//GROUND=(int)(((dereks_heightd-CR.getSize().getHeight()*2)/dereks_heightd)*GameScreen.PLAY_SCREEN_HEIGHT);
+		//GROUND=(int)((1700d/dereks_heightd)*GameScreen.PLAY_SCREEN_HEIGHT);
 		this.platforms = new ArrayList<>();
-		int flood_y = (int)((1180d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
-		this.flood = new Flood(0,flood_y);
+		
+		int flood_y = GameScreen.PLAY_SCREEN_HEIGHT;
+		int flood_x = 0;
+		this.flood = new Flood(flood_x,flood_y);
 
 		
 		this.addPlatforms();
-		//this.addFood();
-		//this.addMaterials();
-
 	}
 
 
@@ -106,9 +106,10 @@ public class ClapperRailGameState extends GameState {
 			p.move();
 		}
 		flood.move();
-		CR.move(0, (int)((5/1080d)*GameScreen.PLAY_SCREEN_HEIGHT));
+		int y_move =(int)((5/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
+		CR.move(0, y_move);
 		CR.setScore(CR.getScore()+CR.getScoreIncrease());
-		controller.moveClapperBackground(5);
+		controller.moveClapperBackground(y_move);
 	}
 	
 	@Override
@@ -124,7 +125,7 @@ public class ClapperRailGameState extends GameState {
 		CR.ontick(platforms);
 
 		
-		if(CR.getPosition().getY() < ClapperRailGameState.MOVE_SCREEN_HEIGHT){
+		if(CR.getPosition().getY() < ClapperRailGameState2.MOVE_SCREEN_HEIGHT){
 			objectShift();
 		}
 		handleLeftRightMovement();
@@ -313,11 +314,11 @@ public class ClapperRailGameState extends GameState {
 	}
 	
 	public void checkFlood() {
-		if(CR.getPosition().getY() >= ClapperRailGameState.GROUND-5){
-			if(flood.getPosition().getY() <= (int)((1080/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)){
+		if(CR.getPosition().getY() >= ClapperRailGameState2.GROUND-5){
+			if(flood.getPosition().getY() <= dereks_height){
 				CR.setEnergy(CR.getEnergy()-ClapperRail.ENERGY_LOSS);
 			}
-			if(flood.getPosition().getY() > (int)((880d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)){
+			if(flood.getPosition().getY() > (int)((880/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)){
 				flood.increaseFlood();
 			}
 		}	
@@ -331,11 +332,11 @@ public class ClapperRailGameState extends GameState {
 		return this.start;
 	}
 	public void addPlatforms() {
-			this.platforms.add(new Platform((int)((1620d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), 0));
-			this.platforms.add(new Platform((int)((180d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), (int)((768d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
-			this.platforms.add(new Platform((int)((540d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), (int)((576d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
-			this.platforms.add(new Platform((int)((900d/1920d)*GameScreen.PLAY_SCREEN_WIDTH),(int)((384d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
-			this.platforms.add(new Platform((int)((1260d/1920d)*GameScreen.PLAY_SCREEN_WIDTH),(int)((192d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
+			this.platforms.add(new Platform(1620, 0));
+			this.platforms.add(new Platform(180, 768));
+			this.platforms.add(new Platform(540, 576));
+			this.platforms.add(new Platform(900,384));
+			this.platforms.add(new Platform(1260,192));
 	}
 	/*
 	public void addObjects() {

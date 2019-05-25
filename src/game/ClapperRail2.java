@@ -2,7 +2,7 @@ package game;
 
 import java.util.ArrayList;
 
-public class ClapperRail extends Bird{
+public class ClapperRail2 extends Bird{
 	
 	
 	/*
@@ -11,18 +11,19 @@ public class ClapperRail extends Bird{
 	 */
 	
 	private int score = 0;
+
+	private final static int JUMP_HEIGHT = (int)((300/ClapperRailGameState.dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
+	private final static int VXSTART = (int)((10d/ClapperRailGameState.dereks_width)*GameScreen.PLAY_SCREEN_WIDTH);
+	private final static int VYSTART = (int)((10d/ClapperRailGameState.dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
+	private final static int SIZE = (int)((160/ClapperRailGameState.dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
-	private final static int JUMP_HEIGHT = (int)((406d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
-	private final static int XSTART = (int)((50d/1920d)*GameScreen.PLAY_SCREEN_WIDTH);
-	private final static int VXSTART = (int)((10d/1920d)*GameScreen.PLAY_SCREEN_WIDTH);
-	private final static int VYSTART = (int)((10d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
-	private final static int SIZE = (int)((160d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
-	private final static int YSTART = ClapperRailGameState.GROUND-SIZE;
+	private final static int XSTART = (int)((50/ClapperRailGameState.dereks_width)*GameScreen.PLAY_SCREEN_WIDTH);
+	private final static int YSTART = (int)(((ClapperRailGameState.dereks_height-SIZE)/ClapperRailGameState.dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	static final int MAX_ENERGY = 150;
 	static final int START_ENERGY = 100;
 	static final int ENERGY_LOSS = 25;
 	static final int ENERGY_GAIN = 25;
-	static final int FLOOD_ENERGY = 50;
+	static final int FLOOD_ENERGY = 10;
 	
 	
 	private int energy = START_ENERGY;
@@ -44,8 +45,8 @@ public class ClapperRail extends Bird{
 	/**
 	 * 
 	 */
-	public ClapperRail(){
-		super(new Position(XSTART, YSTART), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
+	public ClapperRail2(){
+		super(new Position(XSTART, ClapperRailGameState.GROUND), new Size(SIZE,SIZE), new Velocity(VXSTART,VYSTART));
 		platforms = null;
 	}
 	
