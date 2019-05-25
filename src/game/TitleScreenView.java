@@ -63,10 +63,10 @@ public class TitleScreenView extends WindowView{
 		//this.hold_content.setPreferredSize(c_dim);
 		this.hold_content.add(this.RedKnot, BorderLayout.NORTH);
 		this.hold_content.add(this.ClapperRail, BorderLayout.CENTER);
-		this.hold_content.add(this.Instructions, BorderLayout.SOUTH);
+//		this.hold_content.add(this.Instructions, BorderLayout.SOUTH);
 
 		this.RedKnot.setPreferredSize(c_dim);
-		this.Instructions.setPreferredSize(c_dim);
+//		this.Instructions.setPreferredSize(c_dim);
 		this.ClapperRail.setPreferredSize(c_dim);
 		
 		//Sets the dimensions and places the Delaware Estuary Logo 

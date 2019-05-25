@@ -152,11 +152,11 @@ public class Controller implements KeyListener {
 				changeView(GameMode.CLAPPERRAIL);
 			}
 		});
-		tsv.Instructions.addActionListener(new ActionListener() {
+		/*tsv.Instructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeView(GameMode.INSTRUCTIONS);
 			}
-		});
+		});*/
 		System.out.println("title buttons are set up");
 
 

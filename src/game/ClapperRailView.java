@@ -77,7 +77,7 @@ public class ClapperRailView extends GameView{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		height_tracker=GameScreen.CR_SCREEN_HEIGHT;
+		height_tracker=GameScreen.CR_SCREEN_HEIGHT-10;
 	}
 	
 	/* (non-Javadoc)
