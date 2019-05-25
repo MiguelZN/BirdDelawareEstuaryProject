@@ -14,11 +14,10 @@ public class FlockBird extends Bird{
 	 * frameindex, etc. Then when drawing each FlockBird in RedKnotView, the RedKnot sprite animation loaded simply has a method which takes
 	 * in a frameindex, etc and draws it onto the screen
 	 */
-	
 	//Holds Animation Code in order to not create multiple Animation Instances (might change)
-	int frameCount;
-	private int tick;
-	int frameIndex;//current frame index
+    public int frameCount;
+	public int tick;
+	public int frameIndex;//current frame index
 	
 	/*RedKnot Code for moving the FlockBirds up and down similar to RedKnot*/
 	private int updownstop=0;
@@ -31,9 +30,6 @@ public class FlockBird extends Bird{
 	private final static int BIRD_MIN_HEIGHT = (int)((50.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	private final static int BIRD_MAX_HEIGHT = (int)((80.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
-	//Currently not used...
-	private final static int BIRD_HEIGHT_OFFSET = 30;
-	private final static int BIRD_WIDTH_OFFSET = 50;
 	
 	//Offsets the spawning of the birds
 	static final int TOP_Y_MARGIN = (int)((50.0/600.0)*GameScreen.PLAY_SCREEN_HEIGHT); //Controls the y offset from the top of the screen, EX: y=0 + TOP_Y_MARGIN
@@ -51,17 +47,6 @@ public class FlockBird extends Bird{
 	//Boundaries (if the birds go past these boundaries, they are removed from 'flock')
 	static final int LEFT_MOST = -200; //the left-most point the birds get to until new ones are spawned
 	static final int BOTTOM_MOST = GameScreen.PLAY_SCREEN_HEIGHT+300; //the most bottom most (y> GameScreen.HEIGHT) that the bird can go before getting removed
-
-	
-	
-//	//The position should be similar to the Clouds where it initally starts
-//	//at right side of the screen (x position) and at a random y position
-//	public FlockBird(Position p, Size s, Velocity v) {
-//		super(p,s,v);
-//		this.isCollected = false; //this means the FlockBird is not collected by the Player
-//		
-//		
-//	}
 	
 	/**@author Miguel
 	 * @param p
@@ -150,7 +135,7 @@ public class FlockBird extends Bird{
 		int random_x = x;
 		int random_y = Utility.randRangeInt(min_y, max_y);
 
-		//Chooses a random width and height for the clouds
+		//Chooses a random widthand height for the clouds
 //		int random_width = Utility.randRangeInt(BIRD_MIN_WIDTH, BIRD_MAX_WIDTH);
 //		int random_height = Utility.randRangeInt(BIRD_MIN_HEIGHT, BIRD_MAX_HEIGHT);
 		

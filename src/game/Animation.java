@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 //Essentially, an animation is just an array of images, the size of that array, and the current index.
 public class Animation {
 	
-	BufferedImage[] images;
-	int frameCount;
+	private BufferedImage[] images;
+	private int frameCount;
 	private int tick;
 	private int frameIndex;//current frame index
 

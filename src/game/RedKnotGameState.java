@@ -23,6 +23,7 @@ public class RedKnotGameState extends GameState {
 	private RedKnot RK;
 	private int score;
 	
+	//If true, draws a rectangle around all the GameObjects in the Screen showcasing their collision box (HitBox)
 	private boolean debug_mode;
 	
 
@@ -78,10 +79,11 @@ public class RedKnotGameState extends GameState {
 	boolean turnOffTutorial; //is true then game does not play the tutorial, if false then game plays the tutorial
 	QuestionReader qr;
 	
-	//Ending
+	//Ending (Handles the end dialogue box that returns the player to the main menu)
 	boolean reachedDestination = false;
 	boolean hasPressedEndDialogue = false;
-	/**
+
+	/**@author Miguel
 	 * @param controller
 	 */
 	public RedKnotGameState(Controller controller){
@@ -116,11 +118,6 @@ public class RedKnotGameState extends GameState {
 					if(current_time>= MAX_GAME_TIME) {
 						setIsGameRunning(false);
 						reachedDestination = true;
-//						int input = JOptionPane.showOptionDialog(null, "Hello World", "The title", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-//						if(input==JOptionPane.OK_OPTION) {
-//							changeView(GameMode.TITLESCREEN);
-//						}
-			
 					}
 				}
 			}
@@ -173,6 +170,10 @@ public class RedKnotGameState extends GameState {
 		}
 	}
 	
+	/**@author Miguel
+	 * @param c
+	 * -Creates the tutorial of once a Cloud reaches a certain distance to the player
+	 */
 	public void createCloudTutorial(Cloud c) {
 		int tutorial_threshold = (int)(GameScreen.PLAY_SCREEN_WIDTH*.75);
 		if(c.getPosition().getX()<tutorial_threshold && this.current_TA==null && this.doneTutorial==false) {
@@ -207,14 +208,26 @@ public class RedKnotGameState extends GameState {
 	
 	
 	
+	/**@author Miguel
+	 * @return
+	 * -returns whether or not the player pressed 'Ok' at the very end of the redknot game dialogue box
+	 */
 	public boolean isHasPressedEndDialogue() {
 		return hasPressedEndDialogue;
 	}
 
+	/**@author Miguel
+	 * @param hasPressedEndDialogue
+	 * -tells the redknotgamestate that the player has pressed 'Ok' in the final dialogue box
+	 */
 	public void setHasPressedEndDialogue(boolean hasPressedEndDialogue) {
 		this.hasPressedEndDialogue = hasPressedEndDialogue;
 	}
 
+	/**@author Miguel
+	 * @param TA
+	 * -Sets what the current tutorial action is (
+	 */
 	public void createAndSetCurrentTA(RKTutorialAction TA){
 		this.current_TA = TA;
 	}
@@ -400,20 +413,6 @@ public class RedKnotGameState extends GameState {
 					this.incrementScore(TOUCHED_CLOUD_SCORE);
 					int random_amount = Utility.randRangeInt(0, this.MAX_AMOUNT_OF_BIRDS_REMOVED);
 					this.setBirdsLost(this.flock, random_amount);
-//					for(int i=0;i<random_amount;i++) {
-//						try{
-//							//removes a bird from the flock if it is collected by the Player
-////							this.setBirdsLost(this.flock, this.MAX_AMOUNT_OF_BIRDS_REMOVED);
-////							if(FB.getIsCollected()) {
-////								FB.setGotLostInStorm(true); //indicates that the Player touched a cloud, and one of the Flock birds got 'lost in the storm'
-////								break;
-////							}
-//						}
-//						catch(Exception e) {
-//							System.out.println("NOT ENOUGH BIRDS");
-//						}
-//					}
-	
 						
 				}
 				
@@ -431,19 +430,7 @@ public class RedKnotGameState extends GameState {
 					this.createQuiz(c.getPosition());
 					c.setPosition(new Position(0-c.hitBox.width,c.getPosition().getY()));
 					RK.setPosition(RK.getPosition());
-					
-//					//Removes the current QuestionCloud
-//					try {
-//						cloud_iter.remove();
-//					}
-//					catch(Exception e) {
-//						//e.printStackTrace();
-//					}
-					
 				}
-		
-				//System.out.println("CLOUDSIZE:"+clouds.size());
-			
 			
 		}
 		
@@ -660,22 +647,6 @@ public class RedKnotGameState extends GameState {
 			//System.out.println(this.score);
 		}
 	}
-	
-//	/**@author Miguel
-//	 * @param RK
-//	 * @param c
-//	 * @return boolean
-//	 * -Checks if the player (Redknot) touched a cloud and if so returns true else returns false
-//	 */
-//	public boolean detectCloudCollision(RedKnot RK, Cloud c) {
-//		if(Utility.GameObjectCollision(RK, c)){
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
-	
 
 	/**@author Miguel
 	 * -Adds random FlockBirds (birds that are Not collected by the Player) by the 'FB_CHANCE_LOW' and 'FB_CHANCE_MAX' (chance and randomness)

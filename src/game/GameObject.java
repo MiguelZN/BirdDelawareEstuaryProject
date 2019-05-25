@@ -92,6 +92,21 @@ public class GameObject {
 		return this.hitBox.getPosition();
 	}
 	
+	/**
+	 * @return
+	 */
+	public int getWidth() {
+		return this.hitBox.width;
+	}
+
+
+	/**
+	 * @return
+	 */
+	public int getHeight() {
+		return this.hitBox.height;
+	}
+	
 	/*Created by Miguel:
 	 * -Takes in a Position instance, returns nothing
 	 * -Sets the location of the HitBox (top left point of HitBox)

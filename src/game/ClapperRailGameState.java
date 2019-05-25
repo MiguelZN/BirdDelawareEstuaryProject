@@ -22,9 +22,6 @@ public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
 	private ArrayList<Platform> platforms;
 	private Flood flood;
-	// The Ground Level of the game (temporary)
-//	public static int PLAY_SCREEN_WIDTH = 1920;
-//	public static int PLAY_SCREEN_HEIGHT = 1080;//600;
 	static double dereks_height = 1080.0;
 	static double dereks_width = 1920.0;
 	static int GROUND = (int)((974d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);

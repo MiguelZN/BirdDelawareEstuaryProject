@@ -26,7 +26,6 @@ public class TitleScreenView extends WindowView{
 	JPanel hold_content;
 	JButton RedKnot;
 	JButton ClapperRail;
-	JButton Instructions;
 	JLabel Title_Logo;
 	
 	
@@ -45,7 +44,6 @@ public class TitleScreenView extends WindowView{
 		this.hold_content = new JPanel(); 
 		this.RedKnot = new JButton("RED KNOT");
 		this.ClapperRail = new JButton("CLAPPER RAIL");
-		this.Instructions = new JButton("INSTRUCTIONS");
 		this.Title_Logo = new JLabel();
 
 		//Sets the ratio and size of the JComponents
@@ -74,9 +72,6 @@ public class TitleScreenView extends WindowView{
 		
 		this.add(Title_Logo);
 		this.add(this.hold_content);
-		
-		//Hides the instructions button (not needed since we have the tutorials)
-		this.Instructions.setVisible(false);
 		
 		//Sets the background a light blueish color
 		Color light_blue_color = new Color(216,231,255);

@@ -61,15 +61,6 @@ public abstract class GameView extends WindowView{
 	 */
 	public abstract void update(ArrayList<GameObject> gameObjects);
 	
-	/**@author Miguel
-	 * @param No parameters
-	 * @return Nothing
-	 * 
-	 * -Draws any 'Game Over' features such as the final score,
-	 * the bird reaching its destination, etc
-	 */
-	public abstract void drawEndGame();
-	
 	/**
 	 * @return
 	 */

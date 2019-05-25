@@ -92,23 +92,6 @@ public class QuestionWindow extends JFrame{
 		for(String r: responses) {
 			JRadioButton response_button = new JRadioButton(r);
 			response_button.setHorizontalAlignment(SwingConstants.CENTER); //Adjusts the radio buttons to be in the center
-			//System.out.println("CREATING");
-//			response_button.addActionListener(new ActionListener() {
-//		        @Override
-//		        public void actionPerformed(ActionEvent e) {
-//		            System.out.println("SELECTED:"+response_button.getText());
-//		            
-//		            if(!response_button.getText().equalsIgnoreCase(answer)) {
-//		            	System.exit(0);
-//		            	
-//		            }
-//		            else {
-//		            	System.out.println("CORRECT");
-//		            	dispose(); //destroys the JFrame Question window
-//		            }
-//
-//		        }
-//		    });
 			this.response_buttons.add(response_button);
 			this.ResponsesGroup.add(response_button);
 			this.add(response_button);

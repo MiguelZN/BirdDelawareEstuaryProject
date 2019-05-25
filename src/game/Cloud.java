@@ -51,60 +51,9 @@ public class Cloud extends DynamicGameObject{
 	}
 
 	/*Getters*/
-	/**
-	 * @return
-	 */
-	public static int getCloudVxMax() {
-		return CLOUD_VX_MAX;
-	}
 
 
-	/**
-	 * @return
-	 */
-	public static int getCloudVxMin() {
-		return CLOUD_VX_MIN;
-	}
 
-
-	/**
-	 * @return
-	 */
-	public static int getCloudVy() {
-		return CLOUD_VY;
-	}
-
-
-	/**
-	 * @return
-	 */
-	public int getCLOUD_WIDTH() {
-		return CLOUD_WIDTH;
-	}
-
-
-	/**
-	 * @return
-	 */
-	public int getCLOUD_HEIGHT() {
-		return CLOUD_HEIGHT;
-	}
-
-
-	/**
-	 * @return
-	 */
-	public int getWidth() {
-		return this.hitBox.width;
-	}
-
-
-	/**
-	 * @return
-	 */
-	public int getHeight() {
-		return this.hitBox.height;
-	}
 	
 	/*Created by Miguel:
 	 * -Takes in no arguments, returns nothing

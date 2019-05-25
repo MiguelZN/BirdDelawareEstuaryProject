@@ -46,16 +46,16 @@ public class QuestionReader {
 		}
 	}
 	
-	String answer;
-	String question;
-	ArrayList<String> responses;
+	private String answer;
+	private String question;
+	private ArrayList<String> responses;
 	
-	String text_file_path;
-	File text_file;
+	private String text_file_path;
+	private File text_file;
 	
-	BufferedReader br;
+	private BufferedReader br;
 	
-	ArrayList<QuizQuestion> quiz_questions;
+	private ArrayList<QuizQuestion> quiz_questions;
 	
 	public QuestionReader(String text_file_path) {
 		this.responses = new ArrayList<>();

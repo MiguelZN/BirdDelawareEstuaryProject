@@ -7,7 +7,6 @@ package game;
  */
 public enum GameMode {
 	REDKNOT("REDKNOT"),
-	INSTRUCTIONS("INSTRUCTIONS"),
 	CLAPPERRAIL("CLAPPERRAIL"),
 	TITLESCREEN("TITLESCREEN");
 	

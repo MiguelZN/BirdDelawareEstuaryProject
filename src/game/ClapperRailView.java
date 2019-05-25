@@ -417,13 +417,4 @@ public class ClapperRailView extends GameView{
 	}
 
 
-	/* (non-Javadoc)
-	 * @see game.GameView#drawEndGame()
-	 */
-	@Override
-	public void drawEndGame() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

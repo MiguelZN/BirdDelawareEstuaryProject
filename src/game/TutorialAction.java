@@ -3,8 +3,7 @@ package game;
 public class TutorialAction {
 	Position position;
 	Size size;
-//	Animation anim;
-	
+
 	public TutorialAction(Thread f, Position p, Size s) {
 		this.position = p;
 		this.size = s;

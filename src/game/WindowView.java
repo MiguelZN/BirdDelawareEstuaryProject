@@ -80,11 +80,4 @@ public abstract class WindowView extends JPanel{
 		}
 		return output;
 	}
-	
-	/**
-	 * 
-	 */
-	public void updateView() {
-		
-	}
 }

@@ -70,16 +70,6 @@ public class Controller implements KeyListener {
 	}
 	
 	/**
-	 * -Sets up our IntructionsView
-	 */
-	public void setUpInstructions(){
-		view = new InstructionsView();
-		setUpInstructionsButton();
-		this.screen.add(view);
-		current_state = new InstructionsModel(this);
-		
-	}
-	/**
 	 * -Sets up our RedKnotView
 	 */
 	public void setUpRedKnotGame(){
@@ -99,26 +89,6 @@ public class Controller implements KeyListener {
 		current_state = new ClapperRailGameState(this);
 	}
 	
-	//TODO: finish/fix this.
-	//same thing as the below method, this doesn't work.
-	/**
-	 * 
-	 */
-	public void setUpInstructionsButton() {
-		InstructionsView isv = null;
-		if(view instanceof InstructionsView){
-			isv = (InstructionsView)view;
-		}else{
-			System.out.println("You have accidentally called setUpInstructionsButton while the view was not on the instructions screen.");
-			System.exit(0);
-		}
-		isv.backtoMenuButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				changeView(GameMode.TITLESCREEN);
-			}
-		});
-	}
 
 	/* TODO: FIX this
 	 * this method is to set up the title screen buttons
@@ -202,7 +172,7 @@ public class Controller implements KeyListener {
 	 * thread.
 	 * 
 	 */
-	/**
+	/**@author Derek
 	 * @param tickdelay
 	 */
 	public void start(int tickdelay) {
@@ -221,6 +191,9 @@ public class Controller implements KeyListener {
 		}
 	}
 	
+	/**@author Derek
+	 * @param ypix
+	 */
 	public void moveClapperBackground(int ypix){
 		ClapperRailView crv = (ClapperRailView) view;
 		System.out.println(crv.getBackgroundY() + " this is our backGroundy");
@@ -228,7 +201,7 @@ public class Controller implements KeyListener {
 	}
 
 	
-	/*
+	/*@author Derek
 	 * Main loop for the game Everything that happens once per tick goes in
 	 * here.
 	 * 
@@ -250,7 +223,7 @@ public class Controller implements KeyListener {
 		return true;
 	}
 
-	/**
+	/**@author Derek
 	 * Calls the Current Models Update Method
 	 * -This method should pass the updated data from the Model
 	 * to the View
@@ -325,9 +298,7 @@ public class Controller implements KeyListener {
 					JOptionPane.showMessageDialog(view, "Your Final Score: " + score, "GAME OVER!", messageType);
 				}
 				
-//				System.out.println("GS_SCORE:"+CL_GS.getScore());
-//				view.updateScore(CL_GS.getScore());
-				
+
 				//Updating whether or not the up/down keys are pressed
 				CR_V.updateRightKey(CR_GS.down_key_pressed);
 				CR_V.updateLeftKey(CR_GS.up_key_pressed);
@@ -343,10 +314,6 @@ public class Controller implements KeyListener {
 	 */
 	public void changeView(GameMode mode) {
 		switch (mode) {
-		case INSTRUCTIONS:
-			this.view.setVisible(false);
-			setUpInstructions();
-			break;
 		case CLAPPERRAIL:
 			this.view.setVisible(false);
 			setUpClapperRailGame();

@@ -78,19 +78,6 @@ public class Utility {
 		}
 	}
 	
-	/**@author Miguel
-	 * @param list
-	 * @param amount
-	 * -Utility function which takes an a list, and integer 'amount'
-	 * and checks and pulls the object at a random index and removes it
-	 */
-	public void removeElements(List<Object> list, int amount) {
-		for(int i=0;i<amount;i++) {
-			int random_index = Utility.randRangeInt(0, list.size());
-			list.remove(random_index);
-		}
-	}
-	
 	
 
 

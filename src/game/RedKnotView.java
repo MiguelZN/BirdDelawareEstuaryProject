@@ -725,65 +725,6 @@ public class RedKnotView extends GameView {
 	
 
 	
-//	public void scrollImage(Graphics g, Object background1, Object background2){
-////		this.background_x = (this.background_x % GameScreen.PLAY_SCREEN_WIDTH)-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
-////		System.out.println(this.background_x%GameScreen.PLAY_SCREEN_WIDTH);
-////		int background1_x1 = this.background_x;
-////		int background1_y1 = 0;
-////		Image background1_image = (Image)objectMap.get(background1);
-////		
-////		int background2_x1 = (background_x)+GameScreen.PLAY_SCREEN_WIDTH;
-////		int background2_y1 = 0;
-////		Image background2_image = (Image)objectMap.get(background2);
-//		
-//		
-//		this.background_x = this.background_x-redKnot.getVelocity().getXSpeed();//BACKGROUND_SPEED;
-//		System.out.println(this.background_x%GameScreen.PLAY_SCREEN_WIDTH);
-//		int background1_x1 = this.background_x;
-//		int background1_y1 = 0;
-//		Image background1_image = (Image)objectMap.get(background1);
-//		
-//		int background2_x1 = (background_x)+GameScreen.PLAY_SCREEN_WIDTH-5;
-//		int background2_y1 = 0;
-//		Image background2_image = (Image)objectMap.get(background2);
-//		
-//		int background3_x1 = (background_x)+GameScreen.PLAY_SCREEN_WIDTH*2-5;
-//		int background3_y1 = 0;
-//		Image background3_image = (Image)objectMap.get(background2);
-//		
-//		if(this.background_x<=GameScreen.PLAY_SCREEN_WIDTH*2*-1) {
-//			this.background_x = 0;
-//			this.removeFirstBackground();
-//			
-//			int random = Utility.randRangeInt(0, 1);
-//			switch(random) {
-//			case 0:
-//				this.addBackground(RedKnotAsset.OCEAN);
-//				break;
-//			
-//			case 1:
-//				this.addBackground(RedKnotAsset.SABACKGROUND);
-//				break;
-//			default:
-//				System.out.println("NOT WORKING");
-//				break;
-//		}
-//		}
-//		
-//		background1_image = (Image)objectMap.get(this.backgrounds.getFirst());
-//		background2_image = (Image)objectMap.get(this.backgrounds.get(1));
-//		//background3_image = (Image)objectMap.get(this.backgrounds.getLast());
-//		
-//		System.out.println(background1_x1);
-//		System.out.println(background2_x1);
-//		g.drawImage(background1_image, background1_x1, background1_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
-//		g.drawImage(background2_image, background2_x1, background2_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
-//		
-//		
-//		//g.drawImage(background3_image, background3_x1, background2_y1, GameScreen.PLAY_SCREEN_WIDTH, GameScreen.PLAY_SCREEN_HEIGHT, this);
-//	}
-	
-	
 	/**@author Miguel
 	 * @param g
 	 * @param next_background
@@ -870,13 +811,6 @@ public class RedKnotView extends GameView {
 //		System.out.println(this.score);
 	}
 
-
-
-	@Override
-	public void drawEndGame() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	public void updateHasReachedDestination(boolean b) {
 		this.reachedDestination = b;
