@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * @author MiguelZN
- *-extends the GameObject in order to have a position
+ *-extends the GameObject in order to have a position,size
  * -contains methods/properties to track where the bird currently is in its travel
  */
 public class MiniMap extends GameObject{

@@ -4,11 +4,19 @@ public class Flood extends GameObject {
 	
 	static final int FLOOD_HEIGHT = (int)((2160d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
 
+	/**@author Derek
+	 * @param x
+	 * @param y
+	 */
 	public Flood(int x, int y) {
 		super(x, y, GameScreen.CR_SCREEN_WIDTH, FLOOD_HEIGHT);
 		// TODO Auto-generated constructor stub
 	}
 	
+	/*@author Derek
+	 * (non-Javadoc)
+	 * @see game.GameObject#move()
+	 */
 	@Override
 	public void move() {
 		Position p = this.getPosition();
@@ -19,6 +27,9 @@ public class Flood extends GameObject {
 		this.setPosition(new Position(p.getX(),newY));
 	}
 	
+	/**@author Derek
+	 * 
+	 */
 	public void increaseFlood() {
 		Position pos = this.getPosition();
 		
@@ -29,6 +40,10 @@ public class Flood extends GameObject {
 		this.setPosition(new Position(pos.getX(),pos.getY()-(int)((200d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
 	}
 	
+	/**@author Derek
+	 * @param pos
+	 * @return
+	 */
 	public boolean touchingFlood(Position pos) {
 		return pos.getY() >= this.getPosition().getY();
 	}

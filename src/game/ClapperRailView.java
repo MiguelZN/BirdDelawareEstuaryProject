@@ -50,6 +50,8 @@ public class ClapperRailView extends GameView{
 	private int tutorialImageNum = 1;
 	int height_tracker = GameScreen.CR_SCREEN_HEIGHT;
 	boolean firstScroll = true;
+
+	
 	/**
 	 * 
 	 */
@@ -77,7 +79,7 @@ public class ClapperRailView extends GameView{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		height_tracker=GameScreen.CR_SCREEN_HEIGHT-10;
+		height_tracker=GameScreen.CR_SCREEN_HEIGHT-(int)((10d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
 	}
 	
 	/* (non-Javadoc)
@@ -138,6 +140,9 @@ public class ClapperRailView extends GameView{
 
 
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawBird(Graphics g){
 		Position posn = CL.getPosition();
 		int size = CL.getSize().getWidth();
@@ -180,6 +185,9 @@ public class ClapperRailView extends GameView{
 		}
 		
 	}
+	/**@author
+	 * @param g
+	 */
 	public void drawTutorialImage(Graphics g){
 		switch(tutorialImageNum){
 			case 1: 
@@ -211,12 +219,21 @@ public class ClapperRailView extends GameView{
 				break;
 		}
 	}
+	/**@author 
+	 * @param x
+	 */
 	public void setTutImageNum(int x){
 		tutorialImageNum = x;
 	}
+	/**@author 
+	 * @return
+	 */
 	public int getTutImageNum(){
 		return this.tutorialImageNum;
 	}
+	/**@author
+	 * @param g
+	 */
 	public void drawScore(Graphics g){
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.SCORE_FONT_SIZE));
@@ -229,7 +246,7 @@ public class ClapperRailView extends GameView{
 		g.drawString(toDrawString, GameScreen.CR_SCREEN_WIDTH/3+240, 0+ClapperRailGameState.SCORE_FONT_SIZE);
 	}
 	
-	/**
+	/**@author 
 	 * @param BackgroundX
 	 */
 	public void updateBackground(int backgroundY) {
@@ -247,12 +264,16 @@ public class ClapperRailView extends GameView{
 		}
 		this.backgroundY = backgroundY;
 	}
+	
+	/**@author 
+	 * @return
+	 */
 	public int getBackgroundY(){
 		return this.backgroundY;
 	}
 
 
-	/**
+	/**@author 
 	 * @param g
 	 */
 	public void drawEnergy(Graphics g){
@@ -279,12 +300,18 @@ public class ClapperRailView extends GameView{
 		g.fillRect((GameScreen.CR_SCREEN_WIDTH/4)-270,15,(int)(mult*200.0), 25);
 	}
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawFlood(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.drawImage((Image)objectMap.get(ClapperRailAsset.WATER), flood.getPosition().getX(), flood.getPosition().getY(),GameScreen.CR_SCREEN_WIDTH,Flood.FLOOD_HEIGHT,null,this);
 //		g.fillRect(flood.getPosition().getX(), flood.getPosition().getY(), GameScreen.CR_SCREEN_WIDTH, Flood.FLOOD_HEIGHT);
 	}
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawMaterialCount(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("TimesRoman",Font.PLAIN,ClapperRailGameState.ENERGY_FONT_SIZE));
@@ -297,52 +324,86 @@ public class ClapperRailView extends GameView{
 		g.drawString(toDrawString, (int)((1800d/1920d)*GameScreen.PLAY_SCREEN_WIDTH)-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 	}
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawPlatforms(Graphics g) {
 		for(Platform p:platforms) {
 			drawPlatform(p,g);
 		}
 	}
 	
+	/**@author 
+	 * @param p
+	 * @param g
+	 */
 	public void drawPlatform(Platform p, Graphics g) {
 		Position pos = p.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.PLATFORM), pos.getX(), pos.getY(), p.getWidth(), p.getHeight(),null,this);
 		//System.out.println("DREW A PLATFORM");
 	}
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawFood(Graphics g) {
 		for(Food f:food) {
 			drawCrab(f,g);
 		}
 	}
 	
+	/**@author
+	 * @param f
+	 * @param g
+	 */
 	public void drawCrab(Food f, Graphics g) {
 		Position pos = f.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), pos.getX(),pos.getY(),Food.CRAB_SIZE,Food.CRAB_SIZE,null,this);
 	}
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawMaterials(Graphics g) {
 		for(Material m:materials) {
 			drawStick(m,g);
 		}
 	}
 	
+	/**@author 
+	 * @param g
+	 */
 	public void drawQuestionBlocks(Graphics g){
 		for(ClapperQuestion q : questionBlocks){
 			drawQuestionBlock(q,g);
 		}
 	}
+	/**@author 
+	 * @param cq
+	 * @param g
+	 */
 	public void drawQuestionBlock(ClapperQuestion cq, Graphics g){
 		Position pos = cq.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.QUESTIONBLOCK), pos.getX(),pos.getY(),ClapperQuestion.BLOCK_SIZE,ClapperQuestion.BLOCK_SIZE,null,this);
 	}
 	
+	/**@author
+	 * @param m
+	 * @param g
+	 */
 	public void drawStick(Material m, Graphics g) {
 		Position pos = m.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.STICK),pos.getX(),pos.getY(),m.MAT_SIZE,m.MAT_SIZE,null,this);
 	}
+	/**@author 
+	 * @param b
+	 */
 	public void setTutorialMode(boolean b){
 		this.tutorialMode=b;
 	}
+	/**@author 
+	 * @return
+	 */
 	public boolean getTutorialMode(){
 		return this.tutorialMode;
 	}
@@ -356,6 +417,9 @@ public class ClapperRailView extends GameView{
 	}
 
 
+	/* (non-Javadoc)
+	 * @see game.GameView#drawEndGame()
+	 */
 	@Override
 	public void drawEndGame() {
 		// TODO Auto-generated method stub

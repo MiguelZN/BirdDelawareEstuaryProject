@@ -337,24 +337,4 @@ public class ClapperRailGameState extends GameState {
 			this.platforms.add(new Platform((int)((900d/1920d)*GameScreen.PLAY_SCREEN_WIDTH),(int)((384d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
 			this.platforms.add(new Platform((int)((1260d/1920d)*GameScreen.PLAY_SCREEN_WIDTH),(int)((192d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
 	}
-	/*
-	public void addObjects() {
-		Random ran = new Random();
-		for(Platform p:platforms) {
-			int n = ran.nextInt(SPAWN_CHANCE); //generates random number. 
-			if(!p.getHasObject()&&(n==1)) { //spawn food if number matches
-				int j = ran.nextInt(3);
-				if(j==0) {
-					Material newM = p.addMaterial();
-					this.materials.add(newM);
-					objectsMap.put(newM, p);
-				} else {
-					Food newF = p.addFood();
-					this.food.add(newF);
-					objectsMap.put(newF, p);
-				}
-				p.setHasObject(true);
-			}
-		}
-	}*/
 }

@@ -26,6 +26,10 @@ public class Food extends GameObject {
 	}
 	
 	
+	/**@author 
+	 * @param p
+	 * @return
+	 */
 	public boolean touchFood(Position p) {
 		if((p.getX() >= this.getPosition().getX()-RADIUS)&&(p.getX() <= this.getPosition().getX()+RADIUS) &&
 				(p.getY() >= this.getPosition().getY()-RADIUS)&&(p.getY() <= this.getPosition().getY()+RADIUS)) {
