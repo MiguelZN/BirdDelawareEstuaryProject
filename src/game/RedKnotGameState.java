@@ -54,7 +54,7 @@ public class RedKnotGameState extends GameState {
 	static final int MAX_GAME_TIME = GameTimer.ONE_MINUTE; //15 seconds (temporary)
 	private GameTimer game_timer;
 	private int current_time;
-	private QuestionWindow current_quiz;
+	public QuestionWindow current_quiz; //CHANGED TO PUBLIC
 	private final String REDKNOTQUESTIONS_TEXTFILE = "RedKnotQuestions.txt";
 	
 	private long collisionTime = System.currentTimeMillis();
@@ -74,14 +74,14 @@ public class RedKnotGameState extends GameState {
 	
 	
 	//Tutorial
-	RKTutorialAction current_TA;
-	boolean doneTutorial; //tells the game that the tutorial is done
-	boolean turnOffTutorial; //is true then game does not play the tutorial, if false then game plays the tutorial
-	QuestionReader qr;
+	public RKTutorialAction current_TA;
+	public boolean doneTutorial; //tells the game that the tutorial is done
+	public boolean turnOffTutorial; //is true then game does not play the tutorial, if false then game plays the tutorial
+	public QuestionReader qr;
 	
 	//Ending (Handles the end dialogue box that returns the player to the main menu)
-	boolean reachedDestination = false;
-	boolean hasPressedEndDialogue = false;
+	public boolean reachedDestination = false;
+	public boolean hasPressedEndDialogue = false;
 
 	/**@author Miguel
 	 * @param controller
@@ -326,16 +326,6 @@ public class RedKnotGameState extends GameState {
 	
 	}
 	
-
-	/**@author Miguel
-	 * @return boolean
-	 * -Changes the 'debug_mode' from false to true and vice-versa and returns it
-	 */
-	public boolean updateDebugging() {
-		this.switchDebugMode();
-		return this.debug_mode;
-	}
-	
 	public boolean hasReachedDestination() {
 		return this.reachedDestination;
 	}
@@ -439,9 +429,8 @@ public class RedKnotGameState extends GameState {
 	/**@author Miguel
 	 * -Randomly checks and adds a QuestionCloud
 	 */
-	public void addQuestionCloud() {
-		int chance = Utility.randRangeInt(this.QC_CHANCE_LOW, this.QC_CHANCE_MAX);
-		int threshold = this.QC_THRESHOLD;
+	public void addQuestionCloud(int low_chance, int high_chance, int threshold) {
+		int chance = Utility.randRangeInt(low_chance,high_chance);
 		
 		if(chance<threshold && (this.qr.getQuizQuestions().size()>=1)) {
 			QuestionCloud qc = new QuestionCloud(Cloud.spawnCloud(GameScreen.PLAY_SCREEN_HEIGHT, 0, GameScreen.PLAY_SCREEN_HEIGHT));
@@ -518,7 +507,7 @@ public class RedKnotGameState extends GameState {
 			}
 		}
 		
-		addQuestionCloud();
+		addQuestionCloud(this.QC_CHANCE_LOW, this.QC_CHANCE_MAX,this.QC_THRESHOLD);
 	}
 	
 
@@ -527,7 +516,7 @@ public class RedKnotGameState extends GameState {
 	 *List of FlockBirds for example. 
 	 */
 	public void checkFlockBirds() {
-		addRandomFlockBirds();
+		addRandomFlockBirds(this.FB_CHANCE_LOW, this.FB_CHANCE_MAX,this.FB_THRESHOLD);
 		
 		//Added iterator to remove clouds once they reach the end
 		ListIterator<FlockBird> fb_iter = flock.listIterator();
@@ -636,43 +625,30 @@ public class RedKnotGameState extends GameState {
 	 * @param RK
 	 * @param FB
 	 * @param fb_iter
+	 * @return boolean (true if collision occurred, false otherwise)
 	 * -Checks if the player (Redknot) touched an 'uncollected' flockbird and therefore if they did
 	 * then spawns a FlockBird near the player and travels alongside the player
 	 */
-	public void detectFlockBirdCollection(RedKnot RK, FlockBird FB, ListIterator fb_iter) {
+	public boolean detectFlockBirdCollection(RedKnot RK, FlockBird FB, ListIterator fb_iter) {
 		if(Utility.GameObjectCollision(RK, FB) && !FB.getIsCollected()) {
 			fb_iter.remove(); //removes the FlockBird
 			this.collectBird(fb_iter, FB);
 			this.incrementScore(COLLECTED_BIRD_SCORE);
-			//System.out.println(this.score);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 
 	/**@author Miguel
 	 * -Adds random FlockBirds (birds that are Not collected by the Player) by the 'FB_CHANCE_LOW' and 'FB_CHANCE_MAX' (chance and randomness)
 	 */
-	public void addRandomFlockBirds() {
-		int chance = Utility.randRangeInt(this.FB_CHANCE_LOW, this.FB_CHANCE_MAX);
-		int threshold = this.FB_THRESHOLD;
-		
+	public void addRandomFlockBirds(int low_chance, int high_chance, int threshold) {
+		int chance = Utility.randRangeInt(low_chance,high_chance);
+
 		if(chance<threshold) {
 			this.flock.add(FlockBird.spawnRandomFlockBird(GameScreen.PLAY_SCREEN_WIDTH+FlockBird.X_MARGIN, 0+FlockBird.TOP_Y_MARGIN, GameScreen.PLAY_SCREEN_HEIGHT-FlockBird.BOTTOM_Y_MARGIN));
-		}
-	}
-
-	/**@author Miguel
-	 * -Takes in no arguments, returns nothing
-	 * -Switches the 'debug_mode' boolean from true -> false
-	 * and false -> true when called
-	 * -When true, this allows the RedKnotView to draw the hitBoxes
-	 * and any future possible debug mode for bug testing
-	 */
-	public void switchDebugMode() {
-		if(this.debug_mode) {
-			this.debug_mode = false;
-		}
-		else {
-			this.debug_mode = true;
 		}
 	}
 
@@ -717,6 +693,22 @@ public class RedKnotGameState extends GameState {
 		return flock;
 	}
 	
+	/**@author Miguel
+	 * @return debug_mode
+	 * -Returns whether or not the game is in debug_mode
+	 */
+	public boolean getDebuggingMode() {
+		return this.debug_mode;
+	}
+	
+	/**@author Miguel
+	 * @param b
+	 * -sets the debug_mode to inputed boolean b
+	 */
+	public void setDebuggingMode(boolean b) {
+		this.debug_mode = b;
+	}
+	
 	/**
 	 * @return
 	 */
@@ -735,12 +727,20 @@ public class RedKnotGameState extends GameState {
 	public void incrementScore(int x){
 		score+=x;
 	}
-
-	/**
-	 * @return
+	
+	/**@author Miguel
+	 * @param new_flock
+	 * -Sets the current ArrayList of flock birds to the new inputted ArrayList of FlockBirds
 	 */
-	public int getAMOUNT_OF_ENEMYCLOUDS() {
-		return AMOUNT_OF_ENEMYCLOUDS;
+	public void setFlock(ArrayList<FlockBird> new_flock) {
+		this.flock = new_flock;
+	}
+	
+	/**@author Miguel
+	 * @param new_clouds
+	 */
+	public void setClouds(ArrayList<Cloud> new_clouds) {
+		this.clouds = new_clouds;
 	}
 
 	public RKTutorialAction getCurrent_TA() {

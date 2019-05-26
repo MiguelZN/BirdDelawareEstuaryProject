@@ -420,7 +420,15 @@ public class Controller implements KeyListener {
 				RedKnotGS.setDown_key_pressed(true);
 				break;
 			case KeyEvent.VK_S:
-				RedKnotV.updateDebugging(RedKnotGS.updateDebugging());
+				if(RedKnotGS.getDebuggingMode()) {
+					RedKnotGS.setDebuggingMode(false);
+					RedKnotV.updateDebugging(RedKnotGS.getDebuggingMode());
+				}
+				else {
+					RedKnotGS.setDebuggingMode(true);
+					RedKnotV.updateDebugging(RedKnotGS.getDebuggingMode());
+				}
+				
 		
 				break;
 			}

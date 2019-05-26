@@ -853,7 +853,9 @@ Moveable</string>
 +getFlyState():int
 +setFlyState(x:int):void
 +FlyUp():void
-+FlyDown():void</string>
++FlyDown():void
++getIsLostInStorm():boolean
++setIsCollected(b:boolean):void</string>
      </void>
     </void>
     <void property="name">
@@ -2048,7 +2050,7 @@ RedKnotAsset</string>
 +&lt;u&gt;MAX_GAME_TIME&lt;/u&gt;:int
 -game_timer:GameTimer
 -current_time:int
--current_quiz:QuestionWindow
++current_quiz:QuestionWindow
 -REDKNOTQUESTIONS_TEXTFILE:String
 -collisionTime:long
 
@@ -2080,10 +2082,9 @@ RedKnotAsset</string>
 +lostBird():void
 +createQuiz(p:Position):void
 +ontick():void
-+updateDebugging():boolean
 +hasReachedDestination():boolean
 +checkClouds():void
-+addQuestionCloud():void
++addQuestionCloud(low_chance:int, high_chance:int, threshold:int):void
 +getUpdateableGameObjects():ArrayList&lt;GameObject&gt;
 +updateGameObjects(RK:RedKnot, GO_AL:ArrayList&lt;GameObject&gt;):ArrayList&lt;GameObject&gt;
 +addClouds():void
@@ -2092,9 +2093,8 @@ RedKnotAsset</string>
 +setBirdsLost(list:List&lt;FlockBird&gt;, amount:int):void
 +allFlockBirdsFlyUp():void
 +allFlockBirdsFlyDown():void
-+detectFlockBirdCollection(RK:RedKnot, FB:FlockBird, fb_iter:ListIterator):void
++detectFlockBirdCollection(RK:RedKnot, FB:FlockBird, fb_iter:ListIterator):boolean
 +addRandomFlockBirds():void
-+switchDebugMode():void
 +addGameObject(o:GameObject):void
 +getClouds():ArrayList&lt;Cloud&gt;
 +countBirds():int
@@ -2103,10 +2103,12 @@ RedKnotAsset</string>
 +getScore():int
 +setScore(x:int):void
 +incrementScore(x:int):void
-+getAMOUNT_OF_ENEMYCLOUDS():int
 +getCurrent_TA():RKTutorialAction
 +setCurrent_RKTA(current_TA:RKTutorialAction):void
-</string>
++setDebuggingMode(b:boolean):void
++getDebuggingMode():boolean
++setFlock(new_flock:ArrayList&lt;FlockBird&gt;):void
++setClouds(new_clouds:ArrayList&lt;Cloud&gt;):void</string>
      </void>
     </void>
     <void property="name">

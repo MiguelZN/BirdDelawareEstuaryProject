@@ -263,6 +263,22 @@ public class FlockBird extends Bird{
 		updownstop=x;
 	}
 	
+	/**@author Miguel
+	 * @return
+	 * -Returns the gotLostInStorm attribute of the FlockBird
+	 */
+	public boolean getIsLostInStorm() {
+		return this.gotLostInStorm;
+	}
+	
+	/**@author Miguel
+	 * @param b
+	 * -Sets the isCollected attribute to the boolean b
+	 */
+	public void setIsCollected(boolean b) {
+		this.isCollected = b;
+	}
+	
 	/*------------------*/
 	
 	

@@ -783,7 +783,6 @@ public class RedKnotView extends GameView {
 		fnameMap.put("SAbackground3.png", RedKnotAsset.SABACKGROUND);
 		fnameMap.put("sprite-6-redknot2.png", RedKnotAsset.MAINBIRD);
 		fnameMap.put("sprite-6-redknot2transparent.png", RedKnotAsset.FLOCKBIRD);
-		//fnameMap.put("sprite-4-redknot2transparent.png", RedKnotAsset.FLOCKBIRD);
 		fnameMap.put("sprite-6-redknot2redflash.png", RedKnotAsset.MAINBIRDHURT);
 		fnameMap.put("NA_SA_MAP.png", RedKnotAsset.MAP);
 		fnameMap.put("ocean.png",RedKnotAsset.OCEAN);
