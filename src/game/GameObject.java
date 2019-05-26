@@ -53,6 +53,8 @@ public class GameObject {
 		this.type = type;
 	}
 	
+	
+	//ONLY USED BY CLAPPER RAIL GAME OBJECTS
 	public void move() {
 		Position p = this.getPosition();
 		int newY = p.getY()+5;

@@ -29,14 +29,14 @@ public class QuizQuestion {
 		return answer;
 	}
 	
-	public String toString() {
-		String s = "Question:" + this.question+"\nAnswer:"+this.answer+"\n";
-		for(String r:this.responses) {
-			s+= "Response:"+r+"\n";
-		}
-		
-		return s;
-	}
+//	public String toString() {
+//		String s = "Question:" + this.question+"\nAnswer:"+this.answer+"\n";
+//		for(String r:this.responses) {
+//			s+= "Response:"+r+"\n";
+//		}
+//		
+//		return s;
+//	}
 	
 	
 }

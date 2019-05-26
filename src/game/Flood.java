@@ -2,7 +2,7 @@ package game;
 
 public class Flood extends GameObject {
 	
-	static final int FLOOD_HEIGHT = (int)((2160d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+	static final int FLOOD_HEIGHT = (int)(((1080*2)/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
 
 	/**@author Derek
 	 * @param x

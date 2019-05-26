@@ -13,25 +13,25 @@ public class GameTimer extends Timer {
 	
 	//Performs a 'task' or function after the given amount of 'delay' has
 	//been passed. **delay is in milliseconds
-	public GameTimer(){
-		this.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				//System.out.println("TIMER");
-			}
-		}, 5000);
-	}
+//	public GameTimer(){
+//		this.schedule(new TimerTask() {
+//			@Override
+//			public void run() {
+//				//System.out.println("TIMER");
+//			}
+//		}, 5000);
+//	}
 	
 	public GameTimer(TimerTask TK, int delay){
 		this.schedule(TK, delay);
 	}
 		
-	//The timer is delayed by 'delay' then performs 
-	//a task after every 'interval' time (in milliseconds)
-	public GameTimer(int delay, int interval,TimerTask task){
-		this.scheduleAtFixedRate(task, delay,interval);
-		//System.out.println("TIMER");
-	}
+//	//The timer is delayed by 'delay' then performs 
+//	//a task after every 'interval' time (in milliseconds)
+//	public GameTimer(int delay, int interval,TimerTask task){
+//		this.scheduleAtFixedRate(task, delay,interval);
+//		//System.out.println("TIMER");
+//	}
 	
 	//The timer is delayed by 'delay' then performs 
 	//a task after every 'interval' time (in milliseconds)

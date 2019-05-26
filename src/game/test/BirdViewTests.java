@@ -3,11 +3,12 @@ package game.test;
 
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import game.Energy;
+//import game.Energy;
 import game.FlockBird;
 import game.GameObject;
 import game.RedKnotGameState;
