@@ -7,10 +7,4 @@ public class RKTutorialAction extends TutorialAction{
 		super(t, p, s);
 		this.RKA = RKA;
 	}
-	
-	public RKTutorialAction(Runnable r, Position p, Size s, RedKnotAsset RKA) {
-		super(r, p, s);
-		this.RKA = RKA;
-	}
-	
 }

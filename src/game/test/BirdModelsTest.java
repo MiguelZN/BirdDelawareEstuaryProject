@@ -18,19 +18,26 @@ import game.Energy;
 import game.FlockBird;
 import game.GameObject;
 import game.RedKnotGameState;
+import game.RedKnotNest;
 import game.Size;
+import game.Utility;
 import game.Velocity;
 import game.Bird;
 import game.BirdType;
 import game.ClapperRailGameState;
 import game.Cloud;
 import game.Controller;
+import game.EnemyCloud;
 import game.Material;
+import game.MiniMap;
 import game.Position;
 import game.QuestionCloud;
 import game.QuizQuestion;
+import game.RKTutorialAction;
 import game.RedKnot;
+import game.RedKnotAsset;
 import game.GameScreen;
+import game.HitBox;
 
 public class BirdModelsTest {
 	private Controller c = new Controller();
@@ -213,12 +220,15 @@ public class BirdModelsTest {
 	public void testAddClouds() {
 		RedKnotGameState rgs = new RedKnotGameState(c);
 		ArrayList<Cloud> new_clouds = new ArrayList<>();
+		new_clouds.add(new QuestionCloud(new Position(50,50),new Size(200,100)));
+		new_clouds.add(new EnemyCloud(new Position(50,50),new Size(200,100)));
 		rgs.setClouds(new_clouds);
-		assertEquals(rgs.getClouds().size()==0,true);
+		assertEquals(rgs.getClouds().size()==2,true);
 	
 		//Tests to make sure that EnemyClouds were added
 		rgs.addClouds();
 		assertEquals(rgs.getClouds().size()>0,true);
+		
 		
 	}
 	
@@ -416,6 +426,211 @@ public class BirdModelsTest {
 			}
 		}
 		assertEquals(number_qc>0,true);
+	}
+	
+	@Test
+	public void testTutorialAction() {
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				;
+			}
+			
+		});
+		int x = 50;
+		int y = 50;
+		int width= 200;
+		int height = 150;
+		
+		RKTutorialAction rkt = new RKTutorialAction(t,new Position(x,y), new Size(width,height), RedKnotAsset.DOWNARROWFLASH);
+		assertEquals(rkt.getPosition().getX()==x,true);
+		assertEquals(rkt.getPosition().getY()==y,true);
+		assertEquals(rkt.getSize().getWidth()==width,true);
+		assertEquals(rkt.getSize().getHeight()==height,true);
+		
+		int new_x = 100;
+		int new_y = 300;
+		rkt.setPosition(new Position(100,300));
+		assertEquals(rkt.getPosition().getX()==new_x,true);
+		assertEquals(rkt.getPosition().getY()==new_y,true);
+	}
+	
+	@Test
+	public void testDynamicGameObject() {
+		int x = 50;
+		int y = 50;
+		int width= 200;
+		int height = 150;
+		
+		//Cloud is a subclass of DynamicGameObject so we're using it as an example to change its velocity
+		Cloud c = new Cloud(new Position(x,y), new Size(width,height));
+
+		int new_vx = -10;
+		int new_vy = 5;
+		c.setVelocity(new Velocity(-10,5));
+		assertEquals(c.getVelocity().getXSpeed()==new_vx,true);
+		assertEquals(c.getVelocity().getYSpeed()==new_vy,true);
+	}
+	
+	@Test
+	public void testAddMiniMap() {
+		MiniMap map = new MiniMap(new Position(50,75), new Size(50,50));
+		assertEquals(map.getPosition().getX()==50,true);
+		assertEquals(map.getPosition().getY()==75,true);
+		
+		assertEquals(map.getSize().getWidth()==50,true);
+		assertEquals(map.getSize().getHeight()==50,true);
+	}
+	
+	@Test
+	public void testRedKnotNest() {
+		RedKnotNest rkn = new RedKnotNest(new Position(50,50), new Size(100,75));
+		
+		//AMOUNT_OF_DIFFERENT_NESTS equal to 6 within RedKnotNest so to test, we can test to make sure we get a number between (inclusive) [1,6]
+		boolean b = false;
+		if(1<=rkn.getNestId()&&rkn.getNestId()<=6)
+			b = true;
+		
+		assertTrue(b);
+	}
+	
+	@Test
+	public void testGameStateMethods() {
+		RedKnotGameState rgs = new RedKnotGameState(c);
+		
+		int current_backgroundx = rgs.getBackgroundX();
+		
+		assertEquals(current_backgroundx,rgs.getBackgroundX());
+		
+		int new_backgroundx = 100;
+		rgs.setBackgroundX(new_backgroundx);
+		assertEquals(new_backgroundx,rgs.getBackgroundX());
+		
+		boolean isGameRunning = rgs.getIsGameRunning();
+		rgs.setIsGameRunning(false);
+		isGameRunning = rgs.getIsGameRunning();
+		assertEquals(isGameRunning, false);
+		
+		rgs.setIsGameRunning(true);
+		isGameRunning = rgs.getIsGameRunning();
+		assertEquals(isGameRunning, true);
+		
+		//Testing the key presses
+		boolean left_key = rgs.isLeft_key_pressed();
+		boolean right_key = rgs.isRight_key_pressed();
+		boolean up_key = rgs.isUp_key_pressed();
+		boolean down_key = rgs.isDown_key_pressed();
+		
+		rgs.setLeft_key_pressed(false);
+		rgs.setRight_key_pressed(false);
+		rgs.setUp_key_pressed(false);
+		rgs.setDown_key_pressed(false);
+		left_key = rgs.isLeft_key_pressed();
+		right_key = rgs.isRight_key_pressed();
+		up_key = rgs.isUp_key_pressed();
+		down_key = rgs.isDown_key_pressed();
+		
+		assertEquals(left_key,false);
+		assertEquals(right_key,false);
+		assertEquals(up_key,false);
+		assertEquals(down_key,false);
+		
+		rgs.setLeft_key_pressed(true);
+		rgs.setRight_key_pressed(true);
+		rgs.setUp_key_pressed(true);
+		rgs.setDown_key_pressed(true);
+		left_key = rgs.isLeft_key_pressed();
+		right_key = rgs.isRight_key_pressed();
+		up_key = rgs.isUp_key_pressed();
+		down_key = rgs.isDown_key_pressed();
+		
+		assertTrue(left_key);
+		assertTrue(right_key);
+		assertTrue(up_key);
+		assertTrue(down_key);
+
+	}
+	
+	@Test
+	public void testPositionAndVelocity() {
+		int x=50;
+		int y= 75;
+		int width = 200;
+		int height = 100;
+		Cloud c = new Cloud(new Position(x,y), new Size(width,height));
+		
+		
+		//Testing getPosition and setPosition
+		assertEquals(c.getPosition().getX(), x); //50
+		assertEquals(c.getPosition().getY(), y); //75
+		
+		x = 100;
+		y = 150;
+		c.setPosition(new Position(x,y));
+		assertEquals(c.getPosition().getX(), x); //100
+		assertEquals(c.getPosition().getY(), y); //150
+		
+		Position p = c.getPosition();
+		int new_x = 60;
+		int new_y = 55;
+		p.setX(new_x);
+		p.setY(new_y);
+		assertEquals(p.getX(),new_x);
+		assertEquals(p.getY(),new_y);
+		
+		//Testing toString
+		//"Position:("+this.getX()+","+this.getY()+")";
+	
+		assertEquals(p.toString(),"Position:("+new_x+","+new_y+")");
+		//-----------
+		
+		//Testing getVelocity and setVelocity()
+		Velocity cloud_vel = c.getVelocity();
+		assertEquals(c.getVelocity().getXSpeed(),cloud_vel.getXSpeed());
+		assertEquals(c.getVelocity().getYSpeed(),cloud_vel.getYSpeed());
+		
+		
+		int new_vx = 200;
+		int new_vy = 300;
+		cloud_vel.setXSpeed(new_vx);
+		cloud_vel.setYSpeed(new_vy);
+		assertEquals(cloud_vel.getXSpeed(),new_vx); //200
+		assertEquals(cloud_vel.getYSpeed(),new_vy); //300
+		
+		//Testing toString
+		//"Velocity:("+this.getXSpeed()+","+this.getYSpeed()+")";
+		
+		assertEquals(cloud_vel.toString(),"Velocity:("+new_vx+","+new_vy+")");
+	}
+	
+	@Test
+	public void testHitBox() {
+		HitBox hb1 = new HitBox(50,75,150,300); //x,y,width,height
+		HitBox hb2 = new HitBox(new Position(50,50),new Size(100,200)); //Position, Size
+		
+		//Testing the changeWidth, changeHeight, setSize methods
+		assertEquals(hb1.width,150);
+		assertEquals(hb1.height,300);
+		
+		assertEquals(hb2.width,100);
+		assertEquals(hb2.height,200);
+		
+		hb1.changeWidth(20);
+		hb1.changeHeight(30);
+		assertEquals(hb1.width, 20);
+		assertEquals(hb1.height,30);
+		
+		hb2.setSize(300, 450);
+		assertEquals(hb2.width, 300);
+		assertEquals(hb2.height,450);
+		
+		//Testing the getPosition method
+		Position hb1_pos = hb1.getPosition();
+		assertEquals(hb1_pos.getX(), hb1.getPosition().getX());
+		assertEquals(hb1_pos.getY(), hb1.getPosition().getY());
+		
 	}
 	
 	

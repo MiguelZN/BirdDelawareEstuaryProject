@@ -8,7 +8,7 @@ import java.awt.Rectangle;
  *
  */
 public class HitBox extends Rectangle{
-	int width,height;
+	public int width,height;
 	Position p;
 	
 	/*Constructors*/
@@ -18,11 +18,12 @@ public class HitBox extends Rectangle{
 	 * @param width
 	 * @param height
 	 */
-	HitBox(int x, int y, int width, int height){
+	public HitBox(int x, int y, int width, int height){
 		super(x, y,width,height); //Sets the Rectangle position and width/height
 		this.p  =new Position(x,y);
 		this.width = width;
 		this.height = height;
+		updateRectangleHitBox();
 	}
 	
 	/**
@@ -30,11 +31,12 @@ public class HitBox extends Rectangle{
 	 * @param width
 	 * @param height
 	 */
-	HitBox(Position p, int width, int height){
-		super(p.getX(), p.getY(), width, height);
+	public HitBox(Position p, Size s){
+		super(p.getX(), p.getY(), s.getWidth(), s.getWidth());
 		this.p = p;
-		this.width = width;
-		this.height = height;
+		this.width = s.getWidth();
+		this.height = s.getHeight();
+		updateRectangleHitBox();
 	}
 	
 	/*Created by Miguel:
@@ -61,7 +63,6 @@ public class HitBox extends Rectangle{
 	 */
 	public void updateRectangleHitBox() {
 		this.setBounds(p.getX(), p.getY(), this.width, this.height);
-//		System.out.println(this.getBounds());
 	}
 	
 	/**@author Miguel

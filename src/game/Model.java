@@ -6,8 +6,9 @@ package game;
  *and GameState, 
  *-TitleScreenModel and InstructionsModel are Model classes and not GameState
  *classes because they are not mini-games and simply just different views
+ *-made it abstract so that it cannot be initialized 
  */
-public class Model {
+public abstract class Model {
 	protected Controller controller;
 	
 	public Model(Controller controller) {

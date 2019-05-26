@@ -10,12 +10,6 @@ public class TutorialAction {
 		f.start();
 	}
 	
-	public TutorialAction(Runnable r, Position p, Size s) {
-		this.position = p;
-		this.size = s;
-		r.run();
-	}
-	
 
 	public Position getPosition() {
 		return position;
@@ -29,9 +23,6 @@ public class TutorialAction {
 		return size;
 	}
 
-	public void setSize(Size size) {
-		this.size = size;
-	}
 	
 	
 	
