@@ -124,7 +124,6 @@ public class ClapperRailGameState extends GameState {
 	 */
 	@Override
 	public void ontick() {
-		System.out.println(CR.getPosition());
 		if(waitingOnQuestion){
 			return;
 		}
