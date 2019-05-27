@@ -2,8 +2,9 @@ package game.test;
 
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.event.ActionEvent;
@@ -31,6 +32,7 @@ import game.Velocity;
 import game.Bird;
 import game.BirdType;
 import game.ClapperQuestion;
+import game.ClapperRail;
 import game.ClapperRailAsset;
 import game.ClapperRailGameState;
 import game.Cloud;
@@ -38,6 +40,7 @@ import game.Controller;
 import game.EnemyCloud;
 import game.Material;
 import game.MiniMap;
+import game.Platform;
 import game.Position;
 import game.QuestionCloud;
 import game.QuestionWindow;
@@ -896,4 +899,170 @@ public class BirdModelsTest {
 		assertEquals(cr3.toString(),"ENERGY");
 	}
 	
+	
+	@Test
+	public void testPlatform() {
+		Platform p1 = new Platform(0, 0);
+		
+		int platform_width = p1.getWidth();
+		assertEquals(platform_width,292); //the static final value of platform_width = 292
+		int platform_height = p1.getHeight();
+		assertEquals(platform_height,80); //the static final value of platform_width = 292
+		
+		GameObject o1 = new GameObject(5,0,20,20);
+		assertTrue(p1.willTouchPlatform(o1.getPosition(), 1)); //checks to make sure the GameObject will touch the platform
+		assertTrue(p1.touchPlatform(o1.getPosition()));
+		
+		
+		Platform p3 = new Platform(0,0); //goes over the limit of the platform
+		p3.move();
+		assertTrue(p3.getPosition().getY()==Platform.PLATFORM_HEIGHT_INCREASE);
+		
+		Platform p2 = new Platform(0,Platform.platform_height_limit-4); //goes over the limit of the platform
+		p2.move();
+		assertTrue(p2.getPosition().getY()==0);
+		
+		
+		p1.removeFood();
+		p1.removeMaterial();
+		p1.removeQuestion();
+		Food f1 = p1.getFood();
+		assertNull(f1);
+		p1.addFood();
+		f1 = p1.getFood();
+		assertNotNull(f1);
+		p1.removeFood();
+		p1.removeMaterial();
+		p1.removeQuestion();
+		assertNull(p1.getFood());
+		
+		p2.removeFood();
+		p2.removeMaterial();
+		p2.removeQuestion();
+		Material m2 = p2.getMaterial();
+		assertNull(m2);
+		p2.addMaterial();
+		assertNotNull(p2.getMaterial());
+		p2.removeMaterial();
+		assertNull(p2.getMaterial());
+		
+		p3.removeFood();
+		p3.removeMaterial();
+		p3.removeQuestion();
+		ClapperQuestion cq3 = p3.getQuestion();
+		assertNull(cq3);
+		p3.addQuestion();
+		cq3 = p3.getQuestion();
+		assertNotNull(cq3);
+		p3.removeQuestion();
+		assertNull(p3.getQuestion());
+		
+		boolean platform_contains_object = p3.getHasObject();
+		assertFalse(platform_contains_object);
+		
+	}
+	
+	@Test
+	public void testClapperRail() {
+		ClapperRail cr = new ClapperRail();
+		cr.setPosition(new Position(0,0));
+		//Testing fall
+		cr.setColliding(true);
+		cr.setJumpState(-1);
+		assertTrue(cr.getJumpState()==-1);
+		assertTrue(cr.getColliding());
+		cr.jump(); //checks if colliding is true and jumpstate is -1 then sets it to 0
+		assertTrue(cr.getJumpState()==0);
+		
+		
+		cr.moveLeft();
+		assertTrue(cr.getPosition().getX()==0-cr.getVelocity().getXSpeed());
+		cr.moveRight();
+		assertTrue(cr.getPosition().getX()==0-cr.getVelocity().getXSpeed()+cr.getVelocity().getXSpeed());
+		
+		//Boolean value tests
+		assertNull(cr.getCollidingWithPlatform(cr.getVelocity().getYSpeed())); //since no platforms were added yet, it should return null
+		
+		ArrayList<Platform> new_platform = new ArrayList<>();
+		new_platform.add(new Platform(0, 0));
+		cr.setPlatforms(new_platform);
+		assertNull(cr.getCollidingWithPlatform(cr.getVelocity().getYSpeed()));
+		
+		int current_jumpstate = cr.getJumpState(); //returns 1 for jumping, -1 for not jumping
+		cr.ontick(new_platform); //changes the jumpstate of the bird from -1 to 1 and 1 to -1
+		cr.handleCurrentJump();
+		cr.handleCurrentJump();
+		assertTrue(current_jumpstate!=cr.getJumpState());
+		
+		cr.ontick(new_platform);
+		
+		//Testing energy
+		cr.setEnergy(50);
+		assertTrue(cr.getEnergy()==50);
+		cr.gainEnergy(); //increases the energy by 25
+		assertTrue(cr.getEnergy()==75); 
+		
+		cr.setIsFalling(true);
+		assertTrue(cr.getIsFalling());
+		
+		cr.setIsJumping(true);
+		assertTrue(cr.getIsJumping());
+		
+		cr.setOnPlatform(true);
+		assertTrue(cr.getOnPlatform());
+		
+		cr.setMaterialCount(50);
+		assertTrue(cr.getMaterialCount()==50);
+		
+		cr.handleCurrentFall();
+		cr.handleCurrentJump();
+	
+		
+		
+	}
+	
+	@Test
+	public void testClapperRailGameState() {
+		ClapperRailGameState CRGS = new ClapperRailGameState(c);
+		assertTrue(CRGS.getPlatforms().size()>0); //if true showcases that our 'addPlatforms()' method worked and added platforms
+		assertNotNull(CRGS.getCR()); //if true, showcases our clapper rail was successfully initialized
+		
+		
+		Position old_position_p1 = CRGS.getPlatforms().get(0).getPosition();
+		CRGS.objectShift(); //moves all the platforms and water, etc
+		
+		//NOTE: we cannot run ontick because it breaks the testing
+		//CRGS.ontick(); //ticks our game and also changes game states
+		
+		assertTrue(old_position_p1.getY()!=CRGS.getPlatforms().get(0).getPosition().getY());
+		
+		int current_moveLeftRight = CRGS.getCR().getLeftRightState(); //gets an int: -1,1 representing whether or not the clapperrail is moving left or right
+		CRGS.getCR().setLeftRightState(1); //tells the gamestate that the clapperrail is moving right
+		Position old_pos_CR = CRGS.getCR().getPosition();
+		CRGS.handleLeftRightMovement(); //moves corresponding to what the getLeftRightState() is
+		assertTrue(old_pos_CR.getX()<CRGS.getCR().getPosition().getX()); //should move to the right
+		
+		int getBackgroundX = CRGS.getBackgroundX();
+		assertEquals(getBackgroundX,CRGS.getBackgroundX());
+		CRGS.moveBackground(); //should move the background a bit
+		assertTrue(getBackgroundX!=CRGS.getBackgroundX());
+		
+		
+//		CRGS.checkFlood();
+//		CRGS.checkFood();
+//		CRGS.checkMaterials();
+//		CRGS.checkQuestions();
+//		
+////		System.out.println(CRGS.getUpdateableGameObjects().size());
+//		//assertTrue(CRGS.getUpdateableGameObjects().size()>0); //should assert to make sure it is not empty
+//		
+//		CRGS.getCR().setPosition(new Position(10,GameScreen.PLAY_SCREEN_HEIGHT)); //places the CR at the bottom of the screen where the flood is
+//		Flood current_flood = CRGS.getFlood();
+//		CRGS.checkFlood(); //should move the flood up the screen and should decrease the clapper's energy
+//		assertTrue(CRGS.getCR().getEnergy()<100); //100 is the max energy
+//		assertTrue(current_flood.getPosition().getY()>CRGS.getFlood().getPosition().getY());
+//		
+		
+		
+	}
 }

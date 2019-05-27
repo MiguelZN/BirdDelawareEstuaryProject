@@ -24,6 +24,9 @@ public class Platform extends GameObject {
 	private static final int SPAWN_CHANCE_QUESTION = 8;
 	// if its not food, it is material.
 	
+	public static final int PLATFORM_HEIGHT_INCREASE = 5;
+	public static final int platform_height_limit = ClapperRailGameState.GROUND+50;
+	
 	private boolean hasObject = false;
 	private Food f;
 	private Material m;
@@ -79,6 +82,10 @@ public class Platform extends GameObject {
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameObject#move()
+	 * -Increments the height of the platform by 
+	 */
 	@Override
 	public void move() {
 		if(m!=null)
@@ -88,8 +95,9 @@ public class Platform extends GameObject {
 		if(q!=null)
 			q.move();
 		Position p = this.getPosition();
-		int newY = p.getY()+5;
-		if(newY > ClapperRailGameState.GROUND+50) {
+		int newY = p.getY()+PLATFORM_HEIGHT_INCREASE;
+		
+		if(newY > platform_height_limit) {
 			resetPosition();
 			return;
 		}
@@ -148,8 +156,11 @@ public class Platform extends GameObject {
 		 * NOTE: the only reason setting the y position like this works, is because food and materials are 
 		 * only added when the platform is at 0.
 		 */
-		f = new Food(this.getPosition().getX()+(Food.CRAB_SIZE/2),-1*(Food.CRAB_SIZE),0);
-		System.out.println(f.getPosition());
+		if(this.getHasObject()==false) {
+			f = new Food(this.getPosition().getX()+(Food.CRAB_SIZE/2),-1*(Food.CRAB_SIZE),0);
+			System.out.println(f.getPosition());
+			this.setHasObject(true);
+		}
 		return f;
 	}
 	public Material getMaterial(){
@@ -166,7 +177,10 @@ public class Platform extends GameObject {
 		 * NOTE: the only reason setting the y position like this works, is because food and materials are 
 		 * only added when the platform is at 0.
 		 */
-		m = new Material(this.getPosition().getX()+(Material.MAT_SIZE/2),-1*(Material.MAT_SIZE));
+		if(this.getHasObject()==false) {
+			m = new Material(this.getPosition().getX()+(Material.MAT_SIZE/2),-1*(Material.MAT_SIZE));
+			this.setHasObject(true);
+		}
 		return m;
 	}
 	public ClapperQuestion getQuestion(){
@@ -177,26 +191,51 @@ public class Platform extends GameObject {
 	 * Adds a ClapperQuestion to the platform
 	 */
 	public ClapperQuestion addQuestion(){
-		q = new ClapperQuestion(this.getPosition().getX()+(ClapperQuestion.BLOCK_SIZE/2),-1*(ClapperQuestion.BLOCK_SIZE));
+		if(this.getHasObject()==false) {
+			q = new ClapperQuestion(this.getPosition().getX()+(ClapperQuestion.BLOCK_SIZE/2),-1*(ClapperQuestion.BLOCK_SIZE));
+			this.setHasObject(true);
+		}
 		return q;
 	}
 	
+	/**@author Miguel
+	 * -sets the q(question) property to null
+	 */
 	public void removeQuestion(){
 		q=null;
 	}
 
+	/**@author Miguel
+	 *  -sets the m(material) property to null
+	 */
 	public void removeMaterial(){
 		m=null;
 	}
 	
+	/**@author Miguel
+	 * -sets the f(food) property to null
+	 */
 	public void removeFood() {
 		f = null;
 	}
 	
+	/**@author Miguel
+	 * @return
+	 * -checks the m,f,q properties and if one of them is not null returns true
+	 */
 	public boolean getHasObject() {
+		boolean isItemOnPlatform = false;
+		if(this.m!=null|this.f!=null|this.q!=null) {
+			isItemOnPlatform = true;
+		}
+		this.hasObject = isItemOnPlatform;
 		return hasObject;
 	}
 	
+	/**@author Miguel
+	 * @param b
+	 * -sets the hasObject boolean to the inputted b boolean
+	 */
 	public void setHasObject(boolean b) {
 		hasObject = b;
 	}

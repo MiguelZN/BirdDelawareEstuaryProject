@@ -105,10 +105,12 @@ public class ClapperRail extends Bird{
 	 *  
 	 */
 	public Platform getCollidingWithPlatform(int vy){
-		for(Platform p : platforms){
-			Position pos = getPosition();
-			if(p.willTouchPlatform(new Position(pos.getX()+this.getSize().getWidth()/2,pos.getY()+this.getSize().getHeight()),vy))
-				return p;
+		if(this.platforms!=null) {
+			for(Platform p : platforms){
+				Position pos = getPosition();
+				if(p.willTouchPlatform(new Position(pos.getX()+this.getSize().getWidth()/2,pos.getY()+this.getSize().getHeight()),vy))
+					return p;
+			}
 		}
 		return null;
 	}
@@ -175,7 +177,7 @@ public class ClapperRail extends Bird{
 	
 	/** @author Derek
 	 *  @param
-	 *  
+	 *  -if the bird is falling(not jumping) and it collides, it sets the jumpstate to 0 meaning jump back up
 	 */
 	public void jump() {
 		if(jumpState==-1 && colliding)
@@ -183,12 +185,33 @@ public class ClapperRail extends Bird{
 	}
 	
 	
+	/**@author Miguel
+	 * @return
+	 * -returns the 'leftRightState' 
+	 */
 	public int getLeftRightState() {
 		return leftRightState;
 	}
 
+	/**@author Miguel
+	 * @param leftRightState
+	 * -takes in an integer and sets 'leftRightState' to the integer
+	 */
 	public void setLeftRightState(int leftRightState) {
 		this.leftRightState = leftRightState;
+	}
+	
+	/**@author Miguel
+	 * @param x
+	 * -sets the jumpstate of the clapper rail; x must be either 1,0,-1
+	 */
+	public void setJumpState(int x) {
+		if(x!=1| x!=-1| x!=0) {
+			return;
+		}
+		else {
+			this.jumpState= x;
+		}
 	}
 	
 	public int getEnergy() {
@@ -214,47 +237,107 @@ public class ClapperRail extends Bird{
 		}
 	}
 	
+	/**@author Miguel
+	 * @param p
+	 * -sets the 'platforms' property to the inputted ArrayList of platforms
+	 */
+	public void setPlatforms(ArrayList<Platform> p) {
+		this.platforms = p;
+	}
+	
+	/**@author Miguel
+	 * @return
+	 * -returns the 'isJumping' boolean property representing whether or not the clapper is currently jumping
+	 */
 	public boolean getIsJumping() {
 		return this.isJumping;
 	}
 
+	/**@author Miguel
+	 * @param b
+	 * -Sets the 'isJumping' boolean property to the inputted boolean b (true means the clapper is jumping, false means not jumping)
+	 */
 	public void setIsJumping(boolean b) {
 		this.isJumping = b;
 	}
 	
+	/**@author Miguel
+	 * @return
+	 * -returns the boolean true or false representing whether or not the clapper is falling
+	 */
 	public boolean getIsFalling() {
 		return this.isFalling;
 	}
 
+	/**@author Miguel
+	 * @param b
+	 * -sets the 'isFalling' boolean property to the inputted b boolean
+	 */
 	public void setIsFalling(boolean b) {
 		this.isFalling = b;
 	}
 	
+	/**@author Miguel
+	 * @return
+	 * -returns the 'onPlatform' boolean property representing whether or not the clapper is on a platform
+	 */
 	public boolean getOnPlatform() {
 		return this.onPlatform;
 	}
 	
+	/**@author Miguel
+	 * @param b
+	 * -sets the 'onPlatform' property representing that the clapperrail is on a platform
+	 */
 	public void setOnPlatform(boolean b) {
 		this.onPlatform = b;
 	}
+	/**@author Miguel
+	 * @param b
+	 * -sets the 'colliding' property to the inputted b boolean
+	 */
 	public void setColliding(boolean b){
 		this.colliding=b;
 	}
+	/**@author Miguel
+	 * @return
+	 * -returns the 'colliding' boolean
+	 */
 	public boolean getColliding(){
 		return this.colliding;
 	}
+	/**@author Miguel
+	 * @return
+	 * -returns the 'jumpState' boolean
+	 */
 	public int getJumpState(){
 		return this.jumpState;
 	}
+	/**@author Miguel
+	 * @return
+	 * -returns the current materialCount (amount of material collected by the player)
+	 */
 	public int getMaterialCount() {
 		return this.materialCount;
 	}
+	/**@author Miguel
+	 * @param count
+	 * -sets the materialCount int property to the inputed count int
+	 */
 	public void setMaterialCount(int count) {
 		this.materialCount = count;
 	}
+	/**@author Miguel
+	 * @return
+	 * -returns the current int score
+	 */
 	public int getScore(){
 		return this.score;
 	}
+	/**@author Miguel
+	 * @param x
+	 * -sets the current score to the inputted score
+	 */
 	public void setScore(int x){
 		this.score=x;
 	}

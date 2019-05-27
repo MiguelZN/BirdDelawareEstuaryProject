@@ -29,7 +29,7 @@ public class ClapperRailGameState extends GameState {
 	private ClapperRail CR;
 	private ArrayList<Platform> platforms;
 	private Flood flood;
-	static int GROUND = (int)((974d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
+	public static int GROUND = (int)((974d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	static final String ENERGY_TEXT = "Health: ";
 	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
@@ -73,16 +73,15 @@ public class ClapperRailGameState extends GameState {
 		int flood_y = (int)((1180d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 		this.flood = new Flood(0,flood_y);
 
-		
+		//Adds in the intial platforms
 		this.addPlatforms();
-		//this.addFood();
-		//this.addMaterials();
 
 	}
 
 
-	/**
+	/**@author Miguel
 	 * @return
+	 * -returns the CR property (our clapper rail)
 	 */
 	public ClapperRail getCR() {
 		return CR;
@@ -111,9 +110,14 @@ public class ClapperRailGameState extends GameState {
 		flood.move();
 		CR.move(0, (int)((5/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT));
 		CR.setScore(CR.getScore()+CR.getScoreIncrease());
-		controller.moveClapperBackground(5);
+		int amount_of_xpixels =5;
+		//controller.moveClapperBackground(amount_of_xpixels);
 	}
 	
+	/* (non-Javadoc)
+	 * @see game.GameState#ontick()
+	 * -Performs methods at a interval
+	 */
 	@Override
 	public void ontick() {
 		System.out.println(CR.getPosition());
@@ -146,7 +150,7 @@ public class ClapperRailGameState extends GameState {
 	
 	/** @author Derek
 	 *  @param
-	 *  
+	 *  -Handles the movement of the ClapperRail when moving left,right 
 	 */
 	public void handleLeftRightMovement(){
 		int x = CR.getLeftRightState();
@@ -167,22 +171,26 @@ public class ClapperRailGameState extends GameState {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+
+	/* (non-Javadoc)
 	 * @see game.GameState#getBackgroundX()
+	 * -Returns the BackgroundX int property representing at what level the background is
 	 */
 	public int getBackgroundX() {
 		return this.BackgroundX;
 	}
 
 	
+	/**@author Miguel
+	 * -sets the CRTutMode property to true representing that there is currently a tutorial playing in Clapper Rail
+	 */
 	public void tutorialUpdate(){
 		controller.setCRTutMode(true);
 	}
 	
-	/**
-	 * 
+
+	/**@author Miguel
+	 * -moves the background 
 	 */
 	public void moveBackground() {
 		this.setBackgroundX((this.BackgroundX % 1000) + this.getCR().getVelocity().getXSpeed());
@@ -336,10 +344,34 @@ public class ClapperRailGameState extends GameState {
 		}	
 		
 	}
+	/**@author Miguel
+	 * @param b
+	 * -sets the 'start' boolean to the inputted b boolean
+	 */
 	public void setStart(boolean b){
 		start=b;
 	}
+	
+	/**@author Miguel
+	 * @return
+	 * -returns the ArrayList of platforms
+	 */
+	public ArrayList<Platform> getPlatforms(){
+		return this.platforms;
+	}
+	
+	/**@author Miguel
+	 * @return
+	 * -retrieves the flood
+	 */
+	public Flood getFlood() {
+		return this.flood;
+	}
 
+	/**@author Miguel
+	 * @return
+	 * -returns the 'start' property boolean
+	 */
 	public boolean getStart(){
 		return this.start;
 	}
