@@ -1,5 +1,9 @@
 package game;
 
+/**
+ * @author Miguel
+ *-An enumeration to distinguish what type of bird, the current bird is
+ */
 public enum BirdType {
 	REDKNOT("REDKNOT"),
 	FLOCKBIRD("FLOCKBIRD"),

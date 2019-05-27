@@ -2,7 +2,7 @@ package game;
 
 public class Main {
 	
-	private static final int TICKRATE = 10;
+	static final int TICKRATE = 10;
 	
 	public static void main(String[] args){
 //		System.setProperty("sun.java2d.opengl", "True"); //MAGICALLY MAKES THINGS GREAT

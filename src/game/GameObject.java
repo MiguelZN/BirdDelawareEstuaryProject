@@ -1,6 +1,6 @@
 package game;
 
-import java.awt.Rectangle;
+import java.io.Serializable;
 
 /*Authors: Miguel Zavala, Derek Baum, Matt Benvenuto, Jake Wise
  * 
@@ -11,7 +11,7 @@ import java.awt.Rectangle;
  * (such as the plants, crabs, clouds, birds, etc)
  * 
  */
-public class GameObject {
+public class GameObject implements Serializable {
 	protected HitBox hitBox; //Allows for collision-detection, keeps track of x,y position
 	//also keeps track of width and height of the GameObject (for drawing)
 	

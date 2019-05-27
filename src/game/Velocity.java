@@ -3,10 +3,12 @@ package game;
  * 
  */
 
+import java.io.Serializable;
+
 /*Class: Velocity
  * -class that contains how fast/direction an object is moving in terms of x,y velocities
  */
-public class Velocity {
+public class Velocity implements Serializable {
 	private int xSpeed;
 	private int ySpeed;
 	

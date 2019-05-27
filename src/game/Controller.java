@@ -6,7 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,7 +27,7 @@ import javax.swing.SwingUtilities;
  * -class that acts as the Controller of our MVC model
  * -controls updates between state and the view 
  */
-public class Controller implements KeyListener {
+public class Controller implements KeyListener, Serializable {
 	private WindowView view;
 	private GameScreen screen;
 	private Model current_state;
@@ -361,6 +366,14 @@ public class Controller implements KeyListener {
 		if (key == KeyEvent.VK_ESCAPE) {
 			changeView(GameMode.TITLESCREEN);
 		}
+		if(key == KeyEvent.VK_S){
+			writeGameToFile();
+		}
+		if(key == KeyEvent.VK_R){
+			try{
+				reloadGame();
+			}catch(Exception ex){}
+		}
 
 		
 		if (current_state instanceof ClapperRailGameState && view instanceof ClapperRailView) {
@@ -502,6 +515,34 @@ public class Controller implements KeyListener {
 	 */
 	public GameScreen getScreen() {
 		return this.screen;
+	}
+
+	public void writeGameToFile() {
+		try {
+			FileOutputStream fos = new FileOutputStream("lastGameSave.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(this);
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void reloadGame()throws IOException, ClassNotFoundException{
+		System.out.println("We get into the reload game!");
+		FileInputStream fis = new FileInputStream("lastGameSave.ser");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		Controller c = (Controller) ois.readObject();
+		ois.close();
+		System.out.println("We get here");
+		this.view = c.view;
+		this.screen = c.screen;
+		this.current_state = c.current_state;
+		this.d = c.d;
+		this.heightRatio = c.heightRatio;
+		ClapperRailGameState cgs = (ClapperRailGameState) c.current_state;
+		System.out.println("Score of the game we were trying to reeload" + cgs.score);
+		start(Main.TICKRATE);
 	}
 
 }

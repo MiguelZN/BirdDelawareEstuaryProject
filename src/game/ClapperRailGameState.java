@@ -62,6 +62,7 @@ public class ClapperRailGameState extends GameState {
 	private Platform current_platform =null;
 
 	/**
+	 * @author Derek 
 	 * @param controller
 	 */
 	public ClapperRailGameState(Controller controller) {
@@ -79,7 +80,12 @@ public class ClapperRailGameState extends GameState {
 	}
 
 
+<<<<<<< HEAD
 	/**@author Miguel
+=======
+	/**
+	 * @author Derek 
+>>>>>>> 66683af67a482c57bf5890117bc7f9282513c628
 	 * @return
 	 * -returns the CR property (our clapper rail)
 	 */
@@ -114,13 +120,14 @@ public class ClapperRailGameState extends GameState {
 		//controller.moveClapperBackground(amount_of_xpixels);
 	}
 	
-	/* (non-Javadoc)
-	 * @see game.GameState#ontick()
-	 * -Performs methods at a interval
+
+	/**
+	 *@author Derek 
+	 * @param
+	 * Do what happens ontick.
 	 */
 	@Override
 	public void ontick() {
-		System.out.println(CR.getPosition());
 		if(waitingOnQuestion){
 			return;
 		}
@@ -160,9 +167,9 @@ public class ClapperRailGameState extends GameState {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @author Derek 
+	 * @param o
 	 * @see game.GameState#addGameObject(game.GameObject)
 	 */
 	@Override
@@ -195,9 +202,8 @@ public class ClapperRailGameState extends GameState {
 	public void moveBackground() {
 		this.setBackgroundX((this.BackgroundX % 1000) + this.getCR().getVelocity().getXSpeed());
 	}
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
+	 * @author Derek 
 	 * @see game.GameState#getUpdateableGameObjects()
 	 */
 	@Override

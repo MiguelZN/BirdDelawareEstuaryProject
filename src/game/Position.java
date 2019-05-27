@@ -3,6 +3,8 @@ package game;
  * 
  */
 
+import java.io.Serializable;
+
 /*Class: Position
  * -class that allows us to keep track of each element's position (x,y).
  */
@@ -10,7 +12,7 @@ package game;
  * @author MiguelZN
  *
  */
-public class Position {
+public class Position implements Serializable{
 	private int x;
 	private int y;
 	

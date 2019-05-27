@@ -221,13 +221,13 @@ public class ClapperRailView extends GameView{
 				break;
 		}
 	}
-	/**@author 
+	/**@author Derek
 	 * @param x
 	 */
 	public void setTutImageNum(int x){
 		tutorialImageNum = x;
 	}
-	/**@author 
+	/**@author Derek
 	 * @return
 	 */
 	public int getTutImageNum(){
@@ -249,7 +249,7 @@ public class ClapperRailView extends GameView{
 		g.drawString(toDrawString, GameScreen.CR_SCREEN_WIDTH/3+240, 0+ClapperRailGameState.SCORE_FONT_SIZE);
 	}
 	
-	/**@author 
+	/**@author Derek
 	 * @param BackgroundX
 	 */
 	public void updateBackground(int backgroundY) {
@@ -268,7 +268,7 @@ public class ClapperRailView extends GameView{
 		this.backgroundY = backgroundY;
 	}
 	
-	/**@author 
+	/**@author Derek
 	 * @return
 	 */
 	public int getBackgroundY(){
