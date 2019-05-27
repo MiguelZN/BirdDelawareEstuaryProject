@@ -87,7 +87,8 @@ public class ClapperRailGameState extends GameState {
 	
 	
 	
-	/*
+	/** @author Derek
+	 *  @param
 	 * Every object on the screen, (the bird, and the platforms)
 	 * must move down at a constant rate to simulate you rising.
 	 * 
@@ -138,6 +139,10 @@ public class ClapperRailGameState extends GameState {
 		}
 	}
 	
+	/** @author Derek
+	 *  @param
+	 *  
+	 */
 	public void handleLeftRightMovement(){
 		int x = CR.getLeftRightState();
 		switch(x){
@@ -198,30 +203,12 @@ public class ClapperRailGameState extends GameState {
 		return output;
 	}
 
-	public void checkOnPlatform() {
-		this.addPlatforms();
-		
-		System.out.println(platforms.size());
-
-		Iterator<Platform> plat_it = platforms.iterator();
-		while (plat_it.hasNext()) {
-			Platform p = plat_it.next();
-			System.out.println(this.current_platform.getPosition());
-
-			if (this.CR.getIsFalling()) {
-				if (p.touchPlatform(this.CR.getPosition())) {
-					this.CR.setIsFalling(false);
-					this.CR.setOnPlatform(true);
-				}
-			} else if (this.CR.getOnPlatform()) {
-				if (!p.touchPlatform(this.CR.getPosition())) {
-					this.CR.setOnPlatform(false);
-					this.CR.setIsFalling(true);
-				}
-			}
-		}
-	}
 	
+	/** @author Jake/Miguel
+	 *  @param 
+	 *  Iterates through platforms arraylist checking if the current ClapperRail position is touching
+	 *  a platform. 
+	 */
 	public void checkOnPlatform2() {
 		//System.out.println(platforms.size());
 
@@ -246,6 +233,12 @@ public class ClapperRailGameState extends GameState {
 
 		}
 	}
+	
+	/** @author Derek
+	 *  @param
+	 *  Iterates through platforms and checks if the current ClapperRail position is touching any
+	 *  existent question box on the platform
+	 */
 	public void checkQuestions(){
 		Collection<Platform> filtered = platforms.stream().filter(p -> p.getQuestion()!=null).collect(Collectors.toList());
 		Iterator<Platform> plat_it = filtered.iterator();
@@ -265,8 +258,11 @@ public class ClapperRailGameState extends GameState {
 	public boolean getWaitingOnQuestion(){
 		return this.waitingOnQuestion;
 	}
-	/*
-	 * TODO: will call a method in controller, and get data back from it.
+
+
+	/** @author Derek
+	 *  @param
+	 *  
 	 */
 	public void invokeRandomQuestion(){
 		controller.setClapperNotMoving();
@@ -278,6 +274,12 @@ public class ClapperRailGameState extends GameState {
 		setWaitingOnQuestion(false);
 	}
 	
+	
+	/** @author Jake
+	 *  @param
+	 *  Iterates through the platforms and checks if the current ClapperRail position is touching any
+	 *  existent Food on the platform
+	 */
 	public void checkFood() {
 		Collection<Platform> filtered = platforms.stream().filter(p -> p.getFood()!=null).collect(Collectors.toList());
 		Iterator<Platform> plat_it = filtered.iterator();
@@ -292,7 +294,11 @@ public class ClapperRailGameState extends GameState {
 			
 		}
 	}
-	
+	/** @author Jake
+	 *  @param
+	 *  Iterates through the platforms and checks if the current ClapperRail position is touching any
+	 *  existent Material on the platform
+	 */
 	public void checkMaterials() {
 		Collection<Platform> filtered = platforms.stream().filter(p -> p.getMaterial()!=null).collect(Collectors.toList());
 		Iterator<Platform> plat_it = filtered.iterator();
@@ -309,6 +315,11 @@ public class ClapperRailGameState extends GameState {
 		}
 	}
 	
+	/** @author Jake
+	 *  @param
+	 *  Checks to see if current ClapperRail position is less than or equal to Flood position.
+	 *  If so, decrements the ClapperRail energy. If not, increases Flood. 
+	 */
 	public void checkFlood() {
 		if(CR.getPosition().getY() >= ClapperRailGameState.GROUND-5){
 			if(flood.getPosition().getY() <= (int)((1080/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)){
@@ -327,6 +338,11 @@ public class ClapperRailGameState extends GameState {
 	public boolean getStart(){
 		return this.start;
 	}
+	
+	/** @author Derek
+	 *  @param
+	 *  Adds platforms to the game state.
+	 */
 	public void addPlatforms() {
 			this.platforms.add(new Platform((int)((1620d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), 0));
 			this.platforms.add(new Platform((int)((180d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), (int)((768d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));

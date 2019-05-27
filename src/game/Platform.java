@@ -43,7 +43,12 @@ public class Platform extends GameObject {
 	public int getHeight() {
 		return PLATFORM_HEIGHT;
 	}
-	/* 
+	
+	/**@author Derek 
+	 * @param pos
+	 * @param vy
+	 * @return
+	 *
 	 * the only collision we want is the collision during falling,
 	 * and we would like to check if the next tick's movement will bring it into collision
 	 * with the platform.
@@ -57,6 +62,13 @@ public class Platform extends GameObject {
 		}
 		return false;
 	}
+	
+	/**@author Jake 
+	 * @param pos
+	 * @return
+	 * Checks if the Y of the given Position is within 1 pixel of the platform. Also checks if the X of the given
+	 * Position is within the width of the platform.
+	 */
 	public boolean touchPlatform(Position pos) {
 		if(pos.getY() == this.getPosition().getY() || pos.getY() == this.getPosition().getY()+1) {
 			if((pos.getX() >= this.getPosition().getX()) 
@@ -86,7 +98,9 @@ public class Platform extends GameObject {
 	}
 	
 	
-	/*
+	/**@author Derek 
+	 * @param 
+	 *
 	 * Resets the position of the platform,
 	 * and also controls the random chance for materials 
 	 * and food to be added.
@@ -124,6 +138,10 @@ public class Platform extends GameObject {
 	}
 
 
+	/**@author Derek 
+	 * @param 
+	 * Adds Food to the platform
+	 */
 	public Food addFood() {
 //		f = new Food(this.getPosition().getX()+(Food.CRAB_SIZE/2),this.getPosition().getY()-Food.CRAB_SIZE,0);
 		/*
@@ -137,6 +155,11 @@ public class Platform extends GameObject {
 	public Material getMaterial(){
 		return m;
 	}
+	
+	/**@author Derek 
+	 * @param 
+	 * Adds a Material to the platform
+	 */
 	public Material addMaterial(){
 //		m = new Material(this.getPosition().getX()+(Material.MAT_SIZE),this.getPosition().getY()-(Material.MAT_SIZE));
 		/*
@@ -149,6 +172,10 @@ public class Platform extends GameObject {
 	public ClapperQuestion getQuestion(){
 		return q;
 	}
+	/**@author Derek 
+	 * @param 
+	 * Adds a ClapperQuestion to the platform
+	 */
 	public ClapperQuestion addQuestion(){
 		q = new ClapperQuestion(this.getPosition().getX()+(ClapperQuestion.BLOCK_SIZE/2),-1*(ClapperQuestion.BLOCK_SIZE));
 		return q;

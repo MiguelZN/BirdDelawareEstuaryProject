@@ -25,9 +25,11 @@ public class Food extends GameObject {
 	}
 	
 	
-	/**@author 
+	/**@author Jake
 	 * @param p
 	 * @return
+	 * Checks if the Y of the given Position is within the radius of the Food object. 
+	 * Also checks if the X of the given Position is within the radius of the Food object.
 	 */
 	public boolean touchFood(Position p) {
 		if((p.getX() >= this.getPosition().getX()-RADIUS)&&(p.getX() <= this.getPosition().getX()+RADIUS) &&

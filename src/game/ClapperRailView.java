@@ -140,8 +140,9 @@ public class ClapperRailView extends GameView{
 
 
 	
-	/**@author 
+	/**@author Jake
 	 * @param g
+	 * Draw the ClapperRail bird onto screen.
 	 */
 	public void drawBird(Graphics g){
 		Position posn = CL.getPosition();
@@ -185,8 +186,9 @@ public class ClapperRailView extends GameView{
 		}
 		
 	}
-	/**@author
+	/**@author Derek
 	 * @param g
+	 * Draw the tutorial 
 	 */
 	public void drawTutorialImage(Graphics g){
 		switch(tutorialImageNum){
@@ -231,8 +233,9 @@ public class ClapperRailView extends GameView{
 	public int getTutImageNum(){
 		return this.tutorialImageNum;
 	}
-	/**@author
+	/**@author Derek
 	 * @param g
+	 * Draw the current score in the upper middle of the screen
 	 */
 	public void drawScore(Graphics g){
 		g.setColor(Color.BLACK);
@@ -273,8 +276,9 @@ public class ClapperRailView extends GameView{
 	}
 
 
-	/**@author 
+	/**@author Jake/Derek
 	 * @param g
+	 * Draw energy and its respective number/percentage bar in the top left corner of the screen
 	 */
 	public void drawEnergy(Graphics g){
 		g.setColor(Color.BLACK);
@@ -300,8 +304,9 @@ public class ClapperRailView extends GameView{
 		g.fillRect((GameScreen.CR_SCREEN_WIDTH/4)-270,15,(int)(mult*200.0), 25);
 	}
 	
-	/**@author 
+	/**@author Jake
 	 * @param g
+	 * Draw the Flood from the bottom of the screen
 	 */
 	public void drawFlood(Graphics g) {
 		g.setColor(Color.BLUE);
@@ -309,8 +314,9 @@ public class ClapperRailView extends GameView{
 //		g.fillRect(flood.getPosition().getX(), flood.getPosition().getY(), GameScreen.CR_SCREEN_WIDTH, Flood.FLOOD_HEIGHT);
 	}
 	
-	/**@author 
+	/**@author Derek
 	 * @param g
+	 * Draw the current amount of materials and material icon in the top right corner of the screen
 	 */
 	public void drawMaterialCount(Graphics g) {
 		g.setColor(Color.BLACK);
@@ -324,8 +330,9 @@ public class ClapperRailView extends GameView{
 		g.drawString(toDrawString, (int)((1800d/1920d)*GameScreen.PLAY_SCREEN_WIDTH)-(string_width), 0+ClapperRailGameState.ENERGY_FONT_SIZE);
 	}
 	
-	/**@author 
+	/**@author Jake
 	 * @param g
+	 * Iterates through the Platforms array and calls drawPlatform on each one
 	 */
 	public void drawPlatforms(Graphics g) {
 		for(Platform p:platforms) {
@@ -333,9 +340,10 @@ public class ClapperRailView extends GameView{
 		}
 	}
 	
-	/**@author 
+	/**@author Jake
 	 * @param p
 	 * @param g
+	 * Obtains the position of the given platform and draws a platform image accordingly on the screen
 	 */
 	public void drawPlatform(Platform p, Graphics g) {
 		Position pos = p.getPosition();
@@ -343,8 +351,9 @@ public class ClapperRailView extends GameView{
 		//System.out.println("DREW A PLATFORM");
 	}
 	
-	/**@author 
+	/**@author Jake
 	 * @param g
+	 * Iterates through the Food array and calls drawCrab on each one
 	 */
 	public void drawFood(Graphics g) {
 		for(Food f:food) {
@@ -352,17 +361,19 @@ public class ClapperRailView extends GameView{
 		}
 	}
 	
-	/**@author
+	/**@author Jake
 	 * @param f
 	 * @param g
+	 * Obtains given Food position and draws a crab image accordingly on the screen
 	 */
 	public void drawCrab(Food f, Graphics g) {
 		Position pos = f.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.CRAB), pos.getX(),pos.getY(),Food.CRAB_SIZE,Food.CRAB_SIZE,null,this);
 	}
 	
-	/**@author 
+	/**@author Jake
 	 * @param g
+	 * Iterates through the Material array and calls drawStick on each one
 	 */
 	public void drawMaterials(Graphics g) {
 		for(Material m:materials) {
@@ -370,26 +381,29 @@ public class ClapperRailView extends GameView{
 		}
 	}
 	
-	/**@author 
+	/**@author Derek
 	 * @param g
+	 * Iterates through the ClapperQuestion array and calls drawQuestionBlock on each one
 	 */
 	public void drawQuestionBlocks(Graphics g){
 		for(ClapperQuestion q : questionBlocks){
 			drawQuestionBlock(q,g);
 		}
 	}
-	/**@author 
+	/**@author Derek
 	 * @param cq
 	 * @param g
+	 * Obtains given ClapperQuestion position and draws a question block image accordingly on the screen
 	 */
 	public void drawQuestionBlock(ClapperQuestion cq, Graphics g){
 		Position pos = cq.getPosition();
 		g.drawImage((Image) objectMap.get(ClapperRailAsset.QUESTIONBLOCK), pos.getX(),pos.getY(),ClapperQuestion.BLOCK_SIZE,ClapperQuestion.BLOCK_SIZE,null,this);
 	}
 	
-	/**@author
+	/**@author Jake
 	 * @param m
 	 * @param g
+	 * Obtains given Material position and draws a stick image accordingly on the screen
 	 */
 	public void drawStick(Material m, Graphics g) {
 		Position pos = m.getPosition();

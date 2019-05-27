@@ -49,21 +49,25 @@ public class ClapperRail extends Bird{
 		platforms = null;
 	}
 	
-	/**
-	 * 
+	/** @author Derek
+	 *  @param
+	 *  Calls move with the negative x-velocity of ClapperRail  
 	 */
 	public void moveLeft() {
 		move(-1*this.getVelocity().getXSpeed(),0);
 	}
 	
-	/**
-	 * 
+	/** @author Derek
+	 *  @param
+	 *  Calls move with the x-velocity of ClapperRail
 	 */
 	public void moveRight() {
 		move(this.getVelocity().getXSpeed(),0);
 	}
 	
-	/*
+	/** @author Derek
+	 *  @param vx
+	 *  @param vy
 	 * Called once per ontick, moves the bird down, in a gravity-like way.
 	 * checks to make sure bird stays on screen.
 	 * 
@@ -97,6 +101,10 @@ public class ClapperRail extends Bird{
 		this.setPosition(new Position(newX,newY));
 	}
 	
+	/** @author Derek
+	 *  @param vy
+	 *  
+	 */
 	public Platform getCollidingWithPlatform(int vy){
 		for(Platform p : platforms){
 			Position pos = getPosition();
@@ -106,7 +114,9 @@ public class ClapperRail extends Bird{
 		return null;
 	}
 	
-	/*
+	/** @author Derek
+	 *  @param platforms 
+	 *
 	 * The clapper rail has its own on tick method,
 	 * as it has many things to handle on tick. (Gravity, among other things)
 	 * 
@@ -120,6 +130,10 @@ public class ClapperRail extends Bird{
 			handleCurrentJump();
 	}
 	
+	/** @author Derek
+	 *  @param
+	 *  
+	 */
 	public void handleCurrentFall(){
 		if(!colliding){
 			Platform p;
@@ -135,7 +149,9 @@ public class ClapperRail extends Bird{
 		}
 	}
 	
-	/*
+	/** @author Derek
+	 *  @param
+	 *  
 	 * This is essentially an accelerated jump that we are creating.
 	 * 0    1  2 3 4 5 6 7 8
 	 * -10 -9 -8 -7 -6
@@ -147,12 +163,18 @@ public class ClapperRail extends Bird{
 			jumpState=-1;
 		
 	}
+	/** @author Derek
+	 *  @param
+	 *  
+	 */
 	public int getScoreIncrease(){
 		double mult = ((double)getMaterialCount())/10.0;
 		return (int)(5.0*(1.0+mult));
 	}
-	/**
-	 * 
+	
+	/** @author Derek
+	 *  @param
+	 *  
 	 */
 	public void jump() {
 		if(jumpState==-1 && colliding)
@@ -181,6 +203,11 @@ public class ClapperRail extends Bird{
 		this.energy = e;
 	}
 	
+	/** @author Jake
+	 *  @param
+	 *  Adds energy constant to the ClapperRails current energy such that the new value is equal or less
+	 *  than the max energy constant
+	 */
 	public void gainEnergy() {
 		int newEnergy = this.energy + ENERGY_GAIN;
 		if(newEnergy > MAX_ENERGY) {
