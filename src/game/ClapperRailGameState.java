@@ -80,12 +80,7 @@ public class ClapperRailGameState extends GameState {
 	}
 
 
-<<<<<<< HEAD
-	/**@author Miguel
-=======
-	/**
-	 * @author Derek 
->>>>>>> 66683af67a482c57bf5890117bc7f9282513c628
+	 /* @author Derek 
 	 * @return
 	 * -returns the CR property (our clapper rail)
 	 */

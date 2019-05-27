@@ -1048,6 +1048,7 @@ public class BirdModelsTest {
 		assertTrue(getBackgroundX!=CRGS.getBackgroundX());
 		
 		
+		//Some methods fail automatically for some reason, not sure why, unable to test -Miguel
 //		CRGS.checkFlood();
 //		CRGS.checkFood();
 //		CRGS.checkMaterials();
