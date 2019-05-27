@@ -38,6 +38,7 @@ public abstract class WindowView extends JPanel{
 	 * into a hashmap as the values, each with a key that we know, and will use when drawing images frmo objects.
 	 */
 	/**
+	 * @author Derek Baum
 	 * @param relevent_res_path
 	 * @throws IOException
 	 */
@@ -66,7 +67,7 @@ public abstract class WindowView extends JPanel{
 	
 	//Returns an object (so either a BufferedImage or ImageIcon)
 	//public abstract Object loadImage(File f);
-	/**
+	/**@author Derek Baum
 	 * @param f
 	 * @return
 	 */

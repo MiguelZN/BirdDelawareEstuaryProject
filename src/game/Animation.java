@@ -16,6 +16,7 @@ public class Animation {
 	 * in our array.
 	 */
 	/**
+	 * @author Derek 
 	 * @param o
 	 * @param frameCount
 	 */
@@ -40,7 +41,7 @@ public class Animation {
 	 * then we would like to increment to the next frame of the animation every 
 	 * 10 times this is called.
 	 */
-	/**
+	/**@author Derek 
 	 * @return
 	 */
 	public BufferedImage currImage(){
@@ -54,6 +55,7 @@ public class Animation {
 	
 	//Given a frameIndex, this returns the Animation image corresponding to it (FOR FLOCKBIRD)
 	/**
+	 * @author Derek 
 	 * @param frameIndex
 	 * @return
 	 */
@@ -63,6 +65,7 @@ public class Animation {
 	}
 
 	/**
+	 * @author Derek 
 	 * -Increments the current frameIndex
 	 */
 	public void incrementIndex(){
@@ -70,6 +73,7 @@ public class Animation {
 	}
 	
 	/**
+	 * @author Derek 
 	 * @return this.frameCount
 	 */
 	public int getFrameCount() {
