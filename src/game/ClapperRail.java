@@ -39,6 +39,10 @@ public class ClapperRail extends Bird{
 
 	private ArrayList<Platform> platforms;
 	
+	//SCORE INCREASES
+	private int AMOUNT_OF_MATERIAL_FOR_BONUS = 10;
+	private double MATERIAL_MULTIPLIER = 5.0;
+	
 
 
 	/**
@@ -83,12 +87,7 @@ public class ClapperRail extends Bird{
 			colliding = false;
 		}else{
 			newY = ClapperRailGameState.GROUND;
-//			if(fallState > 0) {
-//				this.energy-= ENERGY_LOSS;
-//				if(this.energy <= 0) {
-//					this.energy = 0;
-//				}
-//			}
+
 			colliding = true;
 			fallState=0;
 			jump();
@@ -148,8 +147,10 @@ public class ClapperRail extends Bird{
 		
 	}
 	public int getScoreIncrease(){
-		double mult = ((double)getMaterialCount())/10.0;
-		return (int)(5.0*(1.0+mult));
+		double mult = ((double)getMaterialCount())/AMOUNT_OF_MATERIAL_FOR_BONUS;
+		
+		double standard_multi = 1.0; //if the user does not get enough material, the standard multiplier is 1.0
+		return (int)(MATERIAL_MULTIPLIER*(standard_multi+mult));
 	}
 	/**
 	 * 
@@ -167,11 +168,6 @@ public class ClapperRail extends Bird{
 	public void setLeftRightState(int leftRightState) {
 		this.leftRightState = leftRightState;
 	}
-//	public void keepFallingUntilPos(Position p, Size s) {
-//		if(this.getPosition().getY())
-//	}
-
-	
 	
 	public int getEnergy() {
 		return energy;

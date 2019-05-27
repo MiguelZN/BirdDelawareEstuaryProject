@@ -19,12 +19,17 @@ import java.util.stream.Collectors;
  * -keeps track of the data for the ClapperRail mini-game
  */
 public class ClapperRailGameState extends GameState {
+	//Derek's height,width are used as RATIO multipliers to achieve the same ratio/scaled down version for ALL montiors/laptops
+	//It takes how it looks on derek's laptop and we multiply that ratio by user's laptop/monitor dimensions making the clapperrail game look
+	//exactly as how it does on Derek's laptop
+	static double dereks_height = 1080.0;
+	static double dereks_width = 1920.0;
+	
+	
 	private ClapperRail CR;
 	private ArrayList<Platform> platforms;
 	private Flood flood;
-	static double dereks_height = 1080.0;
-	static double dereks_width = 1920.0;
-	static int GROUND = (int)((974d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+	static int GROUND = (int)((974d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	static final String ENERGY_TEXT = "Health: ";
 	static final String SCORE_TEXT = "Score: ";
 	static final String MATERIALS_TEXT = "x ";
@@ -45,8 +50,8 @@ public class ClapperRailGameState extends GameState {
 	//the jump height is 300, the ground position of the bird is 494, 
 	//494-300=194. That is what this stems from. Becuase if you are at the bottom of the screen jumping, we want 
 	//the screen to not move, but any higher, and we want it to move.
-//	(int)((974d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)
-	private static final int MOVE_SCREEN_HEIGHT = (int)((568/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+//	(int)((974d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)
+	private static final int MOVE_SCREEN_HEIGHT = (int)((568/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
 
 	// GAME_TIME: (NOTE: ALL TIMING IS DONE IN MILLISECONDS)
@@ -62,10 +67,10 @@ public class ClapperRailGameState extends GameState {
 	public ClapperRailGameState(Controller controller) {
 		super(controller);
 		Dimension d  = Toolkit.getDefaultToolkit().getScreenSize();
-		GROUND=((int)d.getHeight())-(int)((106/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+		GROUND=((int)d.getHeight())-(int)((106/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 		this.CR = new ClapperRail();
 		this.platforms = new ArrayList<>();
-		int flood_y = (int)((1180d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT);
+		int flood_y = (int)((1180d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 		this.flood = new Flood(0,flood_y);
 
 		
@@ -103,7 +108,7 @@ public class ClapperRailGameState extends GameState {
 			p.move();
 		}
 		flood.move();
-		CR.move(0, (int)((5/1080d)*GameScreen.PLAY_SCREEN_HEIGHT));
+		CR.move(0, (int)((5/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT));
 		CR.setScore(CR.getScore()+CR.getScoreIncrease());
 		controller.moveClapperBackground(5);
 	}
@@ -311,10 +316,10 @@ public class ClapperRailGameState extends GameState {
 	
 	public void checkFlood() {
 		if(CR.getPosition().getY() >= ClapperRailGameState.GROUND-5){
-			if(flood.getPosition().getY() <= (int)((1080/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)){
+			if(flood.getPosition().getY() <= (int)((1080/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)){
 				CR.setEnergy(CR.getEnergy()-ClapperRail.ENERGY_LOSS);
 			}
-			if(flood.getPosition().getY() > (int)((880d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)){
+			if(flood.getPosition().getY() > (int)((880d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)){
 				flood.increaseFlood();
 			}
 		}	
@@ -328,10 +333,10 @@ public class ClapperRailGameState extends GameState {
 		return this.start;
 	}
 	public void addPlatforms() {
-			this.platforms.add(new Platform((int)((1620d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), 0));
-			this.platforms.add(new Platform((int)((180d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), (int)((768d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
-			this.platforms.add(new Platform((int)((540d/1920d)*GameScreen.PLAY_SCREEN_WIDTH), (int)((576d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
-			this.platforms.add(new Platform((int)((900d/1920d)*GameScreen.PLAY_SCREEN_WIDTH),(int)((384d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
-			this.platforms.add(new Platform((int)((1260d/1920d)*GameScreen.PLAY_SCREEN_WIDTH),(int)((192d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
+			this.platforms.add(new Platform((int)((1620d/dereks_width)*GameScreen.PLAY_SCREEN_WIDTH), 0));
+			this.platforms.add(new Platform((int)((180d/dereks_width)*GameScreen.PLAY_SCREEN_WIDTH), (int)((768d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)));
+			this.platforms.add(new Platform((int)((540d/dereks_width)*GameScreen.PLAY_SCREEN_WIDTH), (int)((576d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)));
+			this.platforms.add(new Platform((int)((900d/dereks_width)*GameScreen.PLAY_SCREEN_WIDTH),(int)((384d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)));
+			this.platforms.add(new Platform((int)((1260d/dereks_width)*GameScreen.PLAY_SCREEN_WIDTH),(int)((192d/dereks_height)*GameScreen.PLAY_SCREEN_HEIGHT)));
 	}
 }

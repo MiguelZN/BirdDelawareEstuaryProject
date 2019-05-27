@@ -205,7 +205,10 @@ BirdType</string>
 -leftRightState:int
 -gameOver:boolean
 
--platforms: ArrayList&lt;Platform&gt;</string>
+-platforms: ArrayList&lt;Platform&gt;
+
+-MATERIAL_MULTIPLIER:double
+-AMOUNT_OF_MATERIAL_FOR_BONUS:int</string>
      </void>
     </void>
     <void property="methods">
@@ -612,7 +615,7 @@ ClapperRailAsset</string>
     </void>
     <void property="name">
      <void property="text">
-      <string>DynamicGameObject</string>
+      <string>&lt;i&gt;DynamicGameObject&lt;/i&gt;</string>
      </void>
     </void>
    </object>
@@ -1195,7 +1198,7 @@ GameMode</string>
     </void>
     <void property="name">
      <void property="text">
-      <string>GameState</string>
+      <string>&lt;i&gt;GameState&lt;/i&gt;</string>
      </void>
     </void>
    </object>
@@ -1328,7 +1331,7 @@ GameMode</string>
     </void>
     <void property="name">
      <void property="text">
-      <string>GameView</string>
+      <string>&lt;i&gt;GameView&lt;/i&gt;</string>
      </void>
     </void>
    </object>
@@ -1365,7 +1368,7 @@ GameMode</string>
     <void property="methods">
      <void property="text">
       <string>+HitBox(x:int, y:int, width:int, height:int)
-+HitBox(p:Position, width:int, height:int)
++HitBox(p:Position, s:Size)
 +setPosition(p:Position):void
 +updateRectangleHitBox():void
 +changeWidth(width:int):void
@@ -1516,16 +1519,13 @@ GameMode</string>
     <void property="attributes">
      <void property="text">
       <string>-map_image:BufferedImage
--birdPosition:int
 +&lt;u&gt;LEFT_MARGIN&lt;/u&gt;:int
 +&lt;u&gt;BOTTOM_MARGIN&lt;/u&gt;:int</string>
      </void>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+MiniMap(p:Position, s:Size)
-+getBirdPosition():int
-+setBirdPosition(pos:int):void</string>
+      <string>+MiniMap(p:Position, s:Size)</string>
      </void>
     </void>
     <void property="name">
@@ -1569,7 +1569,7 @@ GameMode</string>
     </void>
     <void property="name">
      <void property="text">
-      <string>Model</string>
+      <string>&lt;i&gt;Model&lt;/i&gt;</string>
      </void>
     </void>
    </object>
@@ -2306,9 +2306,7 @@ RedKnotAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RKTutorialAction(t:Thread, p:Position, s:Size, RKA:RedKnotAsset)
-+RKTutorialAction(r:Runnable, p:Position, s:Size, RKA:RedKnotAsset)
-</string>
+      <string>+RKTutorialAction(t:Thread, p:Position, s:Size, RKA:RedKnotAsset)</string>
      </void>
     </void>
     <void property="name">
@@ -2512,7 +2510,6 @@ TitleAsset</string>
     <void property="methods">
      <void property="text">
       <string>+TutorialAction(t:Thread, p:Position, s:Size)
-+TutorialAction(r:Runnable, p:Position, s:Size)
 +getPosition():Position
 +setPosition(p:Position):void</string>
      </void>
@@ -2647,7 +2644,7 @@ TitleAsset</string>
     </void>
     <void property="name">
      <void property="text">
-      <string>WindowView</string>
+      <string>&lt;i&gt;WindowView&lt;/i&gt;</string>
      </void>
     </void>
    </object>
@@ -3449,6 +3446,36 @@ TitleAsset</string>
    </object>
    <object idref="ClassNode10"/>
    <object idref="ClassNode47"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+   </object>
+   <object idref="ClassNode22"/>
+   <object idref="ClassNode48"/>
+  </void>
+  <void property="minBounds">
+   <object class="java.awt.geom.Rectangle2D$Double" id="Rectangle2D$Double6">
+    <void class="java.awt.geom.Rectangle2D$Double" method="getField">
+     <string>width</string>
+     <void method="set">
+      <object idref="Rectangle2D$Double6"/>
+      <double>6335.676759431466</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Rectangle2D$Double" method="getField">
+     <string>height</string>
+     <void method="set">
+      <object idref="Rectangle2D$Double6"/>
+      <double>4227.084337933182</double>
+     </void>
+    </void>
+   </object>
   </void>
  </object>
 </java>

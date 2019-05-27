@@ -20,6 +20,10 @@ import javax.swing.JRadioButton;
  * -keeps track of the gamestate data of the RedKnot minigame
  */
 public class RedKnotGameState extends GameState {
+	//miguels_height,width are used as ratios to achieve the same look as it does on Miguel's laptop for ALL laptops/monitor dimensions
+	static double miguels_width = 1000.0;
+	static double miguels_height = 600.0;
+	
 	private RedKnot RK;
 	private int score;
 	
@@ -60,7 +64,7 @@ public class RedKnotGameState extends GameState {
 	private long collisionTime = System.currentTimeMillis();
 	
 	//MAPSIZE
-	static final int MAP_SIZE = (int)((150/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
+	static final int MAP_SIZE = (int)((150/miguels_width)*GameScreen.PLAY_SCREEN_WIDTH);
 	
 	/*Score final constants*/
 	static final int COLLECTED_BIRD_SCORE = 200;
@@ -69,8 +73,8 @@ public class RedKnotGameState extends GameState {
 	static final int AMOUNT_OF_BIRDS_ADDED = 25;
 	
 	//QUESTION WINDOWS
-	static int QUESTIONBOX_WIDTH = (int)((300/1000.0)*GameScreen.PLAY_SCREEN_WIDTH);
-	static int QUESTIONBOX_HEIGHT = (int)((150/600.0)*GameScreen.PLAY_SCREEN_HEIGHT);
+	static int QUESTIONBOX_WIDTH = (int)((300/miguels_width)*GameScreen.PLAY_SCREEN_WIDTH);
+	static int QUESTIONBOX_HEIGHT = (int)((150/miguels_height)*GameScreen.PLAY_SCREEN_HEIGHT);
 	
 	
 	//Tutorial
@@ -665,28 +669,28 @@ public class RedKnotGameState extends GameState {
 	
 	/*Getters*/
 	
-	/**
+	/**@author Miguel
 	 * @return
 	 */
 	public ArrayList<Cloud> getClouds(){
 		return this.clouds;
 	}
 	
-	/**
+	/**@author Miguel
 	 * @return
 	 */
 	public int countBirds() {
 		return flock.size();
 	}
 	
-	/**
+	/**@author Miguel
 	 * @return
 	 */
 	public RedKnot getRK() {
 		return RK;
 	}
 
-	/**
+	/**@author Miguel
 	 * @return
 	 */
 	public ArrayList<FlockBird> getFlock() {
@@ -709,19 +713,19 @@ public class RedKnotGameState extends GameState {
 		this.debug_mode = b;
 	}
 	
-	/**
+	/**@author Miguel
 	 * @return
 	 */
 	public int getScore(){
 		return score;
 	}
-	/**
+	/**@author Miguel
 	 * @param x
 	 */
 	public void setScore(int x){
 		score=x;
 	}
-	/**
+	/**@author Miguel
 	 * @param x
 	 */
 	public void incrementScore(int x){
@@ -738,16 +742,25 @@ public class RedKnotGameState extends GameState {
 	
 	/**@author Miguel
 	 * @param new_clouds
+	 * -Sets the 'clouds' property to the inputted cloud ArrayList
 	 */
 	public void setClouds(ArrayList<Cloud> new_clouds) {
 		this.clouds = new_clouds;
 	}
 
+	/**@author Miguel
+	 * @return
+	 * -retrieves the current_TA property
+	 */
 	public RKTutorialAction getCurrent_TA() {
 		System.out.println("CURRENTTA:"+current_TA);
 		return current_TA;
 	}
 
+	/**@author Miguel
+	 * @param current_TA
+	 * -Sets the current RKTutorialAction property
+	 */
 	public void setCurrent_RKTA(RKTutorialAction current_TA) {
 		this.current_TA = current_TA;
 	}
