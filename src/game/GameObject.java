@@ -73,6 +73,12 @@ public class GameObject {
 		this.setPosition(new Position(p.getX(),newY));
 	}
 	
+	/**@author Jake
+	 * @param p
+	 * @return
+	 * Checks if the Y of the given Position is within the radius of the object. 
+	 * Also checks if the X of the given Position is within the radius of the object.
+	 */
 	public boolean touchObject(Position p, int radius) {
 		if((p.getX() >= this.getPosition().getX()-radius)&&(p.getX() <= this.getPosition().getX()+radius) &&
 				(p.getY() >= this.getPosition().getY()-radius)&&(p.getY() <= this.getPosition().getY()+radius)) {

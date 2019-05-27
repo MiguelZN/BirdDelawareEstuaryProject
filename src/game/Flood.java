@@ -27,8 +27,9 @@ public class Flood extends GameObject {
 		this.setPosition(new Position(p.getX(),newY));
 	}
 	
-	/**@author Derek
-	 * 
+	/**@author Jake
+	 * @param
+	 * decrease the Y position of the flood
 	 */
 	public void increaseFlood() {
 		Position pos = this.getPosition();
@@ -40,9 +41,10 @@ public class Flood extends GameObject {
 		this.setPosition(new Position(pos.getX(),pos.getY()-(int)((200d/1080d)*GameScreen.PLAY_SCREEN_HEIGHT)));
 	}
 	
-	/**@author Derek
+	/**@author Jake
 	 * @param pos
 	 * @return
+	 * Checks if the Y of the given Position is greater than or equal to the Flood
 	 */
 	public boolean touchingFlood(Position pos) {
 		return pos.getY() >= this.getPosition().getY();
