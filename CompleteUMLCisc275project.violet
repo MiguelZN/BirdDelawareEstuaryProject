@@ -13,11 +13,11 @@
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Animation(o: Object, frameCount: int)
-+currImage(): BufferedImage
-+currImage(frameIndex: int): BufferedImage
-+incrementIndex(): void
-+getFrameCount(): int</string>
+      <string>+Animation(o: Object, frameCount: int){}
++currImage(){}: BufferedImage
++currImage(frameIndex: int){}: BufferedImage
++incrementIndex(){}: void
++getFrameCount(){}: int</string>
      </void>
     </void>
     <void property="name">
@@ -56,11 +56,11 @@
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Bird(p:Position,s:Size,v:Velocity)
-+getSize():Size
-+ move(vx:int, vy:int):void
-+void(v:Velocity):void
-+move():void</string>
+      <string>+Bird(p:Position,s:Size,v:Velocity){}
++getSize(){}:Size
++ move(vx:int, vy:int){}:void
++void(v:Velocity){}:void
++move(){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -145,8 +145,8 @@ BirdType</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+ClapperQuestion(x:int,y:int)
-+touchBlock(p:Position):boolean</string>
+      <string>+ClapperQuestion(x:int,y:int){}
++touchBlock(p:Position){}:boolean</string>
      </void>
     </void>
     <void property="name">
@@ -213,34 +213,34 @@ BirdType</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+ClapperRail()
-+moveLeft():void
-+moveRight():void
-+move(vx:int, vy:int):void
-+getCollidingWithPlatform:Platform
-+ontick(platforms:ArrayList&lt;Platform&gt;):void
-+handleCurrentFall():void
-+handleCurrentJump():void
-+getScoreIncrease():int
-+jump():void
-+getLeftRightState():int
-+setLeftRightState(leftRightState:int):void
-+getEnergy():int
-+setEnergy(e:int):void
-+gainEnergy():void
-+getIsJumping():boolean
-+setIsJumping(b:boolean):void
-+getIsFalling():boolean
-+setIsFalling(b:boolean):void
-+getOnPlatform():boolean
-+setOnPlatform(b:boolean):void
-+setColliding(b:boolean):void
-+getColliding():boolean
-+getJumpState():int
-+getMaterialCount():int
-+setMaterialCount(count:int):void
-+getScore():int
-+setScore(x:int):void</string>
+      <string>+ClapperRail(){}
++moveLeft(){}:void
++moveRight(){}:void
++move(vx:int, vy:int){}:void
++getCollidingWithPlatform(){}:Platform
++ontick(platforms:ArrayList&lt;Platform&gt;){}:void
++handleCurrentFall(){}:void
++handleCurrentJump(){}:void
++getScoreIncrease(){}:int
++jump(){}:void
++getLeftRightState(){}:int
++setLeftRightState(leftRightState:int){}:void
++getEnergy(){}:int
++setEnergy(e:int){}:void
++gainEnergy(){}:void
++getIsJumping(){}:boolean
++setIsJumping(b:boolean){}:void
++getIsFalling(){}:boolean
++setIsFalling(b:boolean){}:void
++getOnPlatform(){}:boolean
++setOnPlatform(b:boolean){}:void
++setColliding(b:boolean){}:void
++getColliding(){}:boolean
++getJumpState(){}:int
++getMaterialCount(){}:int
++setMaterialCount(count:int){}:void
++getScore(){}:int
++setScore(x:int){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -299,7 +299,7 @@ BirdType</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+ClapperRailAsset(s:String)</string>
+      <string>+ClapperRailAsset(s:String){}</string>
      </void>
     </void>
     <void property="name">
@@ -356,26 +356,27 @@ ClapperRailAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+ClapperRailGameState(controller:Controller)
-+getCR():ClapperRail
-+objectShift():void
-+ontick():void
-+handleLeftRightMovement():void
-+getBackgroundX():int
-+tutorialUpdate():void
-+moveBackground():void
-+getUpdateableGameObjects():ArrayList&lt;GameObject&gt;
-+checkOnPlatform():void
-+checkOnPlatform2():void
-+checkQuestions():void
-+setWaitingOnQuestion(b:boolean):void
-+getWaitingOnQuestion():boolean
-+invokeRandomQuestion():void
-+checkFood():void
-+checkMaterials():void
-+checkFlood():void
-+setStart(b:boolean):void
-+addPlatforms():void</string>
+      <string>+ClapperRailGameState(controller:Controller){}
++getCR(){}:ClapperRail
++objectShift(){}:void
++ontick(){}:void
++handleLeftRightMovement(){}:void
++getBackgroundX(){}:int
++tutorialUpdate(){}:void
++moveBackground(){}:void
++getUpdateableGameObjects(){}:ArrayList&lt;GameObject&gt;
++checkOnPlatform(){}:void
++checkOnPlatform2(){}:void
++checkQuestions(){}:void
++setWaitingOnQuestion(b:boolean){}:void
++getWaitingOnQuestion(){}:boolean
++invokeRandomQuestion(){}:void
++checkFood(){}:void
++checkMaterials(){}:void
++checkFlood(){}:void
++setStart(b:boolean){}:void
++addPlatforms(){}:void
++getFlood(){}:Flood</string>
      </void>
     </void>
     <void property="name">
@@ -426,32 +427,32 @@ ClapperRailAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+ClapperRailView()
-+paintComponent(g:Graphics):void
-+fnameMapCreate():void
-+drawBird(g:Graphics):void
-+scrollImage(g:Graphics,background1:Object, background2:Object):void
-+update(gameObjects:ArrayList&lt;GameObject&gt;):void
-+drawTutorialImage(g:Graphics):void
-+setTutImageNum(x:int):void
-+getTutImageNum():int
-+drawScore(g:Graphics):void
-+updateBackground(backgroundY:int):void
-+getBackgroundY():int
-+drawEnergy(g:Graphics):void
-+drawFlood(g:Graphics):void
-+drawMaterialCount(g:Graphics):void
-+drawPlatforms(g:Graphics):void
-+drawPlatform(p:Platform, g:Graphics):void
-+drawFood(g:Graphics):void
-+drawCrab(f:Food, g:Graphics):void
-+drawMaterials(g:Graphics):void
-+drawQuestionBlocks(g:Graphics):void
-+drawQuestionBlock(cq:ClapperQuestion, g:Graphics):void
-+drawStick(m:Material, g:Graphics):void
-+setTutorialMode(b:boolean):void
-+getTutorialMode():boolean
-+updateScore(x:int):void
+      <string>+ClapperRailView(){}
++paintComponent(g:Graphics){}:void
++fnameMapCreate(){}:void
++drawBird(g:Graphics){}:void
++scrollImage(g:Graphics,background1:Object, background2:Object){}:void
++update(gameObjects:ArrayList&lt;GameObject&gt;){}:void
++drawTutorialImage(g:Graphics){}:void
++setTutImageNum(x:int){}:void
++getTutImageNum(){}:int
++drawScore(g:Graphics){}:void
++updateBackground(backgroundY:int){}:void
++getBackgroundY(){}:int
++drawEnergy(g:Graphics){}:void
++drawFlood(g:Graphics){}:void
++drawMaterialCount(g:Graphics){}:void
++drawPlatforms(g:Graphics){}:void
++drawPlatform(p:Platform, g:Graphics){}:void
++drawFood(g:Graphics){}:void
++drawCrab(f:Food, g:Graphics){}:void
++drawMaterials(g:Graphics){}:void
++drawQuestionBlocks(g:Graphics){}:void
++drawQuestionBlock(cq:ClapperQuestion, g:Graphics){}:void
++drawStick(m:Material, g:Graphics){}:void
++setTutorialMode(b:boolean){}:void
++getTutorialMode(){}:boolean
++updateScore(x:int){}:void
 </string>
      </void>
     </void>
@@ -504,14 +505,14 @@ ClapperRailAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Cloud(x:int,y:int,width:int,height:int)
-+Cloud(p:Position,s:Size)
-+reSize():void
-+move():void
-+changeSpeed():void
-+resetCloud(x:int, min_y:int, max_y:int):void
-+checkIfOutOfBounds(x_bounds:int):boolean
-+spawnCloud(x:int, min_y:int, max_y:int):Cloud</string>
+      <string>+Cloud(x:int,y:int,width:int,height:int){}
++Cloud(p:Position,s:Size){}
++reSize(){}:void
++move(){}:void
++changeSpeed(){}:void
++resetCloud(x:int, min_y:int, max_y:int){}:void
++checkIfOutOfBounds(x_bounds:int){}:boolean
++spawnCloud(x:int, min_y:int, max_y:int){}:Cloud</string>
      </void>
     </void>
     <void property="name">
@@ -562,11 +563,11 @@ ClapperRailAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+GameScreen(width:int, height:int)
-+redraw():void
-+setPlaySize():void
-+getWidth:int
-+getHeight:int</string>
+      <string>+GameScreen(width:int, height:int){}
++redraw(){}:void
++setPlaySize(){}:void
++getWidth(){}:int
++getHeight(){}:int</string>
      </void>
     </void>
     <void property="name">
@@ -605,11 +606,11 @@ ClapperRailAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+DynamicGameObject(x:int, y:int, width:int, height:int, vx:int, vy:int)
-+DynamicGameObject(p:Position, s:Size, v:Velocity)
+      <string>+DynamicGameObject(x:int, y:int, width:int, height:int, vx:int, vy:int){}
++DynamicGameObject(p:Position, s:Size, v:Velocity){}
 +&lt;i&gt;move():void&lt;/i&gt;
-+getVelocity:Velocity
-+setVelocity(newVel:Velocity):void
++getVelocity(){}:Velocity
++setVelocity(newVel:Velocity){}:void
 </string>
      </void>
     </void>
@@ -654,25 +655,26 @@ ClapperRailAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Controller()
-+setUpTitleScreen():void
-+setUpRedKnotGame():void
-+setUpClapperRailGame():void
-+setUpTitleButtons():void
-+randomClapperQuestion():boolean
-+start(tickdelay:int):void
-+moveClapperBackground(ypix:int):void
-+loop():boolean
-+updateModel():void
-+changeView(mode:GameMode):void
-+keyTyped(e:KeyEvent):void
-+setCRTutMode(b:boolean):void
-+keyPressed(k:KeyEvent):void
-+keyReleased(e:KeyEvent):void
-+setClapperNotMoving():void
-+getView():WindowView
-+getScreen():GameScreen
-</string>
+      <string>+Controller(){}
++setUpTitleScreen(){}:void
++setUpRedKnotGame(){}:void
++setUpClapperRailGame(){}:void
++setUpTitleButtons(){}:void
++randomClapperQuestion(){}:boolean
++start(tickdelay:int){}:void
++moveClapperBackground(ypix:int){}:void
++loop(){}:boolean
++updateModel(){}:void
++changeView(mode:GameMode){}:void
++keyTyped(e:KeyEvent){}:void
++setCRTutMode(b:boolean){}:void
++keyPressed(k:KeyEvent){}:void
++keyReleased(e:KeyEvent){}:void
++setClapperNotMoving(){}:void
++getView(){}:WindowView
++getScreen(){}:GameScreen
++writeGameToFile(){}:void
++reloadGame(){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -771,8 +773,8 @@ Moveable</string>
    <object class="com.horstmann.violet.ClassNode" id="ClassNode12">
     <void property="methods">
      <void property="text">
-      <string>+EnemyCloud(p:Position, s:Size)
-+EnemyCloud(c:Cloud)</string>
+      <string>+EnemyCloud(p:Position, s:Size){}
++EnemyCloud(c:Cloud){}</string>
      </void>
     </void>
     <void property="name">
@@ -838,27 +840,27 @@ Moveable</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+FlockBird(p:Position,s:Size,v:Velocity, isCollected:boolean)
-+move():void
-+move(v:Velocity):void
-+&lt;u&gt;spawnNearbyFlockBird(RK:RedKnot, FB:FlockBird):FlockBird&lt;/u&gt;
-+&lt;u&gt;spawnRandomFlockBird(x:int, min_y:int, max_y:int):FlockBird&lt;/u&gt;
-+getIsCollected():boolean
-+incrementIndex():void
-+updateCurrImage():void
-+checkIfOutOfBoundsLeft():boolean
-+checkIfOutOfBoundsBottom():boolean
-+setGotLostInStorm(bool:boolean):void
-+newFlyUp():void
-+newFlyDown():void
-+flyDownStop():void
-+flyUpStop():void
-+getFlyState():int
-+setFlyState(x:int):void
-+FlyUp():void
-+FlyDown():void
-+getIsLostInStorm():boolean
-+setIsCollected(b:boolean):void</string>
+      <string>+FlockBird(p:Position,s:Size,v:Velocity, isCollected:boolean){}
++move(){}:void
++move(v:Velocity){}:void
++&lt;u&gt;spawnNearbyFlockBird(RK:RedKnot, FB:FlockBird){}:FlockBird&lt;/u&gt;
++&lt;u&gt;spawnRandomFlockBird(x:int, min_y:int, max_y:int){}:FlockBird&lt;/u&gt;
++getIsCollected(){}:boolean
++incrementIndex(){}:void
++updateCurrImage(){}:void
++checkIfOutOfBoundsLeft(){}:boolean
++checkIfOutOfBoundsBottom(){}:boolean
++setGotLostInStorm(bool:boolean){}:void
++newFlyUp(){}:void
++newFlyDown(){}:void
++flyDownStop(){}:void
++flyUpStop(){}:void
++getFlyState(){}:int
++setFlyState(x:int){}:void
++FlyUp(){}:void
++FlyDown(){}:void
++getIsLostInStorm(){}:boolean
++setIsCollected(b:boolean){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -954,10 +956,10 @@ Miguel Zavala, Derek Baum, Jake Wise, Matt Benvenuto</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Flood(x:int,y:int)
-+move():void
-+increaseFlood():void
-+touchingFlood(pos:Position):boolean
+      <string>+Flood(x:int,y:int){}
++move(){}:void
++increaseFlood(){}:void
++touchingFlood(pos:Position){}:boolean
 </string>
      </void>
     </void>
@@ -1002,9 +1004,9 @@ Miguel Zavala, Derek Baum, Jake Wise, Matt Benvenuto</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Food(x:int, y:int, energy:int)
-+touchFood(p:Position):boolean
-+getEnergyAdd():int</string>
+      <string>+Food(x:int, y:int, energy:int){}
++touchFood(p:Position){}:boolean
++getEnergyAdd(){}:int</string>
      </void>
     </void>
     <void property="name">
@@ -1047,8 +1049,8 @@ Miguel Zavala, Derek Baum, Jake Wise, Matt Benvenuto</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+GameMode(s:String)
-+getGameMode():String</string>
+      <string>+GameMode(s:String){}
++getGameMode(){}:String</string>
      </void>
     </void>
     <void property="name">
@@ -1090,17 +1092,17 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+GameObject(x:int,y:int,width:int,height:int)
-+GameObject(p:Position,s:Size)
-+GameObject(p:Position,s:Size,type:Object)
-+move():void
-+touchObject(p:Position,radius:int):boolean
-+getPosition():Position
-+getWidth():int
-+getHeight():int
-+setPosition(newPos:Position)
-+getSize():Size
-+shiftGameObject(v:Velocity):void</string>
+      <string>+GameObject(x:int,y:int,width:int,height:int){}
++GameObject(p:Position,s:Size){}
++GameObject(p:Position,s:Size,type:Object){}
++move(){}:void
++touchObject(p:Position,radius:int){}:boolean
++getPosition(){}:Position
++getWidth(){}:int
++getHeight(){}:int
++setPosition(newPos:Position){}:void
++getSize(){}:Size
++shiftGameObject(v:Velocity){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -1178,22 +1180,22 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+GameState(controller:Controller)
+      <string>+GameState(controller:Controller){}
 +&lt;i&gt;ontick():void&lt;/i&gt;
-+&lt;i&gt;getUpdateableGameObjects():ArrayList&lt;GameObject&gt;&lt;/i&gt;
-+&lt;i&gt;addGameObject(o:GameObject):void&lt;/i&gt;
-+setBackgroundX(x:int):void
-+getBackgroundX():int
-+getIsGameRunning():boolean
-+setIsGameRunning(game_running:boolean):void
-+isLeft_key_pressed():boolean
-+setLeft_key_pressed(b:boolean):void
-+isRight_key_pressed():boolean
-+setRight_key_pressed(b:boolean):void
-+isDown_key_pressed():boolean
-+setDown_key_pressed(b:boolean):void
-+isUp_key_pressed():boolean
-+setUp_key_pressed(b:boolean):void</string>
++&lt;i&gt;getUpdateableGameObjects(){}:ArrayList&lt;GameObject&gt;&lt;/i&gt;
++&lt;i&gt;addGameObject(o:GameObject){}:void&lt;/i&gt;
++setBackgroundX(x:int){}:void
++getBackgroundX(){}:int
++getIsGameRunning(){}:boolean
++setIsGameRunning(game_running:boolean){}:void
++isLeft_key_pressed(){}:boolean
++setLeft_key_pressed(b:boolean){}:void
++isRight_key_pressed(){}:boolean
++setRight_key_pressed(b:boolean){}:void
++isDown_key_pressed(){}:boolean
++setDown_key_pressed(b:boolean){}:void
++isUp_key_pressed(){}:boolean
++setUp_key_pressed(b:boolean){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -1233,10 +1235,10 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+GameTimer()
-+GameTimer(TK:TimerTask,delay:int)
-+GameTimer(delay:int,interval:int,task:TimerTask)
-+GameTimer(interval:int,task:TimerTask)</string>
+      <string>+GameTimer(){}
++GameTimer(TK:TimerTask,delay:int){}
++GameTimer(delay:int,interval:int,task:TimerTask){}
++GameTimer(interval:int,task:TimerTask){}</string>
      </void>
     </void>
     <void property="name">
@@ -1308,23 +1310,23 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+GameView()
-+paintComponent(g:Graphics):void
-+&lt;i&gt;updateScore(x:int):void
-+update(gameObjects:ArrayList&lt;GameObject&gt;):void
+      <string>+GameView(){}
++paintComponent(g:Graphics){}:void
++&lt;i&gt;updateScore(x:int){}:void
++update(gameObjects:ArrayList&lt;GameObject&gt;){}:void
 +scrollImage(g:Graphics,background1:Object, background2:Object)&lt;/i&gt;
-+updateIsGameRunning(gr:boolean):void
-+getIsGameRunning():boolean
++updateIsGameRunning(gr:boolean){}:void
++getIsGameRunning(){}:boolean
 
-+isLeft_key_pressed():boolean
-+isRight_key_pressed():boolean
-+isDown_key_pressed():boolean
-+isUp_key_pressed():boolean
++isLeft_key_pressed(){}:boolean
++isRight_key_pressed(){}:boolean
++isDown_key_pressed(){}:boolean
++isUp_key_pressed(){}:boolean
 
-+updateUpKey(b:boolean):void
-+updateDownKey(b:boolean):void
-+updateRightKey(b:boolean):void
-+updateLeftKey(b:boolean):void
++updateUpKey(b:boolean){}:void
++updateDownKey(b:boolean){}:void
++updateRightKey(b:boolean){}:void
++updateLeftKey(b:boolean){}:void
 
 </string>
      </void>
@@ -1367,14 +1369,14 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+HitBox(x:int, y:int, width:int, height:int)
-+HitBox(p:Position, s:Size)
-+setPosition(p:Position):void
-+updateRectangleHitBox():void
-+changeWidth(width:int):void
-+changeHeight(height:int):void
-+setSize(new_width:int, new_height:int):void
-+getPosition:Position</string>
+      <string>+HitBox(x:int, y:int, width:int, height:int){}
++HitBox(p:Position, s:Size){}
++setPosition(p:Position){}:void
++updateRectangleHitBox(){}:void
++changeWidth(width:int){}:void
++changeHeight(height:int){}:void
++setSize(new_width:int, new_height:int){}:void
++getPosition(){}:Position</string>
      </void>
     </void>
     <void property="name">
@@ -1443,7 +1445,7 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+&lt;u&gt;main(args:String[]):void</string>
+      <string>+&lt;u&gt;main(args:String[]){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -1483,8 +1485,8 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Material(x:int,y:int)
-+touchMaterial(p:Position):boolean</string>
+      <string>+Material(x:int,y:int){}
++touchMaterial(p:Position){}:boolean</string>
      </void>
     </void>
     <void property="name">
@@ -1525,7 +1527,7 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+MiniMap(p:Position, s:Size)</string>
+      <string>+MiniMap(p:Position, s:Size){}</string>
      </void>
     </void>
     <void property="name">
@@ -1564,7 +1566,7 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Model(controller:Controller)</string>
+      <string>+Model(controller:Controller){}</string>
      </void>
     </void>
     <void property="name">
@@ -1618,25 +1620,25 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Platform(x:int, y:int)
-+getWidth():int
-+getHeight():int
-+willTouchPlatform(pos:Position, vy:int):boolean
-+touchPlatform(pos:Position):boolean
-+move():void
-+resetPosition():void
-+getFood():Food
-+addFood():Food
-+getMaterial():Material
-+addMaterial():Material
-+getQuestion():ClapperQuestion
-+addQuestion():ClapperQuestion
-+removeQuestion():void
-+removeMaterial():void
-+removeFood():void
-+getHasObject():boolean
-+getHasObject():boolean
-+setHasObject(b:boolean):void</string>
+      <string>+Platform(x:int, y:int){}
++getWidth(){}:int
++getHeight(){}:int
++willTouchPlatform(pos:Position, vy:int){}:boolean
++touchPlatform(pos:Position){}:boolean
++move(){}:void
++resetPosition(){}:void
++getFood(){}:Food
++addFood(){}:Food
++getMaterial(){}:Material
++addMaterial(){}:Material
++getQuestion(){}:ClapperQuestion
++addQuestion(){}:ClapperQuestion
++removeQuestion(){}:void
++removeMaterial(){}:void
++removeFood(){}:void
++getHasObject(){}:boolean
++getHasObject(){}:boolean
++setHasObject(b:boolean){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -1677,14 +1679,14 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Position(x:int,y:int)
-+moveByVelocity(v:Velocity):Position
-+Shift(v:Velocity):void
-+getX():int
-+setX(x:int):void
-+getY():int
-+setY(y:int):void
-+toString():String</string>
+      <string>+Position(x:int,y:int){}
++moveByVelocity(v:Velocity){}:Position
++Shift(v:Velocity){}:void
++getX(){}:int
++setX(x:int){}:void
++getY(){}:int
++setY(y:int){}:void
++toString(){}:String</string>
      </void>
     </void>
     <void property="name">
@@ -1718,8 +1720,8 @@ GameMode</string>
    <object class="com.horstmann.violet.ClassNode" id="ClassNode31">
     <void property="methods">
      <void property="text">
-      <string>+QuestionCloud(p:Position,s:Size)
-+QuestionCloud(c:Cloud)</string>
+      <string>+QuestionCloud(p:Position,s:Size){}
++QuestionCloud(c:Cloud){}</string>
      </void>
     </void>
     <void property="name">
@@ -1773,10 +1775,10 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+QuestionReader(text_file_path:String)
-+readInFile(file_path:String):void
-+getQuizQuestions():ArrayList&lt;QuizQuestion&gt;
-+removeQuestion(index:int):QuizQuestion</string>
+      <string>+QuestionReader(text_file_path:String){}
++readInFile(file_path:String){}:void
++getQuizQuestions(){}:ArrayList&lt;QuizQuestion&gt;
++removeQuestion(index:int){}:QuizQuestion</string>
      </void>
     </void>
     <void property="name">
@@ -1825,15 +1827,15 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+QuestionWindow(p:Position,s:Size,question:String,answer:String,responses:List&lt;String&gt;)
-+createResponses(responses:List&lt;String&gt;):void 
-+setActionListeners(AL:ActionListener):void
-+getQuestion():String
-+getAnswer():String
-+getPosition():Position
-+getWindowSize():Size
-+getQuestionLabel():JLabel
-+getResponse_buttons():List&lt;JRadioButton&gt;</string>
+      <string>+QuestionWindow(p:Position,s:Size,question:String,answer:String,responses:List&lt;String&gt;){}
++createResponses(responses:List&lt;String&gt;){}:void 
++setActionListeners(AL:ActionListener){}:void
++getQuestion(){}:String
++getAnswer(){}:String
++getPosition(){}:Position
++getWindowSize(){}:Size
++getQuestionLabel(){}:JLabel
++getResponse_buttons(){}:List&lt;JRadioButton&gt;</string>
      </void>
     </void>
     <void property="name">
@@ -1874,11 +1876,11 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+QuizQuestion(question:String, answer:String, responses:ArrayList&lt;String&gt;)
-+getResponses():ArrayList&lt;String&gt;
-+getQuestion():String
-+getAnswer():String
-+toString():String</string>
+      <string>+QuizQuestion(question:String, answer:String, responses:ArrayList&lt;String&gt;){}
++getResponses(){}:ArrayList&lt;String&gt;
++getQuestion(){}:String
++getAnswer(){}:String
++toString(){}:String</string>
      </void>
     </void>
     <void property="name">
@@ -1928,17 +1930,17 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RedKnot()
-+move():void
-+setColliding(b:boolean)
-+newFlyUp():void
-+newFlyDown():void
-+flyDownStop():void
-+flyUpStop():void
-+getFlyState():int
-+setFlyState(x:int):void
-+FlyUp():void
-+FlyDown():void</string>
+      <string>+RedKnot(){}
++move(){}:void
++setColliding(b:boolean){}:void
++newFlyUp(){}:void
++newFlyDown(){}:void
++flyDownStop(){}:void
++flyUpStop(){}:void
++getFlyState(){}:int
++setFlyState(x:int){}:void
++FlyUp(){}:void
++FlyDown(){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -1997,8 +1999,8 @@ GameMode</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RedKnotAsset(s:String)
-+getRKA():String</string>
+      <string>+RedKnotAsset(s:String){}
++getRKA(){}:String</string>
      </void>
     </void>
     <void property="name">
@@ -2073,42 +2075,42 @@ RedKnotAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RedKnotGameState(controller:Controller)
-+createCloudTutorial(c:Cloud):void
-+isHasPressedEndDialogue():boolean
-+setHasPressedEndDialogue(hasPressedEndDialogue):void
-+createAndSetCurrentTA(TA:RKTutorialAction):void
-+collectBird(fb_iter:ListIterator&lt;FlockBird&gt;,FB:FlockBird):void
-+lostBird():void
-+createQuiz(p:Position):void
-+ontick():void
-+hasReachedDestination():boolean
-+checkClouds():void
-+addQuestionCloud(low_chance:int, high_chance:int, threshold:int):void
-+getUpdateableGameObjects():ArrayList&lt;GameObject&gt;
-+updateGameObjects(RK:RedKnot, GO_AL:ArrayList&lt;GameObject&gt;):ArrayList&lt;GameObject&gt;
-+addClouds():void
-+checkFlockBirds():void
-+setFlyStateAllFlockBirds():void
-+setBirdsLost(list:List&lt;FlockBird&gt;, amount:int):void
-+allFlockBirdsFlyUp():void
-+allFlockBirdsFlyDown():void
-+detectFlockBirdCollection(RK:RedKnot, FB:FlockBird, fb_iter:ListIterator):boolean
-+addRandomFlockBirds():void
-+addGameObject(o:GameObject):void
-+getClouds():ArrayList&lt;Cloud&gt;
-+countBirds():int
-+getRK():RedKnot
-+getFlock():ArrayList&lt;FlockBird&gt;
-+getScore():int
-+setScore(x:int):void
-+incrementScore(x:int):void
-+getCurrent_TA():RKTutorialAction
-+setCurrent_RKTA(current_TA:RKTutorialAction):void
-+setDebuggingMode(b:boolean):void
-+getDebuggingMode():boolean
-+setFlock(new_flock:ArrayList&lt;FlockBird&gt;):void
-+setClouds(new_clouds:ArrayList&lt;Cloud&gt;):void</string>
+      <string>+RedKnotGameState(controller:Controller){}
++createCloudTutorial(c:Cloud){}:void
++isHasPressedEndDialogue(){}:boolean
++setHasPressedEndDialogue(hasPressedEndDialogue){}:void
++createAndSetCurrentTA(TA:RKTutorialAction){}:void
++collectBird(fb_iter:ListIterator&lt;FlockBird&gt;,FB:FlockBird){}:void
++lostBird(){}:void
++createQuiz(p:Position){}:void
++ontick(){}:void
++hasReachedDestination(){}:boolean
++checkClouds(){}:void
++addQuestionCloud(low_chance:int, high_chance:int, threshold:int){}:void
++getUpdateableGameObjects(){}:ArrayList&lt;GameObject&gt;
++updateGameObjects(RK:RedKnot, GO_AL:ArrayList&lt;GameObject&gt;){}:ArrayList&lt;GameObject&gt;
++addClouds(){}:void
++checkFlockBirds(){}:void
++setFlyStateAllFlockBirds(){}:void
++setBirdsLost(list:List&lt;FlockBird&gt;, amount:int){}:void
++allFlockBirdsFlyUp(){}:void
++allFlockBirdsFlyDown(){}:void
++detectFlockBirdCollection(RK:RedKnot, FB:FlockBird, fb_iter:ListIterator){}:boolean
++addRandomFlockBirds(){}:void
++addGameObject(o:GameObject){}:void
++getClouds(){}:ArrayList&lt;Cloud&gt;
++countBirds(){}:int
++getRK(){}:RedKnot
++getFlock(){}:ArrayList&lt;FlockBird&gt;
++getScore(){}:int
++setScore(x:int){}:void
++incrementScore(x:int){}:void
++getCurrent_TA(){}:RKTutorialAction
++setCurrent_RKTA(current_TA:RKTutorialAction){}:void
++setDebuggingMode(b:boolean){}:void
++getDebuggingMode(){}:boolean
++setFlock(new_flock:ArrayList&lt;FlockBird&gt;){}:void
++setClouds(new_clouds:ArrayList&lt;Cloud&gt;){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -2149,8 +2151,8 @@ RedKnotAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RedKnotNest(p:Position,s:Size)
-+getNestId():int</string>
+      <string>+RedKnotNest(p:Position,s:Size){}
++getNestId(){}:int</string>
      </void>
     </void>
     <void property="name">
@@ -2239,33 +2241,33 @@ RedKnotAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RedKnotView()
-+paintComponent(g:Graphics):void
-+drawTutorialAction(g:Graphics,TA:RKTutorialAction):void
-+drawMapBackgroundClouds(g:Graphics):void
-+drawNests(g:Graphics, rkn:ArrayList&lt;RedKnotNest&gt;):void
-+addNests(flock_list:ArrayList&lt;FlockBird&gt;):ArrayList&lt;RedKnotNest&gt;
-+checkPixel(img:BufferedImage,p:Position, s:String):int
-+createMapPoints():void
-+update(gameObjects:ArrayList&lt;GameObject&gt;):void
-+updateDebugging(debug_mode:boolean):void
-+drawBird(g:Graphics):void
-+drawScore(g:Graphics):void
-+checkAmountOfOwnedRedKnots():int
-+drawAmountOfRedKnots(g:Graphics):void
-+drawFlockBird(FB:FlockBird,g:Graphics):void
-+drawFlockBirds(g:Graphics):void
-+drawClouds(g:Graphics):void
-+drawEnemyCloud(c:Cloud, g:Graphics):void
-+drawQuestionCloud(c:Cloud, g:Graphics):void
-+drawMap(g:Graphics):void
-+newScrollImage1(g:Graphics, next_background:RedKnotAsset):void
-+newScrollImage2(g:Graphics, next_background:RedKnotAsset):void
-+fnameMapCreate():void
-+updateScore(x:int):void
-+updateHasReachedDestination(b:boolean):void
-+scrollImage(g:Graphics,background1:Object,background2:Object):void
-+updateTutorialAction(TA:RKTutorialAction):void
+      <string>+RedKnotView(){}
++paintComponent(g:Graphics){}:void
++drawTutorialAction(g:Graphics,TA:RKTutorialAction){}:void
++drawMapBackgroundClouds(g:Graphics){}:void
++drawNests(g:Graphics, rkn:ArrayList&lt;RedKnotNest&gt;){}:void
++addNests(flock_list:ArrayList&lt;FlockBird&gt;){}:ArrayList&lt;RedKnotNest&gt;
++checkPixel(img:BufferedImage,p:Position, s:String){}:int
++createMapPoints(){}:void
++update(gameObjects:ArrayList&lt;GameObject&gt;){}:void
++updateDebugging(debug_mode:boolean){}:void
++drawBird(g:Graphics){}:void
++drawScore(g:Graphics){}:void
++checkAmountOfOwnedRedKnots(){}:int
++drawAmountOfRedKnots(g:Graphics){}:void
++drawFlockBird(FB:FlockBird,g:Graphics){}:void
++drawFlockBirds(g:Graphics){}:void
++drawClouds(g:Graphics){}:void
++drawEnemyCloud(c:Cloud, g:Graphics){}:void
++drawQuestionCloud(c:Cloud, g:Graphics){}:void
++drawMap(g:Graphics){}:void
++newScrollImage1(g:Graphics, next_background:RedKnotAsset){}:void
++newScrollImage2(g:Graphics, next_background:RedKnotAsset){}:void
++fnameMapCreate(){}:void
++updateScore(x:int){}:void
++updateHasReachedDestination(b:boolean){}:void
++scrollImage(g:Graphics,background1:Object,background2:Object){}:void
++updateTutorialAction(TA:RKTutorialAction){}:void
 
 </string>
      </void>
@@ -2306,7 +2308,7 @@ RedKnotAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+RKTutorialAction(t:Thread, p:Position, s:Size, RKA:RedKnotAsset)</string>
+      <string>+RKTutorialAction(t:Thread, p:Position, s:Size, RKA:RedKnotAsset){}</string>
      </void>
     </void>
     <void property="name">
@@ -2390,7 +2392,7 @@ RedKnotAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>-TitleAsset(s:String)</string>
+      <string>-TitleAsset(s:String){}</string>
      </void>
     </void>
     <void property="name">
@@ -2425,7 +2427,7 @@ TitleAsset</string>
    <object class="com.horstmann.violet.ClassNode" id="ClassNode43">
     <void property="methods">
      <void property="text">
-      <string>+TitleScreenMode(controller:Controller)</string>
+      <string>+TitleScreenMode(controller:Controller){}</string>
      </void>
     </void>
     <void property="name">
@@ -2467,9 +2469,9 @@ TitleAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+TitleScreenView()
-+fnameMapCreate():void
-+createScaledImageIcon(bf:BufferedImage, width:int, height:int):ImageIcon</string>
+      <string>+TitleScreenView(){}
++fnameMapCreate(){}:void
++createScaledImageIcon(bf:BufferedImage, width:int, height:int){}:ImageIcon</string>
      </void>
     </void>
     <void property="name">
@@ -2509,9 +2511,9 @@ TitleAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+TutorialAction(t:Thread, p:Position, s:Size)
-+getPosition():Position
-+setPosition(p:Position):void</string>
+      <string>+TutorialAction(t:Thread, p:Position, s:Size){}
++getPosition(){}:Position
++setPosition(p:Position){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -2545,10 +2547,10 @@ TitleAsset</string>
    <object class="com.horstmann.violet.ClassNode" id="ClassNode46">
     <void property="methods">
      <void property="text">
-      <string>+&lt;u&gt;randRangeInt(min_num:int, max_num:int)
-+GameObjectCollision(o1:GameObject, o2:GameObject):boolean
-+drawHitBox(g:Graphics, hb:HitBox, debug:boolean):void
-+drawHitBoxPoint(g:Graphics, hb:HitBox, debug:boolean):void</string>
+      <string>+&lt;u&gt;randRangeInt(min_num:int, max_num:int){}
++GameObjectCollision(o1:GameObject, o2:GameObject){}:boolean
++drawHitBox(g:Graphics, hb:HitBox, debug:boolean){}:void
++drawHitBoxPoint(g:Graphics, hb:HitBox, debug:boolean){}:void</string>
      </void>
     </void>
     <void property="name">
@@ -2589,12 +2591,12 @@ TitleAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+Velocity(x:int, y:int)
-+getXSpeed():int
-+getYSpeed():int
-+setXSpeed(x:int):void
-+setYSpeed(y:int):void
-+toString():String</string>
+      <string>+Velocity(x:int, y:int){}
++getXSpeed(){}:int
++getYSpeed(){}:int
++setXSpeed(x:int){}:void
++setYSpeed(y:int){}:void
++toString(){}:String</string>
      </void>
     </void>
     <void property="name">
@@ -2636,10 +2638,10 @@ TitleAsset</string>
     </void>
     <void property="methods">
      <void property="text">
-      <string>+WindowView()
-+&lt;i&gt;fnameMapCreate():void&lt;/i&gt;
-+loadAllImages(relevent_res_path:String):void
-+loadImage(f:File):Object</string>
+      <string>+WindowView(){}
++&lt;i&gt;fnameMapCreate(){}:void&lt;/i&gt;
++loadAllImages(relevent_res_path:String){}:void
++loadImage(f:File){}:Object</string>
      </void>
     </void>
     <void property="name">
@@ -2970,6 +2972,36 @@ TitleAsset</string>
     <void method="setLocation">
      <double>3080.0</double>
      <double>120.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object class="com.horstmann.violet.ClassNode" id="ClassNode50">
+    <void property="name">
+     <void property="text">
+      <string>&lt;&lt;interface&gt;&gt;
+Serializable (java.io.Serializable)</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double" id="Point2D$Double58">
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>x</string>
+     <void method="set">
+      <object idref="Point2D$Double58"/>
+      <double>1120.0</double>
+     </void>
+    </void>
+    <void class="java.awt.geom.Point2D$Double" method="getField">
+     <string>y</string>
+     <void method="set">
+      <object idref="Point2D$Double58"/>
+      <double>190.0</double>
+     </void>
+    </void>
+    <void method="setLocation">
+     <double>1120.0</double>
+     <double>190.0</double>
     </void>
    </object>
   </void>
@@ -3458,6 +3490,21 @@ TitleAsset</string>
    </object>
    <object idref="ClassNode22"/>
    <object idref="ClassNode48"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="bentStyle">
+     <object class="com.horstmann.violet.BentStyle" field="VHV"/>
+    </void>
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode11"/>
+   <object idref="ClassNode50"/>
   </void>
   <void property="minBounds">
    <object class="java.awt.geom.Rectangle2D$Double" id="Rectangle2D$Double6">
